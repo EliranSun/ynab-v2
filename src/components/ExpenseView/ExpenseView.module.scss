@@ -1,0 +1,30 @@
+.isListView {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+	height: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
+
+	span,
+	div {
+		width: 180px;
+		margin-right: 4px;
+	}
+
+	.title {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.amount {
+		font-weight: 900;
+	}
+
+	.category {
+		width: 230px;
+	}
+}

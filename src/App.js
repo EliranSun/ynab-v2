@@ -1,6 +1,6 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-import { PasteExpensesList } from "./components";
+import { ExpenseView, PasteExpensesList } from "./components";
 import { ExpensesContextProvider } from "./context";
 
 const router = createBrowserRouter([
@@ -12,13 +12,17 @@ const router = createBrowserRouter([
     path: "/parse",
     element: <PasteExpensesList/>,
   },
+  {
+    path: "/expenses",
+    element: <ExpenseView/>,
+  }
 ]);
 
 
 function App() {
   return (
       <ExpensesContextProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}/>
       </ExpensesContextProvider>
   );
 }

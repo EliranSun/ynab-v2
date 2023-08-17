@@ -9,9 +9,6 @@ import { Categories } from "../../constants";
 
 const isExistingExpense = (newExpense, expenses) => {
   return expenses.find((expense) => {
-    if (expense.name === 'FREETV') {
-      console.log({ expense, newExpense });
-    }
     return (
         expense.name === newExpense.name &&
         expense.timestamp === newExpense.timestamp &&

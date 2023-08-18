@@ -1,6 +1,7 @@
 import * as xlsx from "xlsx";
+import { noop } from "lodash";
 
-const SheetUpload = ({ label = "" }) => {
+const SheetUpload = ({ label = "", onSheetParse = noop }) => {
     return (
         <form>
             {label && <label htmlFor="upload">{label}</label>}
@@ -18,7 +19,8 @@ const SheetUpload = ({ label = "" }) => {
                             const sheetName = workbook.SheetNames[0];
                             const worksheet = workbook.Sheets[sheetName];
                             const json = xlsx.utils.sheet_to_json(worksheet);
-                            console.log(json);
+                            console.log({ json });
+                            onSheetParse(json);
                         };
                         reader.readAsArrayBuffer(event.target.files[0]);
                     }

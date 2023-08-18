@@ -1,5 +1,5 @@
 export * from "./SheetUpload";
-export * from "./PasteExpensesList";
+export * from "./ParseExpensesList";
 export * from "./CategorySelection";
 export * from "./BudgetView";
 export * from "./CategoryView";

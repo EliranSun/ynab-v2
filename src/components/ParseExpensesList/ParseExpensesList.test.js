@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { PasteExpensesList } from "./PasteExpensesList";
+import { ParseExpensesList } from "./ParseExpensesList";
 
 const expenses =  [
       {
@@ -702,7 +702,7 @@ poalim wonder הי ביז\t03/08/23\t9640\tנטרל\t42.00 ₪\t
 describe.only('Paste Expenses List', () => {
   test('User should see a textarea and paste text', async () => {
     //-------------------------- Arrange ---------------------------
-    render(<PasteExpensesList/>);
+    render(<ParseExpensesList/>);
     
     //--------------------------- Assert ----------------------------
     expect(await screen.findByRole('textbox')).toBeInTheDocument();
@@ -713,7 +713,7 @@ describe.only('Paste Expenses List', () => {
     const EXPECTED_PARSED_EXPENSES = 57;
     const user = userEvent.setup();
     render(
-        <PasteExpensesList
+        <ParseExpensesList
           text={text}
           expenses={[]} 
           setExpenses={expenses => {
@@ -737,7 +737,7 @@ describe.only('Paste Expenses List', () => {
     const user = userEvent.setup();
     
     render(
-        <PasteExpensesList 
+        <ParseExpensesList
             text={text} 
             expenses={expenses} 
             setExpenses={newExpenses => {
@@ -758,7 +758,7 @@ describe.only('Paste Expenses List', () => {
   test('User should not see duplicate expenses', async () => {
     //-------------------------- Arrange ---------------------------
     const user = userEvent.setup();
-    render(<PasteExpensesList text={text} expenses={totalExpenses}/>);
+    render(<ParseExpensesList text={text} expenses={totalExpenses}/>);
     expect(await screen.findByRole('textbox')).toHaveValue(text);
     
     //---------------------------- Act ------------------------------

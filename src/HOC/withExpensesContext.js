@@ -3,10 +3,18 @@ import { ExpensesContext } from "../context";
 
 export const withExpensesContext = (Component) => {
   return (props) => {
-    const { expensesArray: expenses, setExpenses, deleteExpense, refetch } = useContext(ExpensesContext);
+    const {
+      expensesArray: expenses,
+      setExpenses,
+      deleteExpense,
+      refetch,
+      markExpensesAsOriginal
+    } = useContext(ExpensesContext);
+    
     return (
         <Component
             {...props}
+            markExpensesAsOriginal={markExpensesAsOriginal}
             refetchExpenses={refetch}
             expenses={expenses}
             deleteExpense={deleteExpense}

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import { noop } from "lodash";
-import { addExpenses, getExpenses, updateExpense, deleteExpense } from "../../utils";
+import { addExpenses, getExpenses, updateExpense, deleteExpense, markExpensesAsOriginal } from "../../utils";
 
 export const ExpensesContext = createContext({
   expenses: {},
@@ -19,6 +19,7 @@ export const ExpensesContextProvider = ({ children }) => {
       const { categoryId } = expense;
       // TODO: util
       const dateKey = new Date(expense.timestamp).toLocaleString("he-IL", {
+        day: "numeric",
         month: "numeric",
         year: "numeric",
       });
@@ -136,6 +137,7 @@ export const ExpensesContextProvider = ({ children }) => {
             deleteExpense,
             setExpenseNote,
             expensesArray,
+            markExpensesAsOriginal,
             setExpenses: async (newExpenses = []) => {
               const expensesObject = {};
               newExpenses.forEach((expense) => {

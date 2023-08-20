@@ -9,7 +9,7 @@ class Expense {
     amount = 0,
     timestamp,
     categoryId = null,
-    transactionsCount = 0,
+    isOriginal = false,
   }) {
     this.id = id;
     this.name = name;
@@ -17,6 +17,7 @@ class Expense {
     this.amount = amount;
     this.note = note;
     this.timestamp = timestamp;
+    this.isOriginal = isOriginal;
     this.date = new Date(timestamp).toLocaleString('en-GB', {
       month: 'short',
       year: '2-digit',

@@ -127,10 +127,6 @@ export const ExpensesContextProvider = ({ children }) => {
           value={{
             expenses,
             expensesPerMonthPerCategory,
-            refetch: async () => {
-              const expenses = await getExpenses();
-              setExpenses(expenses);
-            },
             setExpenseAsRecurring,
             setExpenseAsIncome,
             changeExpenseCategory,
@@ -150,6 +146,10 @@ export const ExpensesContextProvider = ({ children }) => {
               } catch (error) {
                 alert(`Error adding expenses - ${error.message}`);
               }
+            },
+            refetch: async () => {
+              const expenses = await getExpenses();
+              setExpenses(expenses);
             },
           }}
       >

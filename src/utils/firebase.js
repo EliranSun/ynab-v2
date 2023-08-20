@@ -49,7 +49,9 @@ export const updateExpense = async (expenseId, props) => {
 
 export const deleteExpense = async (expenseId) => {
     const expensesRef = doc(db, EXPENSES_COLLECTION, expenseId);
-    return await deleteDoc(expensesRef);
+    const result = await deleteDoc(expensesRef);
+    console.info("Deleted expense", result, EXPENSES_COLLECTION, expenseId);
+    return result;
 };
 
 export const addExpenses = async (expenses) => {

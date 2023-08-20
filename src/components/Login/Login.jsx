@@ -4,11 +4,12 @@ import useAuthState from "../../hooks/useAuth";
 
 const Login = ({ children }) => {
     const [user, setUser] = useAuthState();
-    
+
     if (user && user.uid) {
+        console.info("user", user);
         return children;
     }
-    
+
     return (
         <div>
             <Title>Login</Title>

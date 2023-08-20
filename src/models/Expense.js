@@ -3,6 +3,7 @@ import { ThirdParties } from "../constants";
 
 class Expense {
     constructor({
+        id = uuidv4(),
         name = "",
         note = "",
         amount = 0,
@@ -10,7 +11,7 @@ class Expense {
         categoryId = null,
         transactionsCount = 0,
     }) {
-        this.id = uuidv4();
+        this.id = id;
         this.name = name;
         this.isThirdParty = ThirdParties.includes(name);
         this.amount = amount;

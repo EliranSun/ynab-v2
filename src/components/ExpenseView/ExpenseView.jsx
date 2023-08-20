@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { noop, orderBy } from "lodash";
 import { ExpensesContext } from "../../context";
 import Expense from "./Expense";
@@ -9,6 +9,7 @@ import { Button } from "../atoms";
 import { SearchInput } from "./SearchInput";
 import { BoxAmount } from "./BoxAmount";
 import { SortBy } from "./constants";
+import classNames from "classnames";
 
 const ExpenseView = ({ onCategoryClick = noop }) => {
     const {
@@ -18,10 +19,10 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
         setExpenseNote,
         refetch
     } = useContext(ExpensesContext);
-    
     const [searchValue, setSearchValue] = useState("");
+    const [isUpdated, setIsUpdated] = useState(false);
     const [sort, setSort] = useState(SortBy.DATE);
-    const [isSearchingAll, setIsSearchingAll] = useState(false);
+    const [isSearchingAll, setIsSearchingAll] = useState(true);
     const {
         isSameDate,
         currentTimestamp,
@@ -30,31 +31,37 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
         NextButton,
         PreviousButton
     } = useDate();
-    
+
     const thisMonthExpenses = useMemo(() => {
         const thisMonth = expenses.filter((expense) => {
             return isExpenseInMonth(expense.timestamp, currentTimestamp);
         });
-        
+
         return orderBy(thisMonth, sort, "desc");
     }, [expenses, currentTimestamp, sort]);
-    
-    console.log({ thisMonthExpenses })
-    
+
     const filteredExpenses = useMemo(() => {
         if (searchValue === "") {
             return isSearchingAll ? [] : thisMonthExpenses;
         }
-        
+
         const filtered = (isSearchingAll ? expenses : thisMonthExpenses).filter((expense) => {
             return expense.name
                 .toLowerCase()
                 .includes(searchValue.toLowerCase());
         });
-        
+
         return orderBy(filtered, ['timestamp'], "asc");
     }, [searchValue, thisMonthExpenses, isSearchingAll]);
-    
+
+    useEffect(() => {
+        if (isUpdated) {
+            setTimeout(() => {
+                setIsUpdated(false);
+            }, 3000);
+        }
+    }, [isUpdated]);
+
     return (
         <div className="pb-96">
             <h1 className="text-3xl my-4">Track (Expense View)</h1>
@@ -83,9 +90,12 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
                         type="checkbox"
                         id="searchAll"
                         className="mr-2"
-                        onClick={() => setIsSearchingAll(!isSearchingAll)}
+                        checked={isSearchingAll}
+                        onChange={() => setIsSearchingAll(!isSearchingAll)}
                     />
-                    <label htmlFor="searchAll">Search all expenses?</label>
+                    <label htmlFor="searchAll">
+                        {isSearchingAll ? "Search all" : `Search in ${formattedDate}`}
+                    </label>
                 </span>
                 <div className="flex flex-col h-96 overflow-auto mt-4">
                     {filteredExpenses.map((expense) => (
@@ -96,11 +106,20 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
                             onIsRecurringChange={setExpenseAsRecurring}
                             onIsIncomeChange={setExpenseAsIncome}
                             onCategoryClick={onCategoryClick}
-                            onNoteChange={setExpenseNote}
+                            onNoteChange={async (id, note) => {
+                                await setExpenseNote(id, note);
+                                setIsUpdated(true);
+                            }}
                             onDelete={refetch}
                         />
                     ))}
                 </div>
+            </div>
+            <div role="status" className={classNames({
+                "hidden": !isUpdated,
+                "fixed bottom-10 m-auto bg-white shadow-xl p-2": true
+            })}>
+                Expense updated!
             </div>
             <TopExpensesView
                 date={formattedDate}

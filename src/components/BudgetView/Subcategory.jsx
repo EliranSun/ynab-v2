@@ -5,6 +5,7 @@ import { ExpensesContext } from "../../context";
 import { isSameMonth } from "date-fns";
 import { formatCurrency } from "../../utils";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
+import classNames from "classnames";
 
 const Subcategory = ({
     icon,
@@ -27,25 +28,29 @@ const Subcategory = ({
         (expense) => {
             const date = new Date(currentTimestamp);
             const expenseDate = new Date(expense.timestamp);
-            
+
             if (expense.isRecurring) {
                 return (
                     expenseDate.getFullYear() === date.getFullYear()
                 );
             }
-            
+
             return isSameMonth(expenseDate, date);
         }
     ), [currentTimestamp, expensesInCategory]);
-    
+
+
+    let intThisMonthAmount = 0;
+    let intTotalInPreviousMonth = 0;
     const thisMonthAmount = useMemo(() => {
         const amount = thisMonthExpenses.reduce((acc, expense) => {
             return acc + expense.amount;
         }, 0);
-        
+
+        intThisMonthAmount = amount;
         return formatCurrency(amount);
     }, [thisMonthExpenses]);
-    
+
     const totalInPreviousMonth = useMemo(() => {
         const amount = expenses.reduce(
             (total, expense) => {
@@ -54,15 +59,16 @@ const Subcategory = ({
                 }
                 return total;
             }, 0);
-        
+
+        intTotalInPreviousMonth = amount;
         return formatCurrency(amount);
     }, [expenses, id, thisMonthExpenses]);
-    
+
     const getAverageAmount = (id) => {
         if (!expensesPerMonthPerCategory[id]) {
             return 0;
         }
-        
+
         let total = 0;
         let count = 0;
         const months = Object.values(expensesPerMonthPerCategory[id]);
@@ -70,12 +76,12 @@ const Subcategory = ({
             total += month.amount;
             count += month.expenses.length;
         }
-        
+
         return formatCurrency(total / count);
     };
-    
+
     const averageAmount = getAverageAmount(String(id));
-    
+
     const expensesInCategoryThisDate = useMemo(() => {
         return orderBy(
             expensesInCategory
@@ -89,15 +95,18 @@ const Subcategory = ({
             "desc"
         );
     }, [expensesInCategory, currentTimestamp]);
-    
+
     if (thisMonthAmount === formatCurrency(0)) {
         return null;
     }
-    
+
     return (
         <div className="relative">
             <div className="bg-gray-300 p-4" onClick={() => onSubcategoryClick(id)}>
-                <Title type={Title.Types.H3}>
+                <Title type={Title.Types.H3} className={classNames({
+                    "text-red-500": intThisMonthAmount > intTotalInPreviousMonth,
+                    "text-green-500": intThisMonthAmount < intTotalInPreviousMonth
+                })}>
                     {icon} {thisMonthAmount}
                 </Title>
                 <div className="text-xs">

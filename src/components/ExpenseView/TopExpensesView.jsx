@@ -1,8 +1,5 @@
-import { useState, useMemo } from "react";
-import {
-    getExpenseCategoryName,
-    aggregateTransactionsByName,
-} from "../../utils";
+import { useMemo, useState } from "react";
+import { aggregateTransactionsByName, getExpenseCategoryName, } from "../../utils";
 
 const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
     // returns a list of expenses that are above 100 NIS
@@ -26,12 +23,12 @@ const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
                 isSameDate(expense.timestamp)
         );
     }, [expenses, isAggregateView, isSameDate, topAmount]);
-    
+
     const totalAmount = useMemo(
         () => items.reduce((acc, curr) => acc + curr.amount, 0).toFixed(2),
         [items]
     );
-    
+
     return (
         <div>
             <h2 className="text-2xl my-4 bg-gray-200">Expenses above {topAmount} NIS in {date}</h2>
@@ -61,11 +58,14 @@ const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
                 </span>
             </div>
             <table style={{ width: "1000px" }}>
+                <thead>
                 <tr>
                     <td></td>
                     <td></td>
                     <td>{totalAmount} NIS</td>
                 </tr>
+                </thead>
+                <tbody>
                 {items
                     .sort((a, b) => b.amount - a.amount)
                     .map((expense) => {
@@ -73,7 +73,7 @@ const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
                             expense.categoryId
                         );
                         return (
-                            <tr>
+                            <tr key={expense.id}>
                                 <td
                                     onClick={() => {
                                         if (
@@ -82,7 +82,7 @@ const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
                                         ) {
                                             return;
                                         }
-                                        
+
                                         if (expense.name === selectedExpenseName) {
                                             setSelectedExpenseName(null);
                                             return;
@@ -112,6 +112,7 @@ const TopExpensesView = ({ expenses, isSameDate, toDate, date = '' }) => {
                             </tr>
                         );
                     })}
+                </tbody>
             </table>
         </div>
     );

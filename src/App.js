@@ -3,6 +3,7 @@ import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-
 import { BudgetView, ExpenseView, ParseExpensesList } from "./components";
 import { ExpensesContextProvider } from "./context";
 import FuturePredictionPage from "./components/FuturePredictionPage/FuturePredictionPage";
+import { Login } from "./components/Login";
 
 const Header = () => {
     return (
@@ -24,7 +25,6 @@ const Header = () => {
 };
 
 const Root = ({ children, ...rest }) => {
-    console.log(rest);
     return (
         <>
             <Header/>
@@ -36,7 +36,11 @@ const Root = ({ children, ...rest }) => {
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root/>,
+        element: (
+            <Login>
+                <Root/>
+            </Login>
+        ),
         children: [
             {
                 path: "parse",
@@ -53,7 +57,8 @@ const router = createBrowserRouter([
             {
                 path: "projection",
                 element: <FuturePredictionPage/>,
-            }
+            },
+
         ]
     },
 ]);

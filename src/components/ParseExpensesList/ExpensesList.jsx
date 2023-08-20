@@ -62,7 +62,7 @@ export const ExpensesList = ({
         }
 
         return (
-            <div className="w-full border-none lg:border-l border-black xl:px-8 xl:w-2/3">
+            <div className="w-full border-none lg:border-l border-black">
                 <div className="mb-4 h-96 snap-y overflow-y-auto xl:p-4">
                     {expenses.map((expense, index) => {
                         let subcategory;

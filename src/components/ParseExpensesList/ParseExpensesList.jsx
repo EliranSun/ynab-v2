@@ -130,7 +130,7 @@ export const ParseExpensesList = ({
                 Existing expenses: {expenses.length}
                 {parsedExpenses.length ? ` • New expenses: ${parsedExpenses.length}` : ''}
             </Title>
-            <div className="flex items-start gap-4 max-w-7xl flex-col-reverse xl:flex-row">
+            <div className="flex items-start gap-4 max-w-7xl flex-col-reverse">
                 <div className="flex flex-col w-1/3 h-full">
                     <div className="">
                         <Title type={Title.Types.H2}>Upload a sheet</Title>

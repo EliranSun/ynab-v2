@@ -20,21 +20,23 @@ const Expense = ({
         () => getExpenseCategoryName(expense.categoryId),
         [expense]
     );
-    
+
     return (
         <div id={expense.id}
              className={classNames("border border-black w-full", {
                  "flex flex-row w-full gap-4 items-center": isListView,
              })}
         >
-            <div className="w-30 border-r border-black whitespace-nowrap text-ellipsis overflow-hidden px-4">
+            <div className="w-2/12 min-w-fit border-r border-black whitespace-nowrap text-ellipsis overflow-hidden px-4">
                 {new Date(expense.timestamp).toLocaleString("en-GB", {
                     month: "short",
                     year: "numeric",
                     day: "numeric",
                 })}
             </div>
-            <h1 className="w-40 whitespace-nowrap text-ellipsis overflow-hidden">{expense.name}</h1>
+            <h1 className="w-2/12 min-w-fit whitespace-nowrap text-ellipsis overflow-hidden">
+                {expense.name}
+            </h1>
             <span>{expense.categoryId}</span>
             <CategoriesDropdownMenu
                 onCategoryChange={async (categoryId) => {
@@ -48,7 +50,7 @@ const Expense = ({
                 {expense.amount} NIS
             </div>
             <textarea
-                value={note}
+                value={note.toString()}
                 className="border border-black"
                 onBlur={() => {
                     onNoteChange(expense.id, note);
@@ -57,7 +59,7 @@ const Expense = ({
                     setNote(event.target.value);
                 }}
             />
-            <div>
+            <div className="hidden lg:inline">
                 <label>Is recurring?</label>
                 <input
                     checked={expense.isRecurring}
@@ -75,7 +77,7 @@ const Expense = ({
                         onDelete();
                     }
                 }}>
-                DELETE
+                DELETE!
             </Button>
         </div>
     );

@@ -23,15 +23,15 @@ const Transaction = ({
         transactions,
         categoryId,
     } = transaction;
-    
+
     const [note, setNote] = useState("");
     const [aggregatedDetailsVisibleId, setAggregatedDetailsId] = useState(false);
     const isDetailedView = aggregatedDetailsVisibleId === id;
-    
+
     useEffect(() => {
         setNote(transaction.note || '');
     }, [transaction]);
-    
+
     return (
         <>
             <div key={id}>
@@ -53,12 +53,12 @@ const Transaction = ({
                         if (transaction.transactions?.length < 2) {
                             return;
                         }
-                        
+
                         if (isDetailedView) {
                             setAggregatedDetailsId(null);
                             return;
                         }
-                        
+
                         setAggregatedDetailsId(id);
                     }}
                 >

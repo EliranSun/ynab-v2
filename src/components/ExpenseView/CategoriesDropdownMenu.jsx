@@ -5,6 +5,7 @@ export const CategoriesDropdownMenu = ({ defaultValueId = null, onCategoryChange
     return (
         <select
             className="border border-black"
+            value={String(defaultValueId)}
             onChange={event => {
                 onCategoryChange(event.target.value);
             }}>
@@ -13,7 +14,6 @@ export const CategoriesDropdownMenu = ({ defaultValueId = null, onCategoryChange
                     return (
                         <option
                             key={subCategory.id}
-                            selected={String(defaultValueId) === String(subCategory.id)}
                             value={subCategory.id}>
                             {category.name} > {subCategory.name}
                         </option>

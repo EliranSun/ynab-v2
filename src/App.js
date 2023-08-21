@@ -1,38 +1,43 @@
 import './App.css';
 import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-dom";
-import { BudgetView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "./components";
-import { ExpensesContextProvider } from "./context";
+import { BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "./components";
+import { BudgetContextProvider, ExpensesContextProvider } from "./context";
 import FuturePredictionPage from "./components/FuturePredictionPage/FuturePredictionPage";
 import { Login } from "./components/Login";
 
 const Header = () => {
   return (
-      <div className="flex gap-8 p-4">
-        <Link to="/parse">
-          PARSE
-        </Link>
-        <Link to="/expenses">
-          EXPENSES
-        </Link>
-        <Link to="/balance">
-          BALANCE
-        </Link>
-        <Link to="/projection">
-          PROJECTION
-        </Link>
-        <Link to="/seeing-double">
-          SEEING DOUBLE
-        </Link>
-      </div>
+    <div className="flex gap-8 p-4 border-b border-gray-200">
+      <Link to="/parse">
+        PARSE
+      </Link>
+      <Link to="/balance">
+        BALANCE
+      </Link>
+      <Link to="/expenses">
+        EXPENSES
+      </Link>
+      <Link to="/categories">
+        CATEGORIES
+      </Link>
+      <Link to="/projection">
+        PROJECTION
+      </Link>
+      <Link to="/seeing-double">
+        SEEING DOUBLE?
+      </Link>
+    </div>
   )
 };
 
 const Root = ({ children, ...rest }) => {
   return (
-      <>
-        <Header/>
+    <>
+      <Header/>
+      <div className="max-w-6xl m-8 md:mx-auto md:my-8">
         <Outlet/>
-      </>
+      </div>
+    </>
   )
 };
 
@@ -40,9 +45,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-        <Login>
-          <Root/>
-        </Login>
+      <Login>
+        <Root/>
+      </Login>
     ),
     children: [
       {
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "balance",
-        element: <BudgetView/>,
+        element: <BalanceView/>,
       },
       {
         path: "projection",
@@ -64,8 +69,11 @@ const router = createBrowserRouter([
       {
         path: "seeing-double",
         element: <SeeingDoublePage/>,
+      },
+      {
+        path: "categories",
+        element: <CategoryView/>,
       }
-    
     ]
   },
 ]);
@@ -73,9 +81,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-      <ExpensesContextProvider>
+    <ExpensesContextProvider>
+      <BudgetContextProvider>
         <RouterProvider router={router}/>
-      </ExpensesContextProvider>
+      </BudgetContextProvider>
+    </ExpensesContextProvider>
   );
 }
 

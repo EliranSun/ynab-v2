@@ -1,50 +1,56 @@
-import { useState, useEffect, createContext } from "react";
-import { getBudget, addBudget } from "../../utils";
+import { createContext, useEffect, useState } from "react";
+import { addBudget, getBudget } from "../../utils";
 
 export const BudgetContext = createContext({
-	budget: [],
-	setBudget: () => {},
+  budget: {},
+  setBudget: ({ amount, categoryId, subcategoryId, timestamp }) => void 0,
 });
 
+export const getDateKey = (timestamp) => {
+  return new Date(timestamp).toLocaleString("he-IL", {
+    month: "numeric",
+    year: "numeric",
+  });
+};
+
 export const BudgetContextProvider = ({ children }) => {
-	const [budget, setBudget] = useState({});
+  const [budget, setBudget] = useState({});
 
-	useEffect(() => {
-		(async () => {
-			const budget = await getBudget();
-			setBudget(budget);
-		})();
-	}, []);
+  useEffect(() => {
+    (async () => {
+      const budget = await getBudget();
+      setBudget(budget);
+    })();
+  }, []);
 
-	return (
-		<BudgetContext.Provider
-			value={{
-				budget,
-				setBudget: (value, categoryId, timestamp) => {
-					console.debug("setBudget", value, categoryId, timestamp);
-					// TODO: util or date controller
-					const dateKey = new Date(timestamp).toLocaleString("he-IL", {
-						month: "numeric",
-						year: "numeric",
-					});
+  return (
+    <BudgetContext.Provider
+      value={{
+        budget,
+        setBudget: async ({ amount, categoryId, subcategoryId, timestamp }) => {
+          console.debug("setBudget", amount, categoryId, timestamp);
+          // TODO: util or date controller
+          const dateKey = getDateKey(timestamp);
+          await addBudget({
+            dateKey,
+            categoryId,
+            subcategoryId,
+            amount,
+          });
 
-					// TODO: model
-					addBudget({
-						dateKey,
-						categoryId,
-						amount: value,
-					});
-					setBudget({
-						...budget,
-						[dateKey]: {
-							...budget[dateKey],
-							[categoryId]: value,
-						},
-					});
-				},
-			}}
-		>
-			{children}
-		</BudgetContext.Provider>
-	);
+          setBudget({
+            ...budget,
+            [dateKey]: {
+              ...budget[dateKey],
+              [categoryId]: {
+                [subcategoryId]: amount,
+              },
+            },
+          });
+        },
+      }}
+    >
+      {children}
+    </BudgetContext.Provider>
+  );
 };

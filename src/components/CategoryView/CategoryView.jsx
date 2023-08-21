@@ -58,7 +58,7 @@ const CategoryView = () => {
 
     return (
       <div className="pb-96">
-        <Title>Categories</Title>
+        <Title>Categories, </Title>
         <select onChange={event => {
           setCategoryId(Number(event.target.value));
         }} className="text-5xl mb-8 border border-black">
@@ -70,23 +70,9 @@ const CategoryView = () => {
             </option>
           ))}
         </select>
-        <div className="fixed top-20 right-20 w-1/3 bg-white p-4 flex flex-row">
-          <div className="flex flex-col gap-4 p-4 pl-0">
-            <Button onClick={previousMonth}>
-              Previous
-            </Button>
-            <Button onClick={nextMonth}>
-              Next
-            </Button>
-            <Button onClick={selectAllMonths}>
-              Select All
-            </Button>
-            <Button onClick={selectCurrentMonth}>
-              Current Month
-            </Button>
-          </div>
+        <div className="sticky top-0 right-20 w-full bg-white flex flex-col text-xs">
           <div className="flex gap-4 flex-wrap">
-            {monthsAndYearsOptions.map(({ value, label }) => (
+            {monthsAndYearsOptions.slice(-6).map(({ value, label }) => (
               <Checkbox
                 key={value}
                 label={label}
@@ -100,9 +86,23 @@ const CategoryView = () => {
                 }}/>
             ))}
           </div>
+          <div className="flex gap-4 p-4 pl-0">
+            <Button onClick={previousMonth}>
+              Previous
+            </Button>
+            <Button onClick={nextMonth}>
+              Next
+            </Button>
+            <Button onClick={selectAllMonths}>
+              Select All
+            </Button>
+            <Button onClick={selectCurrentMonth}>
+              Current Month
+            </Button>
+          </div>
         </div>
         <Title type="h3">Total amount for {category.name} in {selectedMonths.length} months</Title>
-        <span>{totalAmountInCategory}</span>
+        <Title>{totalAmountInCategory}</Title>
         <Title type="h3">Total in each subcategory</Title>
         {category.subCategories.map((subcategory) => (
           <Subcategory

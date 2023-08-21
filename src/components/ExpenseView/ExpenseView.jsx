@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { noop, orderBy } from "lodash";
 import { ExpensesContext } from "../../context";
 import Expense from "./Expense";
@@ -9,7 +9,6 @@ import { Button, Title } from "../atoms";
 import { SearchInput } from "./SearchInput";
 import { BoxAmount } from "./BoxAmount";
 import { SortBy } from "./constants";
-import classNames from "classnames";
 
 const ExpenseView = ({ onCategoryClick = noop }) => {
   const {
@@ -20,7 +19,6 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
     refetch
   } = useContext(ExpensesContext);
   const [searchValue, setSearchValue] = useState("");
-  const [isUpdated, setIsUpdated] = useState(false);
   const [sort, setSort] = useState(SortBy.DATE);
   const [isSearchingAll, setIsSearchingAll] = useState(true);
   const {
@@ -54,14 +52,6 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
 
     return orderBy(filtered, ['timestamp'], "asc");
   }, [searchValue, thisMonthExpenses, isSearchingAll]);
-
-  useEffect(() => {
-    if (isUpdated) {
-      setTimeout(() => {
-        setIsUpdated(false);
-      }, 3000);
-    }
-  }, [isUpdated]);
 
   return (
     <div className="pb-96">
@@ -104,23 +94,9 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
               isListView
               key={expense.id}
               expense={expense}
-              onIsRecurringChange={setExpenseAsRecurring}
-              onIsIncomeChange={setExpenseAsIncome}
-              onCategoryClick={onCategoryClick}
-              onNoteChange={async (id, note) => {
-                await setExpenseNote(id, note);
-                setIsUpdated(true);
-              }}
-              onDelete={refetch}
             />
           ))}
         </div>
-      </div>
-      <div role="status" className={classNames({
-        "hidden": !isUpdated,
-        "fixed bottom-10 m-auto bg-white shadow-xl p-2": true
-      })}>
-        Expense updated!
       </div>
       <TopExpensesView
         date={formattedDate}

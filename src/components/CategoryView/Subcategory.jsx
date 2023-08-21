@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Amount, Checkbox, Title } from "../atoms";
 import useSubcategoryExpensesData from "./useSubcategoryExpensesData";
+import Expense from "../ExpenseView/Expense";
 
 const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], expenses = [] }) => {
   const [isAggregated, setIsAggregated] = useState(false);
@@ -17,7 +18,7 @@ const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], 
   });
 
   return (
-    <div>
+    <div className="bg-slate-200 my-4 p-4">
       <Title type="h2">{subcategory.icon} {subcategory.name}</Title>
       <span>
         Expenses count: {subcategoryExpenses.length}
@@ -41,22 +42,9 @@ const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], 
               setIsAggregated(!isAggregated);
             }}/>
         </div>
-        <div className="overflow-x-auto w-full flex">
+        <div className="overflow-x-auto w-full flex gap-2">
           {subcategoryExpenses.map((expense) => (
-            <div className="w-48 h-40 shrink-0 border border-black p-4">
-              <span className="font-bold">{expense.name}</span>
-              <Amount
-                label={expense.average ? "Total" : ""}
-                amount={expense.amount}/>
-              <Amount
-                amount={expense.average}
-                label="Average"/>
-              <Amount
-                isCurrency={false}
-                amount={expense.count}
-                label="time(s)"/>
-              <span>{expense.note}</span>
-            </div>
+            <Expense expense={expense} key={expense.id}/>
           ))}
         </div>
       </div>

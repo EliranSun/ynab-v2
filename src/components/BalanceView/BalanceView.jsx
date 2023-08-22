@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { formatCurrency } from "../../utils";
 import { CategoryBalance } from "./CategoryBalance";
 import { orderBy } from "lodash";
+import { isAfter, subMonths } from "date-fns";
 
 const BottomLine = ({ label = "Reality", income = 0, outcome = 0 }) => {
   const bottomLine = income - outcome;
@@ -35,22 +36,45 @@ const BottomLine = ({ label = "Reality", income = 0, outcome = 0 }) => {
 };
 
 const realityVsExpectationMessage = (diff) => {
-  const absDiff = Math.abs(diff);
-  console.log({ absDiff });
-
   switch (true) {
-    case absDiff < 100:
+    case diff < 100:
       return `my budget is spot on!`;
 
-    case absDiff < 500:
+    case diff < 500:
       return `perhaps a 1 off, but I should keep an eye on it`;
 
-    case absDiff < 1000:
+    case diff < 1000:
       return `my budget is nowhere NEAR reality.`;
 
-    case absDiff > 1000:
+    case diff > 1000:
       return `I'm in trouble.`;
+
+    case diff < 0:
+    default:
+      return 'while good, I should keep an eye on it.';
   }
+}
+
+const IncomeSubcategoryIds = [80, 81, 82, 83];
+
+const Message = ({ diff, diffCurrency, diffMessage }) => {
+  const foo = <span className="text-3xl font-black">{diffCurrency}</span>;
+
+  if (diff > 0) {
+    return (
+      <p className="w-1/3 font-serif text-xl italic p-4 my-4">
+        I've spent {foo} more than I planned...
+        {diffMessage}
+      </p>
+    )
+  }
+
+  return (
+    <p className="w-1/3 font-serif text-xl italic p-4 my-4">
+      With a spare of {foo},
+      {diffMessage}
+    </p>
+  )
 }
 
 const BalanceView = () => {
@@ -130,14 +154,15 @@ const BalanceView = () => {
       };
     }), [expenses, currentTimestamp]);
 
-    const totalExpenses = useMemo(() => {
+    const totalExpensesThisMonth = useMemo(() => {
       return Object.values(categoriesWithAmounts)
         .reduce((acc, curr) => {
           if (curr.isIncome) return acc;
           return acc + curr.totalAmount;
         }, 0);
     }, [categoriesWithAmounts]);
-    const totalIncome = useMemo(() => {
+
+    const totalIncomeThisMonth = useMemo(() => {
       return Object.values(categoriesWithAmounts)
         .reduce((acc, curr) => {
           if (!curr.isIncome) return acc;
@@ -145,37 +170,93 @@ const BalanceView = () => {
         }, 0);
     }, [categoriesWithAmounts]);
 
-    const diff = Math.round((incomeBudget - expensesBudget) - (totalIncome - totalExpenses));
+    const totalIncome = useMemo(() => {
+      return expenses.reduce((acc, curr) => {
+        const isExpenseThisYear = isAfter(new Date(curr.timestamp), subMonths(new Date(currentTimestamp), 12));
+        if (!IncomeSubcategoryIds.includes(curr.categoryId) || !isExpenseThisYear) return acc;
+        return acc + curr.amount;
+      }, 0);
+    }, [expenses]);
+
+    const totalExpenses = useMemo(() => {
+      return expenses.reduce((acc, curr) => {
+        const isExpenseThisYear = isAfter(new Date(curr.timestamp), subMonths(new Date(currentTimestamp), 12));
+        if (IncomeSubcategoryIds.includes(curr.categoryId) || !isExpenseThisYear) return acc;
+        return acc + curr.amount;
+      }, 0);
+    }, [expenses]);
+
+    const diff = Math.round((incomeBudget - expensesBudget) - (totalIncomeThisMonth - totalExpensesThisMonth));
     const diffCurrency = formatCurrency(diff);
     const diffMessage = realityVsExpectationMessage(diff);
+    const actualBottomLine = totalIncome - totalExpenses;
+    const budgetBottomLine = incomeBudget * 12 - expensesBudget * 12;
 
     return (
       <section>
         <Title className="mb-4">BALANCE & BUDGET</Title>
+        <div className="text-xl font-bold bg-gray-100 p-4">
+          <Title type={Title.Types.H2}>Past 12 months</Title>
+          <p className="font-normal italic">
+            These are the incomes and expenses over the last 12 months.
+            Put in mind though - the budget is for the current month only,
+            so some months (i.e. vacation) are skewing these results.
+          </p>
+          <div className="flex gap-4">
+            <div>
+              Actual: <br/>
+              <span className="text-green-500">{formatCurrency(totalIncome)}</span> - <br/>
+              <span className="text-red-500">{formatCurrency(totalExpenses)}</span> = <br/>
+              <hr/>
+              {formatCurrency(actualBottomLine)}
+            </div>
+
+            <div>
+              Budget: <br/>
+              <span className="text-green-500">{formatCurrency(incomeBudget * 12)}</span> - <br/>
+              <span className="text-red-500">{formatCurrency(expensesBudget * 12)}</span> = <br/>
+              <hr/>
+              {formatCurrency(budgetBottomLine)}
+            </div>
+
+            <div>
+              Diffs: <br/>
+              <span className="text-green-500">
+                {formatCurrency(totalIncome - (incomeBudget * 12))}
+              </span> - <br/>
+              <span className="text-red-500">
+                {formatCurrency(totalExpenses - (expensesBudget * 12))}</span> = <br/>
+              <hr/>
+              {formatCurrency(actualBottomLine - budgetBottomLine)}
+            </div>
+          </div>
+        </div>
         <div className="flex gap-2 my-4 items-center">
           <PreviousButton/>
-          <span className="font-sans font-black text-3xl">
+          <Title type={Title.Types.H2} className="font-sans font-black">
             {new Date(currentTimestamp).toLocaleString("en-US", {
               month: "short",
               year: "2-digit",
             })}
-          </span>
+          </Title>
           <NextButton/>
         </div>
-        <BottomLine
-          label="Actual"
-          income={totalIncome}
-          outcome={totalExpenses}/>
-        <BottomLine
-          label="Budget"
-          income={incomeBudget}
-          outcome={expensesBudget}/>
-        <p className="bg-gray-100 font-serif text-6xl italic p-4 my-4">
-          {diff > 0
-            ? `I've spent ${diffCurrency} more than I planned... `
-            : `With a spare of ${diffCurrency}, `}
-          {diffMessage}
-        </p>
+        <div className="flex items-center">
+          <div>
+            <BottomLine
+              label="Actual"
+              income={totalIncomeThisMonth}
+              outcome={totalExpensesThisMonth}/>
+            <BottomLine
+              label="Budget"
+              income={incomeBudget}
+              outcome={expensesBudget}/>
+          </div>
+          <Message
+            diff={diff}
+            diffCurrency={diffCurrency}
+            diffMessage={diffMessage}/>
+        </div>
         <div className="flex flex-wrap gap-4">
           {orderBy(categoriesWithAmounts, (item => {
             return item.totalAmount - item.categoryBudget;

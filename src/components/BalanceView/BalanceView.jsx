@@ -33,8 +33,28 @@ const BottomLine = ({ label = "Reality", income = 0, outcome = 0 }) => {
     </div>
   )
 };
+
+const realityVsExpectationMessage = (diff) => {
+  const absDiff = Math.abs(diff);
+  console.log({ absDiff });
+
+  switch (true) {
+    case absDiff < 100:
+      return `my budget is spot on!`;
+
+    case absDiff < 500:
+      return `perhaps a 1 off, but I should keep an eye on it`;
+
+    case absDiff < 1000:
+      return `my budget is nowhere NEAR reality.`;
+
+    case absDiff > 1000:
+      return `I'm in trouble.`;
+  }
+}
+
 const BalanceView = () => {
-    const { currentTimestamp, NextButton, PreviousButton } = useDate();
+    const { currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth } = useDate();
     const { expensesArray: expenses } = useContext(ExpensesContext);
     const { budget } = useContext(BudgetContext);
     const incomeBudget = useMemo(() => {
@@ -94,9 +114,19 @@ const BalanceView = () => {
         expensesInCategorySum += thisMonthAmount;
       });
 
+      const categoryBudget = () => {
+        const budgetKey = getDateKey(currentTimestamp);
+        if (!budget[budgetKey]?.[category.id]) return 0;
+
+        return Object.values(budget[budgetKey]?.[category.id]).reduce((acc, curr) => {
+          return acc + curr;
+        }, 0);
+      };
+
       return {
         ...category,
         totalAmount: expensesInCategorySum,
+        categoryBudget: categoryBudget(),
       };
     }), [expenses, currentTimestamp]);
 
@@ -115,10 +145,9 @@ const BalanceView = () => {
         }, 0);
     }, [categoriesWithAmounts]);
 
-    const bottomLine = totalIncome - totalExpenses;
-    const budgetBottomLine = incomeBudget - expensesBudget;
-
-    console.log({ budgetBottomLine });
+    const diff = Math.round((incomeBudget - expensesBudget) - (totalIncome - totalExpenses));
+    const diffCurrency = formatCurrency(diff);
+    const diffMessage = realityVsExpectationMessage(diff);
 
     return (
       <section>
@@ -141,12 +170,23 @@ const BalanceView = () => {
           label="Budget"
           income={incomeBudget}
           outcome={expensesBudget}/>
-        <div className="flex flex-wrap">
-          {orderBy(categoriesWithAmounts, ['totalAmount'], ['desc'])
+        <p className="bg-gray-100 font-serif text-6xl italic p-4 my-4">
+          {diff > 0
+            ? `I've spent ${diffCurrency} more than I planned... `
+            : `With a spare of ${diffCurrency}, `}
+          {diffMessage}
+        </p>
+        <div className="flex flex-wrap gap-4">
+          {orderBy(categoriesWithAmounts, (item => {
+            return item.totalAmount - item.categoryBudget;
+          }), ['desc'])
             .map((category) => {
               return (
                 <CategoryBalance
                   key={category.id}
+                  currentTimestamp={currentTimestamp}
+                  isSameDate={isSameDate}
+                  isPreviousMonth={isPreviousMonth}
                   category={category}/>
               );
             })}

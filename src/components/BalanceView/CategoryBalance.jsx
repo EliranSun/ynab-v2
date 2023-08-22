@@ -2,12 +2,13 @@ import { Categories } from "../../constants";
 import { formatCurrency } from "../../utils";
 import Subcategory from "./Subcategory";
 import { useContext, useMemo, useState } from "react";
-import { useDate } from "../DateChanger/DateChanger";
-import { BudgetContext, getDateKey } from "../../context";
+import { BudgetContext, ExpensesContext, getDateKey } from "../../context";
+import { orderBy } from "lodash";
+import { isSameMonth } from "date-fns";
 
-export const CategoryBalance = ({ category }) => {
-  const { currentTimestamp, isSameDate, isPreviousMonth } = useDate();
+export const CategoryBalance = ({ category, currentTimestamp, isSameDate, isPreviousMonth }) => {
   const [selectedId, setSelectedId] = useState(null);
+  const { expensesArray } = useContext(ExpensesContext);
   const { budget } = useContext(BudgetContext);
   const budgetKey = getDateKey(currentTimestamp);
   const categoryBudget = useMemo(() => {
@@ -32,9 +33,7 @@ export const CategoryBalance = ({ category }) => {
   }
 
   return (
-    <div
-      key={category.id}
-      className="bg-gray-200 my-4 px-4 pb-4 w-fit gap-4 items-center text-center">
+    <div className="bg-gray-200 px-4 pb-4 w-fit">
       <div className="flex justify-between my-2">
         <div className="flex items-center gap-2 my-2">
           <span className="text-2xl font-bold">{category.name}</span>
@@ -45,7 +44,34 @@ export const CategoryBalance = ({ category }) => {
         </div>
       </div>
       <div className="flex gap-2 min-w-fit flex-wrap">
-        {subcategories.map((subcategory) => {
+        {orderBy(subcategories, (item) => {
+          const categoryBudget = budget[budgetKey]?.[category.id]?.[item.id];
+          const expensesInCategory = expensesArray.filter((expense) => {
+            return expense.categoryId === item.id;
+          });
+          const thisMonthAmount = () => {
+            const thisMonthExpenses = expensesInCategory.filter((expense) => {
+                const date = new Date(currentTimestamp);
+                const expenseDate = new Date(expense.timestamp);
+
+                if (expense.isRecurring) {
+                  return (
+                    expenseDate.getFullYear() === date.getFullYear()
+                  );
+                }
+
+                return isSameMonth(expenseDate, date);
+              }
+            );
+
+            return thisMonthExpenses.reduce((acc, expense) => {
+              return acc + expense.amount;
+            }, 0);
+          };
+
+          const amount = thisMonthAmount();
+          return categoryBudget - amount;
+        }).map((subcategory) => {
           if (subcategory.amount === 0) return null;
 
           return (

@@ -40,7 +40,7 @@ const SubcategoryExpensesList = ({
               {expenses.map((expense) => {
                 return (
                   <div className="">
-                    - {expense.name} {expense.amount}
+                    - {expense.name} {expense.amount} {expense.note.slice(0, 10)}
                   </div>
                 );
               })}

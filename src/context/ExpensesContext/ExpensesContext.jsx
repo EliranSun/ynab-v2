@@ -9,9 +9,11 @@ export const ExpensesContext = createContext({
 
 export const ExpensesContextProvider = ({ children }) => {
   const [expenses, setExpenses] = useState({});
+
   const expensesArray = useMemo(() => {
     return Object.values(expenses);
   }, [expenses]);
+
   const expensesPerMonthPerCategory = useMemo(() => {
     const expensesPerMonthPerCategory = {};
     expensesArray.forEach((expense) => {

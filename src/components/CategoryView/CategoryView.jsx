@@ -103,7 +103,6 @@ const CategoryView = () => {
         </div>
         <Title type="h3">Total amount for {category.name} in {selectedMonths.length} months</Title>
         <Title>{totalAmountInCategory}</Title>
-        <Title type="h3">Total in each subcategory</Title>
         {category.subCategories.map((subcategory) => (
           <Subcategory
             key={subcategory.id}

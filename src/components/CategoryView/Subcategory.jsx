@@ -19,15 +19,17 @@ const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], 
 
   return (
     <div className="bg-slate-200 my-4 p-4">
-      <Title type="h2">{subcategory.icon} {subcategory.name}</Title>
+      <Title type="h2" className="flex gap-2">
+        {subcategory.icon} {subcategory.name},
+        <Amount
+          isPositive={sumThisMonth <= sumPreviousMonth}
+          amount={sumThisMonth}/>
+      </Title>
       <span>
-        Expenses count: {subcategoryExpenses.length}
+        {subcategoryExpenses.length} Expenses
       </span>
       <div className="flex">
         <div className="p-4 w-72">
-          <Amount
-            isPositive={sumThisMonth <= sumPreviousMonth}
-            amount={sumThisMonth}/>
           <Amount
             isVisible={selectedMonths.length === 1}
             amount={sumPreviousMonth}

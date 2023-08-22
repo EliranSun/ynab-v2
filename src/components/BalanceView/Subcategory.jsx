@@ -34,20 +34,21 @@ const Subcategory = ({
       String(expense.categoryId) === String(id)
     );
   });
-  const thisMonthExpenses = useMemo(() => expensesInCategory.filter(
-    (expense) => {
-      const date = new Date(currentTimestamp);
-      const expenseDate = new Date(expense.timestamp);
 
-      if (expense.isRecurring) {
-        return (
-          expenseDate.getFullYear() === date.getFullYear()
-        );
-      }
+  console.log({ currentTimestamp });
+  
+  const thisMonthExpenses = useMemo(() => expensesInCategory.filter((expense) => {
+    const date = new Date(currentTimestamp);
+    const expenseDate = new Date(expense.timestamp);
 
-      return isSameMonth(expenseDate, date);
+    if (expense.isRecurring) {
+      return (
+        expenseDate.getFullYear() === date.getFullYear()
+      );
     }
-  ), [currentTimestamp, expensesInCategory]);
+
+    return isSameMonth(expenseDate, date);
+  }), [currentTimestamp, expensesInCategory]);
 
 
   let intThisMonthAmount = 0;
@@ -59,7 +60,7 @@ const Subcategory = ({
 
     intThisMonthAmount = amount;
     return formatCurrency(amount);
-  }, [thisMonthExpenses]);
+  }, [currentTimestamp, thisMonthExpenses]);
 
   const totalInPreviousMonth = useMemo(() => {
     const amount = expenses.reduce(
@@ -72,7 +73,7 @@ const Subcategory = ({
 
     intTotalInPreviousMonth = amount;
     return formatCurrency(amount);
-  }, [expenses, id, thisMonthExpenses]);
+  }, [currentTimestamp, expenses, id, thisMonthExpenses]);
 
   const getAverageAmount = (id) => {
     if (!expensesPerMonthPerCategory[id]) {

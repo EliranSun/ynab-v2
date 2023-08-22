@@ -195,6 +195,11 @@ const BalanceView = () => {
     return (
       <section>
         <Title className="mb-4">BALANCE & BUDGET</Title>
+        <ul className="w-full bg-gray-100 w-full h-10 my-2 flex">
+          <li className="bg-blue-900 w-1/3 h-full"></li>
+          <li className="bg-red-900 w-1/3 h-full"></li>
+          <li className="bg-green-900 w-1/3 h-full"></li>
+        </ul>
         <div className="text-xl font-bold bg-gray-100 p-4">
           <Title type={Title.Types.H2}>Past 12 months</Title>
           <p className="font-normal italic">

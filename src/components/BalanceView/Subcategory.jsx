@@ -26,10 +26,6 @@ const Subcategory = ({
   const budgetDateKey = getDateKey(currentTimestamp);
   const categoryBudget = budget[budgetDateKey]?.[categoryId]?.[id];
   const [budgetAmount, setBudgetAmount] = useState(Number(categoryBudget || 0));
-  // const expensesInCategory = expenses.filter((expense) => {
-  //   return expense.categoryId === id;
-  // });
-  
   const intThisMonthAmount = useRef(0);
   const thisMonthAmount = useMemo(() => {
     const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -67,20 +63,6 @@ const Subcategory = ({
   };
   
   const averageAmount = getAverageAmount(String(id));
-  
-  // const expensesInCategoryThisDate = useMemo(() => {
-  //   return orderBy(
-  //     expensesInCategory
-  //       .filter((expense) => isSameDate(expense.timestamp))
-  //       .map((expense) => {
-  //         return (
-  //           <li>■ {expense.name.slice(0, 15)} {expense.amount}</li>
-  //         );
-  //       }),
-  //     "amount",
-  //     "desc"
-  //   );
-  // }, [expensesInCategory, isSameDate]);
   
   if (thisMonthAmount === formatCurrency(0)) {
     return null;

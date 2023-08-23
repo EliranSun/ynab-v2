@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Categories, ThirdParties } from "../constants";
+import { IncomeSubcategoryIds } from "../constants/income";
 
 class Expense {
   constructor({
@@ -27,17 +28,26 @@ class Expense {
       style: 'currency',
       currency: 'ILS'
     }).format(amount);
+    
+    
+    // TODO: refactor to subcategoryId
     this.categoryId = categoryId;
+    this.subcategoryId = categoryId;
+    this.mainCategoryId = null;
+    this.isIncome = IncomeSubcategoryIds.includes(Number(this.subcategoryId));
+    
     Categories.forEach((category) => {
       category.subCategories.forEach((sub) => {
         if (sub.id === this.categoryId) {
           this.subcategory = sub;
+          this.mainCategoryId = category.id;
         }
       });
     });
+    
     this.subcategoryLabel = this.subcategory
-        ? `${this.subcategory.icon} ${this.subcategory.name}`
-        : "";
+      ? `${this.subcategory.icon} ${this.subcategory.name}`
+      : "";
   }
 }
 

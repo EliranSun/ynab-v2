@@ -34,34 +34,32 @@ const Subcategory = ({
       String(expense.categoryId) === String(id)
     );
   });
-
-  console.log({ currentTimestamp });
   
   const thisMonthExpenses = useMemo(() => expensesInCategory.filter((expense) => {
     const date = new Date(currentTimestamp);
     const expenseDate = new Date(expense.timestamp);
-
+    
     if (expense.isRecurring) {
       return (
         expenseDate.getFullYear() === date.getFullYear()
       );
     }
-
+    
     return isSameMonth(expenseDate, date);
   }), [currentTimestamp, expensesInCategory]);
-
-
+  
+  
   let intThisMonthAmount = 0;
   let intTotalInPreviousMonth = 0;
   const thisMonthAmount = useMemo(() => {
     const amount = thisMonthExpenses.reduce((acc, expense) => {
       return acc + expense.amount;
     }, 0);
-
+    
     intThisMonthAmount = amount;
     return formatCurrency(amount);
   }, [currentTimestamp, thisMonthExpenses]);
-
+  
   const totalInPreviousMonth = useMemo(() => {
     const amount = expenses.reduce(
       (total, expense) => {
@@ -70,16 +68,16 @@ const Subcategory = ({
         }
         return total;
       }, 0);
-
+    
     intTotalInPreviousMonth = amount;
     return formatCurrency(amount);
   }, [currentTimestamp, expenses, id, thisMonthExpenses]);
-
+  
   const getAverageAmount = (id) => {
     if (!expensesPerMonthPerCategory[id]) {
       return 0;
     }
-
+    
     let total = 0;
     let count = 0;
     const months = Object.values(expensesPerMonthPerCategory[id]);
@@ -87,12 +85,12 @@ const Subcategory = ({
       total += month.amount;
       count += month.expenses.length;
     }
-
+    
     return formatCurrency(total / count);
   };
-
+  
   const averageAmount = getAverageAmount(String(id));
-
+  
   const expensesInCategoryThisDate = useMemo(() => {
     return orderBy(
       expensesInCategory
@@ -106,11 +104,11 @@ const Subcategory = ({
       "desc"
     );
   }, [expensesInCategory, currentTimestamp]);
-
+  
   if (thisMonthAmount === formatCurrency(0)) {
     return null;
   }
-
+  
   return (
     <div className="relative min-w-fit">
       <div className="bg-white/80 p-4 cursor-pointer" onClick={() => {
@@ -160,7 +158,7 @@ const Subcategory = ({
               });
               setIsLoading(false);
             }
-
+            
             setIsBudgeting(!isBudgeting);
           }}>
             {isBudgeting

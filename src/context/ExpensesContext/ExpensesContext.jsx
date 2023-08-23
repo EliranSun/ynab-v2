@@ -1,7 +1,9 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { noop } from "lodash";
 import { addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense } from "../../utils";
 import { Categories } from "../../constants";
+import { BudgetContext, getDateKey } from "../BudgetContext";
+import { isSameMonth } from "date-fns";
 
 export const ExpensesContext = createContext({
   expenses: {},
@@ -12,6 +14,7 @@ export const ExpensesContextProvider = ({ children }) => {
   const [expenses, setExpenses] = useState({});
   const [categories, setCategories] = useState({});
   const [categoriesByAmount, setCategoriesByAmount] = useState([]);
+  const { budget } = useContext(BudgetContext);
   
   const expensesArray = useMemo(() => {
     return Object.values(expenses);
@@ -60,13 +63,34 @@ export const ExpensesContextProvider = ({ children }) => {
       setExpenses(expenses);
       
       const newCategories = {};
-      Object.values(expenses).forEach(expense => {
+      const budgetKey = getDateKey(new Date().getTime());
+      const expensesThisMonth = Object.values(expenses).filter(expense => {
+        const date = new Date();
+        const expenseDate = new Date(expense.timestamp);
+        
+        if (expense.isRecurring) {
+          return (
+            expenseDate.getFullYear() === date.getFullYear()
+          );
+        }
+        
+        return isSameMonth(expenseDate, date);
+      });
+      
+      Object.values(expensesThisMonth).forEach(expense => {
         if (!newCategories[expense.mainCategoryId]) {
           const category = Categories.find(category => category.id === expense.mainCategoryId);
           const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
           
+          const categoryBudget = budget[budgetKey]?.[category.id];
+          const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
+            return acc + subcategory;
+          }, 0);
+          const subcategoryBudget = budget[budgetKey]?.[category.id]?.[subcategory.id];
+          
           newCategories[expense.mainCategoryId] = {
             ...category,
+            budget: categoryBudgetValue,
             amount: expense.amount,
             subcategories: {
               [expense.subcategoryId]: {
@@ -93,9 +117,13 @@ export const ExpensesContextProvider = ({ children }) => {
         }
       });
       
-      console.log({ newCategories });
       setCategories(newCategories);
-      setCategoriesByAmount(Object.values(newCategories).sort((a, b) => b.amount - a.amount));
+      const ordered = Object.values(newCategories).sort((a, b) => {
+        const diff = a.budget - a.amount;
+        console.log({ a, b, diff })
+        return diff;
+      });
+      setCategoriesByAmount(ordered);
     })();
   }, []);
   

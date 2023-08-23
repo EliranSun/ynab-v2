@@ -62,9 +62,7 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
         <div className="flex items-center gap-2 my-2">
           <span className="text-2xl font-bold">{categoryName}</span>
           <span className="text-3xl font-bold">{formatCurrency(totalExpensesSum)}</span>/
-          <span className="text-3xl font-bold">
-            {formatCurrency(categoryBudget, true)}
-          </span>
+          <span className="text-3xl font-bold">{formatCurrency(categoryBudget)}</span>
         </div>
       </div>
       <div className="flex gap-2 min-w-fit flex-wrap">

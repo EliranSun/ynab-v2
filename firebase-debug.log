@@ -1,0 +1,117 @@
+[debug] [2023-08-23T14:37:13.440Z] ----------------------------------------------------------------------
+[debug] [2023-08-23T14:37:13.443Z] Command:       /home/elirans/.nvm/versions/node/v14.18.0/bin/node /mnt/c/Program Files/nodejs/node_modules/firebase-tools/lib/bin/firebase.js emulators:start
+[debug] [2023-08-23T14:37:13.443Z] CLI Version:   11.24.1
+[debug] [2023-08-23T14:37:13.443Z] Platform:      linux
+[debug] [2023-08-23T14:37:13.443Z] Node Version:  v14.18.0
+[debug] [2023-08-23T14:37:13.444Z] Time:          Wed Aug 23 2023 17:37:13 GMT+0300 (Israel Daylight Time)
+[debug] [2023-08-23T14:37:13.445Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-08-23T14:37:13.546Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-08-23T14:37:13.546Z] > authorizing via signed-in user (piro27@gmail.com)
+[debug] [2023-08-23T14:37:13.690Z] openjdk version "11.0.19" 2023-04-18
+[debug] [2023-08-23T14:37:13.690Z] 
+OpenJDK Runtime Environment (build 11.0.19+7-post-Ubuntu-0ubuntu118.04.1)
+OpenJDK 64-Bit Server VM (build 11.0.19+7-post-Ubuntu-0ubuntu118.04.1, mixed mode, sharing)
+
+[debug] [2023-08-23T14:37:13.695Z] Parsed Java major version: 11
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, storage"}}
+[debug] [2023-08-23T14:37:13.699Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-08-23T14:37:13.706Z] [hub] writing locator at /tmp/hub-ynab-47641.json
+[debug] [2023-08-23T14:37:13.710Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: pubsub {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mpubsub\u001b[22m"}}
+[debug] [2023-08-23T14:37:13.713Z] defaultcredentials: writing to file /home/elirans/.config/firebase/piro27_gmail_com_application_default_credentials.json
+[debug] [2023-08-23T14:37:13.715Z] Setting GAC to /home/elirans/.config/firebase/piro27_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /home/elirans/.config/firebase/piro27_gmail_com_application_default_credentials.json"}}
+[debug] [2023-08-23T14:37:13.717Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/adminSdkConfig [none]
+[debug] [2023-08-23T14:37:14.216Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/adminSdkConfig 200
+[debug] [2023-08-23T14:37:14.217Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/adminSdkConfig {"projectId":"ynab-47641","storageBucket":"ynab-47641.appspot.com","locationId":"europe-west"}
+[warn] ⚠  firestore: Cloud Firestore rules file /home/elirans/git/ynab/firestore.rules specified in firebase.json does not exist. {"metadata":{"emulator":{"name":"firestore"},"message":"Cloud Firestore rules file \u001b[1m/home/elirans/git/ynab/firestore.rules\u001b[22m specified in firebase.json does not exist."}}
+[warn] ⚠  firestore: The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"firestore"},"message":"The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2023-08-23T14:37:14.248Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-08-23T14:37:14.248Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2023-08-23T14:37:14.248Z] Starting Firestore Emulator with command {"binary":"java","args":["-Djava.net.preferIPv4Stack=true","-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/home/elirans/.cache/firebase/emulators/cloud-firestore-emulator-v1.16.0.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","ynab-47641","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Djava.net.preferIPv4Stack=true\",\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/home/elirans/.cache/firebase/emulators/cloud-firestore-emulator-v1.16.0.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"ynab-47641\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2023-08-23T14:37:15.421Z] Aug 23, 2023 5:37:15 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:9150
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Aug 23, 2023 5:37:15 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://127.0.0.1:9150\n"}}
+[debug] [2023-08-23T14:37:15.509Z] API endpoint: http://127.0.0.1:8080 {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://127.0.0.1:8080"}}
+[debug] [2023-08-23T14:37:15.509Z] 
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080\n\nDev App Server is now running.\n\n"}}
+[info] ✔  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2023-08-23T14:37:15.514Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 [none]
+[debug] [2023-08-23T14:37:15.857Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 200
+[debug] [2023-08-23T14:37:15.857Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 {"projectId":"ynab-47641","projectNumber":"166507618318","displayName":"YNAB","name":"projects/ynab-47641","resources":{"hostingSite":"ynab-47641","storageBucket":"ynab-47641.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_95221594-63c1-4d6d-952c-d886565e9036"}
+[debug] [2023-08-23T14:37:15.858Z] database rules config:  []
+[warn] ⚠  database: Did not find a Realtime Database rules file specified in a firebase.json config file. The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"database"},"message":"Did not find a Realtime Database rules file specified in a firebase.json config file. The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2023-08-23T14:37:15.860Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2023-08-23T14:37:15.860Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-08-23T14:37:15.860Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2023-08-23T14:37:15.860Z] Starting Database Emulator with command {"binary":"java","args":["-Djava.net.preferIPv4Stack=true","-Duser.language=en","-jar","/home/elirans/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Djava.net.preferIPv4Stack=true\",\"-Duser.language=en\",\"-jar\",\"/home/elirans/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2023-08-23T14:37:16.509Z] WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/home/elirans/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+ {"metadata":{"emulator":{"name":"database"},"message":"WARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/home/elirans/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys\nWARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\n"}}
+[debug] [2023-08-23T14:37:17.105Z] 17:37:17.103 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"17:37:17.103 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2023-08-23T14:37:17.277Z] 17:37:17.276 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"17:37:17.276 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
+[debug] [2023-08-23T14:37:25.289Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-08-23T14:37:27.373Z] Temp file directory for storage emulator: /tmp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /tmp/firebase/storage/blobs"}}
+[debug] [2023-08-23T14:37:27.392Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/ynab-47641/sites 
+[debug] [2023-08-23T14:37:28.687Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/ynab-47641/sites 200
+[debug] [2023-08-23T14:37:28.687Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/ynab-47641/sites {"sites":[{"name":"projects/ynab-47641/sites/ynab-47641","defaultUrl":"https://ynab-47641.web.app","appId":"1:166507618318:web:2586479d23433cfc855c5f","type":"DEFAULT_SITE"}]}
+[debug] [2023-08-23T14:37:28.688Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/webApps/1:166507618318:web:2586479d23433cfc855c5f/config [none]
+[debug] [2023-08-23T14:37:29.568Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/webApps/1:166507618318:web:2586479d23433cfc855c5f/config 200
+[debug] [2023-08-23T14:37:29.569Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641/webApps/1:166507618318:web:2586479d23433cfc855c5f/config {"projectId":"ynab-47641","appId":"1:166507618318:web:2586479d23433cfc855c5f","storageBucket":"ynab-47641.appspot.com","locationId":"europe-west","apiKey":"AIzaSyAB39A1eVvhFbTIqol1yB8sIrbv9Allqpg","authDomain":"ynab-47641.firebaseapp.com","messagingSenderId":"166507618318","measurementId":"G-WL97FFD4EH"}
+[debug] [2023-08-23T14:37:29.585Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 [none]
+[debug] [2023-08-23T14:37:29.930Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 200
+[debug] [2023-08-23T14:37:29.930Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ynab-47641 {"projectId":"ynab-47641","projectNumber":"166507618318","displayName":"YNAB","name":"projects/ynab-47641","resources":{"hostingSite":"ynab-47641","storageBucket":"ynab-47641.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_95221594-63c1-4d6d-952c-d886565e9036"}
+[debug] [2023-08-23T14:37:29.932Z] Specified "public" directory "build" does not exist; Deploy to Hosting site "ynab-47641" may fail or be empty.
+[info] i  hosting[ynab-47641]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting[ynab-47641]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[info] i  ui: downloading ui-v1.11.4.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.11.4.zip..."}}
+[debug] [2023-08-23T14:37:30.524Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.4.zip 
+[debug] [2023-08-23T14:37:30.722Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.4.zip 200
+[debug] [2023-08-23T14:37:30.722Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.4.zip [stream]
+[debug] [2023-08-23T14:37:33.220Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-08-23T14:37:33.220Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-08-23T14:37:33.220Z] Starting Emulator UI with command {"binary":"node","args":["/home/elirans/.cache/firebase/emulators/ui-v1.11.4/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/home/elirans/.cache/firebase/emulators/ui-v1.11.4/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-08-23T14:37:33.338Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[info] i  functions: Watching "/home/elirans/git/ynab/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/elirans/git/ynab/functions\" for Cloud Functions..."}}
+[error] ⬢  functions: Failed to load function definition from source: FirebaseError: could not deploy functions because the "functions" directory was not found. Please create it or specify a different source directory in firebase.json {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: could not deploy functions because the \u001b[1m\"functions\"\u001b[22m directory was not found. Please create it or specify a different source directory in firebase.json"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Database       │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database  │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Storage        │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage   │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

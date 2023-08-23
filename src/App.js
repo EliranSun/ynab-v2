@@ -81,11 +81,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ExpensesContextProvider>
-      <BudgetContextProvider>
+    <BudgetContextProvider>
+      <ExpensesContextProvider>
         <RouterProvider router={router}/>
-      </BudgetContextProvider>
-    </ExpensesContextProvider>
+      </ExpensesContextProvider>
+    </BudgetContextProvider>
   );
 }
 

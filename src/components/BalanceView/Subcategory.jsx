@@ -1,12 +1,11 @@
-import { Button, Title } from "../atoms";
+import { Title } from "../atoms";
 import { useContext, useMemo, useRef, useState } from "react";
-import { noop, orderBy } from "lodash";
+import { noop } from "lodash";
 import { BudgetContext, ExpensesContext, getDateKey } from "../../context";
-import { isSameMonth } from "date-fns";
 import { formatCurrency } from "../../utils";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import classNames from "classnames";
-import { CheckFat, PiggyBank, Spinner } from "@phosphor-icons/react";
+import { SetBudgetButton } from "../atoms/SetBudgetButton";
 
 const Subcategory = ({
   icon,
@@ -14,39 +13,22 @@ const Subcategory = ({
   id,
   categoryId,
   onSubcategoryClick = noop,
-  isSameDate = noop,
+  // isSameDate = noop,
   isPreviousMonth = noop,
   isSelected = false,
   currentTimestamp,
-  isIncome
+  isIncome,
+  thisMonthExpenses
 }) => {
   const { expensesArray: expenses, expensesPerMonthPerCategory } = useContext(ExpensesContext);
-  const { setBudget, budget } = useContext(BudgetContext);
+  const { budget } = useContext(BudgetContext);
   const [isBudgeting, setIsBudgeting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const budgetDateKey = getDateKey(currentTimestamp);
   const categoryBudget = budget[budgetDateKey]?.[categoryId]?.[id];
   const [budgetAmount, setBudgetAmount] = useState(Number(categoryBudget || 0));
-  const expensesInCategory = expenses.filter((expense) => {
-    // TODO: same type instead of casting
-    return (
-      String(expense.categoryId) === String(id)
-    );
-  });
-  
-  const thisMonthExpenses = useMemo(() => expensesInCategory.filter((expense) => {
-    const date = new Date(currentTimestamp);
-    const expenseDate = new Date(expense.timestamp);
-    
-    if (expense.isRecurring) {
-      return (
-        expenseDate.getFullYear() === date.getFullYear()
-      );
-    }
-    
-    return isSameMonth(expenseDate, date);
-  }), [currentTimestamp, expensesInCategory]);
-  
+  // const expensesInCategory = expenses.filter((expense) => {
+  //   return expense.categoryId === id;
+  // });
   
   const intThisMonthAmount = useRef(0);
   const thisMonthAmount = useMemo(() => {
@@ -56,16 +38,15 @@ const Subcategory = ({
     
     intThisMonthAmount.current = amount;
     return formatCurrency(amount);
-  }, [currentTimestamp, thisMonthExpenses]);
+  }, [thisMonthExpenses]);
   
   const totalInPreviousMonth = useMemo(() => {
-    const amount = expenses.reduce(
-      (total, expense) => {
-        if (id === expense.categoryId && isPreviousMonth(expense.timestamp)) {
-          return total + expense.amount;
-        }
-        return total;
-      }, 0);
+    const amount = expenses.reduce((total, expense) => {
+      if (id === expense.categoryId && isPreviousMonth(expense.timestamp)) {
+        return total + expense.amount;
+      }
+      return total;
+    }, 0);
     return formatCurrency(amount);
   }, [expenses, id, isPreviousMonth]);
   
@@ -82,28 +63,32 @@ const Subcategory = ({
       count += month.expenses.length;
     }
     
-    return formatCurrency(total / count);
+    return formatCurrency(total / count) || 0;
   };
   
   const averageAmount = getAverageAmount(String(id));
   
-  const expensesInCategoryThisDate = useMemo(() => {
-    return orderBy(
-      expensesInCategory
-        .filter((expense) => isSameDate(expense.timestamp))
-        .map((expense) => {
-          return (
-            <li>■ {expense.name.slice(0, 15)} {expense.amount}</li>
-          );
-        }),
-      "amount",
-      "desc"
-    );
-  }, [expensesInCategory, isSameDate]);
+  // const expensesInCategoryThisDate = useMemo(() => {
+  //   return orderBy(
+  //     expensesInCategory
+  //       .filter((expense) => isSameDate(expense.timestamp))
+  //       .map((expense) => {
+  //         return (
+  //           <li>■ {expense.name.slice(0, 15)} {expense.amount}</li>
+  //         );
+  //       }),
+  //     "amount",
+  //     "desc"
+  //   );
+  // }, [expensesInCategory, isSameDate]);
   
   if (thisMonthAmount === formatCurrency(0)) {
     return null;
   }
+  
+  const isPositiveDiff = isIncome
+    ? intThisMonthAmount.current < budgetAmount
+    : intThisMonthAmount.current > budgetAmount;
   
   return (
     <div className="relative min-w-fit">
@@ -114,12 +99,8 @@ const Subcategory = ({
           {icon} {name}
         </Title>
         <div className={classNames("flex gap-2 mb-2", {
-          "text-red-500": isIncome
-            ? intThisMonthAmount.current < budgetAmount
-            : intThisMonthAmount.current > budgetAmount,
-          "text-green-400": isIncome
-            ? intThisMonthAmount.current > budgetAmount
-            : intThisMonthAmount.current < budgetAmount
+          "text-red-500": isPositiveDiff,
+          "text-green-400": !isPositiveDiff
         })}>
           <span className="font-bold text-2xl">{thisMonthAmount}</span>
           <span>/</span>
@@ -142,35 +123,21 @@ const Subcategory = ({
           <div>Average: {averageAmount}</div>
         </div>
         <div className="w-full flex justify-end">
-          <Button type={Button.Types.GHOST} onClick={async (event) => {
-            event.stopPropagation();
-            if (isBudgeting && budgetAmount !== categoryBudget?.amount) {
-              setIsLoading(true);
-              await setBudget({
-                amount: budgetAmount,
-                categoryId: categoryId,
-                subcategoryId: id,
-                timestamp: currentTimestamp
-              });
-              setIsLoading(false);
-            }
-            
-            setIsBudgeting(!isBudgeting);
-          }}>
-            {isBudgeting
-              ? isLoading
-                ? <Spinner className="animate-spin" size={21}/>
-                : <CheckFat size={21}/>
-              : <PiggyBank size={21}/>}
-          </Button>
+          <SetBudgetButton
+            isBudgeting={isBudgeting}
+            amount={budgetAmount}
+            categoryBudget={categoryBudget}
+            categoryId={categoryId}
+            subcategoryId={id}
+            timestamp={currentTimestamp}
+            onClick={setIsBudgeting}/>
         </div>
       </div>
-      {isSelected && expensesInCategoryThisDate.length > 0 &&
+      {isSelected &&
         <SubcategoryExpensesList
           id={id}
           expensesPerMonthPerCategory={expensesPerMonthPerCategory[id]}
-          onSubcategoryClick={onSubcategoryClick}
-        />}
+          onSubcategoryClick={onSubcategoryClick}/>}
     </div>
   );
 };

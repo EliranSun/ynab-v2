@@ -21,32 +21,30 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
       const expensesInCategory = expensesArray.filter((expense) => {
         return expense.categoryId === subcategory.id;
       });
-      const thisMonthAmount = () => {
-        const thisMonthExpenses = expensesInCategory.filter((expense) => {
-            const date = new Date(currentTimestamp);
-            const expenseDate = new Date(expense.timestamp);
-            
-            if (expense.isRecurring) {
-              return (
-                expenseDate.getFullYear() === date.getFullYear()
-              );
-            }
-            
-            return isSameMonth(expenseDate, date);
+      const thisMonthExpenses = expensesInCategory.filter((expense) => {
+          const date = new Date(currentTimestamp);
+          const expenseDate = new Date(expense.timestamp);
+          
+          if (expense.isRecurring) {
+            return (
+              expenseDate.getFullYear() === date.getFullYear()
+            );
           }
-        );
-        
-        return thisMonthExpenses.reduce((acc, expense) => {
-          return acc + expense.amount;
-        }, 0);
-      };
+          
+          return isSameMonth(expenseDate, date);
+        }
+      );
       
-      const amount = thisMonthAmount();
+      const amount = thisMonthExpenses.reduce((acc, expense) => {
+        return acc + expense.amount;
+      }, 0);
+      
       return {
         ...subcategory,
         amount,
         budget: subcategoryBudget,
         difference: subcategoryBudget - amount,
+        thisMonthExpenses
       };
     });
     

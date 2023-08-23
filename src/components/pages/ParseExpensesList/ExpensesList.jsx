@@ -178,8 +178,6 @@ export const ExpensesList = ({
                       expense={expense}
                       existingExpenses={existingExpenses}/>
                     <LeanCategorySelection onCategorySelect={(categoryId) => {
-                      console.log({ categoryId });
-                      
                       setExpenses((prev) => {
                         const newExpenses = [...prev];
                         newExpenses[index].categoryId = categoryId;

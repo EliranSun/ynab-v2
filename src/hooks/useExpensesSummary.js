@@ -3,7 +3,7 @@ import { isSameMonth } from "date-fns";
 import { ExpensesContext } from "../context";
 
 export const useExpensesSummary = (timestamp) => {
-  const { expensesArray: expenses } = useContext(ExpensesContext);
+  const { expensesArray: expenses = [] } = useContext(ExpensesContext);
   
   const totalExpensesThisMonth = useMemo(() => {
     return expenses.reduce((acc, curr) => {

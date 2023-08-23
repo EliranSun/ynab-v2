@@ -3,7 +3,6 @@ import { useState } from "react";
 import { SetBudgetButton as SetBudgetButtonComponent } from "./SetBudgetButton";
 import { action } from "@storybook/addon-actions";
 import { BudgetContextProvider } from "../../../context";
-import useAuth from "../../../hooks/useAuth";
 import { Login } from "../../pages/Login";
 
 const ControlledButton = (props) => {
@@ -21,13 +20,6 @@ export default {
       </Login>
     </BudgetContextProvider>
   )],
-  // parameters: {
-  //   msw: [
-  //     rest.get('/budget/*', (_req, res, ctx) => {
-  //       return res(ctx.json({}));
-  //     }),
-  //   ],
-  // },
 };
 
 export const SetBudgetButton = {

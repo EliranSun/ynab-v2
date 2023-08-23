@@ -1,14 +1,14 @@
-import { Title } from "../atoms";
-import { formatCurrency } from "../../utils";
+import { Title } from "../../atoms";
+import { formatCurrency } from "../../../utils";
 import { useContext, useMemo } from "react";
 import { isAfter, subMonths } from "date-fns";
-import { ExpensesContext } from "../../context";
-import { useBudget } from "../../hooks/useBudget";
+import { ExpensesContext } from "../../../context";
+import { useBudget } from "../../../hooks/useBudget";
 
 const IncomeSubcategoryIds = [80, 81, 82, 83];
 
 export const PastTwelveMonthsBalance = ({ timestamp }) => {
-  const { expensesArray: expenses } = useContext(ExpensesContext);
+  const { expensesArray: expenses = [] } = useContext(ExpensesContext);
   const { income: incomeBudget, outcome: expensesBudget } = useBudget(timestamp);
   
   const totalIncome = useMemo(() => {

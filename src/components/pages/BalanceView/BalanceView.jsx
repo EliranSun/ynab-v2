@@ -1,14 +1,19 @@
 import { useDate } from "../../molecules";
 import { Title } from "../../atoms";
 import { CategoryBalance } from "./CategoryBalance";
-import { ThisMonthBalance } from "../../molecules/ThisMonthBalance";
-import { PastTwelveMonthsBalance } from "../../molecules/PastTwelveMonthsBalance";
+import { ThisMonthBalance } from "../../molecules/ThisMonthBalance/ThisMonthBalance";
+import { PastTwelveMonthsBalance } from "../../molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance";
 import { useContext } from "react";
 import { ExpensesContext } from "../../../context";
+import { useBudget } from "../../../hooks/useBudget";
+import { useExpensesSummary } from "../../../hooks/useExpensesSummary";
 
 const BalanceView = () => {
     const { categoriesByAmount } = useContext(ExpensesContext);
     const { currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth } = useDate();
+    
+    const { income: incomeBudget, outcome: expensesBudget } = useBudget(currentTimestamp);
+    const { totalIncomeThisMonth, totalExpensesThisMonth } = useExpensesSummary(currentTimestamp);
     
     return (
       <section>
@@ -29,7 +34,12 @@ const BalanceView = () => {
           </Title>
           <NextButton/>
         </div>
-        <ThisMonthBalance timestamp={currentTimestamp}/>
+        <ThisMonthBalance
+          incomeBudget={incomeBudget}
+          expensesBudget={expensesBudget}
+          totalIncomeThisMonth={totalIncomeThisMonth}
+          totalExpensesThisMonth={totalExpensesThisMonth}
+        />
         <div className="flex flex-wrap gap-4">
           {categoriesByAmount.map((category) => {
             return (

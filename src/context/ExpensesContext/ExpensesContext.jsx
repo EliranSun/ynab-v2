@@ -17,7 +17,7 @@ export const ExpensesContextProvider = ({ children }) => {
   const { budget } = useContext(BudgetContext);
   
   const expensesArray = useMemo(() => {
-    return Object.values(expenses);
+    return Object.values(expenses) || [];
   }, [expenses]);
   
   const expensesPerMonthPerCategory = useMemo(() => {

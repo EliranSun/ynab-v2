@@ -14,6 +14,7 @@ export const useBudget = (timestamp) => {
     
     Object.entries(thisMonthBudget).forEach(([categoryId, category]) => {
       const amounts = Object.values(category).reduce((sum, amount) => sum + amount, 0);
+      console.log({ amounts, categoryId });
       if (categoryId === '8') {
         incomeTotal += amounts;
       } else {

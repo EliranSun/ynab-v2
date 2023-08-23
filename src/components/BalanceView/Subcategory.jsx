@@ -5,7 +5,7 @@ import { BudgetContext, ExpensesContext, getDateKey } from "../../context";
 import { formatCurrency } from "../../utils";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import classNames from "classnames";
-import { SetBudgetButton } from "../atoms/SetBudgetButton";
+import { SetBudgetButton } from "../atoms/SetBudgetButton/SetBudgetButton";
 
 const Subcategory = ({
   icon,

@@ -1,7 +1,7 @@
-import { Button } from "./index";
+import { Button } from "../index";
 import { CheckFat, PiggyBank, Spinner } from "@phosphor-icons/react";
 import { useContext, useState } from "react";
-import { BudgetContext } from "../../context";
+import { BudgetContext } from "../../../context";
 import { noop } from "lodash";
 
 export const SetBudgetButton = ({

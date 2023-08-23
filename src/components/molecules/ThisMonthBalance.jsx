@@ -1,5 +1,5 @@
 import { NetSummary } from "./NetSummary";
-import { BalanceDiffMessage } from "../atoms/BalanceDiffMessage";
+import { BalanceDiffMessage } from "../atoms/BalanceDiffMessage/BalanceDiffMessage";
 import { useBudget } from "../../hooks/useBudget";
 import { useExpensesSummary } from "../../hooks/useExpensesSummary";
 

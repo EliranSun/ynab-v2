@@ -1,22 +1,28 @@
-import { formatCurrency } from "../../utils";
+import { formatCurrency } from "../../../utils";
 
 const realityVsExpectationMessage = (diff) => {
   switch (true) {
+    case diff < 0:
+    default:
+      return 'while good, I should keep an eye on it.';
+    
     case diff < 100:
       return `my budget is spot on!`;
     
     case diff < 500:
-      return `perhaps a 1 off, but I should keep an eye on it`;
+      return `perhaps a one-off, but I should keep an eye on it`;
     
     case diff < 1000:
       return `my budget is nowhere NEAR reality.`;
     
+    case diff > 10000:
+      return `Jesus fucking christ man.`;
+    
+    case diff > 5000:
+      return `I'm in BIG trouble.`;
+    
     case diff > 1000:
       return `I'm in trouble.`;
-    
-    case diff < 0:
-    default:
-      return 'while good, I should keep an eye on it.';
   }
 }
 
@@ -26,19 +32,21 @@ export const BalanceDiffMessage = ({ incomeBudget, expensesBudget, totalIncomeTh
   const diffMessage = realityVsExpectationMessage(diff);
   const diffAmountSpan = <span className="text-3xl font-black">{diffCurrency}</span>;
   
+  if (!incomeBudget || !expensesBudget || !totalIncomeThisMonth || !totalExpensesThisMonth) {
+    return null;
+  }
+  
   if (diff > 0) {
     return (
       <p className="w-1/3 font-serif text-xl italic p-4 my-4">
-        I've spent {diffAmountSpan} more than I planned...
-        {diffMessage}
+        I've spent {diffAmountSpan} more than I planned... {diffMessage}
       </p>
     )
   }
   
   return (
     <p className="w-1/3 font-serif text-xl italic p-4 my-4">
-      With a spare of {diffAmountSpan},
-      {diffMessage}
+      With a spare of {diffAmountSpan}, {diffMessage}
     </p>
   )
 }

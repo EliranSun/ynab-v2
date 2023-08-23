@@ -3,7 +3,9 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, connectAuthEmula
 const provider = new GoogleAuthProvider();
 
 export const auth = getAuth();
-connectAuthEmulator(auth, "http://127.0.0.1:9099");
+
+export const emulateAuth = () =>
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
 
 export const login = async () => {
   try {

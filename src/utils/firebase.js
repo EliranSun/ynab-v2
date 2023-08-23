@@ -22,7 +22,9 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const db = getFirestore();
-connectFirestoreEmulator(db, '127.0.0.1', 8080);
+
+export const emulateDB = () =>
+  connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
 const EXPENSES_COLLECTION = "expenses";
 const BUDGET_COLLECTION = "budget";

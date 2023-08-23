@@ -1,8 +1,11 @@
 import { initialize, mswDecorator } from 'msw-storybook-addon';
-import { app } from '../src/utils';
+import { emulateDB } from '../src/utils';
+import { emulateAuth } from "../src/utils/auth";
 import '../src/index.css';
 
 initialize();
+emulateDB();
+emulateAuth();
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {

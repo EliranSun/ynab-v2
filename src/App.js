@@ -23,8 +23,8 @@ const Header = () => {
       <Link to="/projection">
         PROJECTION
       </Link>
-      <Link to="/seeing-double">
-        SEEING DOUBLE?
+      <Link to="/resolver">
+        RESOLVER
       </Link>
     </div>
   )
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         element: <FuturePredictionPage/>,
       },
       {
-        path: "seeing-double",
+        path: "resolver",
         element: <SeeingDoublePage/>,
       },
       {

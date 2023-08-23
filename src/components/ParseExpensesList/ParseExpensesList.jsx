@@ -17,8 +17,8 @@ export const ParseExpensesList = ({
   const [isParseButtonDisabled, setIsParseButtonDisabled] = useState(false);
   const [parsedExpenses, setParsedExpenses] = useState([]);
   const [isStatusAnimated, setIsStatusAnimated] = useState(false);
-
-
+  
+  
   useEffect(() => {
     if (isStatusAnimated) {
       setTimeout(() => {
@@ -26,59 +26,57 @@ export const ParseExpensesList = ({
       }, 3000);
     }
   }, [parsedExpenses, isStatusAnimated]);
-
+  
   useEffect(() => {
     const savedTextareaValue = localStorage.getItem("textarea-value");
     const savedParsedExpenses = localStorage.getItem("parsed-expenses");
-
+    
     if (savedParsedExpenses) {
       const data = JSON.parse(savedParsedExpenses);
-      console.log(data.length);
-
       setParsedExpenses(data.filter(item => {
         return !isExistingExpense(item, expenses);
       }).map(item => new Expense(item)));
     }
-
+    
     if (savedTextareaValue) {
       setValue(savedTextareaValue);
     }
   }, [expenses]);
-
+  
   useEffect(() => {
     if (!value) {
       return;
     }
-
+    
     localStorage.setItem("textarea-value", value);
   }, [value]);
-
+  
   useEffect(() => {
     if (!parsedExpenses.length) {
       return;
     }
-
+    
     localStorage.setItem("parsed-expenses", JSON.stringify(parsedExpenses));
   }, [parsedExpenses]);
-
+  
   const setNewExpenses = () => {
     if (!textAreaRef.current) {
       return;
     }
-
+    
     setIsStatusAnimated(true);
     const newExpenses = parseNewExpenses(textAreaRef.current.value, expenses);
-
+    
     if (newExpenses.length === 0) {
       setMessage("Nothing new");
       return;
     }
-
+    
     setMessage(`${newExpenses.length} new expenses`);
     setParsedExpenses(newExpenses);
     localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
   }
-
+  
   return (
     <section className="h-screen">
       <Title type={Title.Types.H1}>Parse expenses</Title>
@@ -90,8 +88,7 @@ export const ParseExpensesList = ({
         <div className="flex flex-col w-1/3 h-full">
           <div className="">
             <Title type={Title.Types.H2}>Upload a sheet</Title>
-            <SheetUpload onSheetParse={data => {
-            }}/>
+            <SheetUpload onSheetParse={data => {}}/>
           </div>
           <textarea
             className="border border-dashed border-black p-4 outline-none w-full h-full"

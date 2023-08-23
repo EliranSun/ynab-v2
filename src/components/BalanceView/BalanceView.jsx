@@ -4,8 +4,11 @@ import { Categories } from "../../constants";
 import { CategoryBalance } from "./CategoryBalance";
 import { ThisMonthBalance } from "../molecules/ThisMonthBalance";
 import { PastTwelveMonthsBalance } from "../molecules/PastTwelveMonthsBalance";
+import { useContext } from "react";
+import { ExpensesContext } from "../../context";
 
 const BalanceView = () => {
+    const { categoriesByAmount } = useContext(ExpensesContext);
     const { currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth } = useDate();
     
     return (
@@ -29,7 +32,7 @@ const BalanceView = () => {
         </div>
         <ThisMonthBalance timestamp={currentTimestamp}/>
         <div className="flex flex-wrap gap-4">
-          {Categories.map((category) => {
+          {categoriesByAmount.map((category) => {
             return (
               <CategoryBalance
                 key={category.id}

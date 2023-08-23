@@ -1,47 +1,58 @@
+import { useContext, useMemo, useState } from "react";
+import { orderBy } from "lodash";
+import { isSameMonth } from "date-fns";
 import { Categories } from "../../constants";
 import { formatCurrency } from "../../utils";
 import Subcategory from "./Subcategory";
-import { useContext, useMemo, useState } from "react";
 import { BudgetContext, ExpensesContext, getDateKey } from "../../context";
-import { orderBy } from "lodash";
-import { isSameMonth } from "date-fns";
+import { useCategoryBudget } from "../../hooks/useCategoryBudget";
+import { useCategoryExpensesSummary } from "../../hooks/useCategoryExpensesSummary";
 
 export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, isSameDate, isPreviousMonth }) => {
   const [selectedId, setSelectedId] = useState(null);
   const { expensesArray } = useContext(ExpensesContext);
   const { budget } = useContext(BudgetContext);
   const budgetKey = getDateKey(currentTimestamp);
-  const subcategories = Categories.find((c) => c.id === categoryId)?.subCategories;
-  
-  const categoryBudget = useMemo(() => {
-    if (!budget[budgetKey]?.[categoryId]) return 0;
-    
-    return Object.values(budget[budgetKey]?.[categoryId]).reduce((acc, curr) => {
-      return acc + curr;
-    }, 0);
-  }, [budget, budgetKey, categoryId]);
-  
-  const totalExpensesSum = useMemo(() => {
-    const expensesInCategoryThisMonth = expensesArray.filter((expense) => {
-      const date = new Date(currentTimestamp);
-      const expenseDate = new Date(expense.timestamp);
+  const categoryBudget = useCategoryBudget(categoryId, currentTimestamp);
+  const totalExpensesSum = useCategoryExpensesSummary(categoryId, currentTimestamp);
+  const subcategories = useMemo(() => {
+    const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
+      const subcategoryBudget = budget[budgetKey]?.[categoryId]?.[subcategory.id];
+      const expensesInCategory = expensesArray.filter((expense) => {
+        return expense.categoryId === subcategory.id;
+      });
+      const thisMonthAmount = () => {
+        const thisMonthExpenses = expensesInCategory.filter((expense) => {
+            const date = new Date(currentTimestamp);
+            const expenseDate = new Date(expense.timestamp);
+            
+            if (expense.isRecurring) {
+              return (
+                expenseDate.getFullYear() === date.getFullYear()
+              );
+            }
+            
+            return isSameMonth(expenseDate, date);
+          }
+        );
+        
+        return thisMonthExpenses.reduce((acc, expense) => {
+          return acc + expense.amount;
+        }, 0);
+      };
       
-      if (expense.mainCategoryId !== categoryId) {
-        return false;
-      }
-      
-      if (expense.isRecurring) {
-        return expenseDate.getFullYear() === date.getFullYear();
-      }
-      
-      return isSameMonth(expenseDate, date);
+      const amount = thisMonthAmount();
+      return {
+        ...subcategory,
+        amount,
+        budget: subcategoryBudget,
+        difference: subcategoryBudget - amount,
+      };
     });
     
-    return Math.round(expensesInCategoryThisMonth.reduce((acc, expense) => {
-      return acc + expense.amount;
-    }, 0));
-  }, [categoryId, currentTimestamp, expensesArray]);
-  
+    
+    return orderBy(sub, ["difference"], ["asc"]);
+  }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
   
   if (totalExpensesSum === 0) {
     return null;
@@ -59,34 +70,7 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
         </div>
       </div>
       <div className="flex gap-2 min-w-fit flex-wrap">
-        {orderBy(subcategories, (item) => {
-          const subcategoryBudget = budget[budgetKey]?.[categoryId]?.[item.id];
-          const expensesInCategory = expensesArray.filter((expense) => {
-            return expense.categoryId === item.id;
-          });
-          const thisMonthAmount = () => {
-            const thisMonthExpenses = expensesInCategory.filter((expense) => {
-                const date = new Date(currentTimestamp);
-                const expenseDate = new Date(expense.timestamp);
-                
-                if (expense.isRecurring) {
-                  return (
-                    expenseDate.getFullYear() === date.getFullYear()
-                  );
-                }
-                
-                return isSameMonth(expenseDate, date);
-              }
-            );
-            
-            return thisMonthExpenses.reduce((acc, expense) => {
-              return acc + expense.amount;
-            }, 0);
-          };
-          
-          const amount = thisMonthAmount();
-          return subcategoryBudget - amount;
-        }).map((subcategory) => {
+        {subcategories.map((subcategory) => {
           if (subcategory.amount === 0) return null;
           
           return (

@@ -18,7 +18,7 @@ const useCategoryExpensesData = ({ categoryId, expenses = [], selectedMonths = [
       return subcategoriesIds.includes(expense.categoryId);
     });
   }, [expenses, subcategoriesIds]);
-
+  
   const expensesInCategoryThisMonth = useMemo(() => {
     return expenses.filter((expense) => {
       if (selectedMonths.length > 0) {
@@ -27,12 +27,12 @@ const useCategoryExpensesData = ({ categoryId, expenses = [], selectedMonths = [
           const monthDate = new Date(month);
           return isSameMonth(monthDate, expenseDate);
         });
-
+        
         if (!inMonths) {
           return false;
         }
       }
-
+      
       return subcategoriesIds.includes(expense.categoryId);
     });
   }, [expenses, selectedMonths, subcategoriesIds]);
@@ -41,30 +41,30 @@ const useCategoryExpensesData = ({ categoryId, expenses = [], selectedMonths = [
       const amount = expensesInCategoryThisMonth.reduce((total, expense) => {
         return total + expense.amount;
       }, 0);
-
+      
       return formatCurrency(amount);
     },
     [expensesInCategoryThisMonth]
   );
-
+  
   const monthsAndYearsOptions = useMemo(() => {
     const monthsAndYears = [];
     const expensesByDate = orderBy(expensesInCategory, ['timestamp'], ['asc']);
-
+    
     if (expensesByDate.length === 0) {
       return [];
     }
-
+    
     const firstExpense = expensesByDate[0].timestamp;
     const lastExpense = expensesByDate[expensesInCategory.length - 1].timestamp;
     const firstMonthDate = startOfMonth(new Date(firstExpense));
     const lastMonthDate = startOfMonth(new Date(lastExpense));
-
+    
     const monthsInterval = eachMonthOfInterval({
       start: firstMonthDate,
       end: lastMonthDate
     });
-
+    
     monthsInterval.forEach((monthDate) => {
       const month = format(monthDate, 'MMM');
       const year = format(monthDate, 'yy');
@@ -73,10 +73,10 @@ const useCategoryExpensesData = ({ categoryId, expenses = [], selectedMonths = [
         label: `${month} ${year}`,
       });
     });
-
+    
     return monthsAndYears;
   }, []);
-
+  
   return {
     category,
     expensesInCategoryThisMonth,

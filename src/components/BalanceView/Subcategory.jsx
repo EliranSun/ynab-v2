@@ -23,7 +23,6 @@ const Subcategory = ({
   const { expensesArray: expenses, expensesPerMonthPerCategory } = useContext(ExpensesContext);
   const { setBudget, budget } = useContext(BudgetContext);
   const [isBudgeting, setIsBudgeting] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const budgetDateKey = getDateKey(currentTimestamp);
   const categoryBudget = budget[budgetDateKey]?.[categoryId]?.[id];

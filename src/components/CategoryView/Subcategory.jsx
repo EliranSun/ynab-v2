@@ -16,7 +16,7 @@ const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], 
     expensesInMonths,
     allExpenses: expenses
   });
-
+  
   return (
     <div className="bg-slate-200 my-4 p-4">
       <Title type="h2" className="flex gap-2">
@@ -33,10 +33,10 @@ const Subcategory = ({ subcategory, selectedMonths = [], expensesInMonths = [], 
           <Amount
             isVisible={selectedMonths.length === 1}
             amount={sumPreviousMonth}
-            label="- Last month"/>
+            label="Last month"/>
           <Amount
             amount={sumPreviousMonth}
-            label="- Budget"/>
+            label="Budget"/>
           <Checkbox
             isChecked={isAggregated}
             label="Aggregate?"

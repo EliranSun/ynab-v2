@@ -4,7 +4,7 @@ import { ExpensesContext } from "../../../context";
 import Expense from "./Expense";
 import { isExpenseInMonth } from "../../../utils";
 import TopExpensesView from "./TopExpensesView";
-import { useDate } from "../DateChanger/DateChanger";
+import { useDate } from "../../molecules";
 import { Button, Title } from "../../atoms";
 import { SearchInput } from "./SearchInput";
 import { BoxAmount } from "./BoxAmount";
@@ -12,11 +12,7 @@ import { SortBy } from "./constants";
 
 const ExpenseView = ({ onCategoryClick = noop }) => {
   const {
-    expensesArray: expenses = [],
-    setExpenseAsRecurring,
-    setExpenseAsIncome,
-    setExpenseNote,
-    refetch
+    expensesArray: expenses = []
   } = useContext(ExpensesContext);
   const [searchValue, setSearchValue] = useState("");
   const [sort, setSort] = useState(SortBy.DATE);

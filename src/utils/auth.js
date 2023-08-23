@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, connectAuthEmulator } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, connectAuthEmulator, signInWithRedirect } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
@@ -9,7 +9,7 @@ export const emulateAuth = () =>
 
 export const login = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithRedirect(auth, provider);
     const user = result.user;
     console.info({ user });
     return user;

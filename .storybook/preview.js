@@ -1,9 +1,7 @@
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { app } from '../src/utils';
 import '../src/index.css';
-import { getAuth, connectAuthEmulator } from "firebase/auth";
 
-const auth = getAuth();
-connectAuthEmulator(auth, "http://127.0.0.1:9099");
 initialize();
 
 /** @type { import('@storybook/react').Preview } */

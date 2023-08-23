@@ -3,6 +3,8 @@ import { useState } from "react";
 import { SetBudgetButton as SetBudgetButtonComponent } from "./SetBudgetButton";
 import { action } from "@storybook/addon-actions";
 import { BudgetContextProvider } from "../../../context";
+import useAuth from "../../../hooks/useAuth";
+import { Login } from "../../Login";
 
 const ControlledButton = (props) => {
   const [isBudgeting, setIsBudgeting] = useState(false);
@@ -14,16 +16,18 @@ export default {
   component: ControlledButton,
   decorators: [(Story) => (
     <BudgetContextProvider>
-      <Story/>
+      <Login>
+        <Story/>
+      </Login>
     </BudgetContextProvider>
   )],
-  parameters: {
-    msw: [
-      rest.get('/budget/*', (_req, res, ctx) => {
-        return res(ctx.json({}));
-      }),
-    ],
-  },
+  // parameters: {
+  //   msw: [
+  //     rest.get('/budget/*', (_req, res, ctx) => {
+  //       return res(ctx.json({}));
+  //     }),
+  //   ],
+  // },
 };
 
 export const SetBudgetButton = {
@@ -33,7 +37,7 @@ export const SetBudgetButton = {
     categoryBudget: 1000,
     categoryId: 1,
     subcategoryId: 11,
-    timestamp: new Date().getTime,
+    timestamp: new Date().getTime(),
     onClick: action("onClick")
   },
 };

@@ -1,8 +1,9 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, connectAuthEmulator } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
 export const auth = getAuth();
+connectAuthEmulator(auth, "http://127.0.0.1:9099");
 
 export const login = async () => {
   try {

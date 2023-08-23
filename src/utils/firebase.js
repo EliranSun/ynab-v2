@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc, updateDoc, writeBatch, } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc, updateDoc, writeBatch, connectFirestoreEmulator } from "firebase/firestore";
 import { Expense } from "../models";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,9 +19,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const db = getFirestore();
+connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
 const EXPENSES_COLLECTION = "expenses";
 const BUDGET_COLLECTION = "budget";
@@ -34,7 +35,7 @@ export const getExpenses = async () => {
       const expense = doc.data();
       expenses[expense.id] = new Expense(expense);
     });
-
+    
     return expenses;
   } catch (error) {
     console.error("Error getting document:", error);
@@ -61,7 +62,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
       const expenseRef = doc(db, EXPENSES_COLLECTION, id);
       batch.update(expenseRef, { isOriginal: true });
     });
-
+    
     console.log("Marking expenses as original success", duplicateIds);
     return batch.commit();
   } catch (error) {
@@ -78,7 +79,7 @@ export const addExpenses = async (expenses) => {
       const expenseRef = doc(db, EXPENSES_COLLECTION, expense.id);
       batch.set(expenseRef, { ...expense }); // must be a plain object
     });
-
+    
     await batch.commit();
   } catch (error) {
     throw new Error(error);
@@ -95,7 +96,7 @@ export const getBudget = async () => {
         [doc.id]: doc.data(),
       };
     });
-
+    
     return budget;
   } catch (error) {
     console.error("Error getting document:", error);
@@ -107,7 +108,7 @@ export const addBudget = async ({ dateKey, categoryId, subcategoryId, amount }) 
   console.info("Adding budget to DB", { dateKey, categoryId, amount });
   const budget = await getBudget();
   const isExist = budget[dateKey];
-
+  
   if (isExist) {
     const docRef = doc(db, BUDGET_COLLECTION, String(dateKey));
     return await updateDoc(docRef, {
@@ -117,7 +118,7 @@ export const addBudget = async ({ dateKey, categoryId, subcategoryId, amount }) 
       },
     });
   }
-
+  
   const docRef = doc(db, BUDGET_COLLECTION, String(dateKey));
   return await setDoc(docRef, {
     [String(categoryId)]: {

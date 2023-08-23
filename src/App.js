@@ -2,8 +2,8 @@ import './App.css';
 import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-dom";
 import { BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "./components";
 import { BudgetContextProvider, ExpensesContextProvider } from "./context";
-import FuturePredictionPage from "./components/FuturePredictionPage/FuturePredictionPage";
-import { Login } from "./components/Login";
+import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
+import { Login } from "./components/pages/Login";
 
 const Header = () => {
   return (

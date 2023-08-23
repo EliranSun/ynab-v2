@@ -1,4 +1,4 @@
-import { ErrorBoundary } from "../../ErrorBoundary";
+import { ErrorBoundary } from "../../organisms/ErrorBoundary";
 import classNames from "classnames";
 import { isUndefined } from "lodash";
 import { formatCurrency } from "../../../utils";

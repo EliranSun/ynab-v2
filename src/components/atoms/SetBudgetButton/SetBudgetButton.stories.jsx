@@ -4,7 +4,7 @@ import { SetBudgetButton as SetBudgetButtonComponent } from "./SetBudgetButton";
 import { action } from "@storybook/addon-actions";
 import { BudgetContextProvider } from "../../../context";
 import useAuth from "../../../hooks/useAuth";
-import { Login } from "../../Login";
+import { Login } from "../../pages/Login";
 
 const ControlledButton = (props) => {
   const [isBudgeting, setIsBudgeting] = useState(false);

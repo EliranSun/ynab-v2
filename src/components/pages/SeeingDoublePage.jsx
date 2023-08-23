@@ -4,7 +4,7 @@ import { withExpensesContext } from "../../HOC/withExpensesContext";
 import { getExistingExpenses } from "../../utils/expenses";
 import { Check, X } from "@phosphor-icons/react";
 import { noop } from "lodash";
-import Expense from "../ExpenseView/Expense";
+import Expense from "./ExpenseView/Expense";
 
 const SeeingDoublePage = ({
   expenses = [],

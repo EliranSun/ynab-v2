@@ -1,5 +1,5 @@
 import { Button, Title } from "../atoms";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { noop, orderBy } from "lodash";
 import { BudgetContext, ExpensesContext, getDateKey } from "../../context";
 import { isSameMonth } from "date-fns";
@@ -48,14 +48,13 @@ const Subcategory = ({
   }), [currentTimestamp, expensesInCategory]);
   
   
-  let intThisMonthAmount = 0;
-  let intTotalInPreviousMonth = 0;
+  const intThisMonthAmount = useRef(0);
   const thisMonthAmount = useMemo(() => {
     const amount = thisMonthExpenses.reduce((acc, expense) => {
       return acc + expense.amount;
     }, 0);
     
-    intThisMonthAmount = amount;
+    intThisMonthAmount.current = amount;
     return formatCurrency(amount);
   }, [currentTimestamp, thisMonthExpenses]);
   
@@ -67,10 +66,8 @@ const Subcategory = ({
         }
         return total;
       }, 0);
-    
-    intTotalInPreviousMonth = amount;
     return formatCurrency(amount);
-  }, [currentTimestamp, expenses, id, thisMonthExpenses]);
+  }, [expenses, id, isPreviousMonth]);
   
   const getAverageAmount = (id) => {
     if (!expensesPerMonthPerCategory[id]) {
@@ -102,7 +99,7 @@ const Subcategory = ({
       "amount",
       "desc"
     );
-  }, [expensesInCategory, currentTimestamp]);
+  }, [expensesInCategory, isSameDate]);
   
   if (thisMonthAmount === formatCurrency(0)) {
     return null;
@@ -118,11 +115,11 @@ const Subcategory = ({
         </Title>
         <div className={classNames("flex gap-2 mb-2", {
           "text-red-500": isIncome
-            ? intThisMonthAmount < budgetAmount
-            : intThisMonthAmount > budgetAmount,
+            ? intThisMonthAmount.current < budgetAmount
+            : intThisMonthAmount.current > budgetAmount,
           "text-green-400": isIncome
-            ? intThisMonthAmount > budgetAmount
-            : intThisMonthAmount < budgetAmount
+            ? intThisMonthAmount.current > budgetAmount
+            : intThisMonthAmount.current < budgetAmount
         })}>
           <span className="font-bold text-2xl">{thisMonthAmount}</span>
           <span>/</span>

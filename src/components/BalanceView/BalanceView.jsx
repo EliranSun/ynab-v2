@@ -1,6 +1,5 @@
 import { useDate } from "../DateChanger/DateChanger";
 import { Title } from "../atoms";
-import { Categories } from "../../constants";
 import { CategoryBalance } from "./CategoryBalance";
 import { ThisMonthBalance } from "../molecules/ThisMonthBalance";
 import { PastTwelveMonthsBalance } from "../molecules/PastTwelveMonthsBalance";

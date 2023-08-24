@@ -5,7 +5,7 @@ const Button = ({ children, className, onClick, isDisabled, type = Types.PRIMARY
     <button
       onClick={onClick}
       disabled={isDisabled}
-      className={classNames("w-fit flex items-center gap-2", className, {
+      className={classNames("w-fit flex items-center gap-2 h-12 min-w-12", className, {
         "opacity-50 cursor-not-allowed": isDisabled,
         "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded": type === Types.PRIMARY,
         "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded": type === Types.DANGER,

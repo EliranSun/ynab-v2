@@ -28,7 +28,7 @@ export const logout = () => {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      alert("Logged out");
+      console.info("Sign-out successful.");
     })
     .catch((error) => {
       // An error happened.

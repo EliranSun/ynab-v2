@@ -1,34 +1,10 @@
 import './App.css';
-import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "./components";
 import { BudgetContextProvider, ExpensesContextProvider } from "./context";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import { Login } from "./components/pages/Login";
-
-const Header = () => {
-  return (
-    <div className="flex gap-8 p-4 border-b border-gray-200">
-      <Link to="/parse">
-        PARSE
-      </Link>
-      <Link to="/balance">
-        BALANCE
-      </Link>
-      <Link to="/expenses">
-        EXPENSES
-      </Link>
-      <Link to="/categories">
-        CATEGORIES
-      </Link>
-      <Link to="/projection">
-        PROJECTION
-      </Link>
-      <Link to="/resolver">
-        RESOLVER
-      </Link>
-    </div>
-  )
-};
+import { Header } from "./components/molecules/Header/Header";
 
 const Root = ({ children, ...rest }) => {
   return (
@@ -73,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <CategoryView/>,
+      },
+      {
+        path: "*",
+        element: <ParseExpensesList/>,
       }
     ]
   },

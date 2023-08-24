@@ -6,6 +6,9 @@ import { withExpensesContext } from "../../../HOC/withExpensesContext";
 import { SheetUpload } from "../../organisms/SheetUpload";
 import { ExpensesList } from "./ExpensesList";
 import { isExistingExpense, parseNewExpenses } from "../../../utils/expenses";
+import { ClipboardText } from "@phosphor-icons/react";
+
+const isMobile = window.innerWidth < 768;
 
 export const ParseExpensesList = ({
   text = "", expenses, setExpenses = () => {
@@ -78,42 +81,52 @@ export const ParseExpensesList = ({
   }
   
   return (
-    <section className="h-screen">
-      <Title type={Title.Types.H1}>Parse expenses</Title>
-      <Title type={Title.Types.H2}>
-        Existing expenses: {expenses.length}
-        {parsedExpenses.length ? ` • New expenses: ${parsedExpenses.length}` : ''}
+    <section className="h-screen overflow-y-auto p-4">
+      <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
+        <ClipboardText size={50}/> Parse
       </Title>
-      <div className="flex items-start gap-4 max-w-7xl flex-col-reverse">
-        <div className="flex flex-col w-1/3 h-full">
-          <div className="">
-            <Title type={Title.Types.H2}>Upload a sheet</Title>
-            <SheetUpload onSheetParse={data => {}}/>
-          </div>
+      <div className="flex items-start gap-4 max-w-7xl flex-col">
+        <div className="flex flex-col md:w-1/3 h-full">
+          <Title type={Title.Types.H2} className="mb-4">Paste</Title>
           <textarea
             className="border border-dashed border-black p-4 outline-none w-full h-full"
             placeholder="Paste expenses here"
-            rows={15}
+            rows={isMobile ? 5 : 15}
             ref={textAreaRef}
             value={value}
             onChange={event => {
               setIsParseButtonDisabled(!event.target.value);
               setValue(event.target.value);
             }}/>
-          <Button
-            className={classNames("my-4", {
-              "animate-pulse duration-500": isStatusAnimated,
-            })}
-            isDisabled={isParseButtonDisabled}
-            onClick={setNewExpenses}>
-            {isStatusAnimated ? message : "Parse expenses"}
-          </Button>
         </div>
-        <ExpensesList
-          expenses={parsedExpenses}
-          existingExpenses={expenses}
-          setExpenses={setParsedExpenses}
-          submitExpenses={setExpenses}/>
+        <div className="mb-4">
+          <Title type={Title.Types.H2} className="mb-4">Upload</Title>
+          <SheetUpload onSheetParse={data => {}}/>
+        </div>
+        <div className="">
+          <Title type={Title.Types.H2} className="mb-4">Manual</Title>
+          WIP
+        </div>
+        <Button
+          size={Button.Sizes.FULL}
+          isDisabled={isParseButtonDisabled}
+          onClick={setNewExpenses}
+          className={classNames("my-4 w-72 mx-auto text-center", {
+            "animate-pulse duration-500": isStatusAnimated,
+          })}>
+          {isStatusAnimated ? message : "Parse expenses"}
+        </Button>
+        <div>
+          {parsedExpenses.length > 0 &&
+            <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
+              Existing expenses: {expenses.length} • New expenses: ${parsedExpenses.length}
+            </Title>}
+          <ExpensesList
+            expenses={parsedExpenses}
+            existingExpenses={expenses}
+            setExpenses={setParsedExpenses}
+            submitExpenses={setExpenses}/>
+        </div>
       </div>
     </section>
   );

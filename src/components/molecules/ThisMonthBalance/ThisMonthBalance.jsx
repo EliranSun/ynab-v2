@@ -3,7 +3,7 @@ import { BalanceDiffMessage } from "../../atoms/BalanceDiffMessage/BalanceDiffMe
 
 export const ThisMonthBalance = ({ incomeBudget, expensesBudget, totalIncomeThisMonth, totalExpensesThisMonth }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex md:items-center flex-col md:flex-row p-4">
       <div>
         <NetSummary
           label="Actual"

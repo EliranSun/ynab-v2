@@ -38,7 +38,7 @@ export const PastTwelveMonthsBalance = ({ timestamp }) => {
         Put in mind though - the budget is for the current month only,
         so some months (i.e. vacation) are skewing these results.
       </p>
-      <div className="flex gap-4">
+      <div className="text-base flex gap-4">
         <div>
           Actual: <br/>
           <span className="text-green-500">{formatCurrency(totalIncome)}</span> - <br/>

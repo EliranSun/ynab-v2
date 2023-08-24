@@ -1,19 +1,19 @@
 import './App.css';
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 import { BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "./components";
-import { BudgetContextProvider, ExpensesContextProvider } from "./context";
+import { BudgetContextProvider, ExpensesContextProvider, UserProvider } from "./context";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import { Login } from "./components/pages/Login";
 import { Header } from "./components/molecules/Header/Header";
 
 const Root = ({ children, ...rest }) => {
   return (
-    <>
+    <div className="fixed top-0 w-screen h-screen">
       <Header/>
-      <div className="max-w-6xl m-8 md:mx-auto md:my-8">
+      <div className="max-w-6xl md:mx-auto md:my-8">
         <Outlet/>
       </div>
-    </>
+    </div>
   )
 };
 
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <ParseExpensesList/>,
+        element: <Navigate to="/parse" replace/>,
       }
     ]
   },
@@ -61,11 +61,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <BudgetContextProvider>
-      <ExpensesContextProvider>
-        <RouterProvider router={router}/>
-      </ExpensesContextProvider>
-    </BudgetContextProvider>
+    <UserProvider>
+      <BudgetContextProvider>
+        <ExpensesContextProvider>
+          <RouterProvider router={router}/>
+        </ExpensesContextProvider>
+      </BudgetContextProvider>
+    </UserProvider>
   );
 }
 

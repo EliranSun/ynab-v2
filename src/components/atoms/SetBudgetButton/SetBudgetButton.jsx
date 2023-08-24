@@ -3,6 +3,9 @@ import { CheckFat, PiggyBank, Spinner } from "@phosphor-icons/react";
 import { useContext, useState } from "react";
 import { BudgetContext } from "../../../context";
 import { noop } from "lodash";
+import { BUTTON_SIZE } from "../../../constants";
+
+const isMobile = window.innerWidth < 768;
 
 export const SetBudgetButton = ({
   isBudgeting = false,
@@ -18,7 +21,8 @@ export const SetBudgetButton = ({
   
   return (
     <Button
-      type={Button.Types.GHOST}
+      type={Button.Types.GHOST_BORDERED}
+      size={isMobile ? Button.Sizes.FULL : Button.Sizes.DEFAULT}
       onClick={async (event) => {
         event.stopPropagation();
         if (isBudgeting && amount !== categoryBudget?.amount) {
@@ -36,9 +40,9 @@ export const SetBudgetButton = ({
       }}>
       {isBudgeting
         ? isLoading
-          ? <Spinner className="animate-spin" size={21}/>
-          : <CheckFat size={21}/>
-        : <PiggyBank size={21}/>}
+          ? <Spinner className="animate-spin" size={BUTTON_SIZE} color="black"/>
+          : <CheckFat size={BUTTON_SIZE} color="black"/>
+        : <PiggyBank size={BUTTON_SIZE} color="black"/>}
     </Button>
   )
 };

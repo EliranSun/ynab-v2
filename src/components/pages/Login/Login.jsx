@@ -1,10 +1,19 @@
 import { login } from "../../../utils/auth";
 import { Button, Title } from "../../atoms";
-import useAuthState from "../../../hooks/useAuth";
 import { Spinner } from "@phosphor-icons/react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../../context";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ children }) => {
-  const [user, setUser] = useAuthState();
+  const [user, setUser] = useContext(UserContext);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (user) {
+      return navigate('/balance');
+    }
+  }, [user]);
   
   if (user === false) {
     return (
@@ -28,7 +37,7 @@ const Login = ({ children }) => {
         Login
       </Button>
       <p>
-        to start controlling your finance situation.
+        to start controlling your finance situation.<br/>
         We all know you need it.
       </p>
     </div>

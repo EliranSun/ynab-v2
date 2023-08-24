@@ -57,7 +57,7 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
   }
   
   return (
-    <div className="bg-gray-200 px-4 pb-4 w-fit">
+    <div className="bg-gray-200 px-4 pb-4 w-full md:w-fit">
       <div className="flex justify-between my-2">
         <div className="flex items-center gap-2 my-2">
           <span className="text-2xl font-bold">{categoryName}</span>
@@ -65,7 +65,7 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
           <span className="text-3xl font-bold">{formatCurrency(categoryBudget)}</span>
         </div>
       </div>
-      <div className="flex gap-2 min-w-fit flex-wrap">
+      <div className="flex gap-2 min-w-fit flex-wrap items-stretch">
         {subcategories.map((subcategory) => {
           if (subcategory.amount === 0) return null;
           

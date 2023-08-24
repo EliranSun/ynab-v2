@@ -73,20 +73,20 @@ const Subcategory = ({
     : intThisMonthAmount.current > budgetAmount;
   
   return (
-    <div className="relative min-w-fit">
-      <div className="bg-white/80 p-4 cursor-pointer" onClick={() => {
+    <div className="md:relative min-w-fit flex-grow">
+      <div className="bg-white/80 p-3 md:p-4 cursor-pointer" onClick={() => {
         onSubcategoryClick(isSelected ? null : id);
       }}>
         <Title type={Title.Types.H4} className="truncate w-full flex">
           {icon} {name}
         </Title>
-        <div className={classNames("flex gap-2 mb-2", {
+        <div className={classNames("flex gap-1 md:gap-2 md:mb-2", {
           "text-red-500": isPositiveDiff,
           "text-green-400": !isPositiveDiff
         })}>
-          <span className="font-bold text-2xl">{thisMonthAmount}</span>
+          <span className="font-black md:text-2xl">{thisMonthAmount}</span>
           <span>/</span>
-          <span className="font-bold text-2xl">
+          <span className="font-black md:text-2xl">
             {isBudgeting
               ? <input
                 type="number"
@@ -104,7 +104,7 @@ const Subcategory = ({
           <div>Previous month: {totalInPreviousMonth}</div>
           <div>Average: {averageAmount}</div>
         </div>
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-start">
           <SetBudgetButton
             isBudgeting={isBudgeting}
             amount={budgetAmount}
@@ -118,6 +118,8 @@ const Subcategory = ({
       {isSelected &&
         <SubcategoryExpensesList
           id={id}
+          title={`${icon} ${name}`}
+          timestamp={currentTimestamp}
           expensesPerMonthPerCategory={expensesPerMonthPerCategory[id]}
           onSubcategoryClick={onSubcategoryClick}/>}
     </div>

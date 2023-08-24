@@ -2,6 +2,7 @@ import { login, logout } from "../../../utils/auth";
 import { Button } from "../../atoms";
 import useAuthState from "../../../hooks/useAuth";
 import { SignIn, SignOut } from "@phosphor-icons/react";
+import { BUTTON_SIZE } from "../../../constants";
 
 export const LoginButton = () => {
   const [user, setUser] = useAuthState();
@@ -13,7 +14,7 @@ export const LoginButton = () => {
         logout();
         setUser(null);
       }}>
-        <SignOut/>
+        <SignOut size={BUTTON_SIZE}/>
         {isDesktop && "Logout"}
       </Button>
     )
@@ -25,7 +26,7 @@ export const LoginButton = () => {
       setUser(user);
     }}>
       
-      <SignIn/>
+      <SignIn size={BUTTON_SIZE}/>
       {isDesktop && "Login"}
     </Button>
   )

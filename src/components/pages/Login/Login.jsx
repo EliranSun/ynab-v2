@@ -19,8 +19,8 @@ const Login = ({ children }) => {
   }
   
   return (
-    <div className="flex w-screen h-screen flex-col items-center justify-center gap-8 text-center px-8">
-      <Title>YOU NEED A BALANCE</Title>
+    <div className="fixed top-0 flex w-screen h-screen flex-col items-center justify-center gap-8 text-center px-8">
+      <Title>YOU NEED BALANCE</Title>
       <Button onClick={async () => {
         const user = await login();
         setUser(user);

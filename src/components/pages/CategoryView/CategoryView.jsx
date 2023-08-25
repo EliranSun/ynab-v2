@@ -57,7 +57,7 @@ const CategoryView = () => {
     };
     
     return (
-      <div className="pb-96">
+      <div className="overflow-y-auto h-[90vh] pb-96">
         <Title>Categories, </Title>
         <select onChange={event => {
           setCategoryId(Number(event.target.value));

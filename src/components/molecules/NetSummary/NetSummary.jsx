@@ -1,7 +1,7 @@
 import { formatCurrency } from "../../../utils";
 import classNames from "classnames";
 
-export const NetSummary = ({ label = "Reality", income = 0, outcome = 0 }) => {
+export const NetSummary = ({ label, income = 0, outcome = 0 }) => {
   const bottomLine = income - outcome;
   return (
     <div className="flex flex-col md:flex-row w-full md:gap-4 md:items-center font-mono text-4xl font-bold mb-2">

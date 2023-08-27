@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-08-27 13:25+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: he\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/atoms/Title.jsx:19
+#: src/components/atoms/Title.jsx:27
+#~ msgid "{children}"
+#~ msgstr "{children}"
+
+#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:10
+msgid "Actual"
+msgstr "Actual"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:50
+msgid "Actual:"
+msgstr "במציאות:"
+
+#: src/components/pages/BalanceView/BalanceView.jsx:25
+msgid "BALANCE & BUDGET"
+msgstr "תקציב ועוש"
+
+#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:14
+msgid "Budget"
+msgstr "תקציב"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:58
+msgid "Budget:"
+msgstr "תקציב:"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:16
+msgid "but it's negligible!"
+msgstr "אבל זה זניח!"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:66
+msgid "Diffs:"
+msgstr "הפרש:"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:28
+msgid "I'm in BIG trouble."
+msgstr "אני בצרות -גדולות-."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:31
+msgid "I'm in trouble."
+msgstr "I'm in trouble."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:25
+msgid "Jesus fucking christ man."
+msgstr "אלוקים אדירים שבשמיים."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:84
+msgid "less than my budget"
+msgstr "פחות מהתקציב שלי"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:59
+msgid "Lost this month..."
+msgstr "אבדו בחודש זה..."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:22
+msgid "my budget is nowhere NEAR reality."
+msgstr "התקציב שלי לא -קרוב- למציאות."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:13
+msgid "my budget is spot on!"
+msgstr "התקציב שלי מדויק!"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:79
+msgid "No budget set this month."
+msgstr "החודש הנוכחי לא תוקצב."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:83
+msgid "over my budget"
+msgstr "מעבר לתקציב שלי"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:37
+msgid "Past 12 months"
+msgstr "12 החודשים האחרונים"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:19
+msgid "perhaps a one-off, but I should understand why if this keeps going."
+msgstr "אולי פשלה חד פעמית, אבל כדאי שאבין למה זה קרה"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:51
+msgid "Saved this month!"
+msgstr "נחסכו החודש!"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
+msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
+msgstr "אלה הכנסות וההוצאות ב-12 החודשים האחרונים. יש לזכור שהתקציב הוא לחודש הנוכחי בלבד, ולכן חלק מהחודשים (למשל חופשה) מטים את התוצאות."
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:10
+msgid "which is good, but I should understand why my budget is off."
+msgstr "שזה טוב, אבל כדאי שעדיין אבין מאיפה ההפרש מגיע."

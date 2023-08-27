@@ -5,6 +5,10 @@ import { BudgetContextProvider, ExpensesContextProvider, UserProvider } from "./
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import { Login } from "./components/pages/Login";
 import { Header } from "./components/molecules/Header/Header";
+import { i18n } from "@lingui/core";
+import { I18nProvider } from "@lingui/react";
+import { messages as enMessages } from "./locales/en/messages";
+import { messages as heMessages } from "./locales/he/messages";
 
 const Root = ({ children, ...rest }) => {
   return (
@@ -58,16 +62,23 @@ const router = createBrowserRouter([
   },
 ]);
 
+i18n.load({
+  en: enMessages,
+  he: heMessages,
+});
+i18n.activate("he");
 
 function App() {
   return (
-    <UserProvider>
-      <BudgetContextProvider>
-        <ExpensesContextProvider>
-          <RouterProvider router={router}/>
-        </ExpensesContextProvider>
-      </BudgetContextProvider>
-    </UserProvider>
+    <I18nProvider i18n={i18n}>
+      <UserProvider>
+        <BudgetContextProvider>
+          <ExpensesContextProvider>
+            <RouterProvider router={router}/>
+          </ExpensesContextProvider>
+        </BudgetContextProvider>
+      </UserProvider>
+    </I18nProvider>
   );
 }
 

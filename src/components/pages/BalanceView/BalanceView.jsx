@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { ExpensesContext } from "../../../context";
 import { useBudget } from "../../../hooks/useBudget";
 import { useExpensesSummary } from "../../../hooks/useExpensesSummary";
+import { Trans } from "@lingui/macro";
 
 const isDesktop = window.innerWidth > 768;
 
@@ -20,7 +21,9 @@ const BalanceView = () => {
     return (
       <section className="h-[90vh] overflow-y-auto overflow-x-hidden">
         {isDesktop && <div className="p-4">
-          <Title className="mb-4">BALANCE & BUDGET</Title>
+          <Title className="mb-4">
+            <Trans>BALANCE & BUDGET</Trans>
+          </Title>
           <ul className="w-full bg-gray-100 w-full h-10 my-2 flex">
             <li className="bg-blue-900 w-1/3 h-full"></li>
             <li className="bg-red-900 w-1/3 h-full"></li>

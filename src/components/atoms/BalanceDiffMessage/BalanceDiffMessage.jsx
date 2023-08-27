@@ -1,33 +1,34 @@
 import { formatCurrency } from "../../../utils";
 import { MaskHappy, MaskSad, Smiley, SmileySad } from "@phosphor-icons/react";
 import { BUTTON_SIZE } from "../../../constants";
+import { Trans } from "@lingui/macro";
 
 const realityVsExpectationMessage = (diff) => {
   switch (true) {
     case diff < -100:
     default:
-      return 'which is good, but I should understand why my budget is off.';
+      return <Trans>which is good, but I should understand why my budget is off.</Trans>;
     
     case diff < 0:
-      return `my budget is spot on!`;
+      return <Trans>my budget is spot on!</Trans>;
     
     case diff < 200:
-      return `but it's negligible!`;
+      return <Trans>but it's negligible!</Trans>;
     
     case diff < 500:
-      return `perhaps a one-off, but I should understand why if this keeps going.`;
+      return <Trans>perhaps a one-off, but I should understand why if this keeps going.</Trans>;
     
     case diff < 1000:
-      return `my budget is nowhere NEAR reality.`;
+      return <Trans>my budget is nowhere NEAR reality.</Trans>;
     
     case diff > 10000:
-      return `Jesus fucking christ man.`;
+      return <Trans>Jesus fucking christ man.</Trans>;
     
     case diff > 5000:
-      return `I'm in BIG trouble.`;
+      return <Trans>I'm in BIG trouble.</Trans>;
     
     case diff > 1000:
-      return `I'm in trouble.`;
+      return <Trans>I'm in trouble.</Trans>;
   }
 }
 
@@ -47,7 +48,7 @@ const ActualDiffMessage = ({ diff }) => {
       <div className="flex gap-2">
         {/*<Smiley size={BUTTON_SIZE}/>*/}
         <PositiveAmount>{currency}</PositiveAmount>
-        Saved this month!
+        <Trans>Saved this month!</Trans>
       </div>
     )
   }
@@ -55,7 +56,7 @@ const ActualDiffMessage = ({ diff }) => {
     <div className="flex gap-2">
       {/*<SmileySad/>*/}
       <NegativeAmount>{currency}</NegativeAmount>
-      Lost this month...
+      <Trans>Lost this month...</Trans>
     </div>
   )
 }
@@ -74,11 +75,15 @@ export const BalanceDiffMessage = ({ incomeBudget, expensesBudget, totalIncomeTh
   return (
     <p className="md:w-1/3 font-serif text-xl italic md:p-4 my-4">
       <ActualDiffMessage diff={actualDiff}/>
-      {(!incomeBudget || !expensesBudget) ? "No budget set this month." : <div className="flex gap-2 items-start">
-        <NegativeAmount>{budgetDiffCurrency}</NegativeAmount>
-        {budgetDiff > 0 ? "over my budget" : "less than my budget"} - {diffMessage}
-        {/*<MaskSad size={BUTTON_SIZE}/>*/}
-      </div>}
+      {(!incomeBudget || !expensesBudget)
+        ? <Trans>No budget set this month.</Trans>
+        : <div className="flex gap-2 items-start">
+          <NegativeAmount>{budgetDiffCurrency}</NegativeAmount>
+          {budgetDiff > 0
+            ? <Trans>over my budget</Trans>
+            : <Trans>less than my budget</Trans>} - {diffMessage}
+          {/*<MaskSad size={BUTTON_SIZE}/>*/}
+        </div>}
     </p>
   );
 }

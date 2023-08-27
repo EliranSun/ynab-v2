@@ -9,13 +9,21 @@ const Types = {
   H6: "h6",
 };
 
-const Title = ({ children, type, className, ...rest }) => {
+const Title = ({ children, type, className, transId, ...rest }) => {
   switch (type) {
     default:
     case Types.H1:
-      return <h1 className={classNames("text-6xl md:text-7xl font-bold", className)} {...rest}>{children}</h1>;
+      return (
+        <h1 className={classNames("text-6xl md:text-7xl font-bold", className)} {...rest}>
+          {children}
+        </h1>
+      );
     case Types.H2:
-      return <h2 className={classNames("text-4xl", className)}>{children}</h2>;
+      return (
+        <h2 className={classNames("text-4xl", className)}>
+          {children}
+        </h2>
+      );
     case Types.H3:
       return <h3 className={classNames("text-3xl", className)}>{children}</h3>;
     case Types.H4:

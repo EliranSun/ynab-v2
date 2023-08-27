@@ -22,7 +22,7 @@ msgstr ""
 msgid "Actual"
 msgstr ""
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:50
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:56
 msgid "Actual:"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Budget"
 msgstr ""
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:58
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:49
 msgid "Budget:"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "but it's negligible!"
 msgstr ""
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:66
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:63
 msgid "Diffs:"
 msgstr ""
 
@@ -90,13 +90,17 @@ msgstr ""
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr ""
 
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
+msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
+msgstr ""
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:51
 msgid "Saved this month!"
 msgstr ""
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
-msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
-msgstr ""
+#~ msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
+#~ msgstr ""
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:10
 msgid "which is good, but I should understand why my budget is off."

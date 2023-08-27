@@ -20,9 +20,9 @@ msgstr ""
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:10
 msgid "Actual"
-msgstr "Actual"
+msgstr "במציאות"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:50
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:56
 msgid "Actual:"
 msgstr "במציאות:"
 
@@ -34,7 +34,7 @@ msgstr "תקציב ועוש"
 msgid "Budget"
 msgstr "תקציב"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:58
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:49
 msgid "Budget:"
 msgstr "תקציב:"
 
@@ -42,7 +42,7 @@ msgstr "תקציב:"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:66
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:63
 msgid "Diffs:"
 msgstr "הפרש:"
 
@@ -90,13 +90,17 @@ msgstr "12 החודשים האחרונים"
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr "אולי פשלה חד פעמית, אבל כדאי שאבין למה זה קרה"
 
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
+msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
+msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), ולכן בחלק מהחודשים (למשל חופשה) התוצאות תהיינה מוטות."
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:51
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
-msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
-msgstr "אלה הכנסות וההוצאות ב-12 החודשים האחרונים. יש לזכור שהתקציב הוא לחודש הנוכחי בלבד, ולכן חלק מהחודשים (למשל חופשה) מטים את התוצאות."
+#~ msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
+#~ msgstr "אלה הכנסות וההוצאות ב-12 החודשים האחרונים. יש לזכור שהתקציב הוא לחודש הנוכחי בלבד, ולכן חלק מהחודשים (למשל חופשה) מטים את התוצאות."
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:10
 msgid "which is good, but I should understand why my budget is off."

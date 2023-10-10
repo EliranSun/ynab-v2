@@ -31,11 +31,11 @@ const Subcategory = ({
     const amount = thisMonthExpenses.reduce((acc, expense) => {
       return acc + expense.amount;
     }, 0);
-    
+
     intThisMonthAmount.current = amount;
     return formatCurrency(amount);
   }, [thisMonthExpenses]);
-  
+
   const totalInPreviousMonth = useMemo(() => {
     const amount = expenses.reduce((total, expense) => {
       if (id === expense.categoryId && isPreviousMonth(expense.timestamp)) {
@@ -45,12 +45,12 @@ const Subcategory = ({
     }, 0);
     return formatCurrency(amount);
   }, [expenses, id, isPreviousMonth]);
-  
+
   const getAverageAmount = (id) => {
     if (!expensesPerMonthPerCategory[id]) {
       return 0;
     }
-    
+
     let total = 0;
     let count = 0;
     const months = Object.values(expensesPerMonthPerCategory[id]);
@@ -58,62 +58,62 @@ const Subcategory = ({
       total += month.amount;
       count += month.expenses.length;
     }
-    
+
     return formatCurrency(total / count) || 0;
   };
-  
+
   const averageAmount = getAverageAmount(String(id));
-  
+
   if (thisMonthAmount === formatCurrency(0)) {
     return null;
   }
-  
+
   const isPositiveDiff = isIncome
     ? intThisMonthAmount.current < budgetAmount
     : intThisMonthAmount.current > budgetAmount;
-  
+
   return (
     <div className="md:relative min-w-fit flex-grow">
-      <div className="bg-white/80 p-3 md:p-4 cursor-pointer" onClick={() => {
+      <div className="bg-white/80 p-3 md:p-2 cursor-pointer" onClick={() => {
         onSubcategoryClick(isSelected ? null : id);
       }}>
-        <Title type={Title.Types.H4} className="truncate w-full flex">
-          {icon} {name}
+        <Title type={Title.Types.H6} className="truncate w-full flex">
+          {icon} {name.slice(0, 10)}
         </Title>
         <div className={classNames("flex gap-1 md:gap-2 md:mb-2", {
           "text-red-500": isPositiveDiff,
           "text-green-400": !isPositiveDiff
         })}>
-          <span className="font-black md:text-2xl">{thisMonthAmount}</span>
-          <span>/</span>
-          <span className="font-black md:text-2xl">
-            {isBudgeting
-              ? <input
-                type="number"
-                placeholder="budget"
-                className="w-20"
-                value={budgetAmount}
-                onClick={event => event.stopPropagation()}
-                onChange={(event) => {
-                  setBudgetAmount(Number(event.target.value));
-                }}/>
-              : formatCurrency(budgetAmount)}
-          </span>
+          <span className="font-black md:text-xl">{thisMonthAmount}</span>
+          {/*<span>/</span>*/}
+          {/*<span className="font-black md:text-xl">*/}
+          {/*  {isBudgeting*/}
+          {/*    ? <input*/}
+          {/*      type="number"*/}
+          {/*      placeholder="budget"*/}
+          {/*      className="w-20"*/}
+          {/*      value={budgetAmount}*/}
+          {/*      onClick={event => event.stopPropagation()}*/}
+          {/*      onChange={(event) => {*/}
+          {/*        setBudgetAmount(Number(event.target.value));*/}
+          {/*      }}/>*/}
+          {/*    : formatCurrency(budgetAmount)}*/}
+          {/*</span>*/}
         </div>
-        <div className="text-xs text-left mb-2">
-          <div>Previous month: {totalInPreviousMonth}</div>
-          <div>Average: {averageAmount}</div>
-        </div>
-        <div className="w-full flex justify-start">
-          <SetBudgetButton
-            isBudgeting={isBudgeting}
-            amount={budgetAmount}
-            categoryBudget={categoryBudget}
-            categoryId={categoryId}
-            subcategoryId={id}
-            timestamp={currentTimestamp}
-            onClick={setIsBudgeting}/>
-        </div>
+        {/*<div className="text-xs text-left mb-2">*/}
+        {/*  <div>Previous month: {totalInPreviousMonth}</div>*/}
+        {/*  <div>Average: {averageAmount}</div>*/}
+        {/*</div>*/}
+        {/*<div className="w-full flex justify-start">*/}
+        {/*  <SetBudgetButton*/}
+        {/*    isBudgeting={isBudgeting}*/}
+        {/*    amount={budgetAmount}*/}
+        {/*    categoryBudget={categoryBudget}*/}
+        {/*    categoryId={categoryId}*/}
+        {/*    subcategoryId={id}*/}
+        {/*    timestamp={currentTimestamp}*/}
+        {/*    onClick={setIsBudgeting}/>*/}
+        {/*</div>*/}
       </div>
       {isSelected &&
         <SubcategoryExpensesList

@@ -1,6 +1,4 @@
 import { formatCurrency } from "../../../utils";
-import { MaskHappy, MaskSad, Smiley, SmileySad } from "@phosphor-icons/react";
-import { BUTTON_SIZE } from "../../../constants";
 import { Trans } from "@lingui/macro";
 
 const realityVsExpectationMessage = (diff) => {
@@ -8,41 +6,41 @@ const realityVsExpectationMessage = (diff) => {
     case diff < -100:
     default:
       return <Trans>which is good, but I should understand why my budget is off.</Trans>;
-    
+
     case diff < 0:
       return <Trans>my budget is spot on!</Trans>;
-    
+
     case diff < 200:
       return <Trans>but it's negligible!</Trans>;
-    
+
     case diff < 500:
       return <Trans>perhaps a one-off, but I should understand why if this keeps going.</Trans>;
-    
+
     case diff < 1000:
       return <Trans>my budget is nowhere NEAR reality.</Trans>;
-    
+
     case diff > 10000:
       return <Trans>Jesus fucking christ man.</Trans>;
-    
+
     case diff > 5000:
       return <Trans>I'm in BIG trouble.</Trans>;
-    
+
     case diff > 1000:
       return <Trans>I'm in trouble.</Trans>;
   }
 }
 
 const NegativeAmount = ({ children }) => {
-  return <span className="bg-red-500 text-white p-2 font-black text-3xl">{children}</span>
+  return <span className="bg-red-500 text-white font-black text-xl">{children}</span>
 };
 
 const PositiveAmount = ({ children }) => {
-  return <span className="bg-green-500 text-white p-2 font-black text-3xl">{children}</span>
+  return <span className="bg-green-500 text-white font-black text-xl">{children}</span>
 };
 
 const ActualDiffMessage = ({ diff }) => {
   const currency = formatCurrency(diff);
-  
+
   if (diff > 0) {
     return (
       <div className="flex gap-2">
@@ -52,6 +50,7 @@ const ActualDiffMessage = ({ diff }) => {
       </div>
     )
   }
+
   return (
     <div className="flex gap-2">
       {/*<SmileySad/>*/}
@@ -65,15 +64,10 @@ export const BalanceDiffMessage = ({ incomeBudget, expensesBudget, totalIncomeTh
   const budgetDiff = Math.round((incomeBudget - expensesBudget) - (totalIncomeThisMonth - totalExpensesThisMonth));
   const budgetDiffCurrency = formatCurrency(budgetDiff);
   const diffMessage = realityVsExpectationMessage(budgetDiff);
-  // if (!incomeBudget || !expensesBudget || !totalIncomeThisMonth || !totalExpensesThisMonth) {
-  //   return null;
-  // }
-  
   const actualDiff = totalIncomeThisMonth - totalExpensesThisMonth;
-  console.log({ actualDiff });
-  
+
   return (
-    <p className="md:w-1/3 font-serif text-xl italic md:p-4 my-4">
+    <div className=" my-4 font-serif text-xl italic md:w-full md:p-0 md:my-0">
       <ActualDiffMessage diff={actualDiff}/>
       {(!incomeBudget || !expensesBudget)
         ? <Trans>No budget set this month.</Trans>
@@ -84,6 +78,6 @@ export const BalanceDiffMessage = ({ incomeBudget, expensesBudget, totalIncomeTh
             : <Trans>less than my budget</Trans>} - {diffMessage}
           {/*<MaskSad size={BUTTON_SIZE}/>*/}
         </div>}
-    </p>
+    </div>
   );
 }

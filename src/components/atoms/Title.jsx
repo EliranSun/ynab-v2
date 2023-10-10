@@ -14,7 +14,7 @@ const Title = ({ children, type, className, transId, ...rest }) => {
     default:
     case Types.H1:
       return (
-        <h1 className={classNames("text-6xl md:text-7xl font-bold", className)} {...rest}>
+        <h1 className={classNames("text-5xl md:text-5xl font-bold", className)} {...rest}>
           {children}
         </h1>
       );

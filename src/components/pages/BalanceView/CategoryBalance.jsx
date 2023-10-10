@@ -24,21 +24,21 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
       const thisMonthExpenses = expensesInCategory.filter((expense) => {
           const date = new Date(currentTimestamp);
           const expenseDate = new Date(expense.timestamp);
-          
+
           if (expense.isRecurring) {
             return (
               expenseDate.getFullYear() === date.getFullYear()
             );
           }
-          
+
           return isSameMonth(expenseDate, date);
         }
       );
-      
+
       const amount = thisMonthExpenses.reduce((acc, expense) => {
         return acc + expense.amount;
       }, 0);
-      
+
       return {
         ...subcategory,
         amount,
@@ -47,28 +47,29 @@ export const CategoryBalance = ({ categoryId, categoryName, currentTimestamp, is
         thisMonthExpenses
       };
     });
-    
-    
+
+
     return orderBy(sub, ["difference"], ["asc"]);
   }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
-  
+
   if (totalExpensesSum === 0) {
     return null;
   }
-  
+
   return (
-    <div className="bg-gray-200 px-4 pb-4 w-full md:w-fit">
+    <div className="bg-gray-200 px-2 pb-2 w-full md:w-fit">
       <div className="flex justify-between my-2">
         <div className="flex items-center gap-2 my-2">
-          <span className="text-2xl font-bold">{categoryName}</span>
-          <span className="text-3xl font-bold">{formatCurrency(totalExpensesSum)}</span>/
-          <span className="text-3xl font-bold">{formatCurrency(categoryBudget)}</span>
+          <span className="font-bold">{categoryName}</span>
+          <span className="text-xl font-bold">{formatCurrency(totalExpensesSum, true)}</span>
+          {/*<span>/</span>*/}
+          {/*<span className="text-xl font-bold">{formatCurrency(categoryBudget)}</span>*/}
         </div>
       </div>
       <div className="flex gap-2 min-w-fit flex-wrap items-stretch">
         {subcategories.map((subcategory) => {
           if (subcategory.amount === 0) return null;
-          
+
           return (
             <Subcategory
               {...subcategory}

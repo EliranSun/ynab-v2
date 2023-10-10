@@ -15,11 +15,11 @@ export const ExpensesContextProvider = ({ children }) => {
   const [categories, setCategories] = useState({});
   const [categoriesByAmount, setCategoriesByAmount] = useState([]);
   const { budget } = useContext(BudgetContext);
-  
+
   const expensesArray = useMemo(() => {
     return Object.values(expenses) || [];
   }, [expenses]);
-  
+
   const expensesPerMonthPerCategory = useMemo(() => {
     const expensesPerMonthPerCategory = {};
     expensesArray.forEach((expense) => {
@@ -30,7 +30,7 @@ export const ExpensesContextProvider = ({ children }) => {
         month: "short",
         year: "2-digit",
       });
-      
+
       if (!expensesPerMonthPerCategory[categoryId]) {
         expensesPerMonthPerCategory[categoryId] = {
           [dateKey]: {
@@ -53,41 +53,41 @@ export const ExpensesContextProvider = ({ children }) => {
         };
       }
     });
-    
+
     return expensesPerMonthPerCategory;
   }, [expensesArray]);
-  
+
   useEffect(() => {
     (async () => {
       const expenses = await getExpenses();
       setExpenses(expenses);
-      
+
       const newCategories = {};
       const budgetKey = getDateKey(new Date().getTime());
       const expensesThisMonth = Object.values(expenses).filter(expense => {
         const date = new Date();
         const expenseDate = new Date(expense.timestamp);
-        
+
         if (expense.isRecurring) {
           return (
             expenseDate.getFullYear() === date.getFullYear()
           );
         }
-        
+
         return isSameMonth(expenseDate, date);
       });
-      
+
       Object.values(expensesThisMonth).forEach(expense => {
         if (!newCategories[expense.mainCategoryId]) {
           const category = Categories.find(category => category.id === expense.mainCategoryId);
           const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
-          
+
           const categoryBudget = budget[budgetKey]?.[category.id];
           const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
             return acc + subcategory;
           }, 0);
           const subcategoryBudget = budget[budgetKey]?.[category.id]?.[subcategory.id];
-          
+
           newCategories[expense.mainCategoryId] = {
             ...category,
             budget: categoryBudgetValue,
@@ -99,13 +99,13 @@ export const ExpensesContextProvider = ({ children }) => {
               }
             }
           };
-          
+
           delete newCategories[expense.mainCategoryId].subCategories;
         } else if (!newCategories[expense.mainCategoryId].subcategories[expense.subcategoryId]) {
           const subcategory = Categories
             .find(category => category.id === expense.mainCategoryId)?.subCategories
             .find(subcategory => subcategory.id === expense.subcategoryId);
-          
+
           newCategories[expense.mainCategoryId].subcategories[expense.subcategoryId] = {
             name: subcategory?.name,
             amount: expense.amount,
@@ -116,7 +116,7 @@ export const ExpensesContextProvider = ({ children }) => {
           newCategories[expense.mainCategoryId].amount += expense.amount;
         }
       });
-      
+
       setCategories(newCategories);
       const ordered = Object.values(newCategories).sort((a, b) => {
         const diff = a.budget - a.amount;
@@ -126,7 +126,7 @@ export const ExpensesContextProvider = ({ children }) => {
       setCategoriesByAmount(ordered);
     })();
   }, []);
-  
+
   const setExpenseAsRecurring = (expenseId, isRecurring) => {
     updateExpense(expenseId, { isRecurring });
     setExpenses({
@@ -137,7 +137,7 @@ export const ExpensesContextProvider = ({ children }) => {
       },
     });
   };
-  
+
   const setExpenseAsIncome = (expenseId, isIncome) => {
     updateExpense(expenseId, { isIncome });
     setExpenses({
@@ -148,14 +148,14 @@ export const ExpensesContextProvider = ({ children }) => {
       },
     });
   };
-  
+
   const setExpenseNote = async (expenseId, note) => {
     if (note === expenses[expenseId].note) {
       return;
     }
-    
+
     await updateExpense(expenseId, { note });
-    
+
     setExpenses({
       ...expenses,
       [expenseId]: {
@@ -164,7 +164,7 @@ export const ExpensesContextProvider = ({ children }) => {
       },
     });
   };
-  
+
   const changeExpenseCategory = async (expenseId, categoryId, note = "") => {
     const expense = expenses[expenseId];
     const allExpensesWithTheSameName = expensesArray.filter(
@@ -181,10 +181,10 @@ export const ExpensesContextProvider = ({ children }) => {
           },
         });
       });
-      
+
       return;
     }
-    
+
     await updateExpense(expenseId, { categoryId, note });
     setExpenses({
       ...expenses,
@@ -194,7 +194,7 @@ export const ExpensesContextProvider = ({ children }) => {
       },
     });
   };
-  
+
   return (
     <ExpensesContext.Provider
       value={{
@@ -214,7 +214,7 @@ export const ExpensesContextProvider = ({ children }) => {
           newExpenses.forEach((expense) => {
             expensesObject[expense.id] = expense;
           });
-          
+
           try {
             await addExpenses(newExpenses);
             setExpenses(expensesObject);

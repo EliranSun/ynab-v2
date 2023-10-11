@@ -19,7 +19,7 @@ const BalanceView = () => {
     const categories = useCategories(currentTimestamp);
 
     return (
-      <section className="h-[90vh] md:h-screen overflow-y-auto overflow-x-hidden p-4">
+      <section className="md:h-screen overflow-y-auto overflow-x-hidden w-full">
         {isDesktop &&
           <div className="">
             <Title className="mb-4">
@@ -31,7 +31,7 @@ const BalanceView = () => {
               <li className="bg-green-900 w-1/3 h-full"></li>
             </ul>
           </div>}
-        <div className="flex items-start">
+        <div className="flex items-start my-2">
           <PastTwelveMonthsBalance
             onViewToggle={() => setIsPastTwelveMonthsOpen(!isPastTwelveMonthsOpen)}
             timestamp={currentTimestamp}/>

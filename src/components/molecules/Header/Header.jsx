@@ -36,7 +36,7 @@ export const Header = () => {
 
   return (
     <>
-      <div className="relative z-20 text-xs md:text-base flex justify-between items-center md:gap-8 md:p-4 border-b border-gray-200 md:h-16">
+      <div className="sticky top-0 bg-white z-20 text-xs md:text-base flex justify-between items-center md:gap-8 md:p-4 md:h-16 shadow-xl">
         {isMobile &&
           <div className="flex items-center">
             <Button
@@ -53,7 +53,7 @@ export const Header = () => {
           </div>}
         <LoginButton/>
         {(isDesktop || isMenuOpen) &&
-          <ul className="absolute md:static left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r shadow w-2/3 bg-white md:border-none md:text-sm md:gap-4 md:justify-end">
+          <ul className="absolute md:sticky left-0 top-0 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:gap-4 md:justify-end">
             <ButtonLink onClick={closeMenu} name="parse"/>
             <ButtonLink onClick={closeMenu} name="balance"/>
             <ButtonLink onClick={closeMenu} name="expenses"/>

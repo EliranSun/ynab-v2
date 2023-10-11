@@ -16,7 +16,7 @@ const Messages = [
 
 export const Header = () => {
   const [user] = useContext(UserContext);
-  const [isMenuOpen, setIsMenuOpen] = useState(isDesktop);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const message = useMemo(() => {
     let m = `Hey ${user.displayName.split(" ")[0]}, `;
     const hour = new Date().getHours();
@@ -52,7 +52,7 @@ export const Header = () => {
             </span>
           </div>}
         <LoginButton/>
-        {isMenuOpen &&
+        {(isDesktop || isMenuOpen) &&
           <ul className="absolute md:static left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r shadow w-2/3 bg-white md:border-none md:text-sm md:gap-4 md:justify-end">
             <ButtonLink onClick={closeMenu} name="parse"/>
             <ButtonLink onClick={closeMenu} name="balance"/>

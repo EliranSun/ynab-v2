@@ -102,8 +102,7 @@ export const ExpensesList = ({
                   setExpenses={setExpenses}
                   subcategory={subcategory}
                 />
-                {isCategorySelectionVisible &&
-                  activeId === expense.id &&
+                {isCategorySelectionVisible && activeId === expense.id &&
                   <>
                     <SimilarExpenses
                       expense={expense}

@@ -288,6 +288,10 @@ msgstr "משכורת"
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
 
+#: src/components/organisms/SimilarExpenses.jsx:32
+msgid "Show same month only"
+msgstr "הצג הוצאות דומות רק בחודש זה"
+
 #: src/constants/categories.js:117
 msgid "Therapist"
 msgstr "פסיכולוג"

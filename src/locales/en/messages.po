@@ -288,6 +288,10 @@ msgstr ""
 msgid "Saved this month!"
 msgstr ""
 
+#: src/components/organisms/SimilarExpenses.jsx:32
+msgid "Show same month only"
+msgstr "Show similar from this month only"
+
 #: src/constants/categories.js:117
 msgid "Therapist"
 msgstr ""

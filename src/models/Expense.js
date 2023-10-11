@@ -12,6 +12,9 @@ class Expense {
     categoryId = null,
     isOriginal = false,
   }) {
+    const locale = navigator.language;
+    console.log({ locale });
+
     this.id = id;
     this.name = name;
     this.isThirdParty = ThirdParties.includes(name);
@@ -19,23 +22,23 @@ class Expense {
     this.note = note;
     this.timestamp = timestamp;
     this.isOriginal = isOriginal;
-    this.date = new Date(timestamp).toLocaleString('en-GB', {
-      month: 'short',
+    this.date = new Date(timestamp).toLocaleString(locale, {
+      month: "long",
       year: '2-digit',
       day: 'numeric',
     });
-    this.amountCurrency = new Intl.NumberFormat('he-IL', {
+    this.amountCurrency = new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: 'ILS'
     }).format(amount);
-    
-    
+
+
     // TODO: refactor to subcategoryId
     this.categoryId = categoryId;
     this.subcategoryId = categoryId;
     this.mainCategoryId = null;
     this.isIncome = IncomeSubcategoryIds.includes(Number(this.subcategoryId));
-    
+
     Categories.forEach((category) => {
       category.subCategories.forEach((sub) => {
         if (sub.id === this.categoryId) {
@@ -44,7 +47,7 @@ class Expense {
         }
       });
     });
-    
+
     this.subcategoryLabel = this.subcategory
       ? `${this.subcategory.icon} ${this.subcategory.name}`
       : "";

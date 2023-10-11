@@ -13,18 +13,16 @@ export const ParseExpenseHeader = ({
   subcategory
 }) => {
   return (
-    <div className={classNames("flex justify-start gap-4 py-2", {
+    <div className={classNames("flex py-2 justify-center gap-8 text-right", {
       "": !isVisible,
       "bg-gray-200": index % 2 === 0 || isVisible,
     })}>
-      <span className="w-2/6">
-        <b>{name}</b>
-      </span>
+      <span className="w-40"><b>{name}</b></span>
       <input
         type="text"
         placeholder="note"
         value={note}
-        className="w-1/6 border border-gray-500 px-2"
+        className="border border-gray-500 px-2"
         onChange={(event) => {
           setExpenses((prev) => {
             const newExpenses = [...prev];
@@ -32,7 +30,7 @@ export const ParseExpenseHeader = ({
             return newExpenses;
           });
         }}/>
-      <span className="cursor-pointer w-1/6" onClick={() => {
+      <span className="cursor-pointer w-32" onClick={() => {
         setExpenses((prev) => {
           const newExpenses = [...prev];
           newExpenses[index].categoryId = null;
@@ -41,12 +39,8 @@ export const ParseExpenseHeader = ({
       }}>
         {subcategory?.icon} {subcategory?.name}
       </span>
-      <span className="w-1/6">
-        {amount}
-      </span>
-      <span className="w-1/6">
-        {date}
-      </span>
+      <span className="w-16">{amount}</span>
+      <span className="w-32" dir="">{date}</span>
       <span className="px-4 cursor-pointer">
         <X color="red" size={20}/>
       </span>

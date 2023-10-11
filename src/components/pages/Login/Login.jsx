@@ -1,19 +1,11 @@
 import { login } from "../../../utils/auth";
 import { Button, Title } from "../../atoms";
 import { Spinner } from "@phosphor-icons/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../context";
-import { useNavigate } from "react-router-dom";
 
 const Login = ({ children }) => {
   const [user, setUser] = useContext(UserContext);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      return navigate("/");
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (user === false) {
     return (

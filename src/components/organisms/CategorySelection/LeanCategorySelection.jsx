@@ -4,21 +4,20 @@ import classNames from "classnames";
 
 const LeanCategorySelection = ({ onCategorySelect = noop }) => {
   return (
-    <div className="flex w-full lg:gap-2">
+    <div className="flex w-full gap-1">
       {Categories.map((category) => {
         return (
-          <div key={category.id} className="flex flex-col bg-gray-100">
-            <div>
-              <b>{category.name}</b>
-            </div>
+          <div key={category.id} className="flex flex-col bg-gray-100 w-full">
+            <div className="p-4 bg-gray-500 text-white"><b>{category.name}</b></div>
             <div className="">
               {category.subCategories.map((sub) => {
                 return (
                   <div
                     key={sub.id}
-                    className={classNames("mx-2 border-b border-red-500 text-sm hover:bg-red-500 hover:text-white cursor-pointer hover:border-black-300 lg:px-2 lg:py-px")}
+                    className={classNames("flex gap-2 py-2 px-4 text-sm hover:bg-red-500 hover:text-white cursor-pointer hover:border-black-300")}
                     onClick={() => onCategorySelect(sub.id)}>
-                    <span>{sub.icon} {sub.name}</span>
+                    <span>{sub.icon.slice(0, 2)}</span>
+                    <span>{sub.name}</span>
                   </div>
                 );
               })}

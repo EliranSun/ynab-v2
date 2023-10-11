@@ -1,11 +1,10 @@
 import { Categories } from "../../../constants";
-import classNames from "classnames";
 import { noop } from "lodash"
 import { LeanCategorySelection } from "../../organisms/CategorySelection";
 import { Button, Spinner } from "../../atoms";
 import { useEffect, useMemo, useState } from "react";
-import { X } from "@phosphor-icons/react";
 import { SimilarExpenses } from "../../organisms/SimilarExpenses";
+import { ParseExpenseHeader } from "../../molecules/ParseExpenseHeader";
 
 export const ExpensesList = ({
     expenses = [],
@@ -93,57 +92,30 @@ export const ExpensesList = ({
               <div className="snap-start" id={expense.id} onClick={() => {
                 setActiveId(expense.id);
               }}>
-                <div className={classNames("flex gap-4 py-2 items-center", {
-                  "": !isCategorySelectionVisible,
-                  "bg-gray-200": index % 2 === 0 || isCategorySelectionVisible,
-                })}>
-                  <span className="w-2/6">
-                    <b>{expense.name}</b>
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="note"
-                    value={expense.note}
-                    className="w-1/6 border border-gray-500 px-2"
-                    onChange={(event) => {
-                      setExpenses((prev) => {
-                        const newExpenses = [...prev];
-                        newExpenses[index].note = event.target.value;
-                        return newExpenses;
-                      });
-                    }}/>
-                  <span className="cursor-pointer w-1/6" onClick={() => {
-                    setExpenses((prev) => {
-                      const newExpenses = [...prev];
-                      newExpenses[index].categoryId = null;
-                      return newExpenses;
-                    });
-                  }}>
-                    {subcategory?.icon} {subcategory?.name}
-                  </span>
-                  <span className="w-1/6">
-                    {expense.amountCurrency}
-                  </span>
-                  <span className="w-1/6">
-                    {expense.date}
-                  </span>
-                  <span className="px-4 cursor-pointer">
-                    <X color="red" size={20}/>
-                  </span>
-                </div>
+                <ParseExpenseHeader
+                  index={index}
+                  name={expense.name}
+                  note={expense.note}
+                  amount={expense.amountCurrency}
+                  date={expense.date}
+                  isVisible={isCategorySelectionVisible}
+                  setExpenses={setExpenses}
+                  subcategory={subcategory}
+                />
                 {isCategorySelectionVisible &&
                   activeId === expense.id &&
                   <>
                     <SimilarExpenses
                       expense={expense}
                       existingExpenses={existingExpenses}/>
-                    <LeanCategorySelection onCategorySelect={(categoryId) => {
-                      setExpenses((prev) => {
-                        const newExpenses = [...prev];
-                        newExpenses[index].categoryId = categoryId;
-                        return newExpenses;
-                      });
-                    }}/>
+                    <LeanCategorySelection
+                      onCategorySelect={(categoryId) => {
+                        setExpenses((prev) => {
+                          const newExpenses = [...prev];
+                          newExpenses[index].categoryId = categoryId;
+                          return newExpenses;
+                        });
+                      }}/>
                   </>}
               </div>
             )

@@ -1,239 +1,241 @@
+import { Trans } from "@lingui/macro";
+
 export const Categories = [
   {
     id: 1,
-    name: "🍔 Eating",
+    name: <Trans>🍔 Eating</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 11,
-        name: "Delivery",
+        name: <Trans>Delivery</Trans>,
         icon: "🛵",
       },
       {
         id: 12,
-        name: "Groceries",
+        name: <Trans>Groceries</Trans>,
         icon: "🛒",
       },
       {
         id: 13,
-        name: "Dining",
+        name: <Trans>Dining</Trans>,
         icon: "☕️",
       },
       {
         id: 14,
-        name: "Bars",
+        name: <Trans>Bars</Trans>,
         icon: "🥃",
       },
     ],
   },
   {
     id: 2,
-    name: "🚌 Travel",
+    name: <Trans>🚌 Travel</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 21,
-        name: "Lime",
+        name: <Trans>Lime</Trans>,
         icon: "🛴",
       },
       {
         id: 22,
-        name: "Bus",
+        name: <Trans>Bus</Trans>,
         icon: "🚌",
       },
       {
         id: 23,
-        name: "KIA",
+        name: <Trans>KIA</Trans>,
         icon: "🚙",
       },
     ],
   },
   {
     id: 3,
-    name: "🏠 House",
+    name: <Trans>🏠 House</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 31,
-        name: "Rent",
+        name: <Trans>Rent</Trans>,
         icon: "🏠",
       },
       {
         id: 32,
-        name: "Building Committee",
+        name: <Trans>Building Committee</Trans>,
         icon: "💡",
       },
       {
         id: 33,
-        name: "Electricity",
+        name: <Trans>Electricity</Trans>,
         icon: "⚡️",
       },
       {
         id: 34,
-        name: "Water",
+        name: <Trans>Water</Trans>,
         icon: "💧",
       },
       {
         id: 36,
-        name: "Rates",
+        name: <Trans>Rates</Trans>,
         icon: "🏚",
       },
       {
         id: 37,
-        name: "Pets",
+        name: <Trans>Pets</Trans>,
         icon: "🐕🐈",
       },
       {
         id: 39,
-        name: "Internet",
+        name: <Trans>Internet</Trans>,
         icon: "💻",
       },
       {
         id: 311,
-        name: "Phone",
+        name: <Trans>Phone</Trans>,
         icon: "📞",
       },
       {
         id: 312,
-        name: "Decor",
+        name: <Trans>Decor</Trans>,
         icon: "🪴",
       },
       {
         id: 313,
-        name: "Maintenance",
+        name: <Trans>Maintenance</Trans>,
         icon: "🔧",
       }
     ],
   },
   {
     id: 4,
-    name: "❤️ Self Care",
+    name: <Trans>❤️ Self Care</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 41,
-        name: "Therapist",
+        name: <Trans>Therapist</Trans>,
         icon: "👨‍⚕️",
       },
       {
         id: 42,
-        name: "Gym",
+        name: <Trans>Gym</Trans>,
         icon: "💪",
       },
       {
         id: 43,
-        name: "Barber",
+        name: <Trans>Barber</Trans>,
         icon: "💈",
       },
       {
         id: 44,
-        name: "Hobbies",
+        name: <Trans>Hobbies</Trans>,
         icon: "🔭🎭",
       },
       {
         id: 45,
-        name: "Games",
+        name: <Trans>Games</Trans>,
         icon: "👾",
       },
       {
         id: 47,
-        name: "Clothes",
+        name: <Trans>Clothes</Trans>,
         icon: "🎽",
       },
       {
         id: 48,
-        name: "Health/Beauty",
+        name: <Trans>Health/Beauty</Trans>,
         icon: "🧼💊",
       },
       {
         id: 49,
-        name: "Donations",
+        name: <Trans>Donations</Trans>,
         icon: "🎁",
       },
       {
         id: 50,
-        name: "Education",
+        name: <Trans>Education</Trans>,
         icon: "📚",
       },
       {
         id: 411,
-        name: "Electronics",
+        name: <Trans>Electronics</Trans>,
         icon: "💻",
       },
       {
         id: 412,
-        name: "Books",
+        name: <Trans>Books</Trans>,
         icon: "📖",
       },
       {
         // TODO: eliminate these categories. they hide a lot of things and
         // is a recipe for leaks/untracked expenses
         id: 46,
-        name: "Other",
+        name: <Trans>Other</Trans>,
         icon: "․․․",
       },
     ],
   },
   {
     id: 5,
-    name: "🎁💃 Out",
+    name: <Trans>🎁💃 Out</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 51,
-        name: "Friends",
+        name: <Trans>Friends</Trans>,
         icon: "🍻",
       },
       {
         id: 52,
-        name: "Family",
+        name: <Trans>Family</Trans>,
         icon: "🎋",
       },
       {
         id: 53,
-        name: "Dates",
+        name: <Trans>Dates</Trans>,
         icon: "❤️",
       },
       {
         id: 54,
-        name: "Vacation",
+        name: <Trans>Vacation</Trans>,
         icon: "🏝",
       },
     ],
   },
   {
     id: 6,
-    name: "🛎️ Apps Sub",
+    name: <Trans>🛎️ Apps Sub</Trans>,
     budget: 0,
     subCategories: [
       {
         id: 310,
-        name: "TV",
+        name: <Trans>TV</Trans>,
         icon: "📺",
       },
       {
         id: 61,
-        name: "Authoring",
+        name: <Trans>Authoring</Trans>,
         icon: "✍️",
       },
       {
         id: 62,
-        name: "Design",
+        name: <Trans>Design</Trans>,
         icon: "🦩",
       },
       {
         id: 63,
-        name: "iOS",
+        name: <Trans>iOS</Trans>,
         icon: "📱",
       },
       {
         id: 64,
-        name: "Dev",
+        name: <Trans>Dev</Trans>,
         icon: "👨‍💻",
       },
       {
         id: 65,
-        name: "Fun",
+        name: <Trans>Fun</Trans>,
         icon: "🕺",
       },
     ],
@@ -241,29 +243,29 @@ export const Categories = [
 
   {
     id: 7,
-    name: "🧾 Taxes",
+    name: <Trans>🧾 Taxes</Trans>,
     subCategories: [
       {
         id: 71,
-        name: "Health",
+        name: <Trans>Health</Trans>,
         icon: "✚",
       },
       {
         id: 72,
-        name: "Fees",
+        name: <Trans>Fees</Trans>,
         icon: "📉",
       },
     ],
   },
   {
     id: 8,
-    name: "💰 Income",
+    name: <Trans>💰 Income</Trans>,
     isIncome: true,
     budget: 0,
     subCategories: [
       {
         id: 81,
-        name: "Salary",
+        name: <Trans>Salary</Trans>,
         icon: "💰",
         isIncome: true,
       },
@@ -271,13 +273,13 @@ export const Categories = [
         // TODO: elliminate these categories. they hide a lot of things and
         // is a recipe for leaks/untracked expenses
         id: 82,
-        name: "Other",
+        name: <Trans>Other</Trans>,
         icon: "💵",
         isIncome: true,
       },
       {
         id: 83,
-        name: "Rent",
+        name: <Trans>Rent</Trans>,
         icon: "🏠",
         isIncome: true,
       },

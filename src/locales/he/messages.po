@@ -13,95 +13,301 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/organisms/CategorySelection/LeanCategorySelection.jsx:21
+#~ msgid "{0}"
+#~ msgstr "{0}"
+
 #: src/components/atoms/Title.jsx:19
 #: src/components/atoms/Title.jsx:27
 #~ msgid "{children}"
 #~ msgstr "{children}"
 
-#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:10
+#: src/constants/categories.js:112
+msgid "❤️ Self Care"
+msgstr "❤️ עצמי"
+
+#: src/constants/categories.js:6
+msgid "🍔 Eating"
+msgstr "🍔 אוכל"
+
+#: src/constants/categories.js:181
+msgid "🎁💃 Out"
+msgstr "🎁💃 יציאות"
+
+#: src/constants/categories.js:55
+msgid "🏠 House"
+msgstr "🏠 בית"
+
+#: src/constants/categories.js:262
+msgid "💰 Income"
+msgstr "💰 הכנסה"
+
+#: src/constants/categories.js:246
+msgid "🧾 Taxes"
+msgstr "🧾 מיסים"
+
+#: src/constants/categories.js:33
+msgid "🚌 Travel"
+msgstr "🚌 נסיעות"
+
+#: src/constants/categories.js:208
+msgid "🛎️ Apps Sub"
+msgstr "🛎️ מינויים"
+
+#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:15
 msgid "Actual"
 msgstr "במציאות"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:56
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:67
 msgid "Actual:"
 msgstr "במציאות:"
 
-#: src/components/pages/BalanceView/BalanceView.jsx:25
+#: src/constants/categories.js:218
+msgid "Authoring"
+msgstr "כתיבה"
+
+#: src/components/pages/BalanceView/BalanceView.jsx:26
 msgid "BALANCE & BUDGET"
 msgstr "תקציב ועוש"
 
-#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:14
+#: src/constants/categories.js:127
+msgid "Barber"
+msgstr "ספר"
+
+#: src/constants/categories.js:26
+msgid "Bars"
+msgstr "ברים"
+
+#: src/constants/categories.js:167
+msgid "Books"
+msgstr "ספרים"
+
+#: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
 msgstr "תקציב"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:49
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:60
 msgid "Budget:"
 msgstr "תקציב:"
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:16
+#: src/constants/categories.js:65
+msgid "Building Committee"
+msgstr "ועד"
+
+#: src/constants/categories.js:43
+msgid "Bus"
+msgstr "אוטובוס"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:14
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:63
+#: src/constants/categories.js:142
+msgid "Clothes"
+msgstr "ביגוד"
+
+#: src/constants/categories.js:196
+msgid "Dates"
+msgstr "דייטים"
+
+#: src/constants/categories.js:100
+msgid "Decor"
+msgstr "עיצוב פנים"
+
+#: src/constants/categories.js:11
+msgid "Delivery"
+msgstr "משלוחים"
+
+#: src/constants/categories.js:223
+msgid "Design"
+msgstr "עיצוב"
+
+#: src/constants/categories.js:233
+msgid "Dev"
+msgstr "פיתוח"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:74
 msgid "Diffs:"
 msgstr "הפרש:"
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:28
+#: src/constants/categories.js:21
+msgid "Dining"
+msgstr "מסעדות"
+
+#: src/constants/categories.js:152
+msgid "Donations"
+msgstr "תרומות"
+
+#: src/constants/categories.js:157
+msgid "Education"
+msgstr "לימודים"
+
+#: src/constants/categories.js:70
+msgid "Electricity"
+msgstr "חשמל"
+
+#: src/constants/categories.js:162
+msgid "Electronics"
+msgstr "אלקטרוניקה"
+
+#: src/constants/categories.js:191
+msgid "Family"
+msgstr "משפחה"
+
+#: src/constants/categories.js:255
+msgid "Fees"
+msgstr "עמלות"
+
+#: src/constants/categories.js:186
+msgid "Friends"
+msgstr "חברים"
+
+#: src/constants/categories.js:238
+msgid "Fun"
+msgstr "כייף"
+
+#: src/constants/categories.js:137
+msgid "Games"
+msgstr "משחקים"
+
+#: src/constants/categories.js:16
+msgid "Groceries"
+msgstr "מצרכים"
+
+#: src/constants/categories.js:122
+msgid "Gym"
+msgstr "כושר"
+
+#: src/constants/categories.js:250
+msgid "Health"
+msgstr "בריאות"
+
+#: src/constants/categories.js:147
+msgid "Health/Beauty"
+msgstr "בריאות/יופי"
+
+#: src/constants/categories.js:132
+msgid "Hobbies"
+msgstr "תחביבים"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:26
 msgid "I'm in BIG trouble."
 msgstr "אני בצרות -גדולות-."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:31
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:29
 msgid "I'm in trouble."
-msgstr "I'm in trouble."
+msgstr "אני בצרות."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:25
+#: src/constants/categories.js:90
+msgid "Internet"
+msgstr "אינטרנט"
+
+#: src/constants/categories.js:228
+msgid "iOS"
+msgstr "אפליקציות"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
 msgstr "אלוקים אדירים שבשמיים."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:84
+#: src/constants/categories.js:48
+msgid "KIA"
+msgstr "רכב"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:59
+#: src/constants/categories.js:38
+msgid "Lime"
+msgstr "קורקינט חשמלי"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:58
 msgid "Lost this month..."
 msgstr "אבדו בחודש זה..."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:22
+#: src/constants/categories.js:105
+msgid "Maintenance"
+msgstr "תחזוקה"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
 msgstr "התקציב שלי לא -קרוב- למציאות."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:13
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:11
 msgid "my budget is spot on!"
 msgstr "התקציב שלי מדויק!"
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:79
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:73
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:83
+#: src/constants/categories.js:174
+#: src/constants/categories.js:276
+msgid "Other"
+msgstr "אחר"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:37
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:48
 msgid "Past 12 months"
 msgstr "12 החודשים האחרונים"
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:19
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:17
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr "אולי פשלה חד פעמית, אבל כדאי שאבין למה זה קרה"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
+#: src/constants/categories.js:85
+msgid "Pets"
+msgstr "חיות"
+
+#: src/constants/categories.js:95
+msgid "Phone"
+msgstr "טלפון"
+
+#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:53
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), ולכן בחלק מהחודשים (למשל חופשה) התוצאות תהיינה מוטות."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:51
+#: src/constants/categories.js:80
+msgid "Rates"
+msgstr "מיסים"
+
+#: src/constants/categories.js:60
+#: src/constants/categories.js:282
+msgid "Rent"
+msgstr "שכר דירה"
+
+#: src/constants/categories.js:268
+msgid "Salary"
+msgstr "משכורת"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
+
+#: src/constants/categories.js:117
+msgid "Therapist"
+msgstr "פסיכולוג"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
 #~ msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 #~ msgstr "אלה הכנסות וההוצאות ב-12 החודשים האחרונים. יש לזכור שהתקציב הוא לחודש הנוכחי בלבד, ולכן חלק מהחודשים (למשל חופשה) מטים את התוצאות."
 
-#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:10
+#: src/constants/categories.js:213
+msgid "TV"
+msgstr "טלוויזיה"
+
+#: src/constants/categories.js:201
+msgid "Vacation"
+msgstr "חופשה"
+
+#: src/constants/categories.js:75
+msgid "Water"
+msgstr "מים"
+
+#: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:8
 msgid "which is good, but I should understand why my budget is off."
 msgstr "שזה טוב, אבל כדאי שעדיין אבין מאיפה ההפרש מגיע."

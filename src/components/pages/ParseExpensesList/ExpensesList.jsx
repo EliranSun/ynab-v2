@@ -4,50 +4,9 @@ import { noop } from "lodash"
 import { LeanCategorySelection } from "../../organisms/CategorySelection";
 import { Button, Spinner } from "../../atoms";
 import { useEffect, useMemo, useState } from "react";
-import { isSameMonth } from "date-fns"
 import { X } from "@phosphor-icons/react";
+import { SimilarExpenses } from "../../organisms/SimilarExpenses";
 
-const SimilarExpenses = ({ expense, existingExpenses = [] }) => {
-  const [isSameMonthCheck, setIsSameMonthCheck] = useState(false);
-  const similarExpenses = useMemo(() => {
-    return existingExpenses.filter((existingExpense) => {
-      const sameName = existingExpense.name === expense.name;
-      const sameMonth = isSameMonth(new Date(existingExpense.timestamp), new Date(expense.timestamp));
-      
-      if (isSameMonthCheck) {
-        return sameName && sameMonth;
-      }
-      
-      return sameName;
-    }).sort((a, b) => {
-      return b.timestamp - a.timestamp;
-    })
-  }, [expense, existingExpenses, isSameMonthCheck]);
-  
-  return (
-    <div className="flex gap-1 overflow-x-auto">
-      <div className="text-sm">
-        <span>Similar expenses</span>
-        <input type="checkbox"
-               checked={isSameMonthCheck}
-               onChange={(event) => {
-                 setIsSameMonthCheck(event.target.checked);
-               }}
-        />same month?
-      </div>
-      {similarExpenses.map(item => {
-        return (
-          <div className="bg-blue-300 rounded p-1 text-xs flex flex-col">
-            <span>{item.name}</span>
-            <span><b>{item.amountCurrency}</b></span>
-            <span>{item.date}</span>
-            <span>{item.note}</span>
-          </div>
-        );
-      })}
-    </div>
-  )
-}
 export const ExpensesList = ({
     expenses = [],
     existingExpenses = [],
@@ -59,44 +18,45 @@ export const ExpensesList = ({
     const expensesWithCategory = useMemo(() => expenses.filter((expense) => {
       return !!expense.categoryId;
     }), [expenses]);
-    
+
     const [activeId, setActiveId] = useState(expenses.find((expense) => {
       return !expense.categoryId;
     })?.id || null);
-    
+
     useEffect(() => {
       if (!activeId) {
         return;
       }
-      
+
       const element = document.getElementById(String(activeId));
       if (!element) {
         return;
       }
-      
+
       element.scrollIntoView({
         behavior: "smooth",
         block: "center",
         inline: "center"
       });
     }, [activeId]);
-    
+
     useEffect(() => {
       const nextExpense = expenses.find((expense) => {
         return !expense.categoryId;
       });
-      
+
       if (nextExpense?.id === activeId) {
         return;
       }
-      
+
       setActiveId(nextExpense?.id || null);
-    }, [expenses]);
-    
+      // we do not want to update based on activeId
+    }, [expenses]); // eslint-disable-line react-hooks/exhaustive-deps
+
     if (expenses.length === 0) {
       return null;
     }
-    
+
     return (
       <div className="w-full h-full border-none lg:border-l border-black">
         <div className="sticky top-0 flex justify-between bg-white">
@@ -128,7 +88,7 @@ export const ExpensesList = ({
                 }
               });
             });
-            
+
             return (
               <div className="snap-start" id={expense.id} onClick={() => {
                 setActiveId(expense.id);

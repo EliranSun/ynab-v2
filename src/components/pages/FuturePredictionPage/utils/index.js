@@ -18,11 +18,11 @@ export const createNewChart = ({
     console.info("returning singleton", singleton);
     return singleton;
   }
-  
+
   Chart.register(...registerables);
-  
+
   const ctx = document.getElementById("myChart").getContext("2d");
-  
+
   let myChart = new Chart(ctx, {
     type: "line",
     data: {
@@ -83,7 +83,7 @@ export const createNewChart = ({
               if (context.tick.value === 0) {
                 return 'red';
               }
-              
+
               return 'rgba(0,0,0,0.1)';
             },
           }
@@ -109,7 +109,7 @@ export const createNewChart = ({
                 style: "currency",
                 currency: "ILS",
               }).format(context?.raw?.amount);
-              
+
               if (context.parsed.y !== null) {
                 label += new Intl.NumberFormat("he-IL", {
                   style: "currency",
@@ -135,7 +135,7 @@ export const createNewChart = ({
       },
     },
   });
-  
+
   singleton = myChart;
   return myChart;
 };
@@ -166,27 +166,27 @@ export const calcExpenses = (expenses = [], initAmount = 0, initDate = new Date(
       })
     }
   }
-  
+
   for (let i = expenses.length - 1; i >= 0; i--) {
     const expense = expenses[i];
-    
+
     // if (expense.timestamp > initDate.getTime()) {
     //     continue;
     // }
-    
+
     const isIncome = IncomeCategoryIds.includes(expense.categoryId);
     const newDataPoint = {
       balance: tempAmount,
     }
-    
+
     const y = tempAmount;
     tempAmount = isIncome
       ? tempAmount - expense.amount
       : tempAmount + expense.amount;
-    
+
     const x = expense.timestamp;
     const date = expense.timestamp;
-    
+
     data.push({
       ...newDataPoint,
       ...expense,
@@ -196,7 +196,7 @@ export const calcExpenses = (expenses = [], initAmount = 0, initDate = new Date(
       isIncome,
     });
   }
-  
+
   return data.reverse();
 };
 export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
@@ -204,7 +204,7 @@ export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
   let data = [];
   const thisMonthAndYearExpenses = projectionData.filter((data) => {
     const date = new Date(data.date);
-    const currentDate = new Date().getTime() - ONE_MONTH_MS * 0; // TODO: dynamic and through UI
+    const currentDate = new Date().getTime();
     return (
       date.getMonth() === new Date(currentDate).getMonth() &&
       date.getFullYear() === new Date(currentDate).getFullYear()
@@ -216,7 +216,7 @@ export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
       return thisMonthAndYearExpenses.map((expense) => {
         const date = new Date(expense.date);
         const newDate = new Date(date.getTime() + ONE_MONTH_MS * (1 + index)); // TODO: dynamic and through UI
-        
+
         return {
           ...expense,
           date: newDate,
@@ -224,25 +224,24 @@ export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
       });
     })
     .flat();
-  
+
   if (lookaheadArray.length === 0) return data;
-  
+
   // let date = new Date(lookaheadArray[0].date);
   let tempAmount = initBalance;
-  
+
   for (const expense of lookaheadArray) {
     const { amount, isIncome, categoryId, date } = expense;
-    
+
     // Bi-monthly categories: 36,
     if (
       [36, 33, 34].includes(categoryId) &&
       new Date(date).getMonth() % 2 === 0
     ) {
       // the category is bi-monthly and the month is even
-      console.log("bi-monthly", expense.name, expense.amount);
       continue;
     }
-    
+
     tempAmount = isIncome ? tempAmount + amount : tempAmount - amount;
     data.push({
       y: tempAmount,
@@ -250,10 +249,10 @@ export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
       date: date,
       amount,
     });
-    
+
     // date = new Date(date.getTime() + ONE_DAY_MS);
   }
-  
+
   return data;
 };
 export const calcBudget = (budget, initAmount = 0, lookAhead = 3) => {
@@ -271,16 +270,15 @@ export const calcBudget = (budget, initAmount = 0, lookAhead = 3) => {
     tempAmount = IncomeIds.includes(String(categoryId))
       ? tempAmount + amount
       : tempAmount - amount;
-    
+
     const category = Categories.filter((category) => {
-      const subcategory = category.subCategories.filter((sub) => {
+      return category.subCategories.filter((sub) => {
         return String(sub.id) === String(categoryId);
       })[0];
-      return subcategory;
     })[0];
-    
+
     const name = category && category?.name;
-    
+
     data.push({
       name,
       amount: amount,
@@ -288,10 +286,10 @@ export const calcBudget = (budget, initAmount = 0, lookAhead = 3) => {
       y: tempAmount,
       x: date.getTime(),
     });
-    
+
     date = new Date(date.getTime() + ONE_DAY_MS);
   }
-  
+
   return data;
 };
 
@@ -307,16 +305,16 @@ export const useChart = ({
   const budgetData = useMemo(() => {
     return calcBudget(budget, balance, lookaheadInMonths);
   }, [budget, balance, lookaheadInMonths]);
-  
+
   // const projectionData = useMemo(() => {
   // 	return calcProjection(expensesData, initialAmount, lookaheadInMonths);
   // }, [expensesData]);
-  
+
   useEffect(() => {
     if (!canvasRef.current || expensesData.length === 0) {
       return;
     }
-    
+
     const projectionData = calcProjection(
       expensesData,
       4,
@@ -324,28 +322,27 @@ export const useChart = ({
     );
     const data = expensesData.filter((expense) => {
       if (expense.isRecurring) {
-        console.log({ expense });
         return true;
       }
       return expense.date >= startDate.getTime();
     });
-    
+
     chart = createNewChart({
       startDate,
       data,
       budget: budgetData,
       projectionData,
     });
-    
+
     return () => {
       chart && chart.destroy();
       singleton = null;
     };
-  }, [
+  }, [ // eslint-disable-line react-hooks/exhaustive-deps
+    // startDate,
     canvasRef,
     expensesData,
     budgetData,
-    // startDate,
     initialAmount,
     lookaheadInMonths,
   ]);

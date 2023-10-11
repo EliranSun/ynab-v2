@@ -86,7 +86,6 @@ export const ExpensesContextProvider = ({ children }) => {
           const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
             return acc + subcategory;
           }, 0);
-          const subcategoryBudget = budget[budgetKey]?.[category.id]?.[subcategory.id];
 
           newCategories[expense.mainCategoryId] = {
             ...category,
@@ -118,14 +117,12 @@ export const ExpensesContextProvider = ({ children }) => {
       });
 
       setCategories(newCategories);
-      const ordered = Object.values(newCategories).sort((a, b) => {
-        const diff = a.budget - a.amount;
-        console.log({ a, b, diff })
-        return diff;
+      const ordered = Object.values(newCategories).sort((a) => {
+        return a.budget - a.amount;
       });
       setCategoriesByAmount(ordered);
     })();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const setExpenseAsRecurring = (expenseId, isRecurring) => {
     updateExpense(expenseId, { isRecurring });

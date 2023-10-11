@@ -1,5 +1,5 @@
 import { getExpenses } from "../utils";
-import { BudgetContext, ExpensesContext, getDateKey } from "../context";
+import { BudgetContext, getDateKey } from "../context";
 import { isSameMonth } from "date-fns";
 import { Categories } from "../constants";
 import { useContext, useEffect, useState } from "react";
@@ -19,8 +19,6 @@ const fetch = async (budget, timestamp) => {
 
     return isSameMonth(expenseDate, date);
   });
-
-  console.log({ expensesThisMonth });
 
   Object.values(expensesThisMonth).forEach(expense => {
     if (!newCategories[expense.mainCategoryId]) {
@@ -59,7 +57,7 @@ const fetch = async (budget, timestamp) => {
     }
   });
 
-  return Object.values(newCategories).sort((a, b) => {
+  return Object.values(newCategories).sort((a) => {
     return a.budget - a.amount;
   });
 };

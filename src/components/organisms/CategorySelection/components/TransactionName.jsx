@@ -1,22 +1,10 @@
 import { Title } from "../../../atoms";
-import { useEffect, useState } from "react";
-// import translate from "translate";
+import { useState } from "react";
 
 const TranslatedExpenseName = ({ name }) => {
   const [isOriginalView, setIsOriginalView] = useState(true);
-  const [translatedName, setTranslatedName] = useState(name);
-  
-  // useEffect(() => {
-  //   (async () => {
-  //     const translation = await translate(name, {
-  //       from: 'he',
-  //       to: 'en',
-  //     });
-  //     console.log("translation", translation);
-  //     setTranslatedName(translation);
-  //   })();
-  // }, [name]);
-  
+  const [translatedName] = useState(name);
+
   return (
     <b
       onMouseEnter={() => setIsOriginalView(true)}

@@ -10,7 +10,6 @@ import { BUTTON_SIZE } from "../../../constants";
 const isMobile = window.innerWidth < 768;
 
 const SubcategoryExpensesList = ({
-  id = null,
   onSubcategoryClick = noop,
   expensesPerMonthPerCategory = {},
   timestamp = null,
@@ -26,14 +25,12 @@ const SubcategoryExpensesList = ({
       .sort((a, b) => {
         return b.timestamp - a.timestamp;
       })
-  }, []);
-  
-  console.log({ data });
-  
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const sameMonthData = data.filter(item => {
     return isSameMonth(item.timestamp, timestamp);
   });
-  
+
   return (
     <div
       dir=""
@@ -47,7 +44,7 @@ const SubcategoryExpensesList = ({
       <Title>{title}</Title>
       <ExpensesChart data={data}/>
       <div className="h-1/2 overflow-y-auto">
-        {sameMonthData.map(({ x: date, y: amount, expenses }, index) => {
+        {sameMonthData.map(({ x: date, y: amount, expenses }) => {
           return (
             <div className="my-4">
               <b className="text-xl">{date}: {formatCurrency(amount)}</b>

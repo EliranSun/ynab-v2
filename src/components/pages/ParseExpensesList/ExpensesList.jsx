@@ -68,7 +68,6 @@ export const ExpensesList = ({
             isDisabled={isLoading || expensesWithCategory.length === 0}
             className="flex items-center gap-2"
             onClick={async () => {
-              console.log({ expensesWithCategory });
               setIsLoading(true);
               await submitExpenses(expensesWithCategory);
               setIsLoading(false);

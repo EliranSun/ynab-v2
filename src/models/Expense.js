@@ -13,8 +13,6 @@ class Expense {
     isOriginal = false,
   }) {
     const locale = navigator.language;
-    console.log({ locale });
-
     this.id = id;
     this.name = name;
     this.isThirdParty = ThirdParties.includes(name);

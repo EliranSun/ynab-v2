@@ -1,10 +1,42 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Title } from "../atoms";
 import { withExpensesContext } from "../../HOC/withExpensesContext";
 import { getExistingExpenses } from "../../utils/expenses";
 import { Check, X } from "@phosphor-icons/react";
 import { noop } from "lodash";
 import Expense from "./ExpenseView/Expense";
+
+const DoubleExpenseItem = ({ expense, deleteExpense }) => {
+    const [optimisticIsDeleted, setOptimisticIsDeleted] = useState(false);
+
+    if (optimisticIsDeleted) {
+        return (
+            <div className="relative w-full bg-gray-100 p-2 flex items-center">
+                DELETED
+            </div>
+        );
+    }
+
+    return (
+        <div className="relative w-full bg-gray-100 p-2 flex items-center">
+            <span
+                className="w-10 h-10 mx-4 bg-white rounded-full drop-shadow p-1 cursor-pointer flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white"
+                onClick={() => {
+                    deleteExpense(expense.id);
+                    setOptimisticIsDeleted(true);
+                }}>
+                <X size={20}/>
+            </span>
+            <div>
+                <p><b>{expense.name}</b></p>
+                <p className="text-sm">{expense.amountCurrency}</p>
+                <p className="text-sm">{expense.subcategoryLabel}</p>
+                <p className="text-sm">{expense.date}</p>
+                <p className="text-sm">{expense.note}</p>
+            </div>
+        </div>
+    );
+};
 
 const SeeingDoublePage = ({
     expenses = [],
@@ -61,22 +93,10 @@ const SeeingDoublePage = ({
                             </span>
                             {expenses.map(expense => {
                                 return (
-                                    <div key={expense.id} className="relative w-full bg-gray-100 p-2 flex items-center">
-                                        <span
-                                            className="w-10 h-10 mx-4 bg-white rounded-full drop-shadow p-1 cursor-pointer flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white"
-                                            onClick={() => {
-                                                deleteExpense(expense.id);
-                                            }}>
-                                            <X size={20}/>
-                                        </span>
-                                        <div>
-                                            <p><b>{expense.name}</b></p>
-                                            <p className="text-sm">{expense.amountCurrency}</p>
-                                            <p className="text-sm">{expense.subcategoryLabel}</p>
-                                            <p className="text-sm">{expense.date}</p>
-                                            <p className="text-sm">{expense.note}</p>
-                                        </div>
-                                    </div>
+                                    <DoubleExpenseItem
+                                        key={expense.id}
+                                        expense={expense}
+                                        deleteExpense={() => deleteExpense(expense.id)}/>
                                 )
                             })}
                         </div>

@@ -10,44 +10,44 @@ import { Root } from "./components/templates/Root";
 import { PageRouter } from "./components/templates/PageRouter";
 
 i18n.load({
-  en: enMessages,
-  he: heMessages,
+    en: enMessages,
+    he: heMessages,
 });
-i18n.activate("he");
+i18n.activate("en");
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Login>
-        <Root/>
-      </Login>
-    ),
-    children: [
-      {
-        path: ":page",
-        element: <PageRouter/>,
-      },
-      {
-        path: "*",
-        element: <Navigate to="/parse" replace/>,
-      }
-    ]
-  },
+    {
+        path: "/",
+        element: (
+            <Login>
+                <Root/>
+            </Login>
+        ),
+        children: [
+            {
+                path: ":page",
+                element: <PageRouter/>,
+            },
+            {
+                path: "*",
+                element: <Navigate to="/parse" replace/>,
+            }
+        ]
+    },
 ]);
 
 function App() {
-  return (
-    <I18nProvider i18n={i18n}>
-      <UserProvider>
-        <BudgetContextProvider>
-          <ExpensesContextProvider>
-            <RouterProvider router={router}/>
-          </ExpensesContextProvider>
-        </BudgetContextProvider>
-      </UserProvider>
-    </I18nProvider>
-  );
+    return (
+        <I18nProvider i18n={i18n}>
+            <UserProvider>
+                <BudgetContextProvider>
+                    <ExpensesContextProvider>
+                        <RouterProvider router={router}/>
+                    </ExpensesContextProvider>
+                </BudgetContextProvider>
+            </UserProvider>
+        </I18nProvider>
+    );
 }
 
 export default App;

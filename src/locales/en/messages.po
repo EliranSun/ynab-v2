@@ -22,296 +22,296 @@ msgstr ""
 #~ msgid "{children}"
 #~ msgstr ""
 
-#: src/constants/categories.js:112
+#: src/constants/categories.js:133
 msgid "❤️ Self Care"
-msgstr ""
+msgstr "❤️ Self Care"
 
-#: src/constants/categories.js:6
+#: src/constants/categories.js:7
 msgid "🍔 Eating"
-msgstr ""
+msgstr "🍔 Eating"
 
-#: src/constants/categories.js:181
+#: src/constants/categories.js:215
 msgid "🎁💃 Out"
-msgstr ""
+msgstr "🎁💃 Out"
 
-#: src/constants/categories.js:55
+#: src/constants/categories.js:65
 msgid "🏠 House"
-msgstr ""
+msgstr "🏠 House"
 
-#: src/constants/categories.js:262
+#: src/constants/categories.js:311
 msgid "💰 Income"
-msgstr ""
+msgstr "💰 Income"
 
-#: src/constants/categories.js:246
+#: src/constants/categories.js:292
 msgid "🧾 Taxes"
-msgstr ""
+msgstr "🧾 Taxes"
 
-#: src/constants/categories.js:33
+#: src/constants/categories.js:39
 msgid "🚌 Travel"
-msgstr ""
+msgstr "🚌 Travel"
 
-#: src/constants/categories.js:208
+#: src/constants/categories.js:247
 msgid "🛎️ Apps Sub"
-msgstr ""
+msgstr "🛎️ Apps Sub"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:15
 msgid "Actual"
-msgstr ""
+msgstr "Actual"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:67
 msgid "Actual:"
-msgstr ""
+msgstr "Actual:"
 
-#: src/constants/categories.js:218
+#: src/constants/categories.js:259
 msgid "Authoring"
-msgstr ""
+msgstr "Authoring"
 
 #: src/components/pages/BalanceView/BalanceView.jsx:26
 msgid "BALANCE & BUDGET"
-msgstr ""
+msgstr "BALANCE & BUDGET"
 
-#: src/constants/categories.js:127
+#: src/constants/categories.js:151
 msgid "Barber"
-msgstr ""
+msgstr "Barber"
 
-#: src/constants/categories.js:26
+#: src/constants/categories.js:31
 msgid "Bars"
-msgstr ""
+msgstr "Bars"
 
-#: src/constants/categories.js:167
+#: src/constants/categories.js:199
 msgid "Books"
-msgstr ""
+msgstr "Books"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
-msgstr ""
+msgstr "Budget"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:60
 msgid "Budget:"
-msgstr ""
+msgstr "Budget:"
 
-#: src/constants/categories.js:65
+#: src/constants/categories.js:77
 msgid "Building Committee"
-msgstr ""
+msgstr "Building Committee"
 
-#: src/constants/categories.js:43
+#: src/constants/categories.js:51
 msgid "Bus"
-msgstr ""
+msgstr "Bus"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:14
 msgid "but it's negligible!"
-msgstr ""
+msgstr "but it's negligible!"
 
-#: src/constants/categories.js:142
+#: src/constants/categories.js:169
 msgid "Clothes"
-msgstr ""
-
-#: src/constants/categories.js:196
-msgid "Dates"
-msgstr ""
-
-#: src/constants/categories.js:100
-msgid "Decor"
-msgstr ""
-
-#: src/constants/categories.js:11
-msgid "Delivery"
-msgstr ""
-
-#: src/constants/categories.js:223
-msgid "Design"
-msgstr ""
+msgstr "Clothes"
 
 #: src/constants/categories.js:233
+msgid "Dates"
+msgstr "Dates"
+
+#: src/constants/categories.js:119
+msgid "Decor"
+msgstr "Decor"
+
+#: src/constants/categories.js:13
+msgid "Delivery"
+msgstr "Delivery"
+
+#: src/constants/categories.js:265
+msgid "Design"
+msgstr "Design"
+
+#: src/constants/categories.js:277
 msgid "Dev"
-msgstr ""
+msgstr "Dev"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:74
 msgid "Diffs:"
-msgstr ""
+msgstr "Diffs:"
 
-#: src/constants/categories.js:21
+#: src/constants/categories.js:25
 msgid "Dining"
-msgstr ""
+msgstr "Dining"
 
-#: src/constants/categories.js:152
+#: src/constants/categories.js:181
 msgid "Donations"
-msgstr ""
+msgstr "Donations"
+
+#: src/constants/categories.js:187
+msgid "Education"
+msgstr "Education"
+
+#: src/constants/categories.js:83
+msgid "Electricity"
+msgstr "Electricity"
+
+#: src/constants/categories.js:193
+msgid "Electronics"
+msgstr "Electronics"
+
+#: src/constants/categories.js:227
+msgid "Family"
+msgstr "Family"
+
+#: src/constants/categories.js:303
+msgid "Fees"
+msgstr "Fees"
+
+#: src/constants/categories.js:221
+msgid "Friends"
+msgstr "Friends"
+
+#: src/constants/categories.js:283
+msgid "Fun"
+msgstr "Fun"
+
+#: src/constants/categories.js:163
+msgid "Games"
+msgstr "Games"
+
+#: src/constants/categories.js:19
+msgid "Groceries"
+msgstr "Groceries"
+
+#: src/constants/categories.js:145
+msgid "Gym"
+msgstr "Gym"
+
+#: src/constants/categories.js:297
+msgid "Health"
+msgstr "Health"
+
+#: src/constants/categories.js:175
+msgid "Health/Beauty"
+msgstr "Health/Beauty"
 
 #: src/constants/categories.js:157
-msgid "Education"
-msgstr ""
-
-#: src/constants/categories.js:70
-msgid "Electricity"
-msgstr ""
-
-#: src/constants/categories.js:162
-msgid "Electronics"
-msgstr ""
-
-#: src/constants/categories.js:191
-msgid "Family"
-msgstr ""
-
-#: src/constants/categories.js:255
-msgid "Fees"
-msgstr ""
-
-#: src/constants/categories.js:186
-msgid "Friends"
-msgstr ""
-
-#: src/constants/categories.js:238
-msgid "Fun"
-msgstr ""
-
-#: src/constants/categories.js:137
-msgid "Games"
-msgstr ""
-
-#: src/constants/categories.js:16
-msgid "Groceries"
-msgstr ""
-
-#: src/constants/categories.js:122
-msgid "Gym"
-msgstr ""
-
-#: src/constants/categories.js:250
-msgid "Health"
-msgstr ""
-
-#: src/constants/categories.js:147
-msgid "Health/Beauty"
-msgstr ""
-
-#: src/constants/categories.js:132
 msgid "Hobbies"
-msgstr ""
+msgstr "Hobbies"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:26
 msgid "I'm in BIG trouble."
-msgstr ""
+msgstr "I'm in BIG trouble."
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:29
 msgid "I'm in trouble."
-msgstr ""
+msgstr "I'm in trouble."
 
-#: src/constants/categories.js:90
+#: src/constants/categories.js:107
 msgid "Internet"
-msgstr ""
+msgstr "Internet"
 
-#: src/constants/categories.js:228
+#: src/constants/categories.js:271
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
-msgstr ""
+msgstr "Jesus fucking christ man."
 
-#: src/constants/categories.js:48
+#: src/constants/categories.js:57
 msgid "KIA"
-msgstr ""
+msgstr "KIA"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
-msgstr ""
+msgstr "less than my budget"
 
-#: src/constants/categories.js:38
+#: src/constants/categories.js:45
 msgid "Lime"
-msgstr ""
+msgstr "Lime"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:58
 msgid "Lost this month..."
-msgstr ""
+msgstr "Lost this month..."
 
-#: src/constants/categories.js:105
+#: src/constants/categories.js:125
 msgid "Maintenance"
-msgstr ""
+msgstr "Maintenance"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
-msgstr ""
+msgstr "my budget is nowhere NEAR reality."
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:11
 msgid "my budget is spot on!"
-msgstr ""
+msgstr "my budget is spot on!"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:73
 msgid "No budget set this month."
-msgstr ""
+msgstr "No budget set this month."
 
-#: src/constants/categories.js:174
-#: src/constants/categories.js:276
+#: src/constants/categories.js:207
+#: src/constants/categories.js:327
 msgid "Other"
-msgstr ""
+msgstr "Other"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"
-msgstr ""
+msgstr "over my budget"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:48
 msgid "Past 12 months"
-msgstr ""
+msgstr "Past 12 months"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:17
 msgid "perhaps a one-off, but I should understand why if this keeps going."
-msgstr ""
+msgstr "perhaps a one-off, but I should understand why if this keeps going."
 
-#: src/constants/categories.js:85
+#: src/constants/categories.js:101
 msgid "Pets"
-msgstr ""
+msgstr "Pets"
 
-#: src/constants/categories.js:95
+#: src/constants/categories.js:113
 msgid "Phone"
-msgstr ""
+msgstr "Phone"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:53
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
-msgstr ""
+msgstr "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
-#: src/constants/categories.js:80
+#: src/constants/categories.js:95
 msgid "Rates"
-msgstr ""
+msgstr "Rates"
 
-#: src/constants/categories.js:60
-#: src/constants/categories.js:282
+#: src/constants/categories.js:71
+#: src/constants/categories.js:334
 msgid "Rent"
-msgstr ""
+msgstr "Rent"
 
-#: src/constants/categories.js:268
+#: src/constants/categories.js:318
 msgid "Salary"
-msgstr ""
+msgstr "Salary"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
-msgstr ""
+msgstr "Saved this month!"
 
 #: src/components/organisms/SimilarExpenses.jsx:32
 msgid "Show same month only"
-msgstr "Show similar from this month only"
+msgstr "Show same month only"
 
-#: src/constants/categories.js:117
+#: src/constants/categories.js:139
 msgid "Therapist"
-msgstr ""
+msgstr "Therapist"
 
 #: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
 #~ msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
-#~ msgstr ""
+#~ msgstr "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
-#: src/constants/categories.js:213
+#: src/constants/categories.js:253
 msgid "TV"
-msgstr ""
+msgstr "TV"
 
-#: src/constants/categories.js:201
+#: src/constants/categories.js:239
 msgid "Vacation"
-msgstr ""
+msgstr "Vacation"
 
-#: src/constants/categories.js:75
+#: src/constants/categories.js:89
 msgid "Water"
-msgstr ""
+msgstr "Water"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:8
 msgid "which is good, but I should understand why my budget is off."
-msgstr ""
+msgstr "which is good, but I should understand why my budget is off."

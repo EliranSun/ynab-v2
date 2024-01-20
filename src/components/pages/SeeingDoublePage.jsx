@@ -21,6 +21,7 @@ const SeeingDoublePage = ({
     const duplicateExpenses = useMemo(() => {
         const duplicates = [];
         const keys = [];
+
         expenses.forEach(expense => {
             const existing = getExistingExpenses(expense, expenses);
             const key = `${expense.name}-${expense.amount}-${expense.timestamp}`;
@@ -47,7 +48,7 @@ const SeeingDoublePage = ({
             <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
                 {duplicateExpenses.map((expenses, index) => {
                     return (
-                        <div key={index} className="bg-gray-200 p-2 m-1 w-full md:w-1/6 relative min-w-fit flex gap-2">
+                        <div key={index} className="bg-gray-200 p-2 m-1 w-full md:w-1/2 relative min-w-fit flex gap-2">
                             <span
                                 onClick={async () => {
                                     if (window.confirm("Are you sure you want to mark these expenses as not duplicated?")) {
@@ -60,20 +61,21 @@ const SeeingDoublePage = ({
                             </span>
                             {expenses.map(expense => {
                                 return (
-                                    <div key={expense.id} className="relative bg-gray-100 p-2">
+                                    <div key={expense.id} className="relative w-full bg-gray-100 p-2 flex items-center">
                                         <span
-                                            className="absolute top-0 -left-5 bg-white rounded-full drop-shadow p-1 cursor-pointer"
-                                            onClick={async () => {
+                                            className="w-10 h-10 mx-4 bg-white rounded-full drop-shadow p-1 cursor-pointer flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white"
+                                            onClick={() => {
                                                 deleteExpense(expense.id);
-                                                refetchExpenses()
                                             }}>
-                                            <X size={20} color="red"/>
+                                            <X size={20}/>
                                         </span>
-                                        <p><b>{expense.name}</b></p>
-                                        <p>{expense.amountCurrency}</p>
-                                        <p>{expense.subcategoryLabel}</p>
-                                        <p>{expense.date}</p>
-                                        <p className="text-sm">{expense.note}</p>
+                                        <div>
+                                            <p><b>{expense.name}</b></p>
+                                            <p className="text-sm">{expense.amountCurrency}</p>
+                                            <p className="text-sm">{expense.subcategoryLabel}</p>
+                                            <p className="text-sm">{expense.date}</p>
+                                            <p className="text-sm">{expense.note}</p>
+                                        </div>
                                     </div>
                                 )
                             })}

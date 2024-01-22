@@ -52,22 +52,6 @@ export const ExpensesList = ({
             // we do not want to update based on activeId
         }, [expenses]); // eslint-disable-line react-hooks/exhaustive-deps
 
-        useEffect(() => {
-            const newExpenses = expenses.map(expense => {
-                const similarExpense = existingExpenses.find(existingItem => {
-                    return existingItem.name === expense.name;
-                });
-
-                if (similarExpense?.categoryId) {
-                    expense.categoryId = similarExpense.categoryId;
-                }
-
-                return expense;
-            });
-
-            setExpenses(newExpenses);
-        }, []);
-
         if (expenses.length === 0) {
             return null;
         }
@@ -88,7 +72,7 @@ export const ExpensesList = ({
                             await submitExpenses(expensesWithCategory);
                             setIsLoading(false);
                         }}>
-                        <Spinner className={isLoading && "animate-spin"}/>
+                        <Spinner className={isLoading ? "animate-spin" : ''}/>
                         <span>Submit {expensesWithCategory.length}</span>
                     </Button>
                 </div>

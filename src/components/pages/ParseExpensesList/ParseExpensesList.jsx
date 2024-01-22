@@ -5,7 +5,7 @@ import { Button, Title } from "../../atoms";
 import { withExpensesContext } from "../../../HOC/withExpensesContext";
 import { SheetUpload } from "../../organisms/SheetUpload";
 import { ExpensesList } from "./ExpensesList";
-import { isExistingExpense, parseNewExpenses } from "../../../utils/expenses";
+import { parseNewExpenses } from "../../../utils/expenses";
 import { ClipboardText } from "@phosphor-icons/react";
 
 const isMobile = window.innerWidth < 768;
@@ -38,11 +38,20 @@ export const ParseExpensesList = ({
 
         if (savedParsedExpenses) {
             const data = JSON.parse(savedParsedExpenses);
-            const nonExistingExpenses = data.filter(item => {
-                return !item.categoryId;
+
+            const newExpenses = data.map(expense => {
+                const similarExpense = expenses.find(existingItem => {
+                    return existingItem.name === expense.name;
+                });
+
+                if (similarExpense?.categoryId) {
+                    expense.categoryId = similarExpense.categoryId;
+                }
+
+                return expense;
             });
 
-            setParsedExpenses(nonExistingExpenses.map(item => new Expense(item)));
+            setParsedExpenses(newExpenses.map(item => new Expense(item)));
         }
 
         if (savedTextareaValue) {

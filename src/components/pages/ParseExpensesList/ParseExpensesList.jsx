@@ -11,7 +11,9 @@ import { ClipboardText } from "@phosphor-icons/react";
 const isMobile = window.innerWidth < 768;
 
 export const ParseExpensesList = ({
-    text = "", expenses, setExpenses = () => {
+    text = "",
+    expenses,
+    setExpenses = () => {
     }
 }) => {
     const textAreaRef = useRef(null);
@@ -81,6 +83,8 @@ export const ParseExpensesList = ({
         setParsedExpenses(newExpenses);
         localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
     }
+
+    console.log({ expenses, parsedExpenses });
 
     return (
         <section className="h-screen overflow-y-auto p-4">

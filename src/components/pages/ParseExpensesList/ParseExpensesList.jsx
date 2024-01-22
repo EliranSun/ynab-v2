@@ -5,7 +5,7 @@ import { Button, Title } from "../../atoms";
 import { withExpensesContext } from "../../../HOC/withExpensesContext";
 import { SheetUpload } from "../../organisms/SheetUpload";
 import { ExpensesList } from "./ExpensesList";
-import { parseNewExpenses } from "../../../utils/expenses";
+import { parseNewExpenses, isExistingExpense } from "../../../utils/expenses";
 import { ClipboardText } from "@phosphor-icons/react";
 
 const isMobile = window.innerWidth < 768;
@@ -51,7 +51,9 @@ export const ParseExpensesList = ({
                 return expense;
             });
 
-            setParsedExpenses(newExpenses.map(item => new Expense(item)));
+            setParsedExpenses(newExpenses
+                .filter(item => !isExistingExpense(item, expenses))
+                .map(item => new Expense(item)));
         }
 
         if (savedTextareaValue) {
@@ -110,7 +112,12 @@ export const ParseExpensesList = ({
                     expenses={parsedExpenses}
                     existingExpenses={expenses}
                     setExpenses={setParsedExpenses}
-                    submitExpenses={setExpenses}/>
+                    submitExpenses={async expenses => {
+                        await setExpenses(expenses);
+                        const newExpenses = parsedExpenses.filter(item => !item.categoryId);
+                        setParsedExpenses(newExpenses);
+                        localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
+                    }}/>
             </div>
             <div className="flex items-start gap-4 max-w-7xl flex-col">
                 <div className="flex flex-col md:w-1/3 h-full">

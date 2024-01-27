@@ -1,7 +1,32 @@
 import { Expense } from "../models";
+import { startOfMonth } from "date-fns";
+
+const RecurringExpenses = [
+    "מרכז הספורט",
+];
+
+
+const isRecurringExpense = (expenseName) => {
+    if (!expenseName) {
+        return false;
+    }
+
+    let isRecurring = false;
+    RecurringExpenses.forEach((recurringExpense) => {
+        if (expenseName.includes(recurringExpense)) {
+            isRecurring = true;
+        }
+    });
+
+    return isRecurring;
+}
 
 export const isExistingExpense = (newExpense, expenses) => {
     const existingExpense = expenses.find((expense) => {
+        if (isRecurringExpense(newExpense.name)) {
+            return false;
+        }
+
         return (
             expense.name === newExpense.name &&
             expense.timestamp === newExpense.timestamp &&
@@ -33,6 +58,8 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
         const month = dateParts && Number(dateParts[1]) - 1;
         const day = dateParts && dateParts[0];
         const timestamp = new Date(Date.UTC(year, month, day)).getTime();
+        const foo = startOfMonth(new Date().getTime()).getTime();
+        const isRecurring = isRecurringExpense(name);
         const parsedAmount =
             amount &&
             parseFloat(amount.replace(",", "").replace("₪", "").trim());
@@ -43,7 +70,7 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
 
         return new Expense({
             name: name,
-            timestamp: timestamp,
+            timestamp: isRecurring ? foo : timestamp,
             amount: parsedAmount,
             note: cells[5],
         });

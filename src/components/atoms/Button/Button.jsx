@@ -12,7 +12,7 @@ const Button = ({
         <button
             onClick={onClick}
             disabled={isDisabled}
-            className={classNames("w-fit flex justify-center items-center gap-2 bg-white min-w-12", className, {
+            className={classNames("w-fit flex justify-center items-center gap-2 min-w-12", className, {
                 "opacity-50 cursor-not-allowed": isDisabled,
                 "bg-blue-500 md:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded": type === Types.PRIMARY,
                 "bg-red-500 md:hover:bg-red-700 md:text-white font-bold py-2 px-4 rounded": type === Types.DANGER,

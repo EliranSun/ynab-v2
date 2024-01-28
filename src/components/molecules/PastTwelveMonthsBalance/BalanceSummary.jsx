@@ -40,8 +40,8 @@ export const BalanceSummary = ({timestamp}) => {
 
     if (!isOpen) {
         return (
-            <Button type={Button.Types.GHOST_BORDERED}>
-                <Calendar size={24} onClick={() => setIsOpen(!isOpen)} color="black"/>
+            <Button>
+                <Calendar size={24} onClick={() => setIsOpen(!isOpen)}/>
             </Button>
         );
     }

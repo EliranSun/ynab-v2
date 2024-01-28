@@ -1,9 +1,7 @@
-import {useState} from "react";
 import {useDate} from "../../molecules";
 import {Title} from "../../atoms";
 import {CategoryBalance} from "./CategoryBalance";
 import {BalanceSummary} from "../../molecules/PastTwelveMonthsBalance/BalanceSummary";
-import {Trans} from "@lingui/macro";
 import {useCategories} from "../../../hooks/useCategories";
 import {formatCurrency} from "../../../utils";
 
@@ -14,8 +12,6 @@ const BalanceView = () => {
 
         return (
             <section className="md:h-screen overflow-y-auto overflow-x-hidden w-full p-4">
-                {/*<Title className="mb-8"><Trans>Where'd the money go?</Trans></Title>*/}
-                {/*<BalanceSummary timestamp={currentTimestamp}/>*/}
                 <div className="flex flex-col md:flex-row items-start my-2 md:top-0">
                     <div
                         className="flex gap-2 md:my-0 items-center w-full justify-between md:justify-evenly bg-white p-0 z-10 max-w-2xl">
@@ -54,6 +50,7 @@ const BalanceView = () => {
                         </Title>
                     </div>
                 </div>
+                <BalanceSummary timestamp={currentTimestamp}/>
             </section>
         );
     }

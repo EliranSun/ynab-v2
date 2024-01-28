@@ -8,6 +8,7 @@ import {messages as enMessages} from "./locales/en/messages";
 import {messages as heMessages} from "./locales/he/messages";
 import {Root} from "./components/templates/Root";
 import {PageRouter} from "./components/templates/PageRouter";
+import {Header} from "./components/molecules/Header/Header";
 
 i18n.load({
     en: enMessages,
@@ -19,9 +20,12 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <Login>
-                <Root/>
-            </Login>
+            <>
+                <Header/>
+                <Login>
+                    <Root/>
+                </Login>
+            </>
         ),
         children: [
             {

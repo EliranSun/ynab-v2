@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import {initializeApp} from "firebase/app";
+import {getAnalytics} from "firebase/analytics";
 import {
     collection,
     deleteDoc,
@@ -11,7 +11,7 @@ import {
     writeBatch,
     connectFirestoreEmulator
 } from "firebase/firestore";
-import { Expense } from "../models";
+import {Expense} from "../models";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,8 +20,8 @@ import { Expense } from "../models";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyAB39A1eVvhFbTIqol1yB8sIrbv9Allqpg",
-    authDomain: "ynab-47641.firebaseapp.com",
     projectId: "ynab-47641",
+    authDomain: "ynab-47641.firebaseapp.com",
     storageBucket: "ynab-47641.appspot.com",
     messagingSenderId: "166507618318",
     appId: "1:166507618318:web:2586479d23433cfc855c5f",
@@ -72,7 +72,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
         const batch = writeBatch(db);
         duplicateIds.forEach((id) => {
             const expenseRef = doc(db, EXPENSES_COLLECTION, id);
-            batch.update(expenseRef, { isOriginal: true });
+            batch.update(expenseRef, {isOriginal: true});
         });
 
         console.log("Marking expenses as original success", duplicateIds);
@@ -132,8 +132,8 @@ export const getBudget = async () => {
     }
 };
 
-export const addBudget = async ({ dateKey, categoryId, subcategoryId, amount }) => {
-    console.info("Adding budget to DB", { dateKey, categoryId, amount });
+export const addBudget = async ({dateKey, categoryId, subcategoryId, amount}) => {
+    console.info("Adding budget to DB", {dateKey, categoryId, amount});
     const budget = await getBudget();
     const isExist = budget[dateKey];
 
@@ -162,7 +162,7 @@ export const updateBudget = async (budgetId, props) => {
 
 export const updateCategory = async (expenseId, categoryId) => {
     try {
-        return updateExpense(expenseId, { categoryId: Number(categoryId) });
+        return updateExpense(expenseId, {categoryId: Number(categoryId)});
     } catch (error) {
         console.error("Error updating category:", error);
         return {};

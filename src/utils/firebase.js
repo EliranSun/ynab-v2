@@ -12,6 +12,7 @@ import {
     connectFirestoreEmulator
 } from "firebase/firestore";
 import {Expense} from "../models";
+import expensesMock from "../mocks/expenses.json";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -41,6 +42,10 @@ const BUDGET_COLLECTION = "budget";
 
 export const getExpenses = async () => {
     try {
+        if (process.env.NODE_ENV === "development") {
+            return expensesMock.map((expense) => new Expense(expense));
+        }
+
         const expenses = {};
         const querySnapshot = await getDocs(collection(db, EXPENSES_COLLECTION));
         querySnapshot.forEach((doc) => {

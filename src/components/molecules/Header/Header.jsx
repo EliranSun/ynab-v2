@@ -5,6 +5,7 @@ import {List} from "@phosphor-icons/react";
 import {UserContext} from "../../../context";
 import {BUTTON_SIZE} from "../../../constants";
 import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
+import {useParams} from "react-router-dom";
 
 const isMobile = window.innerWidth < 768;
 
@@ -12,23 +13,33 @@ const Messages = [
     () => <span>Spend less than <b>120₪</b> today on food</span>,
     () => <span>Don't forget to <b>pay your bills</b> this week</span>,
     () => <span>Try to <b>save 10%</b> of your income this month</span>,
-]
+];
+
+const PageTitle = {
+    parse: "Parse",
+    balance: "Balance: Where'd my money go?",
+    expenses: "Expenses",
+    categories: "Categories",
+    projection: "Projection",
+    resolver: "Resolver",
+};
 
 export const Header = () => {
+    const {page} = useParams();
     const [user] = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const message = useMemo(() => {
-        let m = `Hey ${user.displayName.split(" ")[0]}, `;
+        let message = `Hey ${user.displayName.split(" ")[0]}, `;
         const hour = new Date().getHours();
         if (hour < 12) {
-            m += "Good morning!";
+            message += "Good morning!";
         } else if (hour < 18) {
-            m += "Good afternoon!";
+            message += "Good afternoon!";
         } else {
-            m += "Good evening!";
+            message += "Good evening!";
         }
 
-        return m;
+        return message;
     }, [user]);
 
     const closeMenu = () => setIsMenuOpen(false);
@@ -46,16 +57,17 @@ export const Header = () => {
                             <List size={BUTTON_SIZE} color="black"/>
                         </Button>
                         <div>
-                            {message}
-                            <br/>
-                            <div className="text-blue-400">
-                                <RandomMessage/>
-                            </div>
+                            {/*{message}*/}
+                            {/*<br/>*/}
+                            {/*<div className="text-blue-400">*/}
+                            {/*    <RandomMessage/>*/}
+                            {/*</div>*/}
+                            <div className="text-lg">{PageTitle[page]}</div>
                         </div>
                     </div>}
                 <LoginButton/>
                 {(isDesktop || isMenuOpen) &&
-                    <ul className="absolute md:sticky bg-white left-0 top-10 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:top-0 md:gap-4 md:justify-end">
+                    <ul className="absolute md:sticky bg-white left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:top-0 md:gap-4 md:justify-end">
                         <ButtonLink onClick={closeMenu} name="parse"/>
                         <ButtonLink onClick={closeMenu} name="balance"/>
                         <ButtonLink onClick={closeMenu} name="expenses"/>

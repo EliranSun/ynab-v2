@@ -16,8 +16,8 @@ export const emulateAuth = () =>
 
 export const login = async () => {
     try {
-        // const result = await signInWithPopup(auth, provider);
-        const result = await signInWithRedirect(auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        // const result = await signInWithRedirect(auth, provider);
         const user = result.user;
         console.info({user});
         alert(`Welcome ${user.displayName}!`);

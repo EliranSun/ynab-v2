@@ -1,10 +1,13 @@
-import { Expense } from "../models";
-import { startOfMonth } from "date-fns";
+import {Expense} from "../models";
+import {isSameMonth, startOfMonth} from "date-fns";
+import {getExpenses} from "./firebase";
+import {Categories} from "../constants";
+import {orderBy} from "lodash";
+import {getLastBudgetByCategory} from "./budget";
 
 const RecurringExpenses = [
     "מרכז הספורט",
 ];
-
 
 const isRecurringExpense = (expenseName) => {
     if (!expenseName) {
@@ -82,4 +85,57 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
 
             return row.name && row.amount && row.timestamp;
         });
+};
+export const getExpensesSummary = async ({budget, timestamp}) => {
+    let totalExpenses = 0;
+    let totalIncome = 0;
+    const expenses = await getExpenses();
+    const date = new Date(timestamp);
+
+    const expensesThisMonth = Object.values(expenses).filter(expense => {
+        const expenseDate = new Date(expense.timestamp);
+
+        if (expense.isRecurring)
+            return expenseDate.getFullYear() === date.getFullYear();
+
+        return isSameMonth(expenseDate, date);
+    });
+
+
+    const summary = Categories.map(category => {
+        const expensesInCategory = expensesThisMonth.filter(expense => expense.mainCategoryId === category.id);
+        const totalAmountInCategory = expensesInCategory.reduce((acc, curr) => acc + curr.amount, 0);
+        const isIncome = category.id === 8;
+
+        if (isIncome) {
+            totalIncome += totalAmountInCategory;
+        } else {
+            totalExpenses += totalAmountInCategory;
+        }
+
+        const subcategories = category.subCategories.map(subcategory => {
+            const expensesInSubcategory = expensesInCategory.filter(expense => expense.subcategoryId === subcategory.id);
+            const totalAmountInSubcategory = expensesInSubcategory.reduce((acc, curr) => acc + curr.amount, 0);
+
+            return {
+                ...subcategory,
+                amount: totalAmountInSubcategory,
+            };
+        });
+
+        const budgetInCategory = getLastBudgetByCategory(budget, category.id);
+
+        return {
+            ...category,
+            amount: totalAmountInCategory,
+            subcategories,
+            budget: budgetInCategory,
+        };
+    });
+
+    return {
+        summary: orderBy(summary, 'amount', 'desc'),
+        totalExpenses,
+        totalIncome,
+    };
 };

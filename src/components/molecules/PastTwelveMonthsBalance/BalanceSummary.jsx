@@ -10,6 +10,7 @@ import {noop} from "lodash";
 import {ThisMonthBalance} from "../ThisMonthBalance/ThisMonthBalance";
 import {HalfYearBalanceSummary} from "../HalfYearBalanceSummary";
 import {useExpensesSummary} from "../../../hooks/useExpensesSummary";
+import {isDesktop} from "../../../utils/device";
 
 const IncomeSubcategoryIds = [80, 81, 82, 83];
 

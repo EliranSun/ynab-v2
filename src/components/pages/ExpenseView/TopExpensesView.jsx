@@ -72,7 +72,7 @@ const TopExpensesView = ({expenses, isSameDate, toDate, date = ''}) => {
                         className="w-full"/>
                 <button onClick={() => {
                     setComparisonResults([]);
-                    
+
                     const expensesFromTextarea = textareaExpenses.split("\n").map((row) => {
                         const expenseData = row?.split("\t");
                         const day = expenseData[1].split("/")[0];
@@ -90,15 +90,6 @@ const TopExpensesView = ({expenses, isSameDate, toDate, date = ''}) => {
                     expenses.filter(expense => isSameDate(expense.timestamp)).forEach(expense => {
                         const matchingExpense = expensesFromTextarea.find((e) => {
                             const isSame = isSameDay(e.date, new Date(expense.timestamp));
-                            // console.log({
-                            //     name: e.name,
-                            //     bankDate: e.date,
-                            //     bankDateString: e.dateString,
-                            //     appDate: new Date(expense.timestamp),
-                            //     isSameDay: isSame,
-                            // });
-                            //
-                            // debugger;
                             return e.name === expense.name && isSame;
                         });
                         if (matchingExpense && matchingExpense.amount !== parseInt(expense.amount)) {

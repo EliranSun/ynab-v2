@@ -1,22 +1,22 @@
-import { noop, orderBy } from "lodash";
-import { formatCurrency } from "../../../utils";
+import {noop, orderBy} from "lodash";
+import {formatCurrency} from "../../../utils";
 import ExpensesChart from "./ExpensesChart";
-import { X } from "@phosphor-icons/react";
-import { useMemo } from "react";
-import { isSameMonth } from "date-fns";
-import { Title } from "../../atoms";
-import { BUTTON_SIZE } from "../../../constants";
+import {X} from "@phosphor-icons/react";
+import {useMemo} from "react";
+import {isSameMonth} from "date-fns";
+import {Title} from "../../atoms";
+import {BUTTON_SIZE} from "../../../constants";
 
 const isMobile = window.innerWidth < 768;
 
 const SubcategoryExpensesList = ({
-    onSubcategoryClick = noop,
-    expensesPerMonthPerCategory = {},
-    timestamp = null,
-    title = ''
-}) => {
+                                     onSubcategoryClick = noop,
+                                     expensesPerMonthPerCategory = {},
+                                     timestamp = null,
+                                     title = ''
+                                 }) => {
     const data = useMemo(() => {
-        return Object.entries(expensesPerMonthPerCategory).map(([date, { amount, expenses, timestamp }]) => ({
+        return Object.entries(expensesPerMonthPerCategory).map(([date, {amount, expenses, timestamp}]) => ({
             x: date,
             y: amount,
             timestamp,
@@ -43,17 +43,17 @@ const SubcategoryExpensesList = ({
             </button>
             <Title>{title}</Title>
             <ExpensesChart data={data}/>
-            <div className="h-1/2 overflow-y-auto">
-                {sameMonthData.map(({ x: date, y: amount, expenses }) => {
+            <div className="max-h-72 overflow-y-auto">
+                {sameMonthData.map(({x: date, y: amount, expenses}) => {
                     return (
                         <div className="my-4">
                             <b className="text-xl">{date}: {formatCurrency(amount)}</b>
-                            <div className="">
+                            <div className="overflow-y-auto">
                                 {orderBy(expenses, ['timestamp'], ['desc']).map((expense) => {
                                     return (
                                         <div className="my-2">
                                             <div>
-                                                {/*<b className="text-lg">{expense.name}</b>*/}
+                                                <b className="">{expense.name}</b>
                                                 <br/>
                                                 <span>{formatCurrency(expense.amount)} • </span>
                                                 <span>{expense.date}</span><br/>

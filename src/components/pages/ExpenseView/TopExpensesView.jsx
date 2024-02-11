@@ -71,6 +71,8 @@ const TopExpensesView = ({expenses, isSameDate, toDate, date = ''}) => {
                         Good for when there's a discrepancy between the bank and the app."
                         className="w-full"/>
                 <button onClick={() => {
+                    setComparisonResults([]);
+                    
                     const expensesFromTextarea = textareaExpenses.split("\n").map((row) => {
                         const expenseData = row?.split("\t");
                         const day = expenseData[1].split("/")[0];

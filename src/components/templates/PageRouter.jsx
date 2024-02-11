@@ -1,18 +1,18 @@
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import FuturePredictionPage from "../pages/FuturePredictionPage/FuturePredictionPage";
-import { BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage } from "..";
+import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "..";
 
 export const PageRouter = () => {
-  const { page } = useParams();
+    const {page} = useParams();
 
-  const pages = {
-    parse: <ParseExpensesList/>,
-    expenses: <ExpenseView/>,
-    balance: <BalanceView/>,
-    projection: <FuturePredictionPage/>,
-    resolver: <SeeingDoublePage/>,
-    categories: <CategoryView/>
-  };
+    const pages = {
+        parse: <ParseExpensesList/>,
+        balance: <BalanceView/>,
+        expenses: <ExpenseView/>,
+        categories: <CategoryView/>,
+        projection: <FuturePredictionPage/>,
+        resolver: <SeeingDoublePage/>,
+    };
 
-  return pages[page] || <div>Not found</div>;
+    return pages[page] || <div>Not found</div>;
 };

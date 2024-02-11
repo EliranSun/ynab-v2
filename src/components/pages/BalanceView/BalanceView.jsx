@@ -28,51 +28,55 @@ const BalanceView = () => {
                     </Title>
                     <NextButton/>
                 </div>
-                <div className="flex flex-col my-4 gap-2 box-content items-center">
-                    <div className="flex gap-8 w-full justify-end max-w-xl">
-                        <span>Total</span>
-                        <span>Budget</span>
+                <div className="flex flex-col-reverse md:flex md:flex-row">
+                    <div className="md:w-1/3 md:inline">
+                        <BalanceSummary timestamp={currentTimestamp}/>
                     </div>
-                    {categories.summary.map((category) => {
-                        return (
-                            <CategoryBalance
-                                key={category.id}
-                                categoryId={category.id}
-                                categoryName={category.name}
-                                categoryBudget={category.budget}
-                                currentTimestamp={currentTimestamp}
-                                isSameDate={isSameDate}
-                                isPreviousMonth={isPreviousMonth}/>
-                        );
-                    })}
-                    Total:
-                    <div className="flex items-center w-full justify-center gap-4">
-                        <div className="text-lg text-center text-green-500">
-                            {formatCurrency(categories.totalIncome)}
+                    <div className="md:w-2/3 flex flex-col my-4 gap-2 box-content items-center">
+                        <div className="flex gap-8 w-full justify-end max-w-xl">
+                            <span>Total</span>
+                            <span>Budget</span>
                         </div>
-                        <div className="text-lg text-center text-red-500">
-                            {formatCurrency(-categories.totalExpenses)}
+                        {categories.summary.map((category) => {
+                            return (
+                                <CategoryBalance
+                                    key={category.id}
+                                    categoryId={category.id}
+                                    categoryName={category.name}
+                                    categoryBudget={category.budget}
+                                    currentTimestamp={currentTimestamp}
+                                    isSameDate={isSameDate}
+                                    isPreviousMonth={isPreviousMonth}/>
+                            );
+                        })}
+                        Total:
+                        <div className="flex items-center w-full justify-center gap-4">
+                            <div className="text-lg text-center text-green-500">
+                                {formatCurrency(categories.totalIncome)}
+                            </div>
+                            <div className="text-lg text-center text-red-500">
+                                {formatCurrency(-categories.totalExpenses)}
+                            </div>
+                            =
+                            <Title type={Title.Types.H3} className="text-center font-black">
+                                {formatCurrency(categories.totalIncome - categories.totalExpenses)}
+                            </Title>
                         </div>
-                        =
-                        <Title type={Title.Types.H3} className="text-center font-black">
-                            {formatCurrency(categories.totalIncome - categories.totalExpenses)}
-                        </Title>
-                    </div>
-                    Budget:
-                    <div className="flex items-center w-full justify-center gap-4">
-                        <div className="text-lg text-center text-green-500">
-                            {formatCurrency(budgetSummary.totalIncome)}
+                        Budget:
+                        <div className="flex items-center w-full justify-center gap-4">
+                            <div className="text-lg text-center text-green-500">
+                                {formatCurrency(budgetSummary.totalIncome)}
+                            </div>
+                            <div className="text-lg text-center text-red-500">
+                                {formatCurrency(-budgetSummary.totalExpenses)}
+                            </div>
+                            =
+                            <Title type={Title.Types.H3} className="text-center font-black">
+                                {formatCurrency(budgetSummary.totalIncome - budgetSummary.totalExpenses)}
+                            </Title>
                         </div>
-                        <div className="text-lg text-center text-red-500">
-                            {formatCurrency(-budgetSummary.totalExpenses)}
-                        </div>
-                        =
-                        <Title type={Title.Types.H3} className="text-center font-black">
-                            {formatCurrency(budgetSummary.totalIncome - budgetSummary.totalExpenses)}
-                        </Title>
                     </div>
                 </div>
-                <BalanceSummary timestamp={currentTimestamp}/>
             </section>
         );
     }

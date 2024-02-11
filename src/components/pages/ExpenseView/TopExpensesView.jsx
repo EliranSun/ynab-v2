@@ -164,7 +164,7 @@ const TopExpensesView = ({expenses, isSameDate, toDate, date = ''}) => {
                 </thead>
                 <tbody>
                 {items
-                    .sort((a, b) => a.timestamp - b.timestamp)
+                    .sort((a, b) => b.amount - a.amount)
                     .map((expense, index) => {
                         const {subcategoryName} = getExpenseCategoryName(
                             expense.categoryId

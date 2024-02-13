@@ -28,8 +28,8 @@ const BalanceView = () => {
                     </Title>
                     <NextButton/>
                 </div>
-                <div className="flex flex-col-reverse md:flex md:flex-row">
-                    <div className="md:w-1/3 md:inline">
+                <div className="flex flex-col-reverse md:flex md:flex-row md:gap-10">
+                    <div className="md:w-1/4 md:inline">
                         <BalanceSummary timestamp={currentTimestamp}/>
                     </div>
                     <div className="md:w-2/3 flex flex-col my-4 gap-2 box-content items-center">
@@ -44,6 +44,7 @@ const BalanceView = () => {
                                     categoryId={category.id}
                                     categoryName={category.name}
                                     categoryBudget={category.budget}
+                                    subcategoryBudgets={budget["8.2023"] ? budget["8.2023"][category.id] : {}}
                                     currentTimestamp={currentTimestamp}
                                     isSameDate={isSameDate}
                                     isPreviousMonth={isPreviousMonth}/>

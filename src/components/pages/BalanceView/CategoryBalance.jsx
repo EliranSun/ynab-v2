@@ -17,6 +17,7 @@ export const CategoryBalance = ({
                                     isSameDate,
                                     isPreviousMonth,
                                     categoryBudget,
+                                    subcategoryBudgets,
                                     isOpen,
                                 }) => {
     const [selectedId, setSelectedId] = useState(null);
@@ -71,7 +72,7 @@ export const CategoryBalance = ({
     const isIncome = categoryId === INCOME_CATEGORY_ID;
 
     return (
-        <div className="bg-gray-200 p-2 md:p-4 w-full max-w-2xl box-border relative">
+        <div className="bg-gray-200 p-2 md:p-4 w-full max-w-3xl box-border relative">
             <div
                 className="flex items-center justify-between gap-2 md:gap-4 my-2 text-sm md:text-xl font-bold"
                 onClick={() => setIsExpanded(!isExpanded)}>
@@ -94,7 +95,7 @@ export const CategoryBalance = ({
                 {!isIncome ? diff > 0 ? <Smiley/> : <SmileySad/> : null}
             </div>
             {isExpanded ?
-                <div className="flex gap-2 min-w-fit flex-wrap items-stretch">
+                <div className="flex flex-wrap gap-2">
                     {subcategories.map((subcategory) => {
                         if (subcategory.amount === 0)
                             return null;
@@ -103,6 +104,7 @@ export const CategoryBalance = ({
                             <Subcategory
                                 {...subcategory}
                                 key={subcategory.id}
+                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
                                 categoryId={categoryId}
                                 isSelected={selectedId === subcategory.id}
                                 onSubcategoryClick={setSelectedId}

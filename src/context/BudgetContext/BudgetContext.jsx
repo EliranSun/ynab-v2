@@ -31,7 +31,7 @@ export const BudgetContextProvider = ({children}) => {
                 setBudget: async ({amount, categoryId, subcategoryId, timestamp}) => {
                     console.debug("BudgetContext setBudget", amount, categoryId, timestamp);
                     // TODO: util or date controller
-                    const dateKey = getDateKey(timestamp);
+                    const dateKey = "8.2023"// getDateKey(timestamp);
                     await addBudget({
                         dateKey,
                         categoryId,

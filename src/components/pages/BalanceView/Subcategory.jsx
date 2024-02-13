@@ -5,7 +5,8 @@ import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
 import {formatCurrency} from "../../../utils";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import classNames from "classnames";
-import {SetBudgetButton} from "../../atoms/SetBudgetButton/SetBudgetButton";
+import {Coin, Coins} from "@phosphor-icons/react";
+import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 
 const Subcategory = ({
                          icon,
@@ -18,14 +19,15 @@ const Subcategory = ({
                          isSelected = false,
                          currentTimestamp,
                          isIncome,
-                         thisMonthExpenses
+                         thisMonthExpenses,
+                         subcategoryBudget
                      }) => {
     const {expensesArray: expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const {budget} = useContext(BudgetContext);
     const [isBudgeting, setIsBudgeting] = useState(false);
     const budgetDateKey = getDateKey(currentTimestamp);
     const categoryBudget = budget[budgetDateKey]?.[categoryId]?.[id];
-    const [budgetAmount, setBudgetAmount] = useState(Number(categoryBudget || 0));
+    const [budgetAmount, setBudgetAmount] = useState(Number(subcategoryBudget || 0));
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
         const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -43,7 +45,7 @@ const Subcategory = ({
             }
             return total;
         }, 0);
-        return formatCurrency(amount);
+        return formatCurrency(amount, false, false);
     }, [expenses, id, isPreviousMonth]);
 
     const getAverageAmount = (id) => {
@@ -52,14 +54,18 @@ const Subcategory = ({
         }
 
         let total = 0;
-        let count = 0;
         const months = Object.values(expensesPerMonthPerCategory[id]);
+
+
         for (const month of months) {
             total += month.amount;
-            count += month.expenses.length;
         }
 
-        return formatCurrency(total / count) || 0;
+        if (id === "12") {
+            console.log({months, total});
+        }
+
+        return formatCurrency(total / months.length, false, false) || 0;
     };
 
     const averageAmount = getAverageAmount(String(id));
@@ -73,47 +79,37 @@ const Subcategory = ({
         : intThisMonthAmount.current > budgetAmount;
 
     return (
-        <div className="md:relative min-w-fit flex-grow">
-            <div className="bg-white/80 p-3 md:p-2 cursor-pointer" onClick={() => {
-                onSubcategoryClick(isSelected ? null : id);
-            }}>
-                <Title type={Title.Types.H6} className="truncate w-full flex">
-                    {icon} {name.slice(0, 10)}
-                </Title>
-                <div className={classNames("flex gap-1 md:gap-2 md:mb-2", {
-                    "text-red-500": isPositiveDiff,
-                    "text-green-400": !isPositiveDiff
-                })}>
-                    <span className="font-black md:text-xl">{thisMonthAmount}</span>
-                    {/*<span>/</span>*/}
-                    {/*<span className="font-black md:text-xl">*/}
-                    {/*  {isBudgeting*/}
-                    {/*    ? <input*/}
-                    {/*      type="number"*/}
-                    {/*      placeholder="budget"*/}
-                    {/*      className="w-20"*/}
-                    {/*      value={budgetAmount}*/}
-                    {/*      onClick={event => event.stopPropagation()}*/}
-                    {/*      onChange={(event) => {*/}
-                    {/*        setBudgetAmount(Number(event.target.value));*/}
-                    {/*      }}/>*/}
-                    {/*    : formatCurrency(budgetAmount)}*/}
-                    {/*</span>*/}
+        <div className="relative w-full md:w-[calc(50%-8px)]">
+            <div className="bg-white/80 p-3 w-full h-full md:p-4 cursor-pointer"
+                 onClick={() => {
+                     onSubcategoryClick(isSelected ? null : id);
+                 }}>
+                <div className="flex justify-between">
+                    <Title type={Title.Types.H6} className="truncate flex">
+                        {icon.slice(0, 2)} {name.slice(0, 15)}
+                    </Title>
+                    <div className={classNames("flex gap-1 md:gap-2 md:mb-2", {
+                        "text-red-500": isPositiveDiff,
+                        "text-green-400": !isPositiveDiff
+                    })}>
+                        <span className="font-black md:text-2xl">{thisMonthAmount}</span>
+                    </div>
                 </div>
-                {/*<div className="text-xs text-left mb-2">*/}
-                {/*  <div>Previous month: {totalInPreviousMonth}</div>*/}
-                {/*  <div>Average: {averageAmount}</div>*/}
-                {/*</div>*/}
-                {/*<div className="w-full flex justify-start">*/}
-                {/*  <SetBudgetButton*/}
-                {/*    isBudgeting={isBudgeting}*/}
-                {/*    amount={budgetAmount}*/}
-                {/*    categoryBudget={categoryBudget}*/}
-                {/*    categoryId={categoryId}*/}
-                {/*    subcategoryId={id}*/}
-                {/*    timestamp={currentTimestamp}*/}
-                {/*    onClick={setIsBudgeting}/>*/}
-                {/*</div>*/}
+                <div className="flex gap-4">
+                    <div className="flex text-sm items-center">
+                        <Coins/>
+                        {averageAmount}
+                    </div>
+                    <div className="flex text-sm items-center">
+                        <Coin/>
+                        {totalInPreviousMonth}
+                    </div>
+                    <SubcategoryBudget
+                        categoryId={categoryId}
+                        subcategoryId={id}
+                        isMeetingBudget={!isPositiveDiff}
+                        budgetAmount={budgetAmount}/>
+                </div>
             </div>
             {isSelected &&
                 <SubcategoryExpensesList

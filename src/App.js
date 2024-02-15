@@ -9,6 +9,7 @@ import {messages as heMessages} from "./locales/he/messages";
 import {Root} from "./components/templates/Root";
 import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
+import {createExpensesByDateCollection} from "./utils";
 
 i18n.load({
     en: enMessages,
@@ -47,6 +48,17 @@ function App() {
                 <BudgetContextProvider>
                     <ExpensesContextProvider>
                         <RouterProvider router={router}/>
+                        <button onClick={async () => {
+                            try {
+                                await createExpensesByDateCollection();
+                                alert("Success");
+                            } catch (e) {
+                                console.error(e);
+                                alert("Error");
+                            }
+                        }}>
+                            TEST
+                        </button>
                     </ExpensesContextProvider>
                 </BudgetContextProvider>
             </UserProvider>

@@ -15,6 +15,7 @@ const BalanceView = () => {
         const categories = useCategories(currentTimestamp);
         const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
 
+        console.log({categories});
         return (
             <section className="w-full p-4">
                 <div
@@ -33,10 +34,6 @@ const BalanceView = () => {
                         <BalanceSummary timestamp={currentTimestamp}/>
                     </div>
                     <div className="md:w-2/3 flex flex-col my-4 gap-2 box-content items-center">
-                        <div className="flex gap-8 w-full justify-end max-w-xl">
-                            <span>Total</span>
-                            <span>Budget</span>
-                        </div>
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance

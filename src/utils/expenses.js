@@ -139,3 +139,30 @@ export const getExpensesSummary = async ({budget, timestamp}) => {
         totalIncome,
     };
 };
+
+export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
+    let expensesByMonthByCategory = {};
+
+    expenses.forEach((expense) => {
+        const date = new Date(expense.timestamp);
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        const key = `${year}-${month}`;
+        const total = (expensesByMonthByCategory[expense.mainCategoryId]?.[key] || 0) + expense.amount;
+        
+        expensesByMonthByCategory = {
+            ...expensesByMonthByCategory,
+            [expense.mainCategoryId]: {
+                ...expensesByMonthByCategory[expense.mainCategoryId],
+                [key]: total,
+            }
+        }
+    });
+
+    const averages = {};
+    Object.entries(expensesByMonthByCategory).forEach(([categoryId, expensesSumByDate]) => {
+        averages[categoryId] = Object.values(expensesSumByDate).reduce((acc, curr) => acc + curr, 0) / Object.values(expensesSumByDate).length;
+    });
+
+    return averages;
+};

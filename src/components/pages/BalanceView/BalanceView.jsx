@@ -30,10 +30,42 @@ const BalanceView = () => {
                     <NextButton/>
                 </div>
                 <div className="flex flex-col-reverse md:flex md:flex-row md:gap-10">
-                    <div className="md:w-1/4 md:inline">
+                    <div className="md:w-1/6 md:inline">
                         <BalanceSummary timestamp={currentTimestamp}/>
                     </div>
                     <div className="md:w-2/3 flex flex-col my-4 gap-2 box-content items-center">
+                        <div className="flex">
+                            <div className="flex items-center w-full justify-center gap-2">
+                                Total:
+                                <div className="text-lg text-center text-green-500">
+                                    {formatCurrency(categories.totalIncome)}
+                                </div>
+                                <div className="text-lg text-center text-red-500">
+                                    {formatCurrency(-categories.totalExpenses)}
+                                </div>
+                                =
+                                <Title type={Title.Types.H3} className="text-center font-black">
+                                    {formatCurrency(categories.totalIncome - categories.totalExpenses)}
+                                </Title>
+                            </div>
+                            <div className="flex items-center w-full justify-center gap-4">
+                                Budget:
+                                <div className="text-lg text-center text-green-500">
+                                    {formatCurrency(budgetSummary.totalIncome)}
+                                </div>
+                                <div className="text-lg text-center text-red-500">
+                                    {formatCurrency(-budgetSummary.totalExpenses)}
+                                </div>
+                                =
+                                <Title type={Title.Types.H3} className="text-center font-black">
+                                    {formatCurrency(budgetSummary.totalIncome - budgetSummary.totalExpenses)}
+                                </Title>
+                            </div>
+                        </div>
+                        <div className="flex gap-8 w-full justify-end max-w-xl">
+                            <span>Total</span>
+                            <span>Budget</span>
+                        </div>
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance
@@ -47,32 +79,6 @@ const BalanceView = () => {
                                     isPreviousMonth={isPreviousMonth}/>
                             );
                         })}
-                        Total:
-                        <div className="flex items-center w-full justify-center gap-4">
-                            <div className="text-lg text-center text-green-500">
-                                {formatCurrency(categories.totalIncome)}
-                            </div>
-                            <div className="text-lg text-center text-red-500">
-                                {formatCurrency(-categories.totalExpenses)}
-                            </div>
-                            =
-                            <Title type={Title.Types.H3} className="text-center font-black">
-                                {formatCurrency(categories.totalIncome - categories.totalExpenses)}
-                            </Title>
-                        </div>
-                        Budget:
-                        <div className="flex items-center w-full justify-center gap-4">
-                            <div className="text-lg text-center text-green-500">
-                                {formatCurrency(budgetSummary.totalIncome)}
-                            </div>
-                            <div className="text-lg text-center text-red-500">
-                                {formatCurrency(-budgetSummary.totalExpenses)}
-                            </div>
-                            =
-                            <Title type={Title.Types.H3} className="text-center font-black">
-                                {formatCurrency(budgetSummary.totalIncome - budgetSummary.totalExpenses)}
-                            </Title>
-                        </div>
                     </div>
                 </div>
             </section>

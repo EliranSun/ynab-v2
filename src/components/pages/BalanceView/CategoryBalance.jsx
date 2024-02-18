@@ -72,7 +72,7 @@ export const CategoryBalance = ({
     const isIncome = categoryId === INCOME_CATEGORY_ID;
 
     return (
-        <div className="bg-gray-200 p-2 md:p-4 w-full max-w-3xl box-border relative">
+        <div className="bg-gray-200 p-2 md:p-4 w-full box-border relative">
             <div
                 className="flex items-center justify-between gap-2 md:gap-4 my-2 text-sm md:text-xl font-bold"
                 onClick={() => setIsExpanded(!isExpanded)}>

@@ -1,7 +1,7 @@
 import {useContext, useMemo, useState} from "react";
 import {orderBy} from "lodash";
 import {isSameMonth} from "date-fns";
-import {Smiley, SmileySad} from "@phosphor-icons/react";
+import {Coin, Coins, PiggyBank, Smiley, SmileySad} from "@phosphor-icons/react";
 import {Categories} from "../../../constants";
 import {formatCurrency} from "../../../utils";
 import Subcategory from "./Subcategory";
@@ -26,7 +26,7 @@ export const CategoryBalance = ({
     const {budget} = useContext(BudgetContext);
     const budgetKey = getDateKey(currentTimestamp);
     // const categoryBudget = useCategoryBudget(categoryId, currentTimestamp);
-    const totalExpensesSum = useCategoryExpensesSummary(categoryId, currentTimestamp);
+    const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
     const subcategories = useMemo(() => {
         const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
             const subcategoryBudget = budget[budgetKey]?.[categoryId]?.[subcategory.id];
@@ -74,28 +74,33 @@ export const CategoryBalance = ({
     return (
         <div className="bg-gray-200 p-2 md:p-4 w-full box-border relative">
             <div
-                className="flex items-center justify-between gap-2 md:gap-4 my-2 text-sm md:text-xl font-bold"
+                className="flex items-center justify-between gap-2 md:gap-4 text-sm md:text-xl font-bold cursor-pointer"
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <span className="w-1/4">{categoryName}</span>
-                <div className="flex gap-4 w-2/3 md:w-1/2 text-right items-center">
-                    <span className="w-1/3">{formatCurrency(totalExpensesSum, false, false)}</span>
-                    <span className="w-1/3">{formatCurrency(categoryBudget, false, false)}</span>
-                    <span className={classNames("w-1/3 flex items-center gap-2 justify-end", {
-                        "text-green-500": diff > 0,
-                        "text-red-500": diff < 0
-                    })}>
-                        {!isIncome ? formatCurrency(diff) : null}
-                    </span>
+                <div className="flex flex-col gap-1 w-2/3 md:w-1/2 text-right items-end">
+                    <div className="flex items-end">
+                        {formatCurrency(totalExpensesSum, false, false)}
+                    </div>
+                    <div className="w-full flex text-sm gap-4 justify-end">
+                        <div className="flex items-center">
+                            <Coins/>
+                            {formatCurrency(averages[categoryId], false, false)}
+                        </div>
+                        <div className="flex items-center">
+                            <PiggyBank/>
+                            {formatCurrency(categoryBudget, false, false)}
+                        </div>
+                        <div className={classNames("", {
+                            "text-green-500": diff > 0,
+                            "text-red-500": diff < 0
+                        })}>
+                            {formatCurrency(diff)}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className={classNames("hidden md:inline absolute -right-6 top-0 bottom-0 m-auto", {
-                "text-green-500": diff > 0,
-                "text-red-500": diff < 0
-            })}>
-                {!isIncome ? diff > 0 ? <Smiley/> : <SmileySad/> : null}
-            </div>
             {isExpanded ?
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 my-4">
                     {subcategories.map((subcategory) => {
                         if (subcategory.amount === 0)
                             return null;

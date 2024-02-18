@@ -39,12 +39,13 @@ export const emulateDB = () =>
 
 const EXPENSES_COLLECTION = "expenses";
 const BUDGET_COLLECTION = "budget";
+const EXPENSES_BY_DATE_COLLECTION = "expensesByDate";
 
 export const getExpenses = async () => {
     try {
-        if (process.env.NODE_ENV === "development") {
-            return expensesMock.map((expense) => new Expense(expense));
-        }
+        // if (process.env.NODE_ENV === "development") {
+        //     return expensesMock.map((expense) => new Expense(expense));
+        // }
 
         const expenses = {};
         const querySnapshot = await getDocs(collection(db, EXPENSES_COLLECTION));
@@ -59,6 +60,64 @@ export const getExpenses = async () => {
         return [];
     }
 };
+
+export const createExpensesByDateCollection = async () => {
+    const expenses = await getExpenses();
+    const expensesByDateAndCategory = {};
+
+    Object.values(expenses).forEach((expense) => {
+        const yearMonthKey = new Date(expense.timestamp).toISOString().slice(0, 7);
+        const categoryKey = String(expense.mainCategoryId);
+
+
+        // Initialize the yearMonthKey object if it doesn't exist
+        if (!expensesByDateAndCategory[yearMonthKey]) {
+            expensesByDateAndCategory[yearMonthKey] = {};
+        }
+
+        // Initialize the categoryKey object if it doesn't exist
+        if (!expensesByDateAndCategory[yearMonthKey][categoryKey]) {
+            expensesByDateAndCategory[yearMonthKey][categoryKey] = {};
+        }
+
+        // Now that the structure is guaranteed to exist, add the expense.
+        // Assuming `expense.id` is unique and you want to store the whole expense object under its ID
+        expensesByDateAndCategory[yearMonthKey][categoryKey][expense.id] = {
+            amount: Number(expense.amount),
+            amountCurrency: expense.amountCurrency,
+            categoryId: Number(expense.categoryId),
+            date: expense.date,
+            id: expense.id,
+            isIncome: expense.isIncome,
+            isOriginal: expense.isOriginal,
+            isThirdParty: expense.isThirdParty,
+            mainCategoryId: Number(expense.mainCategoryId),
+            name: expense.name,
+            note: expense.note,
+            subcategoryId: Number(expense.subcategoryId),
+            subcategoryLabel: expense.subcategoryLabel,
+            timestamp: expense.timestamp,
+        };
+    });
+
+    console.log({expensesByDateAndCategory});
+
+    for (const [yearMonth, categories] of Object.entries(expensesByDateAndCategory)) {
+        // Create or update a document for each yearMonth
+        const yearMonthDocRef = doc(db, 'expensesByDateAndCategory', yearMonth);
+
+        // Prepare the categories data
+        // Note: This operation will overwrite the document's data. If you want to merge with existing data,
+        // use setDoc with { merge: true } option.
+        await setDoc(yearMonthDocRef, categories, {merge: true})
+            .then(() => {
+                console.log(`Successfully stored expenses for ${yearMonth}`);
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+    }
+}
 
 export const updateExpense = async (expenseId, props) => {
     const expensesRef = doc(db, EXPENSES_COLLECTION, expenseId);

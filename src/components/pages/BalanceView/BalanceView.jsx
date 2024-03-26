@@ -7,6 +7,7 @@ import {formatCurrency} from "../../../utils";
 import {useContext, useMemo} from "react";
 import {getBudgetSummary} from "../../../utils/budget";
 import {BudgetContext} from "../../../context";
+import classNames from "classnames";
 
 
 const BalanceView = () => {
@@ -34,32 +35,44 @@ const BalanceView = () => {
                         <BalanceSummary timestamp={currentTimestamp}/>
                     </div>
                     <div className="md:w-2/3 flex flex-col my-4 gap-2 box-content items-center">
-                        <div className="flex">
-                            <div className="flex items-center w-full justify-center gap-2">
-                                Total:
-                                <div className="text-lg text-center text-green-500">
+                        <div className="flex flex-col">
+                            <span className="text-xs">
+                            Reality (actual)
+                            </span>
+                            <div className="flex items-center w-full justify-start gap-4 text-3xl font-mono mb-2">
+                                <div className="bg-green-500 text-white">
                                     {formatCurrency(categories.totalIncome)}
                                 </div>
-                                <div className="text-lg text-center text-red-500">
+                                <div className="bg-red-500 text-white">
                                     {formatCurrency(-categories.totalExpenses)}
                                 </div>
                                 =
-                                <Title type={Title.Types.H3} className="text-center font-black">
+                                <div className={classNames({
+                                    "font-black": true,
+                                    "text-green-500": (categories.totalIncome - categories.totalExpenses) > 0,
+                                    "text-red-500": (categories.totalIncome - categories.totalExpenses) < 0,
+                                })}>
                                     {formatCurrency(categories.totalIncome - categories.totalExpenses)}
-                                </Title>
+                                </div>
                             </div>
-                            <div className="flex items-center w-full justify-center gap-4">
-                                Budget:
-                                <div className="text-lg text-center text-green-500">
+                            <span className="text-xs">
+                            Expectation (budget)
+                            </span>
+                            <div className="flex items-center w-full justify-start gap-4 text-3xl font-mono opacity-70">
+                                <div className="bg-green-500 text-white">
                                     {formatCurrency(budgetSummary.totalIncome)}
                                 </div>
-                                <div className="text-lg text-center text-red-500">
+                                <div className="bg-red-500 text-white">
                                     {formatCurrency(-budgetSummary.totalExpenses)}
                                 </div>
                                 =
-                                <Title type={Title.Types.H3} className="text-center font-black">
+                                <div className={classNames({
+                                    "font-black": true,
+                                    "text-green-500": budgetSummary.totalIncome - budgetSummary.totalExpenses > 0,
+                                    "text-red-500": budgetSummary.totalIncome - budgetSummary.totalExpenses < 0,
+                                })}>
                                     {formatCurrency(budgetSummary.totalIncome - budgetSummary.totalExpenses)}
-                                </Title>
+                                </div>
                             </div>
                         </div>
                         <div className="flex gap-8 w-full justify-end max-w-xl">

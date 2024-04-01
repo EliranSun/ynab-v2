@@ -5,7 +5,7 @@ import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
 import {formatCurrency} from "../../../utils";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import classNames from "classnames";
-import {Coin, Coins} from "@phosphor-icons/react";
+import {ArrowBendDownLeft, Coin, Coins, Faders} from "@phosphor-icons/react";
 import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 
 const Subcategory = ({
@@ -80,35 +80,38 @@ const Subcategory = ({
 
     return (
         <div className="relative w-full md:w-[calc(50%-8px)]">
-            <div className="bg-white/80 p-3 w-full h-full md:p-4 cursor-pointer"
+            <div className="bg-white/80 p-3 w-full h-full md:p-4 cursor-pointer flex justify-between items-center"
                  onClick={() => {
                      onSubcategoryClick(isSelected ? null : id);
                  }}>
-                <div className="flex justify-between">
-                    <Title type={Title.Types.H6} className="truncate flex">
+                <div className="">
+                    <Title type={Title.Types.H4} className="truncate flex">
                         {icon.slice(0, 2)} {name.slice(0, 15)}
                     </Title>
-                    <div className={classNames("flex gap-1 md:gap-2 md:mb-2", {
+                </div>
+                <div className="">
+                    <div className={classNames("", {
+                        "font-black md:text-3xl font-mono text-right mb-2": true,
                         "text-red-500": isPositiveDiff,
                         "text-green-400": !isPositiveDiff
                     })}>
-                        <span className="font-black md:text-2xl">{thisMonthAmount}</span>
+                        {thisMonthAmount}
                     </div>
-                </div>
-                <div className="flex gap-4">
-                    <div className="flex text-sm items-center">
-                        <Coins/>
-                        {averageAmount}
+                    <div className="flex gap-4 w-full justify-end">
+                        <div className="flex flex-col text-sm items-center font-mono">
+                            <Faders/>
+                            {averageAmount}
+                        </div>
+                        <div className="flex flex-col text-sm items-center font-mono">
+                            <ArrowBendDownLeft/>
+                            {totalInPreviousMonth}
+                        </div>
+                        <SubcategoryBudget
+                            categoryId={categoryId}
+                            subcategoryId={id}
+                            isMeetingBudget={!isPositiveDiff}
+                            budgetAmount={budgetAmount}/>
                     </div>
-                    <div className="flex text-sm items-center">
-                        <Coin/>
-                        {totalInPreviousMonth}
-                    </div>
-                    <SubcategoryBudget
-                        categoryId={categoryId}
-                        subcategoryId={id}
-                        isMeetingBudget={!isPositiveDiff}
-                        budgetAmount={budgetAmount}/>
                 </div>
             </div>
             {isSelected &&

@@ -117,7 +117,7 @@ export const Categories = [
         id: 312,
         name: "Decor",
         label: <Trans>Decor</Trans>,
-        icon: "🪴",
+        icon: "🖼️"
       },
       {
         id: 313,

@@ -1,22 +1,41 @@
 import {noop, orderBy} from "lodash";
 import {formatCurrency} from "../../../utils";
-import ExpensesChart from "./ExpensesChart";
 import {X} from "@phosphor-icons/react";
-import {useMemo} from "react";
+import {useContext, useMemo} from "react";
 import {isSameMonth} from "date-fns";
 import {Title} from "../../atoms";
 import {BUTTON_SIZE} from "../../../constants";
+import {ExpensesContext} from "../../../context";
 
 const isMobile = window.innerWidth < 768;
 
+const ListBox = ({children, ...rest}) => {
+    return (
+        <div
+            {...rest}
+            className="w-full bg-white p-4 drop-shadow-xl">
+            {children}
+        </div>
+    );
+}
 const SubcategoryExpensesList = ({
-                                     onSubcategoryClick = noop,
-                                     expensesPerMonthPerCategory = {},
                                      timestamp = null,
-                                     title = ''
+                                     subcategory = {},
+                                     onSubcategoryClick = noop,
                                  }) => {
+    const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
+
     const data = useMemo(() => {
-        return Object.entries(expensesPerMonthPerCategory).map(([date, {amount, expenses, timestamp}]) => ({
+        const subcategoryId = subcategory.id;
+        if (!subcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)
+            return [];
+
+        const categoryExpenses = expensesPerMonthPerCategory[subcategoryId];
+
+        if (!categoryExpenses)
+            return [];
+
+        return Object.entries(categoryExpenses).map(([date, {amount, expenses, timestamp}]) => ({
             x: date,
             y: amount,
             timestamp,
@@ -25,24 +44,36 @@ const SubcategoryExpensesList = ({
             .sort((a, b) => {
                 return b.timestamp - a.timestamp;
             })
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [subcategory, expensesPerMonthPerCategory]);
 
     const sameMonthData = data.filter(item => {
         return isSameMonth(item.timestamp, timestamp);
     });
 
+    if (Object.keys(expensesPerMonthPerCategory).length === 0) {
+        return (
+            <ListBox>
+                Loading...
+            </ListBox>
+        );
+    }
+
+    if (data.length === 0) {
+        return (
+            <ListBox>
+                No data
+            </ListBox>
+        );
+    }
+
     return (
-        <div
-            dir=""
-            onClick={() => !isMobile && onSubcategoryClick(null)}
-            className="fixed md:absolute z-10 w-full h-[92vh] md:h-fit md:w-fit top-12 md:top-0 left-0 md:left-full bg-white p-4 w-68 drop-shadow-2xl">
+        <ListBox onClick={() => !isMobile && onSubcategoryClick(null)}>
             <button
                 className="float-right"
                 onClick={() => onSubcategoryClick(null)}>
                 <X size={BUTTON_SIZE}/>
             </button>
-            <Title>{title}</Title>
-            <ExpensesChart data={data}/>
+            <Title>{subcategory.icon} {subcategory.name}</Title>
             <div className="max-h-72 overflow-y-auto">
                 {sameMonthData.map(({x: date, y: amount, expenses}) => {
                     return (
@@ -70,7 +101,7 @@ const SubcategoryExpensesList = ({
                     );
                 })}
             </div>
-        </div>
+        </ListBox>
     )
 };
 

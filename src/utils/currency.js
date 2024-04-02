@@ -10,6 +10,5 @@ export const formatCurrency = (amount, isShort = false, showSign = true) => {
         signDisplay: showSign ? 'always' : 'never',
     }).format(amount);
 
-    console.log({formatted});
     return formatted.split(" ‏").join('');
 };

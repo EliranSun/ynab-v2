@@ -25,8 +25,6 @@ export const getBudgetSummary = budget => {
         }
     });
 
-    console.log({categoricalExpenses});
-
     return {
         totalIncome: budgetIncome.reduce((acc, curr) => acc + curr, 0),
         totalExpenses: budgetExpenses.reduce((acc, [_, amounts]) => acc + Object.values(amounts).reduce((acc, curr) => acc + curr, 0), 0),

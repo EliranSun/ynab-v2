@@ -48,17 +48,17 @@ function App() {
                 <BudgetContextProvider>
                     <ExpensesContextProvider>
                         <RouterProvider router={router}/>
-                        <button onClick={async () => {
-                            try {
-                                await createExpensesByDateCollection();
-                                alert("Success");
-                            } catch (e) {
-                                console.error(e);
-                                alert("Error");
-                            }
-                        }}>
-                            TEST
-                        </button>
+                        {/*<button onClick={async () => {*/}
+                        {/*    try {*/}
+                        {/*        await createExpensesByDateCollection();*/}
+                        {/*        alert("Success");*/}
+                        {/*    } catch (e) {*/}
+                        {/*        console.error(e);*/}
+                        {/*        alert("Error");*/}
+                        {/*    }*/}
+                        {/*}}>*/}
+                        {/*    TEST*/}
+                        {/*</button>*/}
                     </ExpensesContextProvider>
                 </BudgetContextProvider>
             </UserProvider>

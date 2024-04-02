@@ -84,7 +84,7 @@ const SubcategoryExpensesList = ({
             </Title>
             <ExpensesChart data={data}/>
             <div className="overflow-y-auto max-h-[700px]">
-                {sameMonthData ? orderBy(sameMonthData.expenses, ['timestamp'], ['desc']).map((expense) => {
+                {sameMonthData ? orderBy(sameMonthData.expenses, ['amount', 'timestamp'], ['desc']).map((expense) => {
                     return (
                         <Expense
                             isListView

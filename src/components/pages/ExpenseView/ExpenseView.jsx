@@ -59,7 +59,7 @@ const ExpenseView = ({ onCategoryClick = noop }) => {
         <Button onClick={() => setSort(SortBy.CATEGORY)}>Category</Button>
         <Button onClick={() => setSort(SortBy.NAME)}>Name</Button>
       </div>
-      <div className="fixed bottom-10 right-20 bg-white shadow-xl p-2">
+      <div className="fixed bottom-5 flex gap-2 md:bottom-10 right-5 md:right-20 bg-white shadow-xl p-2">
         <PreviousButton/>
         <NextButton/>
       </div>

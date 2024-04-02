@@ -9,7 +9,6 @@ import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
 import {useCategoryExpensesSummary} from "../../../hooks/useCategoryExpensesSummary";
 import classNames from "classnames";
 import {Title} from "../../atoms";
-import SubcategoryExpensesList from "./SubcategoryExpensesList";
 
 const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
     return (
@@ -106,7 +105,8 @@ export const CategoryBalance = ({
     const diff = categoryBudget - totalExpensesSum;
 
     return (
-        <div className="w-fit h-fit bg-gray-200 p-2 md:p-4 box-border relative">
+        <div
+            className="bg-gray-200 h-[950px] p-2 md:p-4 box-border relative">
             <div
                 className="text-sm md:text-5xl cursor-pointer mb-4"
                 onClick={() => setIsExpanded(!isExpanded)}>
@@ -120,11 +120,8 @@ export const CategoryBalance = ({
             <DataStrip categoryId={categoryId} categoryBudget={categoryBudget} averages={averages} diff={diff}/>
             {
                 isExpanded ?
-                    <div className="flex flex-col h-fit gap-2 my-4">
+                    <div className="flex flex-col gap-2 my-4 h-[750px] overflow-x-hidden overflow-y-auto px-2">
                         {subcategories.map((subcategory) => {
-                            // if (subcategory.amount === 0)
-                            //     return null;
-
                             return (
                                 <Subcategory
                                     {...subcategory}

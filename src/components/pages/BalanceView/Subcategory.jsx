@@ -1,11 +1,10 @@
 import {Title} from "../../atoms";
 import {useContext, useMemo, useRef, useState} from "react";
 import {noop} from "lodash";
-import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
+import {ExpensesContext} from "../../../context";
 import {formatCurrency} from "../../../utils";
-import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import classNames from "classnames";
-import {ArrowBendDownLeft, Coin, Coins, Faders} from "@phosphor-icons/react";
+import {ArrowBendDownLeft, Faders} from "@phosphor-icons/react";
 import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 
 const Subcategory = ({

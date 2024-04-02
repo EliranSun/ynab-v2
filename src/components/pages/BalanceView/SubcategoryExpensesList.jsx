@@ -40,7 +40,7 @@ const SubcategoryExpensesList = ({
         return Object.entries(categoryExpenses)
             .map(([date, {amount, expenses, timestamp}]) => ({
                 x: date,
-                y: amount,
+                y: amount || 0,
                 timestamp,
                 expenses
             }))
@@ -70,9 +70,7 @@ const SubcategoryExpensesList = ({
         );
     }
 
-    console.log({
-        sameMonthData
-    });
+    const amountCurrency = sameMonthData ? formatCurrency(sameMonthData.y, false, false) : 0;
 
     return (
         <ListBox onClick={() => !isMobile && onSubcategoryClick(null)}>
@@ -82,18 +80,18 @@ const SubcategoryExpensesList = ({
                 <X size={BUTTON_SIZE}/>
             </button>
             <Title>
-                {subcategory.icon} {subcategory.name} - {formatCurrency(sameMonthData.y, false, false)}
+                {subcategory.icon} {subcategory.name} - {amountCurrency}
             </Title>
             <ExpensesChart data={data}/>
             <div className="overflow-y-auto max-h-[700px]">
-                {orderBy(sameMonthData.expenses, ['timestamp'], ['desc']).map((expense) => {
+                {sameMonthData ? orderBy(sameMonthData.expenses, ['timestamp'], ['desc']).map((expense) => {
                     return (
                         <Expense
                             isListView
                             key={expense.id}
                             expense={expense}/>
                     );
-                })}
+                }) : null}
             </div>
         </ListBox>
     )

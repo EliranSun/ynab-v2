@@ -27,8 +27,8 @@ const Expense = ({
         <>
             <div
                 id={expense.id}
-                className={classNames("p-4 w-full bg-white", {
-                    "flex flex-col md:flex-row w-full gap-4 items-center": isListView,
+                className={classNames("p-0 md:p-4 w-full bg-white", {
+                    "flex bg-gray-100 flex-col md:flex-row w-full gap-4 items-center": isListView,
                 })}
             >
                 <div className={classNames("w-2/12 min-w-fit whitespace-nowrap text-ellipsis overflow-hidden", {

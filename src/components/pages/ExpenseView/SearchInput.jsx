@@ -16,7 +16,7 @@ export const SearchInput = ({
     );
     return (
         <input
-            className="w-2/5 text-xl border-b border-black"
+            className="w-full h-16 md:w-2/5 text-xl border-b border-black"
             type="text"
             placeholder={placeholder}
             onChange={(event) => {

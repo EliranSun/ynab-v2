@@ -42,7 +42,7 @@ const SubcategoryExpensesList = ({
                 <X size={BUTTON_SIZE}/>
             </button>
             <Title>{title}</Title>
-            <ExpensesChart data={data}/>
+            <ExpensesChart data={sameMonthData}/>
             <div className="max-h-72 overflow-y-auto">
                 {sameMonthData.map(({x: date, y: amount, expenses}) => {
                     return (

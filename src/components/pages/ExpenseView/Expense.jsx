@@ -1,18 +1,18 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { deleteExpense, getExpenseCategoryName, updateCategory } from "../../../utils";
+import {useContext, useEffect, useMemo, useState} from "react";
+import {deleteExpense, getExpenseCategoryName, updateCategory} from "../../../utils";
 import classNames from "classnames";
-import { Button } from "../../atoms";
-import { CategoriesDropdownMenu } from "./CategoriesDropdownMenu";
-import { ExpensesContext } from "../../../context";
-import { Trash } from "@phosphor-icons/react";
+import {Button} from "../../atoms";
+import {CategoriesDropdownMenu} from "./CategoriesDropdownMenu";
+import {ExpensesContext} from "../../../context";
+import {Trash} from "@phosphor-icons/react";
 
 const Expense = ({
-    expense,
-    isListView = false,
-}) => {
+                     expense,
+                     isListView = false,
+                 }) => {
     const [note, setNote] = useState(expense.note);
     const [isUpdated, setIsUpdated] = useState(false);
-    const { refetch, setExpenseAsRecurring, setExpenseNote } = useContext(ExpensesContext);
+    const {refetch, setExpenseAsRecurring, setExpenseNote} = useContext(ExpensesContext);
     const category = useMemo(() => getExpenseCategoryName(expense.categoryId), [expense]);
 
     useEffect(() => {
@@ -31,14 +31,18 @@ const Expense = ({
                     "flex flex-col md:flex-row w-full gap-4 mb-4 items-center": isListView,
                 })}
             >
-                <div className={classNames("w-2/12 min-w-fit whitespace-nowrap text-ellipsis overflow-hidden", {
-                    "border-r border-black": isListView,
-                })}>
-                    {expense.date}
+                <div>
+                    <div className={classNames("text-sm min-w-fit whitespace-nowrap text-ellipsis overflow-hidden")}>
+                        {expense.date}
+                    </div>
+                    <h1
+                        className="min-w-fit text-left whitespace-nowrap text-ellipsis overflow-hidden">
+                        {expense.name}
+                    </h1>
+                    <div className="font-bold font-mono text-2xl">
+                        {expense.amountCurrency}
+                    </div>
                 </div>
-                <h1 className="w-2/12 font-bold text-xl min-w-fit whitespace-nowrap text-ellipsis overflow-hidden">
-                    {expense.name},{expense.amountCurrency}
-                </h1>
                 <CategoriesDropdownMenu
                     defaultValueId={category.subcategoryId}
                     onCategoryChange={async (categoryId) => {

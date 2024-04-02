@@ -57,12 +57,12 @@ export const useDate = () => {
                 // disabled={isSame}
                 onClick={() => setCurrentTimestamp(currentTimestamp + ONE_MONTH_MS)}
             >
-                <SkipForward color="black" size={21}/>
+                <SkipForward color="black" size={32}/>
             </Button>
         ),
         PreviousButton: ({children}) => (
             <Button onClick={() => setCurrentTimestamp(currentTimestamp - ONE_MONTH_MS)}>
-                <SkipBack color="black" size={21}/>
+                <SkipBack color="black" size={32}/>
             </Button>
         ),
     };

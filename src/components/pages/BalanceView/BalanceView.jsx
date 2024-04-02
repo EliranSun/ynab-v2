@@ -3,52 +3,80 @@ import {Title} from "../../atoms";
 import {CategoryBalance} from "./CategoryBalance";
 import {BalanceSummary} from "../../molecules/PastTwelveMonthsBalance/BalanceSummary";
 import {useCategories} from "../../../hooks/useCategories";
-import {useContext, useMemo} from "react";
+import {useContext, useMemo, useState} from "react";
 import {getBudgetSummary} from "../../../utils/budget";
 import {BudgetContext} from "../../../context";
-import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import {RealityVsExpectation} from "../../molecules/RealityVsExpectation";
+import SubcategoryExpensesList from "./SubcategoryExpensesList";
 
 const BalanceView = () => {
         const {budget} = useContext(BudgetContext);
         const {currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth} = useDate();
         const categories = useCategories(currentTimestamp);
         const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
-        console.log({
-            categories
-        });
+        const [selectedId, setSelectedId] = useState(null);
+
+        const selectedSubcategory = useMemo(() => {
+            let match;
+            categories.summary.forEach((category, index) => {
+                if (match) {
+                    return;
+                }
+
+                match = category.subCategories.find((subcategory) => {
+                    if (!selectedId) {
+                        return index === 0;
+                    }
+
+                    return subcategory.id === selectedId;
+                });
+            });
+
+            return match;
+        }, [categories, budget, selectedId]);
 
         return (
-            <section className="w-full mt-8">
-                <div className="md:w-1/6 md:inline">
-                    <BalanceSummary timestamp={currentTimestamp}/>
-                </div>
+            <section className="mt-8">
                 <div
-                    className="flex my-2 md:top-0 gap-2 md:my-0 items-center w-full justify-between md:justify-evenly bg-white p-0 z-10 max-w-xl m-auto">
-                    <PreviousButton/>
-                    <Title type={Title.Types.H3} className="font-sans font-black">
-                        {new Date(currentTimestamp).toLocaleString("en-GB", {
-                            month: "short",
-                            year: "2-digit",
-                        })}
-                    </Title>
-                    <NextButton/>
+                    className="flex my-2 md:top-0 w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
+                    <div className="flex gap-16 items-center">
+                        <PreviousButton/>
+                        <h1 className="font-black font-mono text-9xl">
+                            {new Date(currentTimestamp).toLocaleString("en-GB", {
+                                month: "long",
+                                year: "numeric",
+                            })}
+                        </h1>
+                        <NextButton/>
+                    </div>
+                    <div className="">
+                        <BalanceSummary timestamp={currentTimestamp}/>
+                        <RealityVsExpectation categories={categories} budgetSummary={budgetSummary}/>
+                    </div>
                 </div>
-                <RealityVsExpectation categories={categories} budgetSummary={budgetSummary}/>
-                <div className="md:w-full flex flex-col my-4 gap-2 box-content items-center">
-                    {categories.summary.map((category) => {
-                        return (
-                            <CategoryBalance
-                                key={category.id}
-                                categoryId={category.id}
-                                categoryName={category.name}
-                                categoryBudget={category.budget}
-                                subcategoryBudgets={budget["8.2023"] ? budget["8.2023"][category.id] : {}}
-                                currentTimestamp={currentTimestamp}
-                                isSameDate={isSameDate}
-                                isPreviousMonth={isPreviousMonth}/>
-                        );
-                    })}
+                <div className="w-full flex gap-4">
+                    <div className="flex w-2/3 gap-4 h-[1000px] overflow-y-scroll">
+                        {categories.summary.map((category) => {
+                            return (
+                                <CategoryBalance
+                                    key={category.id}
+                                    selectedId={selectedId}
+                                    setSelectedId={setSelectedId}
+                                    categoryId={category.id}
+                                    categoryName={category.name}
+                                    categoryBudget={category.budget}
+                                    subcategoryBudgets={budget["8.2023"] ? budget["8.2023"][category.id] : {}}
+                                    currentTimestamp={currentTimestamp}
+                                    isSameDate={isSameDate}
+                                    isPreviousMonth={isPreviousMonth}/>
+                            );
+                        })}
+                    </div>
+                    <div className="w-1/3">
+                        <SubcategoryExpensesList
+                            timestamp={currentTimestamp}
+                            subcategory={selectedSubcategory}/>
+                    </div>
                 </div>
             </section>
         );

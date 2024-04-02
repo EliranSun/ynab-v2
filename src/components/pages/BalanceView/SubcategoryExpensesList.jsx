@@ -6,6 +6,8 @@ import {isSameMonth} from "date-fns";
 import {Title} from "../../atoms";
 import {BUTTON_SIZE} from "../../../constants";
 import {ExpensesContext} from "../../../context";
+import ExpensesChart from "./ExpensesChart";
+import Expense from "../ExpenseView/Expense";
 
 const isMobile = window.innerWidth < 768;
 
@@ -13,7 +15,7 @@ const ListBox = ({children, ...rest}) => {
     return (
         <div
             {...rest}
-            className="w-full bg-white p-4 drop-shadow-xl">
+            className="w-full bg-white p-4 border-l h-full">
             {children}
         </div>
     );
@@ -35,20 +37,22 @@ const SubcategoryExpensesList = ({
         if (!categoryExpenses)
             return [];
 
-        return Object.entries(categoryExpenses).map(([date, {amount, expenses, timestamp}]) => ({
-            x: date,
-            y: amount,
-            timestamp,
-            expenses
-        }))
+        return Object.entries(categoryExpenses)
+            .map(([date, {amount, expenses, timestamp}]) => ({
+                x: date,
+                y: amount,
+                timestamp,
+                expenses
+            }))
             .sort((a, b) => {
                 return b.timestamp - a.timestamp;
             })
+            .reverse();
     }, [subcategory, expensesPerMonthPerCategory]);
 
     const sameMonthData = data.filter(item => {
         return isSameMonth(item.timestamp, timestamp);
-    });
+    })[0];
 
     if (Object.keys(expensesPerMonthPerCategory).length === 0) {
         return (
@@ -66,6 +70,10 @@ const SubcategoryExpensesList = ({
         );
     }
 
+    console.log({
+        sameMonthData
+    });
+
     return (
         <ListBox onClick={() => !isMobile && onSubcategoryClick(null)}>
             <button
@@ -73,31 +81,17 @@ const SubcategoryExpensesList = ({
                 onClick={() => onSubcategoryClick(null)}>
                 <X size={BUTTON_SIZE}/>
             </button>
-            <Title>{subcategory.icon} {subcategory.name}</Title>
-            <div className="max-h-72 overflow-y-auto">
-                {sameMonthData.map(({x: date, y: amount, expenses}) => {
+            <Title>
+                {subcategory.icon} {subcategory.name} - {formatCurrency(sameMonthData.y, false, false)}
+            </Title>
+            <ExpensesChart data={data}/>
+            <div className="overflow-y-auto max-h-[700px]">
+                {orderBy(sameMonthData.expenses, ['timestamp'], ['desc']).map((expense) => {
                     return (
-                        <div className="my-4">
-                            <b className="text-xl">{date}: {formatCurrency(amount)}</b>
-                            <div className="overflow-y-auto">
-                                {orderBy(expenses, ['timestamp'], ['desc']).map((expense) => {
-                                    return (
-                                        <div className="my-2">
-                                            <div>
-                                                <b className="">{expense.name}</b>
-                                                <br/>
-                                                <span>{formatCurrency(expense.amount)} • </span>
-                                                <span>{expense.date}</span><br/>
-                                            </div>
-                                            {expense.note &&
-                                                <span className="italic">
-                                                    {expense.note}
-                                                </span>}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        <Expense
+                            isListView
+                            key={expense.id}
+                            expense={expense}/>
                     );
                 })}
             </div>

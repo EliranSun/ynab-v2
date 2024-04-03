@@ -38,8 +38,8 @@ const BalanceView = () => {
         return (
             <section className="mt-8">
                 <div
-                    className="flex my-2 md:top-0 w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
-                    <div className="flex flex-col md:flex-row gap-2 md:gap-16 items-center">
+                    className="flex flex-col md:flex-row my-2 md:top-0 w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
+                    <div className="flex gap-2 md:gap-16 items-center">
                         <PreviousButton/>
                         <h1 className="font-black font-mono md:text-9xl md:w-[1000px] text-center">
                             {new Date(currentTimestamp).toLocaleString("en-GB", {
@@ -55,7 +55,7 @@ const BalanceView = () => {
                     </div>
                 </div>
                 <div className="w-full flex flex-col md:flex-row gap-4">
-                    <div className="flex w-2/3 gap-4 h-[1000px] overflow-auto thin-scrollbar">
+                    <div className="flex md:w-2/3 gap-4 h-[1000px] overflow-auto thin-scrollbar">
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance

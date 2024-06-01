@@ -36,7 +36,7 @@ const BalanceView = () => {
         }, [categories, budget, selectedId]);
 
         return (
-            <section className="mt-8">
+            <section className="w-full p-2 mt-8">
                 <div
                     className="flex flex-col md:flex-row my-2 md:top-0 md:w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
                     <div className="flex gap-2 md:gap-16 items-center">

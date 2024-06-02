@@ -4,17 +4,17 @@ import useAuthState from "../../../hooks/useAuth";
 import {SignIn, SignOut, ArrowClockwise} from "@phosphor-icons/react";
 import {BUTTON_SIZE} from "../../../constants";
 
-export const LoginButton = () => {
+export const AuthButton = () => {
     const {user, loading} = useAuthState();
     const isDesktop = window.innerWidth > 768;
 
     if (loading) {
         return null;
     }
-    
+
     return (
         <div className="flex items-center">
-            <ArrowClockwise size={BUTTON_SIZE} onClick={() => window.location.reload()}/>
+            {/*<ArrowClockwise size={BUTTON_SIZE} onClick={() => window.location.reload()}/>*/}
             {user ?
                 <Button type={Button.Types.GHOST} onClick={() => {
                     logout();

@@ -12,9 +12,11 @@ import {
 } from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import {BUTTON_SIZE} from "../../constants";
+import {useState} from "react";
 
 export const isDesktop = window.innerWidth >= 768;
 export const ButtonLink = ({name, onClick = noop, href}) => {
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const Icon = {
         parse: ClipboardText,
         balance: Scales,
@@ -38,8 +40,13 @@ export const ButtonLink = ({name, onClick = noop, href}) => {
 
     return (
         <Link to={href || link} onClick={onClick}>
-            <li className="flex items-center gap-2 h-12 md:flex-col">
-                <Icon size={isDesktop ? BUTTON_SIZE * 0.5 : BUTTON_SIZE}/> {name.toUpperCase()}
+            <li
+                className="relative flex items-center gap-2 w-16 md:flex-col"
+                onMouseEnter={() => setIsTooltipOpen(true)}
+                onMouseLeave={() => setIsTooltipOpen(false)}>
+                <Icon size={BUTTON_SIZE}/>
+                {isTooltipOpen ?
+                    <span className="absolute -bottom-10 bg-white text-sm">{name.toUpperCase()}</span> : null}
             </li>
         </Link>
     )

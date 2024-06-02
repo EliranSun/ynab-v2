@@ -1,5 +1,5 @@
 import {useContext, useMemo, useState} from "react";
-import {LoginButton as AuthButton} from "../../pages/Login/LoginButton";
+import {AuthButton as AuthButton} from "../../pages/Login/AuthButton";
 import {Button} from "../../atoms";
 import {List} from "@phosphor-icons/react";
 import {UserContext} from "../../../context";
@@ -8,6 +8,7 @@ import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
 import {useParams} from "react-router-dom";
 import {useLingui} from "@lingui/react";
 import {msg} from "@lingui/macro";
+import classNames from "classnames";
 
 
 const isMobile = window.innerWidth < 768;
@@ -52,43 +53,46 @@ export const Header = () => {
     }, [user]);
 
     const closeMenu = () => setIsMenuOpen(false);
-    const randomMessage = useMemo(() => Messages[Math.floor(Math.random() * Messages.length)], []);
 
     return (
         <>
-            <div
-                className="sticky top-0 bg-white z-20 text-xs md:text-base flex justify-between items-center md:gap-8 md:p-4 md:h-16 shadow-xl">
-                <div>
-                    <p>{message}</p>
-                    <p>{randomMessage}</p>
-                    <h1 className="text-lg">
-                        {_(PageTitle[page])}
-                    </h1>
+            <header
+                className="bg-white text-xs md:text-base flex justify-between items-center md:gap-8 md:p-4 md:h-16 shadow-xl">
+                <div className="flex items-center gap-4">
+                    {isMobile ?
+                        <div className="flex items-center">
+                            <Button
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                type={Button.Types.GHOST}>
+                                <List size={BUTTON_SIZE} color="black"/>
+                            </Button>
+                        </div> : null}
+                    <AuthButton/>
+                    <div className="text-sm">
+                        <p>{message}</p>
+                    </div>
                 </div>
-                {isMobile &&
-                    <div className="flex items-center">
-                        <Button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            type={Button.Types.GHOST}>
-                            <List size={BUTTON_SIZE} color="black"/>
-                        </Button>
-                    </div>}
-                <ButtonLink href="/" name="home"/>
-                <AuthButton/>
                 {(isDesktop || isMenuOpen) &&
-                    <ul className="absolute md:sticky bg-white left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:top-0 md:gap-4 md:justify-end">
+                    <ul className={classNames({
+                        "flex flex-col md:flex-row md:gap-4 md:justify-end": true,
+                        "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
+                        "border-r md:border-none": true,
+                    })}>
                         <ButtonLink onClick={closeMenu} name="parse"/>
                         <ButtonLink onClick={closeMenu} name="balance"/>
                         <ButtonLink onClick={closeMenu} name="expenses"/>
                         <ButtonLink onClick={closeMenu} name="categories"/>
                         <ButtonLink onClick={closeMenu} name="projection"/>
                         <ButtonLink onClick={closeMenu} name="resolver"/>
-                        {isMobile && <hr/>}
-                        <ButtonLink onClick={closeMenu} name="coffee"/>
-                        <ButtonLink onClick={closeMenu} name="patreon"/>
+                        {/*<ButtonLink onClick={closeMenu} name="coffee"/>*/}
+                        {/*<ButtonLink onClick={closeMenu} name="patreon"/>*/}
                     </ul>}
-            </div>
+            </header>
             {isMenuOpen && isMobile && <div className="backdrop-brightness-50 fixed w-screen h-screen"/>}
+
+            {/*<h1 className="text-lg">*/}
+            {/*    {page ? _(PageTitle[page]) : "♎ You need balance!"}*/}
+            {/*</h1>*/}
         </>
     )
 };

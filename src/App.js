@@ -9,6 +9,8 @@ import {messages as heMessages} from "./locales/he/messages";
 import {Root} from "./components/templates/Root";
 import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
+import {Scales} from "./components/atoms";
+import {AuthButton} from "./components/pages/Login/AuthButton";
 
 i18n.load({
     en: enMessages,

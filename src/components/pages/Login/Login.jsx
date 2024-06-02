@@ -1,8 +1,7 @@
-import {login} from "../../../utils/auth";
-import {Button, Title} from "../../atoms";
 import {Spinner} from "@phosphor-icons/react";
 import {useContext} from "react";
 import {UserContext} from "../../../context";
+import {LoginWelcomeMessage} from "../../atoms/LoginWelcomeMessage";
 
 const Login = ({children}) => {
     const [user] = useContext(UserContext);
@@ -19,13 +18,7 @@ const Login = ({children}) => {
         return children;
     }
 
-    return (
-        <div className="flex flex-col items-start justify-center gap-8 text-left px-8">
-            <Title>♎ You Need a Balance!</Title>
-            <Button onClick={login}>Login</Button>
-            <p>Control your financial situation.<br/>Control your future.</p>
-        </div>
-    );
+    return <LoginWelcomeMessage/>;
 };
 
 export default Login;

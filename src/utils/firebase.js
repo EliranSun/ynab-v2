@@ -58,9 +58,11 @@ export const setUserDoc = async (user) => {
 export const getExpenses = async () => {
     try {
         const expenses = {};
+        console.log(auth.currentUser);
         const querySnapshot = await getDocs(collection(db, expensesPath()));
         querySnapshot.forEach((doc) => {
             const expense = doc.data();
+            console.log({expense});
             expenses[expense.id] = new Expense(expense);
         });
 
@@ -93,20 +95,20 @@ export const createExpensesByDateCollection = async () => {
         // Now that the structure is guaranteed to exist, add the expense.
         // Assuming `expense.id` is unique and you want to store the whole expense object under its ID
         expensesByDateAndCategory[yearMonthKey][categoryKey][expense.id] = {
-            amount: Number(expense.amount),
-            amountCurrency: expense.amountCurrency,
-            categoryId: Number(expense.categoryId),
-            date: expense.date,
             id: expense.id,
+            date: expense.date,
+            name: expense.name,
+            note: expense.note,
+            amountCurrency: expense.amountCurrency,
             isIncome: expense.isIncome,
             isOriginal: expense.isOriginal,
             isThirdParty: expense.isThirdParty,
+            timestamp: expense.timestamp,
+            amount: Number(expense.amount),
+            categoryId: Number(expense.categoryId),
             mainCategoryId: Number(expense.mainCategoryId),
-            name: expense.name,
-            note: expense.note,
             subcategoryId: Number(expense.subcategoryId),
             subcategoryLabel: expense.subcategoryLabel,
-            timestamp: expense.timestamp,
         };
     });
 

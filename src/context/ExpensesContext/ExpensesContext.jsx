@@ -1,21 +1,21 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { noop } from "lodash";
-import { addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense } from "../../utils";
-import { Categories } from "../../constants";
-import { BudgetContext, getDateKey } from "../BudgetContext";
-import { isSameMonth } from "date-fns";
-import { Expense } from "../../models";
+import {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {noop} from "lodash";
+import {addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense} from "../../utils";
+import {Categories} from "../../constants";
+import {BudgetContext, getDateKey} from "../BudgetContext";
+import {isSameMonth} from "date-fns";
+import {Expense} from "../../models";
 
 export const ExpensesContext = createContext({
     expenses: {},
     changeExpenseCategoryByName: noop,
 });
 
-export const ExpensesContextProvider = ({ children }) => {
+export const ExpensesContextProvider = ({children}) => {
     const [expenses, setExpenses] = useState({});
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
-    const { budget } = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
 
     const expensesArray = useMemo(() => {
         return Object.values(expenses) || [];
@@ -23,8 +23,9 @@ export const ExpensesContextProvider = ({ children }) => {
 
     const expensesPerMonthPerCategory = useMemo(() => {
         const expensesPerMonthPerCategory = {};
+        console.log({expensesArray});
         expensesArray.forEach((expense) => {
-            const { categoryId } = expense;
+            const {categoryId} = expense;
             // TODO: util
             const dateKey = new Date(expense.timestamp).toLocaleString("en-IL", {
                 // day: "numeric",
@@ -148,7 +149,7 @@ export const ExpensesContextProvider = ({ children }) => {
     };
 
     const setExpenseAsIncome = (expenseId, isIncome) => {
-        updateExpense(expenseId, { isIncome });
+        updateExpense(expenseId, {isIncome});
         setExpenses({
             ...expenses,
             [expenseId]: {
@@ -163,7 +164,7 @@ export const ExpensesContextProvider = ({ children }) => {
             return;
         }
 
-        await updateExpense(expenseId, { note });
+        await updateExpense(expenseId, {note});
 
         setExpenses({
             ...expenses,
@@ -177,11 +178,11 @@ export const ExpensesContextProvider = ({ children }) => {
     const changeExpenseCategory = async (expenseId, categoryId, note = "") => {
         const expense = expenses[expenseId];
         const allExpensesWithTheSameName = expensesArray.filter(
-            ({ name }) => name === expense.name
+            ({name}) => name === expense.name
         );
         if (!expense.isThirdParty) {
             allExpensesWithTheSameName.forEach((expense) => {
-                updateExpense(expense.id, { categoryId, note });
+                updateExpense(expense.id, {categoryId, note});
                 setExpenses({
                     ...expenses,
                     [expense.id]: {
@@ -194,7 +195,7 @@ export const ExpensesContextProvider = ({ children }) => {
             return;
         }
 
-        await updateExpense(expenseId, { categoryId, note });
+        await updateExpense(expenseId, {categoryId, note});
         setExpenses({
             ...expenses,
             [expenseId]: {

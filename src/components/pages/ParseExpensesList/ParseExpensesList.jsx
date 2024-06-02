@@ -1,26 +1,38 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
-import { Expense } from "../../../models";
-import { Button, Title } from "../../atoms";
-import { withExpensesContext } from "../../../HOC/withExpensesContext";
-import { SheetUpload } from "../../organisms/SheetUpload";
-import { ExpensesList } from "./ExpensesList";
-import { parseNewExpenses, isExistingExpense } from "../../../utils/expenses";
-import { ClipboardText } from "@phosphor-icons/react";
+import {Expense} from "../../../models";
+import {Button, Title} from "../../atoms";
+import {withExpensesContext} from "../../../HOC/withExpensesContext";
+import {SheetUpload} from "../../organisms/SheetUpload";
+import {ExpensesList} from "./ExpensesList";
+import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
+import {ClipboardText} from "@phosphor-icons/react";
 
 const isMobile = window.innerWidth < 768;
+const formatAmount = (amount) => {
+    return parseFloat(amount.replace("₪", "").replace(",", "").trim());
+};
+
+const getDateTimestamp = (date) => {
+    const dateParts = date?.split("/");
+    const year = dateParts && dateParts[2] ? `20${dateParts[2]}` : new Date().getFullYear();
+    const month = dateParts && Number(dateParts[1]);
+    const day = dateParts && Number(dateParts[0]);
+    return new Date(Date.UTC(year, month - 1, day)).getTime();
+};
 
 export const ParseExpensesList = ({
-    text = "",
-    expenses,
-    setExpenses = () => {
-    }
-}) => {
+                                      text = "",
+                                      expenses,
+                                      setExpenses = () => {
+                                      }
+                                  }) => {
     const textAreaRef = useRef(null);
     const [message, setMessage] = useState("");
     const [value, setValue] = useState(text);
     const [isParseButtonDisabled, setIsParseButtonDisabled] = useState(false);
     const [parsedExpenses, setParsedExpenses] = useState([]);
+    const [parsedFile, setParsedFile] = useState([]);
     const [isStatusAnimated, setIsStatusAnimated] = useState(false);
 
 
@@ -95,12 +107,12 @@ export const ParseExpensesList = ({
         localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
     }
 
-    console.log({ expenses, parsedExpenses });
+    console.log({expenses, parsedExpenses});
 
     return (
         <section className="h-screen overflow-y-auto p-4">
             <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
-                <ClipboardText size={50}/> Parse
+                <ClipboardText/> Parse
             </Title>
 
             <div className="max-w-6xl m-auto">
@@ -132,24 +144,60 @@ export const ParseExpensesList = ({
                             setIsParseButtonDisabled(!event.target.value);
                             setValue(event.target.value);
                         }}/>
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        onClick={setNewExpenses}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}>
+                        {isStatusAnimated ? message : "Parse Text"}
+                    </Button>
                 </div>
                 <div className="mb-4">
                     <Title type={Title.Types.H2} className="mb-4">Upload</Title>
-                    <SheetUpload onSheetParse={data => console.log(data)}/>
+                    <SheetUpload onSheetParse={data => {
+                        console.log({data});
+                        setParsedFile(data.map(row => ({
+                            name: row["Name"] || row['שם'] || row['על מה?'],
+                            timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                            amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                            categoryName: row["Category"] || row['קטגוריה'],
+                        })));
+                    }}/>
+                    <pre>
+                        {JSON.stringify(parsedFile, null, 2)}
+                    </pre>
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        onClick={() => {
+                            const newExpenses = parsedFile.map(item => {
+                                const similarExpense = expenses.find(existingItem => {
+                                    return existingItem.name === item.name;
+                                });
+
+                                if (similarExpense?.categoryId) {
+                                    item.categoryId = similarExpense.categoryId;
+                                }
+
+                                return item;
+                            });
+
+                            setParsedExpenses(newExpenses
+                                .filter(item => !isExistingExpense(item, expenses))
+                                .map(item => new Expense(item)));
+                        }}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}>
+                        {isStatusAnimated ? message : "Parse File"}
+                    </Button>
                 </div>
                 <div className="">
-                    <Title type={Title.Types.H2} className="mb-4">Manual</Title>
-                    WIP
+                    <Title type={Title.Types.H2} className="mb-4">Manual - WIP</Title>
                 </div>
-                <Button
-                    size={Button.Sizes.FULL}
-                    isDisabled={isParseButtonDisabled}
-                    onClick={setNewExpenses}
-                    className={classNames("my-4 w-72 mx-auto text-center", {
-                        "animate-pulse duration-500": isStatusAnimated,
-                    })}>
-                    {isStatusAnimated ? message : "Parse expenses"}
-                </Button>
+
             </div>
         </section>
     );

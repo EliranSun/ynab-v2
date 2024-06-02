@@ -16,6 +16,8 @@ const BalanceView = () => {
         const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
         const [selectedId, setSelectedId] = useState(null);
 
+        console.log({categories});
+
         const selectedSubcategory = useMemo(() => {
             let match;
             categories.summary.forEach((category, index) => {
@@ -45,7 +47,7 @@ const BalanceView = () => {
                             {new Date(currentTimestamp).toLocaleString("en-GB", {
                                 month: "long",
                                 year: "numeric",
-                            })}!
+                            })}
                         </h1>
                         <NextButton/>
                     </div>

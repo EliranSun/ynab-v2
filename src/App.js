@@ -9,7 +9,6 @@ import {messages as heMessages} from "./locales/he/messages";
 import {Root} from "./components/templates/Root";
 import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
-import {createExpensesByDateCollection} from "./utils";
 
 i18n.load({
     en: enMessages,
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
                 element: <PageRouter/>,
             },
             {
-                path: "*",
+                path: "/",
                 element: <Navigate to="/parse" replace/>,
             }
         ]

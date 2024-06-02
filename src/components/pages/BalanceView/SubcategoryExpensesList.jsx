@@ -26,7 +26,8 @@ const SubcategoryExpensesList = ({
                                      onSubcategoryClick = noop,
                                  }) => {
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
-
+    console.log({expensesPerMonthPerCategory});
+    
     const data = useMemo(() => {
         const subcategoryId = subcategory.id;
         if (!subcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)

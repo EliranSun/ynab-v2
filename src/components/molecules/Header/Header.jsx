@@ -5,7 +5,7 @@ import {List} from "@phosphor-icons/react";
 import {UserContext} from "../../../context";
 import {BUTTON_SIZE} from "../../../constants";
 import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const isMobile = window.innerWidth < 768;
 
@@ -28,12 +28,13 @@ export const Header = () => {
     const {page} = useParams();
     const [user] = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const message = useMemo(() => {
         if (!user) {
             return "Welcome!";
         }
-        
+
         let message = `Hey ${user.displayName.split(" ")[0]}, `;
         const hour = new Date().getHours();
         if (hour < 12) {
@@ -70,7 +71,7 @@ export const Header = () => {
                             <div className="text-lg">{PageTitle[page]}</div>
                         </div>
                     </div>}
-                <LoginButton/>
+                {user ? <ButtonLink href="/" name="home"/> : <LoginButton/>}
                 {(isDesktop || isMenuOpen) &&
                     <ul className="absolute md:sticky bg-white left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:top-0 md:gap-4 md:justify-end">
                         <ButtonLink onClick={closeMenu} name="parse"/>

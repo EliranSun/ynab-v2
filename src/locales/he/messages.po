@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/organisms/CategorySelection/LeanCategorySelection.jsx:21
+#: src/components/molecules/Header/Header.jsx:65
 #~ msgid "{0}"
 #~ msgstr "{0}"
 
@@ -58,7 +58,7 @@ msgstr "🛎️ מינויים"
 msgid "Actual"
 msgstr "במציאות"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:67
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:83
 msgid "Actual:"
 msgstr "במציאות:"
 
@@ -67,8 +67,16 @@ msgid "Authoring"
 msgstr "כתיבה"
 
 #: src/components/pages/BalanceView/BalanceView.jsx:26
-msgid "BALANCE & BUDGET"
-msgstr "תקציב ועוש"
+#~ msgid "BALANCE & BUDGET"
+#~ msgstr "תקציב ועוש"
+
+#: src/components/molecules/Header/Header.jsx:62
+#~ msgid "Balance: Where'd my money go?"
+#~ msgstr "Balance: Where'd my money go?"
+
+#: src/components/molecules/Header/Header.jsx:23
+msgid "Balance: Where's my fucking money?"
+msgstr "מאזן: איפה הכסף?!"
 
 #: src/constants/categories.js:151
 msgid "Barber"
@@ -86,7 +94,7 @@ msgstr "ספרים"
 msgid "Budget"
 msgstr "תקציב"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:60
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:76
 msgid "Budget:"
 msgstr "תקציב:"
 
@@ -101,6 +109,10 @@ msgstr "אוטובוס"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:14
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
+
+#: src/components/molecules/Header/Header.jsx:25
+msgid "Categories"
+msgstr "קטגוריות"
 
 #: src/constants/categories.js:169
 msgid "Clothes"
@@ -126,7 +138,7 @@ msgstr "עיצוב"
 msgid "Dev"
 msgstr "פיתוח"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:74
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
 msgid "Diffs:"
 msgstr "הפרש:"
 
@@ -149,6 +161,10 @@ msgstr "חשמל"
 #: src/constants/categories.js:193
 msgid "Electronics"
 msgstr "אלקטרוניקה"
+
+#: src/components/molecules/Header/Header.jsx:24
+msgid "Expenses"
+msgstr "הוצאות"
 
 #: src/constants/categories.js:227
 msgid "Family"
@@ -251,7 +267,11 @@ msgstr "אחר"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:48
+#: src/components/molecules/Header/Header.jsx:22
+msgid "Parse"
+msgstr "פירסור"
+
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:64
 msgid "Past 12 months"
 msgstr "12 החודשים האחרונים"
 
@@ -267,7 +287,11 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:53
+#: src/components/molecules/Header/Header.jsx:26
+msgid "Projection"
+msgstr "פרוג'קטור"
+
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:69
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), ולכן בחלק מהחודשים (למשל חופשה) התוצאות תהיינה מוטות."
 
@@ -279,6 +303,10 @@ msgstr "מיסים"
 #: src/constants/categories.js:334
 msgid "Rent"
 msgstr "שכר דירה"
+
+#: src/components/molecules/Header/Header.jsx:27
+msgid "Resolver"
+msgstr "המיישב"
 
 #: src/constants/categories.js:318
 msgid "Salary"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-08-27 13:25+0300\n"
+"POT-Creation-Date: 2024-06-02 19:52+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,15 +12,6 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: \n"
 "Plural-Forms: \n"
-
-#: src/components/organisms/CategorySelection/LeanCategorySelection.jsx:21
-#~ msgid "{0}"
-#~ msgstr ""
-
-#: src/components/atoms/Title.jsx:19
-#: src/components/atoms/Title.jsx:27
-#~ msgid "{children}"
-#~ msgstr ""
 
 #: src/constants/categories.js:133
 msgid "❤️ Self Care"
@@ -58,7 +49,7 @@ msgstr "🛎️ Apps Sub"
 msgid "Actual"
 msgstr "Actual"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:67
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:83
 msgid "Actual:"
 msgstr "Actual:"
 
@@ -66,9 +57,9 @@ msgstr "Actual:"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/pages/BalanceView/BalanceView.jsx:26
-msgid "BALANCE & BUDGET"
-msgstr "BALANCE & BUDGET"
+#: src/components/molecules/Header/Header.jsx:23
+msgid "Balance: Where's my fucking money?"
+msgstr "Balance: Where's my fucking money?"
 
 #: src/constants/categories.js:151
 msgid "Barber"
@@ -86,7 +77,7 @@ msgstr "Books"
 msgid "Budget"
 msgstr "Budget"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:60
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:76
 msgid "Budget:"
 msgstr "Budget:"
 
@@ -101,6 +92,10 @@ msgstr "Bus"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:14
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
+
+#: src/components/molecules/Header/Header.jsx:25
+msgid "Categories"
+msgstr "Categories"
 
 #: src/constants/categories.js:169
 msgid "Clothes"
@@ -126,7 +121,7 @@ msgstr "Design"
 msgid "Dev"
 msgstr "Dev"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:74
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
 msgid "Diffs:"
 msgstr "Diffs:"
 
@@ -149,6 +144,10 @@ msgstr "Electricity"
 #: src/constants/categories.js:193
 msgid "Electronics"
 msgstr "Electronics"
+
+#: src/components/molecules/Header/Header.jsx:24
+msgid "Expenses"
+msgstr "Expenses"
 
 #: src/constants/categories.js:227
 msgid "Family"
@@ -251,7 +250,11 @@ msgstr "Other"
 msgid "over my budget"
 msgstr "over my budget"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:48
+#: src/components/molecules/Header/Header.jsx:22
+msgid "Parse"
+msgstr "Parse"
+
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:64
 msgid "Past 12 months"
 msgstr "Past 12 months"
 
@@ -267,7 +270,11 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:53
+#: src/components/molecules/Header/Header.jsx:26
+msgid "Projection"
+msgstr "Projection"
+
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:69
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
@@ -279,6 +286,10 @@ msgstr "Rates"
 #: src/constants/categories.js:334
 msgid "Rent"
 msgstr "Rent"
+
+#: src/components/molecules/Header/Header.jsx:27
+msgid "Resolver"
+msgstr "Resolver"
 
 #: src/constants/categories.js:318
 msgid "Salary"
@@ -295,10 +306,6 @@ msgstr "Show same month only"
 #: src/constants/categories.js:139
 msgid "Therapist"
 msgstr "Therapist"
-
-#: src/components/molecules/PastTwelveMonthsBalance/PastTwelveMonthsBalance.jsx:42
-#~ msgid "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
-#~ msgstr "These are the incomes and expenses over the last 12 months. Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
 #: src/constants/categories.js:253
 msgid "TV"

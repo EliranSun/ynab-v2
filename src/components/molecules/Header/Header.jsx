@@ -28,7 +28,12 @@ export const Header = () => {
     const {page} = useParams();
     const [user] = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const message = useMemo(() => {
+        if (!user) {
+            return "Welcome!";
+        }
+        
         let message = `Hey ${user.displayName.split(" ")[0]}, `;
         const hour = new Date().getHours();
         if (hour < 12) {

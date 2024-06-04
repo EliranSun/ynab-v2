@@ -74,7 +74,7 @@ msgstr "כתיבה"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/components/molecules/Header/Header.jsx:23
+#: src/components/molecules/Header/Header.jsx:24
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -110,7 +110,7 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/Header/Header.jsx:25
+#: src/components/molecules/Header/Header.jsx:26
 msgid "Categories"
 msgstr "קטגוריות"
 
@@ -162,7 +162,7 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/molecules/Header/Header.jsx:24
+#: src/components/molecules/Header/Header.jsx:25
 msgid "Expenses"
 msgstr "הוצאות"
 
@@ -186,6 +186,18 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
+#: src/components/molecules/Header/Header.jsx:34
+msgid "Good afternoon!"
+msgstr "צהריים טובים!"
+
+#: src/components/molecules/Header/Header.jsx:35
+msgid "Good evening!"
+msgstr "ערב טוב!"
+
+#: src/components/molecules/Header/Header.jsx:33
+msgid "Good morning!"
+msgstr "בוקר טוב!"
+
 #: src/constants/categories.js:19
 msgid "Groceries"
 msgstr "מצרכים"
@@ -201,6 +213,11 @@ msgstr "בריאות"
 #: src/constants/categories.js:175
 msgid "Health/Beauty"
 msgstr "בריאות/יופי"
+
+#: src/components/molecules/Header/Header.jsx:57
+#: src/components/molecules/Header/Header.jsx:64
+msgid "Hey"
+msgstr "היי"
 
 #: src/constants/categories.js:157
 msgid "Hobbies"
@@ -267,7 +284,7 @@ msgstr "אחר"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/Header/Header.jsx:22
+#: src/components/molecules/Header/Header.jsx:23
 msgid "Parse"
 msgstr "פירסור"
 
@@ -287,7 +304,7 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/Header/Header.jsx:26
+#: src/components/molecules/Header/Header.jsx:27
 msgid "Projection"
 msgstr "פרוג'קטור"
 
@@ -304,7 +321,7 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/components/molecules/Header/Header.jsx:27
+#: src/components/molecules/Header/Header.jsx:28
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -339,6 +356,14 @@ msgstr "חופשה"
 #: src/constants/categories.js:89
 msgid "Water"
 msgstr "מים"
+
+#: src/components/molecules/Header/Header.jsx:32
+msgid "Welcome"
+msgstr "ברוך הבא!"
+
+#: src/components/molecules/Header/Header.jsx:38
+#~ msgid "Welcome!"
+#~ msgstr "ברוך הבא!"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:8
 msgid "which is good, but I should understand why my budget is off."

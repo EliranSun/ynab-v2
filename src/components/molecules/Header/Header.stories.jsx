@@ -6,10 +6,10 @@ import {I18nProvider} from '@lingui/react';
 import {messages as enMessages, messages} from '../../../locales/en/messages';
 import {i18n} from "@lingui/core";
 
-i18n.load({
-    en: enMessages,
-});
-i18n.activate("en");
+// i18n.load({
+//     en: enMessages,
+// });
+// i18n.activate("en");
 
 export default {
     title: 'Molecules/Header',

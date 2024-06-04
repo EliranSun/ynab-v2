@@ -7,7 +7,7 @@ import {BUTTON_SIZE} from "../../../constants";
 import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
 import {useParams} from "react-router-dom";
 import {useLingui} from "@lingui/react";
-import {msg} from "@lingui/macro";
+import {msg, Trans} from "@lingui/macro";
 import classNames from "classnames";
 
 
@@ -28,31 +28,71 @@ const PageTitle = {
     resolver: msg`Resolver`,
 };
 
+const Message = {
+    welcome: msg`Welcome`,
+    morning: msg`Good morning!`,
+    afternoon: msg`Good afternoon!`,
+    evening: msg`Good evening!`
+}
+
+const WelcomeMessage = ({userName}) => {
+    const {_} = useLingui();
+    const welcomeMessage = useMemo(() => {
+        let message;
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            message = Message.morning;
+        } else if (hour < 18) {
+            message = Message.afternoon;
+        } else {
+            message = Message.evening;
+        }
+
+        return _(message);
+    }, [_]);
+
+    if (userName) {
+        return (
+            <p className="text-sm">
+                <Trans>Hey</Trans>, {userName}, {welcomeMessage}
+            </p>
+        )
+    }
+
+    return (
+        <p className="text-sm">
+            <Trans>Hey</Trans>, {welcomeMessage}
+        </p>
+    )
+}
+
 export const Header = () => {
     const {page} = useParams();
     const [user] = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {_} = useLingui();
 
-    const message = useMemo(() => {
+    const welcomeMessage = useMemo(() => {
         if (!user) {
-            return "Welcome!";
+            return _(Message.welcome);
         }
 
-        let message = `Hey ${user.displayName.split(" ")[0]}, `;
+        let message;
         const hour = new Date().getHours();
         if (hour < 12) {
-            message += "Good morning!";
+            message = Message.morning;
         } else if (hour < 18) {
-            message += "Good afternoon!";
+            message = Message.afternoon;
         } else {
-            message += "Good evening!";
+            message = Message.evening;
         }
 
-        return message;
-    }, [user]);
+        return _(message);
+    }, [user, _]);
 
     const closeMenu = () => setIsMenuOpen(false);
+
+    console.log({welcomeMessage})
 
     return (
         <>
@@ -68,9 +108,7 @@ export const Header = () => {
                             </Button>
                         </div> : null}
                     <AuthButton/>
-                    <div className="text-sm">
-                        <p>{message}</p>
-                    </div>
+                    <WelcomeMessage userName={user?.displayName?.split(" ")[0]}/>
                 </div>
                 {(isDesktop || isMenuOpen) &&
                     <ul className={classNames({

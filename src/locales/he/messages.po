@@ -224,7 +224,7 @@ msgstr "אפליקציות"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
-msgstr "אלוקים אדירים שבשמיים."
+msgstr "אלוקים אדירים אבינו שבשמיים."
 
 #: src/constants/categories.js:57
 msgid "KIA"

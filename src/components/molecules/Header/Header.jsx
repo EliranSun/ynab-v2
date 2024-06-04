@@ -7,9 +7,8 @@ import {BUTTON_SIZE} from "../../../constants";
 import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
 import {useParams} from "react-router-dom";
 import {useLingui} from "@lingui/react";
-import {msg, Trans} from "@lingui/macro";
+import {msg, Trans, t} from "@lingui/macro";
 import classNames from "classnames";
-
 
 const isMobile = window.innerWidth < 768;
 
@@ -18,6 +17,31 @@ const Messages = [
     <span>Don't forget to <b>pay your bills</b> this week</span>,
     <span>Try to <b>save 10%</b> of your income this month</span>,
 ];
+
+const getPage = (page) => {
+    switch (page) {
+        case "parse":
+            return msg`Parse`;
+
+        case "balance":
+            return msg`Balance`;
+
+        case "expenses":
+            return msg`Expenses`;
+
+        case "categories":
+            return msg`Categories`;
+
+        case "projection":
+            return msg`Projection`;
+
+        case "resolver":
+            return msg`Resolver`;
+
+        default:
+            return '';
+    }
+}
 
 const PageTitle = {
     parse: msg`Parse`,
@@ -116,12 +140,12 @@ export const Header = () => {
                         "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
                         "border-r md:border-none": true,
                     })}>
-                        <ButtonLink onClick={closeMenu} name="parse"/>
-                        <ButtonLink onClick={closeMenu} name="balance"/>
-                        <ButtonLink onClick={closeMenu} name="expenses"/>
-                        <ButtonLink onClick={closeMenu} name="categories"/>
-                        <ButtonLink onClick={closeMenu} name="projection"/>
-                        <ButtonLink onClick={closeMenu} name="resolver"/>
+                        <ButtonLink onClick={closeMenu} name="parse" label={getPage("parse")}/>
+                        <ButtonLink onClick={closeMenu} name="balance" label={getPage("balance")}/>
+                        <ButtonLink onClick={closeMenu} name="expenses" label={getPage("expenses")}/>
+                        <ButtonLink onClick={closeMenu} name="categories" label={getPage("categories")}/>
+                        <ButtonLink onClick={closeMenu} name="projection" label={getPage("projection")}/>
+                        <ButtonLink onClick={closeMenu} name="resolver" label={getPage("resolver")}/>
                         {/*<ButtonLink onClick={closeMenu} name="coffee"/>*/}
                         {/*<ButtonLink onClick={closeMenu} name="patreon"/>*/}
                     </ul>}

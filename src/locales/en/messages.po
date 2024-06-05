@@ -57,7 +57,11 @@ msgstr "Actual:"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/molecules/Header/Header.jsx:24
+#: src/components/molecules/Header/Header.jsx:28
+msgid "Balance"
+msgstr "Balance"
+
+#: src/components/molecules/Header/Header.jsx:50
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
 
@@ -93,7 +97,8 @@ msgstr "Bus"
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
 
-#: src/components/molecules/Header/Header.jsx:26
+#: src/components/molecules/Header/Header.jsx:36
+#: src/components/molecules/Header/Header.jsx:52
 msgid "Categories"
 msgstr "Categories"
 
@@ -145,7 +150,8 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/molecules/Header/Header.jsx:25
+#: src/components/molecules/Header/Header.jsx:32
+#: src/components/molecules/Header/Header.jsx:51
 msgid "Expenses"
 msgstr "Expenses"
 
@@ -169,15 +175,15 @@ msgstr "Fun"
 msgid "Games"
 msgstr "Games"
 
-#: src/components/molecules/Header/Header.jsx:34
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Good afternoon!"
 msgstr "Good afternoon!"
 
-#: src/components/molecules/Header/Header.jsx:35
+#: src/components/molecules/Header/Header.jsx:61
 msgid "Good evening!"
 msgstr "Good evening!"
 
-#: src/components/molecules/Header/Header.jsx:33
+#: src/components/molecules/Header/Header.jsx:59
 msgid "Good morning!"
 msgstr "Good morning!"
 
@@ -197,8 +203,8 @@ msgstr "Health"
 msgid "Health/Beauty"
 msgstr "Health/Beauty"
 
-#: src/components/molecules/Header/Header.jsx:57
-#: src/components/molecules/Header/Header.jsx:64
+#: src/components/molecules/Header/Header.jsx:83
+#: src/components/molecules/Header/Header.jsx:90
 msgid "Hey"
 msgstr "Hey"
 
@@ -267,7 +273,8 @@ msgstr "Other"
 msgid "over my budget"
 msgstr "over my budget"
 
-#: src/components/molecules/Header/Header.jsx:23
+#: src/components/molecules/Header/Header.jsx:24
+#: src/components/molecules/Header/Header.jsx:49
 msgid "Parse"
 msgstr "Parse"
 
@@ -287,7 +294,8 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/molecules/Header/Header.jsx:27
+#: src/components/molecules/Header/Header.jsx:40
+#: src/components/molecules/Header/Header.jsx:53
 msgid "Projection"
 msgstr "Projection"
 
@@ -304,7 +312,8 @@ msgstr "Rates"
 msgid "Rent"
 msgstr "Rent"
 
-#: src/components/molecules/Header/Header.jsx:28
+#: src/components/molecules/Header/Header.jsx:44
+#: src/components/molecules/Header/Header.jsx:54
 msgid "Resolver"
 msgstr "Resolver"
 
@@ -336,7 +345,7 @@ msgstr "Vacation"
 msgid "Water"
 msgstr "Water"
 
-#: src/components/molecules/Header/Header.jsx:32
+#: src/components/molecules/Header/Header.jsx:58
 msgid "Welcome"
 msgstr "Welcome"
 

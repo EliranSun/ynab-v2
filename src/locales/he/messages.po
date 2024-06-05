@@ -66,6 +66,10 @@ msgstr "במציאות:"
 msgid "Authoring"
 msgstr "כתיבה"
 
+#: src/components/molecules/Header/Header.jsx:28
+msgid "Balance"
+msgstr "תנועות"
+
 #: src/components/pages/BalanceView/BalanceView.jsx:26
 #~ msgid "BALANCE & BUDGET"
 #~ msgstr "תקציב ועוש"
@@ -74,7 +78,7 @@ msgstr "כתיבה"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/components/molecules/Header/Header.jsx:24
+#: src/components/molecules/Header/Header.jsx:50
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -110,7 +114,8 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/Header/Header.jsx:26
+#: src/components/molecules/Header/Header.jsx:36
+#: src/components/molecules/Header/Header.jsx:52
 msgid "Categories"
 msgstr "קטגוריות"
 
@@ -162,7 +167,8 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/molecules/Header/Header.jsx:25
+#: src/components/molecules/Header/Header.jsx:32
+#: src/components/molecules/Header/Header.jsx:51
 msgid "Expenses"
 msgstr "הוצאות"
 
@@ -186,15 +192,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/components/molecules/Header/Header.jsx:34
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/components/molecules/Header/Header.jsx:35
+#: src/components/molecules/Header/Header.jsx:61
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/components/molecules/Header/Header.jsx:33
+#: src/components/molecules/Header/Header.jsx:59
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -214,8 +220,8 @@ msgstr "בריאות"
 msgid "Health/Beauty"
 msgstr "בריאות/יופי"
 
-#: src/components/molecules/Header/Header.jsx:57
-#: src/components/molecules/Header/Header.jsx:64
+#: src/components/molecules/Header/Header.jsx:83
+#: src/components/molecules/Header/Header.jsx:90
 msgid "Hey"
 msgstr "היי"
 
@@ -284,7 +290,8 @@ msgstr "אחר"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/Header/Header.jsx:23
+#: src/components/molecules/Header/Header.jsx:24
+#: src/components/molecules/Header/Header.jsx:49
 msgid "Parse"
 msgstr "פירסור"
 
@@ -304,7 +311,8 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/Header/Header.jsx:27
+#: src/components/molecules/Header/Header.jsx:40
+#: src/components/molecules/Header/Header.jsx:53
 msgid "Projection"
 msgstr "פרוג'קטור"
 
@@ -321,7 +329,8 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/components/molecules/Header/Header.jsx:28
+#: src/components/molecules/Header/Header.jsx:44
+#: src/components/molecules/Header/Header.jsx:54
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -357,7 +366,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/components/molecules/Header/Header.jsx:32
+#: src/components/molecules/Header/Header.jsx:58
 msgid "Welcome"
 msgstr "ברוך הבא!"
 

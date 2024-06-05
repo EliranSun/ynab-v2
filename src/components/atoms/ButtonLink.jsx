@@ -12,33 +12,38 @@ import {
 } from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import {BUTTON_SIZE} from "../../constants";
-import {useState} from "react";
+import {useState, useMemo} from "react";
 
 export const isDesktop = window.innerWidth >= 768;
+const Icons = {
+    parse: ClipboardText,
+    balance: Scales,
+    expenses: Receipt,
+    categories: SquaresFour,
+    projection: ChartLineUp,
+    resolver: MagicWand,
+    coffee: Coffee,
+    // patreon: PatreonLogo,
+    // home: House,
+};
+
+// let link = `/${name}`;
+// if (name === "coffee") {
+//     link = "https://www.buymeacoffee.com/omriharel";
+// }
+//
+// if (name === "patreon") {
+//     link = "https://www.patreon.com/omriharel";
+// }
+
+
 export const ButtonLink = ({name, label, onClick = noop, href}) => {
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-    const Icon = {
-        parse: ClipboardText,
-        balance: Scales,
-        expenses: Receipt,
-        categories: SquaresFour,
-        projection: ChartLineUp,
-        resolver: MagicWand,
-        coffee: Coffee,
-        patreon: PatreonLogo,
-        home: House,
-    }[name];
-
-    // let link = `/${name}`;
-    // if (name === "coffee") {
-    //     link = "https://www.buymeacoffee.com/omriharel";
-    // }
-    //
-    // if (name === "patreon") {
-    //     link = "https://www.patreon.com/omriharel";
-    // }
-
-    console.log({name});
+    const Icon = useMemo(() => {
+        const iconByName = Icons[name];
+        console.log({iconByName});
+        return iconByName;
+    }, [name]);
 
     return (
         <Link to={href} onClick={onClick}>

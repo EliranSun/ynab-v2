@@ -150,6 +150,10 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
+msgid "Existing expenses"
+msgstr "Existing expenses"
+
 #: src/components/molecules/Header/Header.jsx:32
 #: src/components/molecules/Header/Header.jsx:51
 msgid "Expenses"
@@ -260,6 +264,10 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:128
+msgid "New expenses"
+msgstr "New expenses"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:73
 msgid "No budget set this month."
 msgstr "No budget set this month."
@@ -275,12 +283,21 @@ msgstr "over my budget"
 
 #: src/components/molecules/Header/Header.jsx:24
 #: src/components/molecules/Header/Header.jsx:49
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Parse"
 msgstr "Parse"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:209
+msgid "Parse File"
+msgstr "Parse File"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:64
 msgid "Past 12 months"
 msgstr "Past 12 months"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:144
+msgid "Paste"
+msgstr "Paste"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:17
 msgid "perhaps a one-off, but I should understand why if this keeps going."
@@ -336,6 +353,10 @@ msgstr "Therapist"
 #: src/constants/categories.js:253
 msgid "TV"
 msgstr "TV"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:170
+msgid "Upload"
+msgstr "Upload"
 
 #: src/constants/categories.js:239
 msgid "Vacation"

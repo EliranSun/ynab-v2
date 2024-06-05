@@ -143,7 +143,11 @@ export const Header = () => {
                         "border-r md:border-none": true,
                     })}>
                         {Object.values(Pages).map(({name, label}) => (
-                            <ButtonLink onClick={closeMenu} name={name} label={_(label)}/>
+                            <ButtonLink
+                                onClick={closeMenu}
+                                href={name}
+                                name={name}
+                                label={_(label)}/>
                         ))}
                     </ul>}
             </header>

@@ -19,7 +19,6 @@ export const BudgetContextProvider = ({children}) => {
     useEffect(() => {
         (async () => {
             const budget = await getBudget();
-            console.log({budget});
             setBudget(budget);
         })();
     }, []);

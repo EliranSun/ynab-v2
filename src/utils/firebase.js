@@ -58,11 +58,13 @@ export const setUserDoc = async (user) => {
 export const getExpenses = async () => {
     try {
         const expenses = {};
-        console.log(auth.currentUser);
+        if (!auth.currentUser) {
+            return [];
+        }
+
         const querySnapshot = await getDocs(collection(db, expensesPath()));
         querySnapshot.forEach((doc) => {
             const expense = doc.data();
-            console.log({expense});
             expenses[expense.id] = new Expense(expense);
         });
 
@@ -193,7 +195,11 @@ export const addExpenses = async (expenses) => {
 export const getBudget = async () => {
     try {
         let budget = {};
-        const querySnapshot = await getDocs(collection(db, budgetPath(``)));
+        if (!auth.currentUser) {
+            return [];
+        }
+
+        const querySnapshot = await getDocs(collection(db, budgetPath()));
         querySnapshot.forEach((doc) => {
             budget = {
                 ...budget,

@@ -9,7 +9,7 @@ import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 
 const Subcategory = ({
                          icon,
-                         name,
+                         label,
                          id,
                          categoryId,
                          onSubcategoryClick = noop,
@@ -81,7 +81,7 @@ const Subcategory = ({
             }}>
             <div className="">
                 <Title type={Title.Types.H4} className="truncate flex">
-                    {icon.slice(0, 2)} {name.slice(0, 15)}
+                    {icon.slice(0, 2)} {label}
                 </Title>
             </div>
             <div className="">

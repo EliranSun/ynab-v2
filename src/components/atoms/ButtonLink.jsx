@@ -11,10 +11,10 @@ import {
     SquaresFour
 } from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
-import {BUTTON_SIZE} from "../../constants";
+import {BUTTON_SIZE, MOBILE_BUTTON_SIZE} from "../../constants";
 import {useState, useMemo} from "react";
+import {isMobile} from "../../utils/device";
 
-export const isDesktop = window.innerWidth >= 768;
 const Icons = {
     parse: ClipboardText,
     balance: Scales,
@@ -40,20 +40,18 @@ const Icons = {
 export const ButtonLink = ({name, label, onClick = noop, href}) => {
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const Icon = useMemo(() => {
-        const iconByName = Icons[name];
-        console.log({iconByName});
-        return iconByName;
+        return Icons[name];
     }, [name]);
 
     return (
         <Link to={href} onClick={onClick}>
             <li
-                className="relative flex items-center gap-2 w-16 md:flex-col"
+                className="relative md:static flex flex-row items-center gap-4 md:gap-2 w-full md:w-16 md:flex-col"
                 onMouseEnter={() => setIsTooltipOpen(true)}
                 onMouseLeave={() => setIsTooltipOpen(false)}>
-                <Icon size={BUTTON_SIZE}/>
-                {isTooltipOpen ?
-                    <div className="absolute -bottom-10 bg-white text-sm">
+                <Icon size={isMobile() ? MOBILE_BUTTON_SIZE : BUTTON_SIZE}/>
+                {isMobile() || isTooltipOpen ?
+                    <div className="md:absolute -bottom-10 bg-white text-sm">
                         {label}
                     </div> : null}
             </li>

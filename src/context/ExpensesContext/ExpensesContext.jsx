@@ -24,6 +24,7 @@ export const ExpensesContextProvider = ({children}) => {
     const expensesPerMonthPerCategory = useMemo(() => {
         const expensesPerMonthPerCategory = {};
         console.log({expensesArray});
+
         expensesArray.forEach((expense) => {
             const {categoryId} = expense;
             // TODO: util

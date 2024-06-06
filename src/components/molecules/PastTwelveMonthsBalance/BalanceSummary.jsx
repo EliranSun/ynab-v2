@@ -6,16 +6,15 @@ import {ExpensesContext} from "../../../context";
 import {useBudget} from "../../../hooks/useBudget";
 import {Trans} from "@lingui/macro";
 import {Calendar} from "@phosphor-icons/react";
-import {noop} from "lodash";
 import {ThisMonthBalance} from "../ThisMonthBalance/ThisMonthBalance";
 import {HalfYearBalanceSummary} from "../HalfYearBalanceSummary";
 import {useExpensesSummary} from "../../../hooks/useExpensesSummary";
-import {isDesktop} from "../../../utils/device";
+import {isDesktop, isMobile} from "../../../utils/device";
 
 const IncomeSubcategoryIds = [80, 81, 82, 83];
 
 export const BalanceSummary = ({timestamp}) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(isMobile());
     const {expensesArray: expenses = []} = useContext(ExpensesContext);
     const {income: incomeBudget, outcome: expensesBudget} = useBudget(timestamp);
     const {totalIncomeThisMonth, totalExpensesThisMonth} = useExpensesSummary(timestamp);

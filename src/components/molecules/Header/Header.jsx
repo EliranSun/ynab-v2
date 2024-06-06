@@ -4,13 +4,12 @@ import {Button} from "../../atoms";
 import {List} from "@phosphor-icons/react";
 import {UserContext} from "../../../context";
 import {BUTTON_SIZE} from "../../../constants";
-import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
-import {useParams} from "react-router-dom";
+import {ButtonLink} from "../../atoms/ButtonLink";
 import {useLingui} from "@lingui/react";
 import {msg, Trans} from "@lingui/macro";
 import classNames from "classnames";
-
-const isMobile = window.innerWidth < 768;
+import translate from "translate";
+import {isDesktop, isMobile} from "../../../utils/device";
 
 const Messages = [
     <span>Spend less than <b>120₪</b> today on food</span>,
@@ -93,38 +92,22 @@ const WelcomeMessage = ({userName}) => {
 }
 
 export const Header = () => {
-    const {page} = useParams();
+    // const {page} = useParams();
     const [user] = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {_} = useLingui();
-
-    const welcomeMessage = useMemo(() => {
-        if (!user) {
-            return _(Message.welcome);
-        }
-
-        let message;
-        const hour = new Date().getHours();
-        if (hour < 12) {
-            message = Message.morning;
-        } else if (hour < 18) {
-            message = Message.afternoon;
-        } else {
-            message = Message.evening;
-        }
-
-        return _(message);
-    }, [user, _]);
-
     const closeMenu = () => setIsMenuOpen(false);
-
-    console.log({welcomeMessage});
 
     return (
         <>
             <header
-                className="bg-white text-xs md:text-base flex justify-between items-center md:gap-8 md:p-4 md:h-16 shadow-xl">
-                <div className="flex items-center gap-4">
+                className={classNames({
+                    "bg-white text-xs md:text-base md:gap-8": true,
+                    "sticky md:static top-0 p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
+                    "flex justify-between items-center": true,
+                })}>
+                <div className="w-full flex items-center justify-between gap-4">
+                    <WelcomeMessage userName={user.displayName}/>
                     {isMobile ?
                         <div className="flex items-center">
                             <Button
@@ -133,30 +116,27 @@ export const Header = () => {
                                 <List size={BUTTON_SIZE} color="black"/>
                             </Button>
                         </div> : null}
-                    <AuthButton/>
-                    <WelcomeMessage userName={user?.displayName?.split(" ")[0]}/>
                 </div>
-                {(isDesktop || isMenuOpen) &&
-                    <ul className={classNames({
-                        "flex flex-col md:flex-row md:gap-4 md:justify-end": true,
-                        "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
-                        "border-r md:border-none": true,
-                    })}>
-                        {Object.values(Pages).map(({name, label}) => (
-                            <ButtonLink
-                                onClick={closeMenu}
-                                href={name}
-                                name={name}
-                                label={_(label)}/>
-                        ))}
-                    </ul>}
             </header>
-            {isMenuOpen && isMobile &&
-                <div className="backdrop-brightness-50 fixed w-screen h-screen"/>}
-
-            {/*<h1 className="text-lg">*/}
-            {/*    {page ? _(PageTitle[page]) : "♎ You need balance!"}*/}
-            {/*</h1>*/}
+            <ul className={classNames({
+                "hidden": isDesktop() || !isMenuOpen,
+                "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
+                "flex flex-col md:flex-row gap-6 md:gap-4 md:justify-end rtl:md:justify-start": true,
+                "border-r md:border-none shadow-xl md:shadow-none md:static": true,
+                "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
+            })}>
+                {Object.values(Pages).map(({name, label}) => (
+                    <ButtonLink
+                        key={name}
+                        onClick={closeMenu}
+                        href={name}
+                        name={name}
+                        label={_(label)}/>
+                ))}
+                <AuthButton/>
+            </ul>
+            {isMenuOpen &&
+                <div className="bg-black/30 backdrop-blur-sm top-0 left-0 z-20 fixed w-screen h-screen"/>}
         </>
     )
 };

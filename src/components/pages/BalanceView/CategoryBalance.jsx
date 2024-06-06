@@ -98,10 +98,6 @@ export const CategoryBalance = ({
         return orderBy(sub, ["amount"], ["desc"]);
     }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
 
-    if (totalExpensesSum === 0) {
-        return null;
-    }
-
     const diff = categoryBudget - totalExpensesSum;
 
     return (
@@ -114,7 +110,8 @@ export const CategoryBalance = ({
                     {categoryName}
                 </Title>
                 <div className="font-black font-mono">
-                    {formatCurrency(totalExpensesSum, false, false)}
+                    {totalExpensesSum === 0 ? "No expenses this month" :
+                        formatCurrency(totalExpensesSum, false, false)}
                 </div>
             </div>
             <DataStrip categoryId={categoryId} categoryBudget={categoryBudget} averages={averages} diff={diff}/>

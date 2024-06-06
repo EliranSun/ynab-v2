@@ -3,10 +3,10 @@ import {Button} from "../../atoms";
 import useAuthState from "../../../hooks/useAuth";
 import {SignIn, SignOut, ArrowClockwise} from "@phosphor-icons/react";
 import {BUTTON_SIZE} from "../../../constants";
+import {Trans} from "@lingui/macro";
 
-export const AuthButton = () => {
-    const {user, loading} = useAuthState();
-    const isDesktop = window.innerWidth > 768;
+export const AuthButton = ({withLabel = false}) => {
+    const {isLoggedIn, loading} = useAuthState();
 
     if (loading) {
         return null;
@@ -14,17 +14,14 @@ export const AuthButton = () => {
 
     return (
         <div className="flex items-center">
-            {/*<ArrowClockwise size={BUTTON_SIZE} onClick={() => window.location.reload()}/>*/}
-            {user ?
-                <Button type={Button.Types.GHOST} onClick={() => {
-                    logout();
-                }}>
+            {isLoggedIn ?
+                <Button type={Button.Types.GHOST} onClick={logout}>
                     <SignOut size={BUTTON_SIZE}/>
-                    {isDesktop && "Logout"}
+                    {withLabel ? <Trans>Logout</Trans> : null}
                 </Button> :
                 <Button onClick={login}>
                     <SignIn size={BUTTON_SIZE}/>
-                    {isDesktop && "Login"}
+                    {withLabel ? <Trans>Login</Trans> : null}
                 </Button>}
         </div>
     )

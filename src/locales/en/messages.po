@@ -49,7 +49,7 @@ msgstr "🛎️ Apps Sub"
 msgid "Actual"
 msgstr "Actual"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:83
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:82
 msgid "Actual:"
 msgstr "Actual:"
 
@@ -57,11 +57,15 @@ msgstr "Actual:"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/molecules/Header/Header.jsx:28
+#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+msgid "average"
+msgstr "average"
+
+#: src/components/molecules/Header/Header.jsx:27
 msgid "Balance"
 msgstr "Balance"
 
-#: src/components/molecules/Header/Header.jsx:50
+#: src/components/molecules/Header/Header.jsx:49
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
 
@@ -77,11 +81,15 @@ msgstr "Bars"
 msgid "Books"
 msgstr "Books"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+msgid "budget"
+msgstr "budget"
+
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
 msgstr "Budget"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:76
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:75
 msgid "Budget:"
 msgstr "Budget:"
 
@@ -97,14 +105,30 @@ msgstr "Bus"
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
 
-#: src/components/molecules/Header/Header.jsx:36
-#: src/components/molecules/Header/Header.jsx:52
+#: src/components/molecules/Header/Header.jsx:35
+#: src/components/molecules/Header/Header.jsx:51
 msgid "Categories"
 msgstr "Categories"
 
 #: src/constants/categories.js:169
 msgid "Clothes"
 msgstr "Clothes"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:32
+msgid "Control your financial situation"
+msgstr "Control your financial situation"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:32
+#~ msgid "Control your financial situation."
+#~ msgstr "Control your financial situation."
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:34
+msgid "Control your future"
+msgstr "Control your future"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:34
+#~ msgid "Control your future."
+#~ msgstr "Control your future."
 
 #: src/constants/categories.js:233
 msgid "Dates"
@@ -126,7 +150,7 @@ msgstr "Design"
 msgid "Dev"
 msgstr "Dev"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:89
 msgid "Diffs:"
 msgstr "Diffs:"
 
@@ -154,8 +178,8 @@ msgstr "Electronics"
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
-#: src/components/molecules/Header/Header.jsx:32
-#: src/components/molecules/Header/Header.jsx:51
+#: src/components/molecules/Header/Header.jsx:31
+#: src/components/molecules/Header/Header.jsx:50
 msgid "Expenses"
 msgstr "Expenses"
 
@@ -179,15 +203,15 @@ msgstr "Fun"
 msgid "Games"
 msgstr "Games"
 
-#: src/components/molecules/Header/Header.jsx:60
+#: src/components/molecules/Header/Header.jsx:59
 msgid "Good afternoon!"
 msgstr "Good afternoon!"
 
-#: src/components/molecules/Header/Header.jsx:61
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Good evening!"
 msgstr "Good evening!"
 
-#: src/components/molecules/Header/Header.jsx:59
+#: src/components/molecules/Header/Header.jsx:58
 msgid "Good morning!"
 msgstr "Good morning!"
 
@@ -207,8 +231,8 @@ msgstr "Health"
 msgid "Health/Beauty"
 msgstr "Health/Beauty"
 
-#: src/components/molecules/Header/Header.jsx:83
-#: src/components/molecules/Header/Header.jsx:90
+#: src/components/molecules/Header/Header.jsx:82
+#: src/components/molecules/Header/Header.jsx:89
 msgid "Hey"
 msgstr "Hey"
 
@@ -240,6 +264,10 @@ msgstr "Jesus fucking christ man."
 msgid "KIA"
 msgstr "KIA"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+msgid "left to spend"
+msgstr "left to spend"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
 msgstr "less than my budget"
@@ -247,6 +275,14 @@ msgstr "less than my budget"
 #: src/constants/categories.js:45
 msgid "Lime"
 msgstr "Lime"
+
+#: src/components/pages/Login/AuthButton.jsx:24
+msgid "Login"
+msgstr "Login"
+
+#: src/components/pages/Login/AuthButton.jsx:20
+msgid "Logout"
+msgstr "Logout"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:58
 msgid "Lost this month..."
@@ -277,12 +313,16 @@ msgstr "No budget set this month."
 msgid "Other"
 msgstr "Other"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+msgid "over budget"
+msgstr "over budget"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"
 msgstr "over my budget"
 
-#: src/components/molecules/Header/Header.jsx:24
-#: src/components/molecules/Header/Header.jsx:49
+#: src/components/molecules/Header/Header.jsx:23
+#: src/components/molecules/Header/Header.jsx:48
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Parse"
 msgstr "Parse"
@@ -291,7 +331,7 @@ msgstr "Parse"
 msgid "Parse File"
 msgstr "Parse File"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:64
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:63
 msgid "Past 12 months"
 msgstr "Past 12 months"
 
@@ -311,12 +351,12 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/molecules/Header/Header.jsx:40
-#: src/components/molecules/Header/Header.jsx:53
+#: src/components/molecules/Header/Header.jsx:39
+#: src/components/molecules/Header/Header.jsx:52
 msgid "Projection"
 msgstr "Projection"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:69
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:68
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
@@ -329,8 +369,8 @@ msgstr "Rates"
 msgid "Rent"
 msgstr "Rent"
 
-#: src/components/molecules/Header/Header.jsx:44
-#: src/components/molecules/Header/Header.jsx:54
+#: src/components/molecules/Header/Header.jsx:43
+#: src/components/molecules/Header/Header.jsx:53
 msgid "Resolver"
 msgstr "Resolver"
 
@@ -366,7 +406,7 @@ msgstr "Vacation"
 msgid "Water"
 msgstr "Water"
 
-#: src/components/molecules/Header/Header.jsx:58
+#: src/components/molecules/Header/Header.jsx:57
 msgid "Welcome"
 msgstr "Welcome"
 
@@ -377,3 +417,7 @@ msgstr "Welcome"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:8
 msgid "which is good, but I should understand why my budget is off."
 msgstr "which is good, but I should understand why my budget is off."
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:28
+msgid "You Need Balance"
+msgstr "You Need Balance"

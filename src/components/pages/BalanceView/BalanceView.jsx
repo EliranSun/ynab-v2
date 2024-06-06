@@ -44,7 +44,7 @@ const BalanceView = () => {
                     className="flex flex-col md:flex-row my-2 md:top-0 md:w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
                     <div className="w-full flex gap-2 md:gap-16 items-center justify-between md:justify-center">
                         <PreviousButton/>
-                        <h1 className="font-black font-mono md:text-9xl md:w-[1000px] text-center">
+                        <h1 className="font-black font-mono text-2xl md:text-9xl md:w-[1000px] text-center">
                             {new Date(currentTimestamp).toLocaleString(locale === "he" ? "he-IL" : "en-GB", {
                                 month: "long",
                                 year: "numeric",

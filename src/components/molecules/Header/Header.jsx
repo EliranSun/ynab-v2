@@ -89,54 +89,73 @@ const WelcomeMessage = ({userName}) => {
             <Trans>Hey</Trans>, {welcomeMessage}
         </p>
     )
-}
+};
 
-export const Header = () => {
-    // const {page} = useParams();
-    const [user] = useContext(UserContext);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const {_} = useLingui();
-    const closeMenu = () => setIsMenuOpen(false);
+const HamburgerMenu = ({onClick}) => {
+    if (isDesktop()) {
+        return null;
+    }
 
     return (
-        <>
+        <div className="flex items-center">
+            <Button
+                onClick={onClick}
+                type={Button.Types.GHOST}>
+                <List size={BUTTON_SIZE} color="black"/>
+            </Button>
+        </div>
+    );
+};
+
+const Menu = ({isOpen, onMenuItemClick}) => {
+    const {_} = useLingui();
+    return (
+        <ul className={classNames({
+            "hidden": isMobile() && !isOpen,
+            "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
+            "flex flex-col md:flex-row gap-6 md:gap-4 md:justify-end rtl:md:justify-start": true,
+            "border-r md:border-none shadow-xl md:shadow-none md:static": true,
+            "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
+        })}>
+            {Object.values(Pages).map(({name, label}) => (
+                <ButtonLink
+                    key={name}
+                    onClick={onMenuItemClick}
+                    href={name}
+                    name={name}
+                    label={_(label)}/>
+            ))}
+            <AuthButton/>
+        </ul>
+    );
+};
+
+const MobileMenuBackdrop = ({isOpen}) => {
+    if (isDesktop() || !isOpen) {
+        return null;
+    }
+
+    return <div className="bg-black/30 backdrop-blur-sm top-0 left-0 z-20 fixed w-screen h-screen"/>;
+};
+
+
+export const Header = () => {
+    const [user] = useContext(UserContext);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    return (
+        <div className="flex">
             <header
                 className={classNames({
-                    "bg-white text-xs md:text-base md:gap-8": true,
+                    "bg-white text-xs md:text-base ": true,
                     "sticky md:static top-0 p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
-                    "flex justify-between items-center": true,
+                    "flex justify-between items-center md:gap-8": true,
                 })}>
-                <div className="w-full flex items-center justify-between gap-4">
-                    <WelcomeMessage userName={user.displayName}/>
-                    {isMobile ?
-                        <div className="flex items-center">
-                            <Button
-                                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                type={Button.Types.GHOST}>
-                                <List size={BUTTON_SIZE} color="black"/>
-                            </Button>
-                        </div> : null}
-                </div>
+                <WelcomeMessage userName={user.displayName}/>
+                <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>
             </header>
-            <ul className={classNames({
-                "hidden": isDesktop() || !isMenuOpen,
-                "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
-                "flex flex-col md:flex-row gap-6 md:gap-4 md:justify-end rtl:md:justify-start": true,
-                "border-r md:border-none shadow-xl md:shadow-none md:static": true,
-                "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
-            })}>
-                {Object.values(Pages).map(({name, label}) => (
-                    <ButtonLink
-                        key={name}
-                        onClick={closeMenu}
-                        href={name}
-                        name={name}
-                        label={_(label)}/>
-                ))}
-                <AuthButton/>
-            </ul>
-            {isMenuOpen &&
-                <div className="bg-black/30 backdrop-blur-sm top-0 left-0 z-20 fixed w-screen h-screen"/>}
-        </>
+            <Menu isOpen={isMenuOpen} onMenuItemClick={() => setIsMenuOpen(false)}/>
+            <MobileMenuBackdrop isOpen={isMenuOpen}/>
+        </div>
     )
 };

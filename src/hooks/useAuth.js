@@ -8,6 +8,7 @@ import translate from "translate";
 const useAuthState = () => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         return onAuthStateChanged(auth, async (user) => {
@@ -19,14 +20,16 @@ const useAuthState = () => {
                     await setUserDoc(user);
                 }
             } catch (e) {
+                setIsLoggedIn(false);
                 console.error(e);
+            } finally {
+                setIsLoggedIn(!!user);
+                setLoading(false);
             }
-
-            setLoading(false);
         });
     }, []);
 
-    return {user, loading};
+    return {user, isLoggedIn, loading};
 };
 
 export default useAuthState;

@@ -4,42 +4,44 @@ import {isSameMonth} from "date-fns";
 import {Exclude, Faders, PiggyBank} from "@phosphor-icons/react";
 import {Categories} from "../../../constants";
 import {formatCurrency} from "../../../utils";
-import Subcategory from "./Subcategory";
+import Subcategory from "../Subcategory/Subcategory";
 import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
 import {useCategoryExpensesSummary} from "../../../hooks/useCategoryExpensesSummary";
 import classNames from "classnames";
 import {Title} from "../../atoms";
+import {Trans} from "@lingui/macro";
 
 const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
     return (
         <div className="flex justify-between">
             <div className="flex flex-col items-center">
-                <div className="flex gap-1 items-center text-xs">
-                    <Exclude/> {diff > 0 ? "left" : "over"}
-                </div>
                 <span className={classNames({
                     "font-bold font-mono text-lg": true,
                     "text-green-500": diff > 0,
                     "text-red-500": diff < 0
                 })}>
-                            {formatCurrency(diff)}
-                        </span>
+                    {formatCurrency(diff)}
+                </span>
+                <div className="flex gap-1 items-center text-xs">
+                    <Exclude/> {diff > 0 ? <Trans>left to spend</Trans> : <Trans>over budget</Trans>}
+                </div>
             </div>
             <div className="flex flex-col items-center">
-                <div className="flex gap-1 items-center text-xs">
-                    <PiggyBank/> budget
-                </div>
                 <span className="font-mono text-lg">
-                            {formatCurrency(categoryBudget, false, false)}
-                        </span>
+                    {formatCurrency(categoryBudget, false, false)}
+                </span>
+                <div className="flex gap-1 items-center text-xs">
+                    <PiggyBank/> <Trans>budget</Trans>
+                </div>
             </div>
             <div className="flex flex-col items-center">
-                <div className="flex gap-1 items-center text-xs">
-                    <Faders/> Average
-                </div>
                 <span className="font-mono text-lg">
-                            {formatCurrency(averages[categoryId], false, false)}
-                        </span>
+                    {formatCurrency(averages[categoryId], false, false)}
+                </span>
+                <div className="flex gap-1 items-center text-xs">
+                    <Faders/>
+                    <Trans>average</Trans>
+                </div>
             </div>
         </div>
     )
@@ -101,40 +103,40 @@ export const CategoryBalance = ({
     const diff = categoryBudget - totalExpensesSum;
 
     return (
-        <div
-            className="bg-gray-200 h-[950px] p-2 md:p-4 box-border relative">
+        <div className="bg-gray-200 md:h-[950px] p-2 md:p-4 box-border relative">
             <div
-                className="text-sm md:text-5xl cursor-pointer mb-4"
+                className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <Title type={Title.Types.H4}>
                     {categoryName}
                 </Title>
-                <div className="font-black font-mono">
-                    {totalExpensesSum === 0 ? "No expenses this month" :
-                        formatCurrency(totalExpensesSum, false, false)}
+                <div className="font-black font-mono text-4xl">
+                    {formatCurrency(totalExpensesSum, false, false)}
                 </div>
             </div>
-            <DataStrip categoryId={categoryId} categoryBudget={categoryBudget} averages={averages} diff={diff}/>
-            {
-                isExpanded ?
-                    <div className="flex flex-col gap-2 my-4 h-[750px] overflow-x-hidden overflow-y-auto px-2">
-                        {subcategories.map((subcategory) => {
-                            return (
-                                <Subcategory
-                                    {...subcategory}
-                                    key={subcategory.id}
-                                    subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
-                                    categoryId={categoryId}
-                                    isSelected={selectedId === subcategory.id}
-                                    onSubcategoryClick={setSelectedId}
-                                    currentTimestamp={currentTimestamp}
-                                    isPreviousMonth={isPreviousMonth}
-                                    isSameDate={isSameDate}
-                                />
-                            );
-                        })}
-                    </div> : null
-            }
+            <DataStrip
+                categoryId={categoryId}
+                categoryBudget={categoryBudget}
+                averages={averages}
+                diff={diff}/>
+            {isExpanded ?
+                <div className="flex flex-col gap-2 my-4 w-full md:h-[750px] overflow-x-hidden overflow-y-auto px-2">
+                    {subcategories.map((subcategory) => {
+                        return (
+                            <Subcategory
+                                {...subcategory}
+                                key={subcategory.id}
+                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
+                                categoryId={categoryId}
+                                isSelected={selectedId === subcategory.id}
+                                onSubcategoryClick={setSelectedId}
+                                currentTimestamp={currentTimestamp}
+                                isPreviousMonth={isPreviousMonth}
+                                isSameDate={isSameDate}
+                            />
+                        );
+                    })}
+                </div> : null}
         </div>
     )
 };

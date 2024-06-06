@@ -58,7 +58,7 @@ msgstr "🛎️ מינויים"
 msgid "Actual"
 msgstr "במציאות"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:83
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:82
 msgid "Actual:"
 msgstr "במציאות:"
 
@@ -66,7 +66,11 @@ msgstr "במציאות:"
 msgid "Authoring"
 msgstr "כתיבה"
 
-#: src/components/molecules/Header/Header.jsx:28
+#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+msgid "average"
+msgstr ""
+
+#: src/components/molecules/Header/Header.jsx:27
 msgid "Balance"
 msgstr "תנועות"
 
@@ -78,7 +82,7 @@ msgstr "תנועות"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/components/molecules/Header/Header.jsx:50
+#: src/components/molecules/Header/Header.jsx:49
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -94,11 +98,15 @@ msgstr "ברים"
 msgid "Books"
 msgstr "ספרים"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+msgid "budget"
+msgstr ""
+
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
 msgstr "תקציב"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:76
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:75
 msgid "Budget:"
 msgstr "תקציב:"
 
@@ -114,14 +122,30 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/Header/Header.jsx:36
-#: src/components/molecules/Header/Header.jsx:52
+#: src/components/molecules/Header/Header.jsx:35
+#: src/components/molecules/Header/Header.jsx:51
 msgid "Categories"
 msgstr "קטגוריות"
 
 #: src/constants/categories.js:169
 msgid "Clothes"
 msgstr "ביגוד"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:32
+msgid "Control your financial situation"
+msgstr "השולט במצבו הכלכלי"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:32
+#~ msgid "Control your financial situation."
+#~ msgstr "השולט במצבו הכלכלי"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:34
+msgid "Control your future"
+msgstr "שולט הוא כך במציאות"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:34
+#~ msgid "Control your future."
+#~ msgstr "שולט במציאות כן הוא"
 
 #: src/constants/categories.js:233
 msgid "Dates"
@@ -143,7 +167,7 @@ msgstr "עיצוב"
 msgid "Dev"
 msgstr "פיתוח"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:89
 msgid "Diffs:"
 msgstr "הפרש:"
 
@@ -171,8 +195,8 @@ msgstr "אלקטרוניקה"
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
-#: src/components/molecules/Header/Header.jsx:32
-#: src/components/molecules/Header/Header.jsx:51
+#: src/components/molecules/Header/Header.jsx:31
+#: src/components/molecules/Header/Header.jsx:50
 msgid "Expenses"
 msgstr "הוצאות"
 
@@ -196,15 +220,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/components/molecules/Header/Header.jsx:60
+#: src/components/molecules/Header/Header.jsx:59
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/components/molecules/Header/Header.jsx:61
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/components/molecules/Header/Header.jsx:59
+#: src/components/molecules/Header/Header.jsx:58
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -224,8 +248,8 @@ msgstr "בריאות"
 msgid "Health/Beauty"
 msgstr "בריאות/יופי"
 
-#: src/components/molecules/Header/Header.jsx:83
-#: src/components/molecules/Header/Header.jsx:90
+#: src/components/molecules/Header/Header.jsx:82
+#: src/components/molecules/Header/Header.jsx:89
 msgid "Hey"
 msgstr "היי"
 
@@ -257,6 +281,10 @@ msgstr "אלוקים אדירים אבינו שבשמיים."
 msgid "KIA"
 msgstr "רכב"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+msgid "left to spend"
+msgstr ""
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
@@ -264,6 +292,14 @@ msgstr "פחות מהתקציב שלי"
 #: src/constants/categories.js:45
 msgid "Lime"
 msgstr "קורקינט חשמלי"
+
+#: src/components/pages/Login/AuthButton.jsx:24
+msgid "Login"
+msgstr "התחבר"
+
+#: src/components/pages/Login/AuthButton.jsx:20
+msgid "Logout"
+msgstr "התנתק"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:58
 msgid "Lost this month..."
@@ -294,12 +330,16 @@ msgstr "החודש הנוכחי לא תוקצב."
 msgid "Other"
 msgstr "אחר"
 
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+msgid "over budget"
+msgstr ""
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/Header/Header.jsx:24
-#: src/components/molecules/Header/Header.jsx:49
+#: src/components/molecules/Header/Header.jsx:23
+#: src/components/molecules/Header/Header.jsx:48
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Parse"
 msgstr "פירסור"
@@ -308,7 +348,7 @@ msgstr "פירסור"
 msgid "Parse File"
 msgstr ""
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:64
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:63
 msgid "Past 12 months"
 msgstr "12 החודשים האחרונים"
 
@@ -328,12 +368,12 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/Header/Header.jsx:40
-#: src/components/molecules/Header/Header.jsx:53
+#: src/components/molecules/Header/Header.jsx:39
+#: src/components/molecules/Header/Header.jsx:52
 msgid "Projection"
 msgstr "חיזוי"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:69
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:68
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), ולכן בחלק מהחודשים (למשל חופשה) התוצאות תהיינה מוטות."
 
@@ -346,8 +386,8 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/components/molecules/Header/Header.jsx:44
-#: src/components/molecules/Header/Header.jsx:54
+#: src/components/molecules/Header/Header.jsx:43
+#: src/components/molecules/Header/Header.jsx:53
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -387,7 +427,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/components/molecules/Header/Header.jsx:58
+#: src/components/molecules/Header/Header.jsx:57
 msgid "Welcome"
 msgstr "ברוך הבא!"
 
@@ -398,3 +438,7 @@ msgstr "ברוך הבא!"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:8
 msgid "which is good, but I should understand why my budget is off."
 msgstr "שזה טוב, אבל כדאי שעדיין אבין מאיפה ההפרש מגיע."
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:28
+msgid "You Need Balance"
+msgstr "תשמע, אתה צריך איזון"

@@ -230,7 +230,7 @@ export const ExpensesContextProvider = ({children}) => {
                         await addExpenses(newExpenses);
                         setExpenses(expensesObject);
                     } catch (error) {
-                        alert(`Error adding expenses - ${error.message}`);
+                        console.error(`Error adding expenses - ${error.message}`);
                     }
                 },
                 refetch: async () => {

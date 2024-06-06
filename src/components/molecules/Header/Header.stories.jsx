@@ -3,7 +3,6 @@ import {Header} from './Header';
 import {UserContext} from '../../../context';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {I18nProvider} from '@lingui/react';
-import {messages as enMessages, messages} from '../../../locales/en/messages';
 import {i18n} from "@lingui/core";
 
 // i18n.load({

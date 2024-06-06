@@ -108,18 +108,20 @@ const HamburgerMenu = ({onClick}) => {
 };
 
 const Menu = ({isOpen, onMenuItemClick}) => {
+    const {isLoggedIn} = useContext(UserContext);
     const {_} = useLingui();
     return (
         <ul className={classNames({
             "hidden": isMobile() && !isOpen,
             "w-2/3 h-screen md:h-fit p-4 md:text-sm": true,
-            "flex flex-col md:flex-row gap-6 md:gap-4 md:justify-end rtl:md:justify-start": true,
+            "flex flex-col md:flex-row gap-6 md:gap-4 justify-end": true,
             "border-r md:border-none shadow-xl md:shadow-none md:static": true,
             "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
         })}>
             {Object.values(Pages).map(({name, label}) => (
                 <ButtonLink
                     key={name}
+                    isDisabled={!isLoggedIn}
                     onClick={onMenuItemClick}
                     href={name}
                     name={name}
@@ -140,7 +142,7 @@ const MobileMenuBackdrop = ({isOpen}) => {
 
 
 export const Header = () => {
-    const [user] = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (

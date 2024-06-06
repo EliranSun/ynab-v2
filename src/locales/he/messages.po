@@ -141,7 +141,7 @@ msgstr "השולט במצבו הכלכלי"
 
 #: src/components/atoms/LoginWelcomeMessage.jsx:34
 msgid "Control your future"
-msgstr "שולט הוא כך במציאות"
+msgstr "שולט הוא כך, במציאות"
 
 #: src/components/atoms/LoginWelcomeMessage.jsx:34
 #~ msgid "Control your future."

@@ -14,6 +14,7 @@ import {Link} from "react-router-dom";
 import {BUTTON_SIZE, MOBILE_BUTTON_SIZE} from "../../constants";
 import {useState, useMemo} from "react";
 import {isMobile} from "../../utils/device";
+import classNames from "classnames";
 
 const Icons = {
     parse: ClipboardText,
@@ -37,24 +38,34 @@ const Icons = {
 // }
 
 
-export const ButtonLink = ({name, label, onClick = noop, href}) => {
+export const ButtonLink = ({name, label, onClick = noop, href, isDisabled}) => {
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const Icon = useMemo(() => {
         return Icons[name];
     }, [name]);
 
     return (
-        <Link to={href} onClick={onClick}>
-            <li
-                className="relative md:static flex flex-row items-center gap-4 md:gap-2 w-full md:w-16 md:flex-col"
-                onMouseEnter={() => setIsTooltipOpen(true)}
-                onMouseLeave={() => setIsTooltipOpen(false)}>
-                <Icon size={isMobile() ? MOBILE_BUTTON_SIZE : BUTTON_SIZE}/>
-                {isMobile() || isTooltipOpen ?
-                    <div className="md:absolute -bottom-10 bg-white text-sm">
+        <button
+            disabled={isDisabled}
+            className={classNames({
+                "disabled:opacity-50 disabled:cursor-not-allowed": isDisabled,
+            })}>
+            <Link to={href} onClick={onClick} className={classNames({
+                "pointer-events-none": isDisabled,
+            })}>
+                <li
+                    className={classNames({
+                        "relative md:static flex flex-row items-center gap-4 md:gap-2 w-full md:w-16 md:flex-col": true,
+                        "hover:text-black hover:bg-white": true,
+                    })}
+                    onMouseEnter={() => setIsTooltipOpen(true)}
+                    onMouseLeave={() => setIsTooltipOpen(false)}>
+                    <Icon size={isMobile() ? MOBILE_BUTTON_SIZE : BUTTON_SIZE}/>
+                    <div className="text-sm">
                         {label}
-                    </div> : null}
-            </li>
-        </Link>
+                    </div>
+                </li>
+            </Link>
+        </button>
     )
 };

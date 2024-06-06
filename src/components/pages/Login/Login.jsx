@@ -4,7 +4,7 @@ import {UserContext} from "../../../context";
 import {LoginWelcomeMessage} from "../../atoms/LoginWelcomeMessage";
 
 const Login = ({children}) => {
-    const [user] = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     if (user === false) {
         return (

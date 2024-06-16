@@ -7,7 +7,7 @@ import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
 import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
 import {ClipboardText} from "@phosphor-icons/react";
-import {TodayExpenses} from "../../organisms/TodaysExpenses";
+import {LastExpenses} from "../../organisms/LastExpenses";
 
 const isMobile = window.innerWidth < 768;
 
@@ -152,7 +152,7 @@ export const ParseExpensesList = ({
                     </Button>
                 </div>
             </section>
-            <TodayExpenses/>
+            <LastExpenses/>
         </div>
     );
 };

@@ -10,20 +10,38 @@ export const LastExpenses = () => {
     const [filteredItems, setFilteredItems] = useState([]);
     const {expensesArray} = useContext(ExpensesContext);
     const lastItems = useMemo(() => {
-        const filtered = expensesArray
-            .filter(item => !item.isIncome)
-            .filter(item => {
-                return !filteredItems.some(filteredItem => filteredItem.id === item.id);
-            })
-            .filter(item => {
-                return isAfter(item.timestamp, startDate) && isBefore(item.timestamp, endDate);
-            })
+        // const filtered = expensesArray
+        //     .filter(item => !item.isIncome)
+        //     .filter(item => {
+        //         return !filteredItems.some(filteredItem => filteredItem.id === item.id);
+        //     })
+        //     .filter(item => {
+        //         return isAfter(item.timestamp, startDate) && isBefore(item.timestamp, endDate);
+        //     })
 
-        if (sortBy === "timestamp") {
-            return filtered.sort((a, b) => b.timestamp - a.timestamp);
+        const aggregatedByNameExpenses = {};
+        for (const item of expensesArray) {
+            const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
+            const itemIsFiltered = filteredItems.some(filteredItem => filteredItem.id === item.id);
+            if (item.isIncome || itemIsFiltered || outOfRange) {
+                continue;
+            }
+
+            if (!aggregatedByNameExpenses[item.name]) {
+                aggregatedByNameExpenses[item.name] = {
+                    ...item,
+                    amount: item.amount,
+                };
+            } else {
+                aggregatedByNameExpenses[item.name].amount += item.amount;
+            }
         }
 
-        return filtered.sort((a, b) => b.amount - a.amount);
+        if (sortBy === "timestamp") {
+            return Object.values(aggregatedByNameExpenses).sort((a, b) => b.timestamp - a.timestamp);
+        }
+
+        return Object.values(aggregatedByNameExpenses).sort((a, b) => b.amount - a.amount);
     }, [expensesArray, startDate, endDate, sortBy, filteredItems]);
 
     const totalAmount = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);

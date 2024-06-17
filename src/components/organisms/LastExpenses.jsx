@@ -49,7 +49,8 @@ export const LastExpenses = () => {
 
 
     return (
-        <section className="m-4 w-2/5 h-[66vh] overflow-y-auto bg-white border-8 border-gray-500 shadow p-4">
+        <section
+            className="m-4 md:w-2/5 h-[80vh] md:h-[66vh] overflow-y-auto bg-neutral-50 shadow-md rounded-lg md:border-8 border-gray-500 md:p-4">
             <LastExpensesFilters
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
@@ -68,7 +69,7 @@ export const LastExpenses = () => {
                 return (
                     <div
                         key={item.id}
-                        className="flex justify-between items-center p-2 border-b border-gray-500"
+                        className="flex flex-col md:flex-row justify-between md:items-center p-2 border-b border-gray-500"
                         onClick={() => {
                             setFilteredItems([item, ...filteredItems]);
                         }}>
@@ -78,7 +79,7 @@ export const LastExpenses = () => {
                         </div>
                         <div>
                             <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
-                            <p className="text-lg font-mono">
+                            <p className="md:text-lg font-mono">
                                 {differenceInDays(new Date(), item.timestamp)} days ago<br/>
                                 {format(item.timestamp, "d.LL.yy, EEE")}
                             </p>

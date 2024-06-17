@@ -50,7 +50,7 @@ export const LastExpenses = () => {
 
     return (
         <section
-            className="m-4 md:w-2/5 h-[80vh] md:h-[66vh] overflow-y-auto bg-neutral-50 shadow-md rounded-lg md:border-8 border-gray-500 md:p-4">
+            className="m-4 md:w-2/5 h-[80vh] md:h-[90vh] overflow-y-auto bg-neutral-50 shadow-md rounded-lg md:border-8 border-gray-500 md:p-4">
             <LastExpensesFilters
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}

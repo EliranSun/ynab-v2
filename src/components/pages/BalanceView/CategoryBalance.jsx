@@ -17,29 +17,29 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
                 <div className="flex gap-1 items-center text-xs">
                     <Exclude/> {diff > 0 ? "left" : "over"}
                 </div>
-                <span className={classNames({
+                <div className={classNames({
                     "font-bold font-mono text-lg": true,
                     "text-green-500": diff > 0,
                     "text-red-500": diff < 0
                 })}>
-                            {formatCurrency(diff)}
-                        </span>
+                    {formatCurrency(diff)}
+                </div>
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex gap-1 items-center text-xs">
                     <PiggyBank/> budget
                 </div>
-                <span className="font-mono text-lg">
-                            {formatCurrency(categoryBudget, false, false)}
-                        </span>
+                <div className="font-mono text-lg">
+                    {formatCurrency(categoryBudget, false, false)}
+                </div>
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex gap-1 items-center text-xs">
                     <Faders/> Average
                 </div>
-                <span className="font-mono text-lg">
-                            {formatCurrency(averages[categoryId], false, false)}
-                        </span>
+                <div className="font-mono text-lg">
+                    {formatCurrency(averages[categoryId], false, false)}
+                </div>
             </div>
         </div>
     )
@@ -63,7 +63,7 @@ export const CategoryBalance = ({
     const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
     const subcategories = useMemo(() => {
         const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
-            const subcategoryBudget = budget[budgetKey]?.[categoryId]?.[subcategory.id];
+            const subcategoryBudget = subcategoryBudgets[subcategory.id];
             const expensesInCategory = expensesArray.filter((expense) => {
                 return expense.categoryId === subcategory.id;
             });
@@ -92,10 +92,14 @@ export const CategoryBalance = ({
                 difference: subcategoryBudget - amount,
                 thisMonthExpenses
             };
-        });
+        })
+        // .filter((subcategory) => {
+        //     // console.log({subcategory});
+        //     return (subcategory.budget - subcategory.amount) < 0;
+        // });
 
 
-        return orderBy(sub, ["amount"], ["desc"]);
+        return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
     }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
 
     if (totalExpensesSum === 0) {

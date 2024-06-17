@@ -97,7 +97,8 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="w-full flex gap-2">
+        <div className="w-full flex flex-col md:flex-row-reverse gap-2">
+            <LastExpenses/>
             <section className="w-1/2 h-screen overflow-y-auto p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
                     <ClipboardText size={50}/> Parse
@@ -152,7 +153,6 @@ export const ParseExpensesList = ({
                     </Button>
                 </div>
             </section>
-            <LastExpenses/>
         </div>
     );
 };

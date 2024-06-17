@@ -15,7 +15,7 @@ const LastExpensesChart = ({expenses = [], timeframeName = Timeframe.MONTH}) => 
                 break;
 
             case Timeframe.MONTH:
-                timeframeFormat = 'wo LLL';
+                timeframeFormat = 'LLL wo yy';
                 break;
 
             case Timeframe.QUARTER:
@@ -26,8 +26,6 @@ const LastExpensesChart = ({expenses = [], timeframeName = Timeframe.MONTH}) => 
                 timeframeFormat = 'LLL yy';
                 break;
         }
-
-        console.log({timeframeFormat});
 
         for (const expense of expenses) {
             const timeframe = format(expense.timestamp, timeframeFormat);

@@ -20,15 +20,6 @@ export const LastExpenses = () => {
     const {expensesArray} = useContext(ExpensesContext);
     const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
     const lastItems = useMemo(() => {
-        // const filtered = expensesArray
-        //     .filter(item => !item.isIncome)
-        //     .filter(item => {
-        //         return !filteredItems.some(filteredItem => filteredItem.id === item.id);
-        //     })
-        //     .filter(item => {
-        //         return isAfter(item.timestamp, startDate) && isBefore(item.timestamp, endDate);
-        //     })
-
         const aggregatedByNameExpenses = {};
         for (const item of expensesArray) {
             const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
@@ -69,7 +60,7 @@ export const LastExpenses = () => {
                 <h3>{formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false)} filtered</h3>
             </div>
             <LastExpensesChart expenses={lastItems} timeframeName={timeframeName}/>
-            <button className="border rounded p-2 shadow"
+            <button className="border rounded p-2 shadow-md"
                     onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
                 Sorting by {sortBy}
             </button>

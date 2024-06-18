@@ -1,9 +1,10 @@
-import {ExpensesContext} from "../../context";
+import {BudgetContext, ExpensesContext} from "../../context";
 import {useContext, useMemo, useState} from "react";
 import {differenceInDays, getMonth, subDays, isAfter, isBefore, getYear, subYears, format} from "date-fns";
 import {formatCurrency} from "../../utils";
 import LastExpensesChart from "./LastExpensesChart";
 import {LastExpensesFilters} from "./LastExpensesFilters";
+import classNames from "classnames";
 
 export const Timeframe = {
     WEEK: "WEEK",
@@ -12,13 +13,52 @@ export const Timeframe = {
     YEAR: "YEAR",
 };
 
+const INCOME_CATEGORY_ID = '8';
+
 export const LastExpenses = () => {
-    const [startDate, setStartDate] = useState(new Date(subDays(new Date(), 4)));
+    const {budget} = useContext(BudgetContext);
+    const {expensesArray} = useContext(ExpensesContext);
+    const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
+    const [startDate, setStartDate] = useState(subDays(new Date(), 7));
     const [endDate, setEndDate] = useState(new Date());
     const [sortBy, setSortBy] = useState("timestamp");
     const [filteredItems, setFilteredItems] = useState([]);
-    const {expensesArray} = useContext(ExpensesContext);
-    const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
+    const budgetForTimeframe = useMemo(() => {
+        if (!budget || Object.keys(budget).length === 0) {
+            return 0;
+        }
+
+        const budgetObject = budget['8.2023'];
+        console.log({budgetObject});
+        const relevantCategories = Object.entries(budgetObject).filter(([key]) => {
+            console.log({key, INCOME_CATEGORY_ID});
+            return key !== INCOME_CATEGORY_ID;
+        });
+        let totalBudget = 0;
+
+        console.log({relevantCategories});
+        for (const [_, subcategoriesObject] of relevantCategories) {
+            totalBudget += Object.values(subcategoriesObject).reduce((acc, amount) => acc + amount, 0);
+        }
+
+        switch (timeframeName) {
+            default:
+            case Timeframe.WEEK:
+                return totalBudget / 4;
+
+            case Timeframe.MONTH:
+                return totalBudget;
+
+            case Timeframe.QUARTER:
+                return totalBudget * 3;
+
+            case Timeframe.YEAR:
+                return totalBudget * 12;
+        }
+    }, [timeframeName, budget]);
+
+    console.log({budgetForTimeframe});
+
     const lastItems = useMemo(() => {
         const aggregatedByNameExpenses = {};
         for (const item of expensesArray) {
@@ -46,8 +86,7 @@ export const LastExpenses = () => {
     }, [expensesArray, startDate, endDate, sortBy, filteredItems]);
 
     const totalAmount = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
-
-
+    const differenceAmount = budgetForTimeframe - totalAmount;
     return (
         <section
             className="m-4 md:w-2/5 h-[80vh] md:h-[90vh] overflow-y-auto bg-neutral-50 shadow-md rounded-lg md:border-8 border-gray-500 md:p-4">
@@ -55,11 +94,29 @@ export const LastExpenses = () => {
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 setTimeframeName={setTimeframeName}/>
-            <h1 className="text-3xl font-mono">Over {differenceInDays(endDate, startDate)} days I spent</h1>
-            <div>
-                <h2 className="text-7xl font-mono">{formatCurrency(totalAmount, false, false)}</h2>
-                <h3>{formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false)} filtered</h3>
+            <div className="flex flex-col md:flex-row gap-2">
+                <div>
+                    <h1 className="md:text-3xl font-mono">Spent</h1>
+                    <h2 className="text-7xl font-mono">{formatCurrency(totalAmount, false, false)}</h2>
+                </div>
+                <div>
+                    <h1 className="md:text-3xl font-mono">Budget (for a {timeframeName.toLowerCase()})</h1>
+                    <h2 className="text-7xl font-mono">{formatCurrency(budgetForTimeframe, false, false)}</h2>
+                </div>
+                <div>
+                    <h1 className="md:text-3xl font-mono">
+                        {differenceAmount >= 0 ? "left to spend! 😁" : "over budget... ☹️"}
+                    </h1>
+                    <h2 className={classNames({
+                        "text-7xl font-mono": true,
+                        "text-green-500": differenceAmount >= 0,
+                        "text-red-500": differenceAmount < 0,
+                    })}>
+                        {formatCurrency(differenceAmount, false, false)}
+                    </h2>
+                </div>
             </div>
+            <h3>{formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false)} filtered</h3>
             <LastExpensesChart expenses={lastItems} timeframeName={timeframeName}/>
             <button className="border rounded p-2 shadow-md"
                     onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>

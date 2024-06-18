@@ -3,11 +3,12 @@ import {Timeframe} from "./LastExpenses";
 import {useState} from "react";
 import classNames from "classnames";
 
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
 const getLastMonthName = (monthNumber) => {
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
     return monthNames[monthNumber];
 };
 
@@ -39,38 +40,38 @@ const Button = ({
 );
 
 export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
-    const [selectedFilterId, setSelectedFilterId] = useState(2);
+    const [selectedFilterId, setSelectedFilterId] = useState(3);
     const currentMonth = getMonth(new Date());
     const currentYear = getYear(new Date());
 
     return (
-        <>
+        <div className="p-4 w-full">
             <h1 className="text-2xl font-bold">Filters</h1>
-            <div className="grid grid-cols-4 gap-6 p-2">
-                <div className="flex flex-col gap-2">
-                    <b>Recent</b>
-                    <Button
-                        id={1}
-                        isSelected={selectedFilterId === 1}
-                        onClick={() => setSelectedFilterId(1)}
-                        label="Last day"
-                        startDate={subDays(new Date(), 1)}
-                        endDate={new Date()}
-                        timeframe={Timeframe.WEEK}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Button
-                        id={2}
-                        isSelected={selectedFilterId === 2}
-                        onClick={() => setSelectedFilterId(2)}
-                        label="Last 4 days"
-                        startDate={subDays(new Date(), 4)}
-                        endDate={new Date()}
-                        timeframe={Timeframe.WEEK}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
+            <div className="flex flex-col justify-center items-start md:grid md:grid-cols-4 gap-4 md:gap-6">
+                <div className="flex items-center md:flex-col gap-2">
+                    {/*<b>Recent</b>*/}
+                    {/*<Button*/}
+                    {/*    id={1}*/}
+                    {/*    isSelected={selectedFilterId === 1}*/}
+                    {/*    onClick={() => setSelectedFilterId(1)}*/}
+                    {/*    label="Last day"*/}
+                    {/*    startDate={subDays(new Date(), 1)}*/}
+                    {/*    endDate={new Date()}*/}
+                    {/*    timeframe={Timeframe.WEEK}*/}
+                    {/*    setStartDate={setStartDate}*/}
+                    {/*    setEndDate={setEndDate}*/}
+                    {/*    setTimeframeName={setTimeframeName}/>*/}
+                    {/*<Button*/}
+                    {/*    id={2}*/}
+                    {/*    isSelected={selectedFilterId === 2}*/}
+                    {/*    onClick={() => setSelectedFilterId(2)}*/}
+                    {/*    label="Last 4 days"*/}
+                    {/*    startDate={subDays(new Date(), 4)}*/}
+                    {/*    endDate={new Date()}*/}
+                    {/*    timeframe={Timeframe.WEEK}*/}
+                    {/*    setStartDate={setStartDate}*/}
+                    {/*    setEndDate={setEndDate}*/}
+                    {/*    setTimeframeName={setTimeframeName}/>*/}
                     <Button
                         id={3}
                         isSelected={selectedFilterId === 3}
@@ -83,44 +84,61 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <b>Last Months</b>
-                    <Button
-                        id={4}
-                        isSelected={selectedFilterId === 4}
-                        onClick={() => setSelectedFilterId(4)}
-                        label={getLastMonthName(currentMonth)}
-                        startDate={new Date(new Date().setMonth(currentMonth, 0))}
-                        endDate={new Date()}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Button
-                        id={5}
-                        isSelected={selectedFilterId === 5}
-                        onClick={() => setSelectedFilterId(5)}
-                        label={getLastMonthName(currentMonth - 1)}
-                        startDate={new Date(new Date().setMonth(currentMonth - 1, 0))}
-                        endDate={new Date(new Date().setMonth(currentMonth, 0))}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Button
-                        id={6}
-                        isSelected={selectedFilterId === 6}
-                        onClick={() => setSelectedFilterId(6)}
-                        label={getLastMonthName(1)}
-                        startDate={new Date("2023-01-01")}
-                        endDate={new Date("2023-02-28")}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
+                <div className="flex items-center md:flex-col gap-2 w-full overflow-x-auto">
+                    {/*<b>Months</b>*/}
+                    {/*<Button*/}
+                    {/*    id={4}*/}
+                    {/*    isSelected={selectedFilterId === 4}*/}
+                    {/*    onClick={() => setSelectedFilterId(4)}*/}
+                    {/*    label={getLastMonthName(currentMonth)}*/}
+                    {/*    startDate={new Date(new Date().setMonth(currentMonth, 0))}*/}
+                    {/*    endDate={new Date()}*/}
+                    {/*    timeframe={Timeframe.MONTH}*/}
+                    {/*    setStartDate={setStartDate}*/}
+                    {/*    setEndDate={setEndDate}*/}
+                    {/*    setTimeframeName={setTimeframeName}/>*/}
+                    {/*<Button*/}
+                    {/*    id={5}*/}
+                    {/*    isSelected={selectedFilterId === 5}*/}
+                    {/*    onClick={() => setSelectedFilterId(5)}*/}
+                    {/*    label={getLastMonthName(currentMonth - 1)}*/}
+                    {/*    startDate={new Date(new Date().setMonth(currentMonth - 1, 0))}*/}
+                    {/*    endDate={new Date(new Date().setMonth(currentMonth, 0))}*/}
+                    {/*    timeframe={Timeframe.MONTH}*/}
+                    {/*    setStartDate={setStartDate}*/}
+                    {/*    setEndDate={setEndDate}*/}
+                    {/*    setTimeframeName={setTimeframeName}/>*/}
+                    {/*<Button*/}
+                    {/*    id={6}*/}
+                    {/*    isSelected={selectedFilterId === 6}*/}
+                    {/*    onClick={() => setSelectedFilterId(6)}*/}
+                    {/*    label={getLastMonthName(1)}*/}
+                    {/*    startDate={new Date("2023-01-01")}*/}
+                    {/*    endDate={new Date("2023-02-28")}*/}
+                    {/*    timeframe={Timeframe.MONTH}*/}
+                    {/*    setStartDate={setStartDate}*/}
+                    {/*    setEndDate={setEndDate}*/}
+                    {/*    setTimeframeName={setTimeframeName}/>*/}
+
+                    {monthNames.map((month, index) => {
+                        return (
+                            <Button
+                                key={index}
+                                id={index}
+                                isSelected={selectedFilterId === index}
+                                onClick={() => setSelectedFilterId(index)}
+                                label={month}
+                                startDate={new Date(currentYear, index, 1)}
+                                endDate={new Date(currentYear, index + 1, 0)}
+                                timeframe={Timeframe.MONTH}
+                                setStartDate={setStartDate}
+                                setEndDate={setEndDate}
+                                setTimeframeName={setTimeframeName}/>
+                        );
+                    })}
                 </div>
-                <div className="flex flex-col gap-2">
-                    <b>Month</b>
+                <div className="flex items-center md:flex-col gap-2">
+                    {/*<b>Month</b>*/}
                     <Button
                         id={7}
                         isSelected={selectedFilterId === 7}
@@ -166,8 +184,8 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                 </div>
-                <div className="flex flex-col gap-2">
-                    <b>Year</b>
+                <div className="flex items-center md:flex-col gap-2">
+                    {/*<b>Year</b>*/}
                     <Button
                         id={10}
                         isSelected={selectedFilterId === 10}
@@ -203,6 +221,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setTimeframeName={setTimeframeName}/>
                 </div>
             </div>
-        </>
+        </div>
     );
 };

@@ -9,6 +9,7 @@ import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
 import {ClipboardText} from "@phosphor-icons/react";
 import {msg, Trans} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
+import {LastExpenses} from "../../organisms/LastExpenses";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -109,52 +110,52 @@ export const ParseExpensesList = ({
         localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
     }
 
-    console.log({expenses, parsedExpenses});
-
     return (
-        <section className="h-screen overflow-y-auto p-4">
-            <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
+        <div className="w-full flex flex-col md:flex-row-reverse gap-2">
+            <LastExpenses/>
+            <section className="w-1/2 h-screen overflow-y-auto p-4">
+                <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
                 <ClipboardText/>
                 <Trans>
                     Parse
                 </Trans>
-            </Title>
+                </Title>
 
-            <div className="max-w-6xl m-auto">
-                {parsedExpenses.length > 0 &&
-                    <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
+                <div className="max-w-6xl m-auto">
+                    {parsedExpenses.length > 0 &&
+                        <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
                         <Trans>Existing expenses</Trans>:
                         {expenses.length} •
                         <Trans>New expenses</Trans>: {parsedExpenses.length}
-                    </Title>}
-                <ExpensesList
-                    expenses={parsedExpenses}
-                    existingExpenses={expenses}
-                    setExpenses={setParsedExpenses}
-                    submitExpenses={async expenses => {
-                        await setExpenses(expenses);
-                        const newExpenses = parsedExpenses.filter(item => !item.categoryId);
-                        setParsedExpenses(newExpenses);
-                        localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
-                    }}/>
-            </div>
-            <div className="flex items-start gap-4 max-w-7xl flex-col">
-                <div className="flex flex-col md:w-1/3 h-full">
+                        </Title>}
+                    <ExpensesList
+                        expenses={parsedExpenses}
+                        existingExpenses={expenses}
+                        setExpenses={setParsedExpenses}
+                        submitExpenses={async expenses => {
+                            await setExpenses(expenses);
+                            const newExpenses = parsedExpenses.filter(item => !item.categoryId);
+                            setParsedExpenses(newExpenses);
+                            localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
+                        }}/>
+                </div>
+                <div className="flex items-start gap-4 max-w-7xl flex-col">
+                    <div className="flex flex-col md:w-1/3 h-full">
                     <Title type={Title.Types.H2} className="mb-4">
                         <Trans>
                             Paste
                         </Trans>
                     </Title>
-                    <textarea
-                        className="border border-dashed border-black p-4 outline-none w-full h-full"
-                        placeholder="Paste expenses here"
-                        rows={isMobile ? 5 : 15}
-                        ref={textAreaRef}
-                        value={value}
-                        onChange={event => {
-                            setIsParseButtonDisabled(!event.target.value);
-                            setValue(event.target.value);
-                        }}/>
+                        <textarea
+                            className="border border-dashed border-black p-4 outline-none w-96 h-full"
+                            placeholder="Paste expenses here"
+                            rows={isMobile ? 5 : 15}
+                            ref={textAreaRef}
+                            value={value}
+                            onChange={event => {
+                                setIsParseButtonDisabled(!event.target.value);
+                                setValue(event.target.value);
+                            }}/>
                     <Button
                         size={Button.Sizes.FULL}
                         isDisabled={isParseButtonDisabled}
@@ -209,8 +210,9 @@ export const ParseExpensesList = ({
                         {isStatusAnimated ? message : _(msg`Parse File`)}
                     </Button>
                 </div>
-            </div>
-        </section>
+                </div>
+            </section>
+        </div>
     );
 };
 

@@ -7,7 +7,7 @@ import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
 import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
 import {ClipboardText} from "@phosphor-icons/react";
-import {LastExpenses} from "../../organisms/LastExpenses";
+import LastExpenses from "../../../features/LastExpenses/components/LastExpenses";
 
 const isMobile = window.innerWidth < 768;
 
@@ -23,7 +23,6 @@ export const ParseExpensesList = ({
     const [isParseButtonDisabled, setIsParseButtonDisabled] = useState(false);
     const [parsedExpenses, setParsedExpenses] = useState([]);
     const [isStatusAnimated, setIsStatusAnimated] = useState(false);
-
 
     useEffect(() => {
         if (isStatusAnimated) {
@@ -133,7 +132,7 @@ export const ParseExpensesList = ({
                                 setIsParseButtonDisabled(!event.target.value);
                                 setValue(event.target.value);
                             }}/>
-                    </div>
+                        </div>
                     <div className="mb-4">
                         <Title type={Title.Types.H2} className="mb-4">Upload</Title>
                         <SheetUpload onSheetParse={data => console.log(data)}/>
@@ -142,14 +141,14 @@ export const ParseExpensesList = ({
                         <Title type={Title.Types.H2} className="mb-4">Manual</Title>
                         WIP
                     </div>
-                    <Button
-                        size={Button.Sizes.FULL}
-                        isDisabled={isParseButtonDisabled}
-                        onClick={setNewExpenses}
+                        <Button
+                            size={Button.Sizes.FULL}
+                            isDisabled={isParseButtonDisabled}
+                            onClick={setNewExpenses}
                         className={classNames("my-4 w-72 mx-auto text-center", {
-                            "animate-pulse duration-500": isStatusAnimated,
-                        })}>
-                        {isStatusAnimated ? message : "Parse expenses"}
+                                "animate-pulse duration-500": isStatusAnimated,
+                            })}>
+                            {isStatusAnimated ? message : "Parse expenses"}
                     </Button>
                 </div>
             </section>

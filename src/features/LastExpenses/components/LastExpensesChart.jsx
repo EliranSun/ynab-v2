@@ -1,7 +1,8 @@
 import {useMemo} from 'react';
 import {format} from 'date-fns';
-import ExpensesChart from "../pages/BalanceView/ExpensesChart";
-import {Timeframe} from "./LastExpenses";
+import ExpensesChart from "../../../components/pages/BalanceView/ExpensesChart";
+
+import {Timeframe} from "../constants";
 
 
 const LastExpensesChart = ({expenses = [], timeframeName = Timeframe.MONTH}) => {

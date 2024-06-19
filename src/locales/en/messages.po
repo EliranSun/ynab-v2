@@ -57,7 +57,7 @@ msgstr "Actual:"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+#: src/components/pages/BalanceView/CategoryBalance.jsx:49
 msgid "average"
 msgstr "average"
 
@@ -81,13 +81,17 @@ msgstr "Bars"
 msgid "Books"
 msgstr "Books"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+#: src/components/pages/BalanceView/CategoryBalance.jsx:40
 msgid "budget"
 msgstr "budget"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
 msgstr "Budget"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:97
+msgid "Budget (for a {0})"
+msgstr "Budget (for a {0})"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:75
 msgid "Budget:"
@@ -174,7 +178,7 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
@@ -190,6 +194,10 @@ msgstr "Family"
 #: src/constants/categories.js:303
 msgid "Fees"
 msgstr "Fees"
+
+#: src/features/LastExpenses/components/LastExpensesFilters.jsx:51
+msgid "Filters"
+msgstr "Filters"
 
 #: src/constants/categories.js:221
 msgid "Friends"
@@ -264,9 +272,13 @@ msgstr "Jesus fucking christ man."
 msgid "KIA"
 msgstr "KIA"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:29
 msgid "left to spend"
 msgstr "left to spend"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:106
+msgid "left to spend!"
+msgstr "left to spend!"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
@@ -300,7 +312,7 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:128
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:129
 msgid "New expenses"
 msgstr "New expenses"
 
@@ -313,9 +325,13 @@ msgstr "No budget set this month."
 msgid "Other"
 msgstr "Other"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:29
 msgid "over budget"
 msgstr "over budget"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:107
+msgid "over budget...️"
+msgstr "over budget...️"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"
@@ -323,11 +339,11 @@ msgstr "over my budget"
 
 #: src/components/molecules/Header/Header.jsx:23
 #: src/components/molecules/Header/Header.jsx:48
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:209
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:210
 msgid "Parse File"
 msgstr "Parse File"
 
@@ -335,7 +351,7 @@ msgstr "Parse File"
 msgid "Past 12 months"
 msgstr "Past 12 months"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:144
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:145
 msgid "Paste"
 msgstr "Paste"
 
@@ -386,6 +402,10 @@ msgstr "Saved this month!"
 msgid "Show same month only"
 msgstr "Show same month only"
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:92
+msgid "Spent"
+msgstr "Spent"
+
 #: src/constants/categories.js:139
 msgid "Therapist"
 msgstr "Therapist"
@@ -394,7 +414,7 @@ msgstr "Therapist"
 msgid "TV"
 msgstr "TV"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:170
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:171
 msgid "Upload"
 msgstr "Upload"
 

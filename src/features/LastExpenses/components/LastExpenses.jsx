@@ -1,23 +1,22 @@
-import {BudgetContext, ExpensesContext} from "../../context";
 import {useContext, useMemo, useState} from "react";
-import {differenceInDays, getMonth, subDays, isAfter, isBefore, getYear, subYears, format} from "date-fns";
-import {formatCurrency} from "../../utils";
+import {differenceInDays, format, isAfter, isBefore, subDays} from "date-fns";
+import {formatCurrency} from "../../../utils";
 import LastExpensesChart from "./LastExpensesChart";
 import {LastExpensesFilters} from "./LastExpensesFilters";
 import classNames from "classnames";
+import {Trans} from "@lingui/macro";
+import {INCOME_CATEGORY_ID, Timeframe} from "../constants";
+import {BudgetContext, ExpensesContext} from "../../../context";
 
-export const Timeframe = {
-    WEEK: "WEEK",
-    MONTH: "MONTH",
-    QUARTER: "QUARTER",
-    YEAR: "YEAR",
+const Item = ({children}) => {
+    return (
+        <div className="md:flex md:flex-col-reverse md:items-center">
+            {children}
+        </div>
+    );
 };
 
-const INCOME_CATEGORY_ID = '8';
-
-export const LastExpenses = () => {
-    const {budget} = useContext(BudgetContext);
-    const {expensesArray} = useContext(ExpensesContext);
+export const LastExpenses = ({budget = {}, expensesArray = []}) => {
     const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
     const [startDate, setStartDate] = useState(subDays(new Date(), 7));
     const [endDate, setEndDate] = useState(new Date());
@@ -29,14 +28,11 @@ export const LastExpenses = () => {
         }
 
         const budgetObject = budget['8.2023'];
-        console.log({budgetObject});
         const relevantCategories = Object.entries(budgetObject).filter(([key]) => {
-            console.log({key, INCOME_CATEGORY_ID});
             return key !== INCOME_CATEGORY_ID;
         });
         let totalBudget = 0;
 
-        console.log({relevantCategories});
         for (const [_, subcategoriesObject] of relevantCategories) {
             totalBudget += Object.values(subcategoriesObject).reduce((acc, amount) => acc + amount, 0);
         }
@@ -56,8 +52,6 @@ export const LastExpenses = () => {
                 return totalBudget * 12;
         }
     }, [timeframeName, budget]);
-
-    console.log({budgetForTimeframe});
 
     const lastItems = useMemo(() => {
         const aggregatedByNameExpenses = {};
@@ -86,26 +80,39 @@ export const LastExpenses = () => {
     }, [expensesArray, startDate, endDate, sortBy, filteredItems]);
 
     const totalAmount = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
+    const removedAmounts = useMemo(() => formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false), [filteredItems]);
     const differenceAmount = budgetForTimeframe - totalAmount;
+
     return (
         <section
-            className="m-4 md:w-2/5 h-[80vh] md:h-[90vh] overflow-y-auto bg-neutral-50 shadow-md rounded-lg md:border-8 border-gray-500 md:p-4">
+            className={classNames({
+                "bg-neutral-50 m-4 md:p-4": true,
+                "h-[80vh] md:h-fit overflow-y-auto": true,
+                "shadow-md rounded-lg md:border-4 border-gray-500": true,
+                "min-w-[300px] md:max-w-[500px]": true,
+            })}>
             <LastExpensesFilters
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 setTimeframeName={setTimeframeName}/>
-            <div className="flex flex-col md:flex-row gap-2">
-                <div>
-                    <h1 className="md:text-3xl font-mono">Spent</h1>
+            <div className="flex flex-col justify-evenly md:flex-row gap-2 my-4">
+                <Item>
+                    <h1 className="font-mono"><Trans>Spent</Trans></h1>
                     <h2 className="text-7xl font-mono">{formatCurrency(totalAmount, false, false)}</h2>
-                </div>
-                <div>
-                    <h1 className="md:text-3xl font-mono">Budget (for a {timeframeName.toLowerCase()})</h1>
-                    <h2 className="text-7xl font-mono">{formatCurrency(budgetForTimeframe, false, false)}</h2>
-                </div>
-                <div>
-                    <h1 className="md:text-3xl font-mono">
-                        {differenceAmount >= 0 ? "left to spend! 😁" : "over budget... ☹️"}
+                </Item>
+                <Item>
+                    <h1 className="font-mono">
+                        <Trans>Budget</Trans>
+                    </h1>
+                    <h2 className="text-7xl font-mono">
+                        {formatCurrency(budgetForTimeframe, false, false)}
+                    </h2>
+                </Item>
+                <Item>
+                    <h1 className="font-mono">
+                        {differenceAmount >= 0
+                            ? <Trans>Left</Trans>
+                            : <Trans>Over️</Trans>}
                     </h1>
                     <h2 className={classNames({
                         "text-7xl font-mono": true,
@@ -114,25 +121,31 @@ export const LastExpenses = () => {
                     })}>
                         {formatCurrency(differenceAmount, false, false)}
                     </h2>
-                </div>
+                </Item>
             </div>
-            <h3>{formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false)} filtered</h3>
+            <h3>{removedAmounts} filtered</h3>
             <LastExpensesChart expenses={lastItems} timeframeName={timeframeName}/>
-            <button className="border rounded p-2 shadow-md"
-                    onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
+            <button
+                className="border rounded p-2 shadow-md"
+                onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
                 Sorting by {sortBy}
             </button>
             {lastItems.map(item => {
                 return (
                     <div
                         key={item.id}
-                        className="flex flex-col md:flex-row justify-between md:items-center p-2 border-b border-gray-500"
+                        className={classNames({
+                            "p-2 border-b border-gray-500": true,
+                            "flex flex-col md:flex-row justify-between md:items-center": true,
+                        })}
                         onClick={() => {
                             setFilteredItems([item, ...filteredItems]);
                         }}>
                         <div>
                             <h2 className="text-2xl font-mono">{item.name}</h2>
-                            <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">{item.note}</p>
+                            <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
+                                {item.note}
+                            </p>
                         </div>
                         <div>
                             <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
@@ -146,4 +159,13 @@ export const LastExpenses = () => {
             })}
         </section>
     )
+};
+
+const ProvidedLastExpenses = () => {
+    const {budget} = useContext(BudgetContext);
+    const {expensesArray} = useContext(ExpensesContext);
+
+    return <LastExpenses budget={budget} expensesArray={expensesArray}/>
 }
+
+export default ProvidedLastExpenses;

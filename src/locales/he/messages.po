@@ -66,7 +66,7 @@ msgstr "במציאות:"
 msgid "Authoring"
 msgstr "כתיבה"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+#: src/components/pages/BalanceView/CategoryBalance.jsx:49
 msgid "average"
 msgstr ""
 
@@ -98,13 +98,17 @@ msgstr "ברים"
 msgid "Books"
 msgstr "ספרים"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+#: src/components/pages/BalanceView/CategoryBalance.jsx:40
 msgid "budget"
 msgstr ""
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 msgid "Budget"
 msgstr "תקציב"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:97
+msgid "Budget (for a {0})"
+msgstr ""
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:75
 msgid "Budget:"
@@ -191,7 +195,7 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
@@ -207,6 +211,10 @@ msgstr "משפחה"
 #: src/constants/categories.js:303
 msgid "Fees"
 msgstr "עמלות"
+
+#: src/features/LastExpenses/components/LastExpensesFilters.jsx:51
+msgid "Filters"
+msgstr "סננים"
 
 #: src/constants/categories.js:221
 msgid "Friends"
@@ -281,8 +289,12 @@ msgstr "אלוקים אדירים אבינו שבשמיים."
 msgid "KIA"
 msgstr "רכב"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:29
 msgid "left to spend"
+msgstr ""
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:106
+msgid "left to spend!"
 msgstr ""
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
@@ -317,7 +329,7 @@ msgstr "התקציב שלי לא -קרוב- למציאות."
 msgid "my budget is spot on!"
 msgstr "התקציב שלי מדויק!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:128
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:129
 msgid "New expenses"
 msgstr "הוצאות חדשות"
 
@@ -330,8 +342,12 @@ msgstr "החודש הנוכחי לא תוקצב."
 msgid "Other"
 msgstr "אחר"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:29
 msgid "over budget"
+msgstr ""
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:107
+msgid "over budget...️"
 msgstr ""
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
@@ -340,11 +356,11 @@ msgstr "מעבר לתקציב שלי"
 
 #: src/components/molecules/Header/Header.jsx:23
 #: src/components/molecules/Header/Header.jsx:48
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
 msgid "Parse"
 msgstr "פירסור"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:209
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:210
 msgid "Parse File"
 msgstr ""
 
@@ -352,7 +368,7 @@ msgstr ""
 msgid "Past 12 months"
 msgstr "12 החודשים האחרונים"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:144
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:145
 msgid "Paste"
 msgstr "הדבק"
 
@@ -403,6 +419,10 @@ msgstr "נחסכו החודש!"
 msgid "Show same month only"
 msgstr "הצג הוצאות דומות רק בחודש זה"
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:92
+msgid "Spent"
+msgstr ""
+
 #: src/constants/categories.js:139
 msgid "Therapist"
 msgstr "פסיכולוג"
@@ -415,7 +435,7 @@ msgstr "פסיכולוג"
 msgid "TV"
 msgstr "טלוויזיה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:170
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:171
 msgid "Upload"
 msgstr "העלה קובץ"
 

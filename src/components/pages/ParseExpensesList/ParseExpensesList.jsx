@@ -9,7 +9,7 @@ import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
 import {ClipboardText} from "@phosphor-icons/react";
 import {msg, Trans} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
-import {LastExpenses} from "../../organisms/LastExpenses";
+import LastExpenses from "../../../features/LastExpenses/components/LastExpenses";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -38,7 +38,7 @@ export const ParseExpensesList = ({
     const [parsedExpenses, setParsedExpenses] = useState([]);
     const [parsedFile, setParsedFile] = useState([]);
     const [isStatusAnimated, setIsStatusAnimated] = useState(false);
-    
+
     useEffect(() => {
         if (isStatusAnimated) {
             setTimeout(() => {
@@ -115,18 +115,18 @@ export const ParseExpensesList = ({
             <LastExpenses/>
             <section className="w-1/2 h-screen overflow-y-auto p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
-                <ClipboardText/>
-                <Trans>
-                    Parse
-                </Trans>
+                    <ClipboardText/>
+                    <Trans>
+                        Parse
+                    </Trans>
                 </Title>
 
                 <div className="max-w-6xl m-auto">
                     {parsedExpenses.length > 0 &&
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
-                        <Trans>Existing expenses</Trans>:
-                        {expenses.length} •
-                        <Trans>New expenses</Trans>: {parsedExpenses.length}
+                            <Trans>Existing expenses</Trans>:
+                            {expenses.length} •
+                            <Trans>New expenses</Trans>: {parsedExpenses.length}
                         </Title>}
                     <ExpensesList
                         expenses={parsedExpenses}
@@ -141,11 +141,11 @@ export const ParseExpensesList = ({
                 </div>
                 <div className="flex items-start gap-4 max-w-7xl flex-col">
                     <div className="flex flex-col md:w-1/3 h-full">
-                    <Title type={Title.Types.H2} className="mb-4">
-                        <Trans>
-                            Paste
-                        </Trans>
-                    </Title>
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>
+                                Paste
+                            </Trans>
+                        </Title>
                         <textarea
                             className="border border-dashed border-black p-4 outline-none w-96 h-full"
                             placeholder="Paste expenses here"
@@ -156,60 +156,60 @@ export const ParseExpensesList = ({
                                 setIsParseButtonDisabled(!event.target.value);
                                 setValue(event.target.value);
                             }}/>
-                    <Button
-                        size={Button.Sizes.FULL}
-                        isDisabled={isParseButtonDisabled}
-                        onClick={setNewExpenses}
-                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                            "animate-pulse duration-500": isStatusAnimated,
-                        })}>
-                        {isStatusAnimated ? message : "Parse Text"}
-                    </Button>
-                </div>
-                <div className="mb-4">
-                    <Title type={Title.Types.H2} className="mb-4">
-                        <Trans>
-                            Upload
-                        </Trans>
-                    </Title>
-                    <SheetUpload onSheetParse={data => {
-                        console.log({data});
-                        setParsedFile(data.map(row => ({
-                            name: row["Name"] || row['שם'] || row['על מה?'],
-                            timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
-                            amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
-                            categoryName: row["Category"] || row['קטגוריה'],
-                        })));
-                    }}/>
-                    <pre>
+                        <Button
+                            size={Button.Sizes.FULL}
+                            isDisabled={isParseButtonDisabled}
+                            onClick={setNewExpenses}
+                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                                "animate-pulse duration-500": isStatusAnimated,
+                            })}>
+                            {isStatusAnimated ? message : "Parse Text"}
+                        </Button>
+                    </div>
+                    <div className="mb-4">
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>
+                                Upload
+                            </Trans>
+                        </Title>
+                        <SheetUpload onSheetParse={data => {
+                            console.log({data});
+                            setParsedFile(data.map(row => ({
+                                name: row["Name"] || row['שם'] || row['על מה?'],
+                                timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                                amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                                categoryName: row["Category"] || row['קטגוריה'],
+                            })));
+                        }}/>
+                        <pre>
                         {JSON.stringify(parsedFile, null, 2)}
                     </pre>
-                    <Button
-                        size={Button.Sizes.FULL}
-                        isDisabled={isParseButtonDisabled}
-                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                            "animate-pulse duration-500": isStatusAnimated,
-                        })}
-                        onClick={() => {
-                            const newExpenses = parsedFile.map(item => {
-                                const similarExpense = expenses.find(existingItem => {
-                                    return existingItem.name === item.name;
+                        <Button
+                            size={Button.Sizes.FULL}
+                            isDisabled={isParseButtonDisabled}
+                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                                "animate-pulse duration-500": isStatusAnimated,
+                            })}
+                            onClick={() => {
+                                const newExpenses = parsedFile.map(item => {
+                                    const similarExpense = expenses.find(existingItem => {
+                                        return existingItem.name === item.name;
+                                    });
+
+                                    if (similarExpense?.categoryId) {
+                                        item.categoryId = similarExpense.categoryId;
+                                    }
+
+                                    return item;
                                 });
 
-                                if (similarExpense?.categoryId) {
-                                    item.categoryId = similarExpense.categoryId;
-                                }
-
-                                return item;
-                            });
-
-                            setParsedExpenses(newExpenses
-                                .filter(item => !isExistingExpense(item, expenses))
-                                .map(item => new Expense(item)));
-                        }}>
-                        {isStatusAnimated ? message : _(msg`Parse File`)}
-                    </Button>
-                </div>
+                                setParsedExpenses(newExpenses
+                                    .filter(item => !isExistingExpense(item, expenses))
+                                    .map(item => new Expense(item)));
+                            }}>
+                            {isStatusAnimated ? message : _(msg`Parse File`)}
+                        </Button>
+                    </div>
                 </div>
             </section>
         </div>

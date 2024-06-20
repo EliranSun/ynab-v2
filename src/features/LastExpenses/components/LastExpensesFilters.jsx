@@ -1,4 +1,4 @@
-import {endOfWeek, endOfMonth, startOfMonth, getYear, startOfWeek, subDays} from "date-fns";
+import {endOfWeek, endOfMonth, startOfMonth, getYear, startOfWeek, subDays, getMonth} from "date-fns";
 import {useState} from "react";
 import {FilterName, MonthNames, Timeframe} from "../constants";
 import {Trans} from "@lingui/macro";
@@ -9,6 +9,7 @@ import {Filter} from "./Filter";
 export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
     const [selectedLabel, setSelectedLabel] = useState("Last week");
     const currentYear = getYear(new Date());
+    const currentMonth = getMonth(new Date());
 
     return (
         <div className="">
@@ -29,17 +30,21 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
                         onClick={setSelectedLabel}
-                        timeframe={Timeframe.MONTH}
-                        label={FilterName.THIS_MONTH}
-                        isSelected={selectedLabel === FilterName.THIS_MONTH}
-                        startDate={startOfMonth(new Date())}
-                        endDate={endOfMonth(new Date())}
+                        timeframe={Timeframe.WEEK}
+                        label={FilterName.LAST_WEEK}
+                        isSelected={selectedLabel === FilterName.LAST_WEEK}
+                        startDate={startOfWeek(subDays(new Date(), 7), {weekStartsOn: 1})}
+                        endDate={endOfWeek(subDays(new Date(), 7), {weekStartsOn: 1})}
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                 </FilterGroup>
                 <FilterGroup>
                     {MonthNames.map((month, index) => {
+                        if (index > currentMonth) {
+                            return null;
+                        }
+
                         return (
                             <Filter
                                 key={index}
@@ -53,7 +58,7 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                                 setEndDate={setEndDate}
                                 setTimeframeName={setTimeframeName}/>
                         );
-                    })}
+                    }).reverse()}
                 </FilterGroup>
                 <FilterGroup>
                     <Filter

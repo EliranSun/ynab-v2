@@ -3,7 +3,7 @@ import {Chart, registerables} from "chart.js";
 
 let singleton = null;
 
-const useBasicChart = (data) => {
+const useBasicChart = (data, incomeData = []) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -28,6 +28,13 @@ const useBasicChart = (data) => {
                         data: data.map(item => item.y),
                         backgroundColor: ["rgba(54, 162, 235, 0.2)",],
                         borderColor: ["rgba(54, 162, 235, 1)",],
+                        spanGaps: true,
+                    },
+                    {
+                        label: "Income",
+                        data: incomeData,
+                        backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+                        borderColor: ["rgba(54, 162, 235, 0.2)"],
                         spanGaps: true,
                     }
                 ]

@@ -1,7 +1,7 @@
 import useBasicChart from "./useBasicChart";
 
-const ExpensesChart = ({data = []}) => {
-    const canvasRef = useBasicChart(data);
+const ExpensesChart = ({data = [], incomeData = []}) => {
+    const canvasRef = useBasicChart(data, incomeData);
 
     return (
         <div className="relative h-60 w-full">

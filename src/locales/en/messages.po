@@ -99,7 +99,7 @@ msgstr "Books"
 #~ msgstr "budget"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/features/LastExpenses/components/LastExpenses.jsx:105
+#: src/features/LastExpenses/components/LastExpenses.jsx:154
 msgid "Budget"
 msgstr "Budget"
 
@@ -147,6 +147,10 @@ msgstr "Design"
 msgid "Dev"
 msgstr "Dev"
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:178
+msgid "diff"
+msgstr "diff"
+
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
 msgid "Diffs:"
 msgstr "Diffs:"
@@ -188,7 +192,7 @@ msgstr "Family"
 msgid "Fees"
 msgstr "Fees"
 
-#: src/features/LastExpenses/components/LastExpensesFilters.jsx:76
+#: src/features/LastExpenses/components/LastExpensesFilters.jsx:17
 msgid "Filters"
 msgstr "Filters"
 
@@ -232,6 +236,10 @@ msgstr "I'm in BIG trouble."
 msgid "I'm in trouble."
 msgstr "I'm in trouble."
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:173
+msgid "Income"
+msgstr "Income"
+
 #: src/constants/categories.js:107
 msgid "Internet"
 msgstr "Internet"
@@ -249,8 +257,12 @@ msgid "KIA"
 msgstr "KIA"
 
 #: src/features/LastExpenses/components/LastExpenses.jsx:114
-msgid "Left"
-msgstr ""
+#~ msgid "Left"
+#~ msgstr ""
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:161
+msgid "Left 😄"
+msgstr "Left 😄"
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:29
 #~ msgid "left to spend"
@@ -298,8 +310,12 @@ msgid "Other"
 msgstr "Other"
 
 #: src/features/LastExpenses/components/LastExpenses.jsx:115
-msgid "Over️"
-msgstr ""
+#~ msgid "Over️"
+#~ msgstr ""
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:162
+msgid "Over 😢"
+msgstr "Over 😢"
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:29
 #~ msgid "over budget"
@@ -368,7 +384,8 @@ msgstr "Saved this month!"
 msgid "Show same month only"
 msgstr "Show same month only"
 
-#: src/features/LastExpenses/components/LastExpenses.jsx:100
+#: src/features/LastExpenses/components/LastExpenses.jsx:149
+#: src/features/LastExpenses/components/LastExpenses.jsx:169
 msgid "Spent"
 msgstr "Spent"
 

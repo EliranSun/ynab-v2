@@ -10,7 +10,7 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 
 const Item = ({children}) => {
     return (
-        <div className="flex flex-col-reverse md:items-center">
+        <div className="flex flex-col md:items-center">
             {children}
         </div>
     );
@@ -24,7 +24,7 @@ const Amount = ({children, isDifference}) => {
 
     return (
         <h2 className={classNames({
-            "text-7xl md:text-6xl font-mono": true,
+            "text-2xl md:text-4xl font-mono": true,
             "text-green-500": isDifference && (value >= 0),
             "text-red-500": isDifference && (value < 0),
         })}>
@@ -123,12 +123,13 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
             }
         }, [expensesArray, startDate, endDate]);
 
-        console.log({incomeForTimeframe});
 
-        const totalAmount = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
+        const totalSpent = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
         const removedAmounts = useMemo(() => formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false), [filteredItems]);
-        const differenceBudgetAmount = budgetForTimeframe - totalAmount;
-        const differenceAmount = incomeForTimeframe - totalAmount;
+        const differenceBudgetAmount = budgetForTimeframe - totalSpent;
+        const differenceAmount = incomeForTimeframe - totalSpent;
+
+        console.log({incomeForTimeframe, totalSpent, differenceAmount, differenceBudgetAmount});
 
         return (
             <section
@@ -142,37 +143,49 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
                     setStartDate={setStartDate}
                     setEndDate={setEndDate}
                     setTimeframeName={setTimeframeName}/>
-                <div className="flex flex-col flex-wrap justify-evenly md:flex-row gap-2 my-4">
-                    <Item>
-                        <h1 className="font-mono"><Trans>Spent</Trans></h1>
-                        <Amount>{totalAmount}</Amount>
-                    </Item>
-                    <Item>
-                        <h1 className="font-mono"><Trans>Income</Trans></h1>
-                        <Amount>{incomeForTimeframe}</Amount>
-                    </Item>
-                    <Item>
-                        <h1 className="font-mono">
-                            <Trans>Budget</Trans>
-                        </h1>
-                        <Amount>{budgetForTimeframe}</Amount>
-                    </Item>
-                    <Item>
-                        <h1 className="font-mono">
-                            <Trans>Budget diff</Trans>
-                        </h1>
-                        <Amount isDifference>{differenceBudgetAmount}</Amount>
-                    </Item>
-                    <Item>
-                        <h1 className="font-mono">
-                            <Trans>Actual diff</Trans>
-                        </h1>
-                        <Amount isDifference>{differenceAmount}</Amount>
-                    </Item>
+                <div className="flex flex-col justify-evenly gap-2 my-4">
+                    <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
+                        <Item>
+                            <h1 className="font-mono"><Trans>Spent</Trans></h1>
+                            <Amount>{totalSpent}</Amount>
+                        </Item>
+                        <Item>
+                            <h1 className="font-mono">
+                                <Trans>Budget</Trans>
+                            </h1>
+                            <Amount>{budgetForTimeframe}</Amount>
+                        </Item>
+                        <Item>
+                            <h1 className="font-mono">
+                                {differenceBudgetAmount > 0 ?
+                                    <Trans>Left 😄</Trans> :
+                                    <Trans>Over 😢</Trans>}
+                            </h1>
+                            <Amount isDifference>{differenceBudgetAmount}</Amount>
+                        </Item>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
+                        <Item>
+                            <h1 className="font-mono"><Trans>Spent</Trans></h1>
+                            <Amount>{totalSpent}</Amount>
+                        </Item>
+                        <Item>
+                            <h1 className="font-mono"><Trans>Income</Trans></h1>
+                            <Amount>{incomeForTimeframe}</Amount>
+                        </Item>
+                        <Item>
+                            <h1 className="font-mono">
+                                <Trans>diff</Trans>
+                            </h1>
+                            <Amount isDifference>{differenceAmount}</Amount>
+                        </Item>
+                    </div>
                 </div>
                 <h3>{removedAmounts} filtered</h3>
                 <LastExpensesChart
                     expenses={lastItems}
+                    budget={budgetForTimeframe}
+                    income={incomeForTimeframe}
                     timeframeName={timeframeName}/>
                 <button
                     className="border rounded p-2 shadow-md"

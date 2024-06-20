@@ -95,7 +95,7 @@ msgstr "ספרים"
 #~ msgstr ""
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/features/LastExpenses/components/LastExpenses.jsx:105
+#: src/features/LastExpenses/components/LastExpenses.jsx:154
 msgid "Budget"
 msgstr "תקציב"
 
@@ -143,6 +143,10 @@ msgstr "עיצוב"
 msgid "Dev"
 msgstr "פיתוח"
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:178
+msgid "diff"
+msgstr ""
+
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
 msgid "Diffs:"
 msgstr "הפרש:"
@@ -184,7 +188,7 @@ msgstr "משפחה"
 msgid "Fees"
 msgstr "עמלות"
 
-#: src/features/LastExpenses/components/LastExpensesFilters.jsx:76
+#: src/features/LastExpenses/components/LastExpensesFilters.jsx:17
 msgid "Filters"
 msgstr "סננים"
 
@@ -228,6 +232,10 @@ msgstr "אני בצרות -גדולות-."
 msgid "I'm in trouble."
 msgstr "אני בצרות."
 
+#: src/features/LastExpenses/components/LastExpenses.jsx:173
+msgid "Income"
+msgstr ""
+
 #: src/constants/categories.js:107
 msgid "Internet"
 msgstr "אינטרנט"
@@ -245,8 +253,12 @@ msgid "KIA"
 msgstr "רכב"
 
 #: src/features/LastExpenses/components/LastExpenses.jsx:114
-msgid "Left"
-msgstr "Left"
+#~ msgid "Left"
+#~ msgstr "Left"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:161
+msgid "Left 😄"
+msgstr ""
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:29
 #~ msgid "left to spend"
@@ -294,8 +306,12 @@ msgid "Other"
 msgstr "אחר"
 
 #: src/features/LastExpenses/components/LastExpenses.jsx:115
-msgid "Over️"
-msgstr "Over️"
+#~ msgid "Over️"
+#~ msgstr "Over️"
+
+#: src/features/LastExpenses/components/LastExpenses.jsx:162
+msgid "Over 😢"
+msgstr ""
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:29
 #~ msgid "over budget"
@@ -364,7 +380,8 @@ msgstr "נחסכו החודש!"
 msgid "Show same month only"
 msgstr "הצג הוצאות דומות רק בחודש זה"
 
-#: src/features/LastExpenses/components/LastExpenses.jsx:100
+#: src/features/LastExpenses/components/LastExpenses.jsx:149
+#: src/features/LastExpenses/components/LastExpenses.jsx:169
 msgid "Spent"
 msgstr ""
 

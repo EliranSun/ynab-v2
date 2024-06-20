@@ -124,7 +124,11 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
                 </Item>
             </div>
             <h3>{removedAmounts} filtered</h3>
-            <LastExpensesChart expenses={lastItems} timeframeName={timeframeName}/>
+            <LastExpensesChart
+                startDate={startDate}
+                endDate={endDate}
+                expenses={lastItems}
+                timeframeName={timeframeName}/>
             <button
                 className="border rounded p-2 shadow-md"
                 onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>

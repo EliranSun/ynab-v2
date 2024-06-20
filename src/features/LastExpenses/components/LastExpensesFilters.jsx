@@ -1,73 +1,13 @@
-import {getMonth, getYear, subDays} from "date-fns";
+import {startOfWeek, getYear, subDays} from "date-fns";
 import {useState} from "react";
-import classNames from "classnames";
-import {Timeframe} from "../constants";
+import {MonthNames, Timeframe} from "../constants";
 import {Trans} from "@lingui/macro";
-
-const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
-const getLastMonthName = (monthNumber) => {
-    return monthNames[monthNumber];
-};
-
-const Filter = ({
-                    label,
-                    startDate,
-                    endDate,
-                    timeframe,
-                    setStartDate,
-                    setEndDate,
-                    setTimeframeName,
-                    isSelected,
-                    onClick
-                }) => (
-    <button
-        className={classNames({
-            "p-2 border border-gray-200 rounded shadow-md": true,
-            "bg-black text-white": isSelected,
-            "text-xs md:text-sm": true,
-        })}
-        onClick={() => {
-            setStartDate(startDate);
-            setEndDate(endDate);
-            setTimeframeName(timeframe);
-            onClick(label);
-        }}>
-        {label}
-    </button>
-);
-
-const FilterGroup = ({children}) => {
-    return (
-        <div className="flex items-center flex-wrap w-full gap-2">
-            {children}
-        </div>
-    );
-}
-
-const Filters = ({children}) => {
-    return (
-        <div className={classNames({
-            "flex flex-col justify-center items-start gap-4": true,
-        })}>
-            {children}
-        </div>
-    );
-};
-
-const FilterName = {
-    LAST_WEEK: 3,
-    LAST_MONTH: 0,
-    LAST_QUARTER: 10,
-    CURRENT_YEAR: 11,
-}
+import {Filters} from "./Filters";
+import {FilterGroup} from "./FilterGroup";
+import {Filter} from "./Filter";
 
 export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
     const [selectedLabel, setSelectedLabel] = useState("Last week");
-    const currentMonth = getMonth(new Date());
     const currentYear = getYear(new Date());
 
     return (
@@ -82,7 +22,7 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         isSelected={selectedLabel === "Last week"}
                         onClick={setSelectedLabel}
                         label="Last week"
-                        startDate={subDays(new Date(), 7)}
+                        startDate={startOfWeek(new Date(), {weekStartsOn: 1})}
                         endDate={new Date()}
                         timeframe={Timeframe.WEEK}
                         setStartDate={setStartDate}
@@ -90,7 +30,7 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setTimeframeName={setTimeframeName}/>
                 </FilterGroup>
                 <FilterGroup>
-                    {monthNames.map((month, index) => {
+                    {MonthNames.map((month, index) => {
                         return (
                             <Filter
                                 key={index}

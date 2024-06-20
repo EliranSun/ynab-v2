@@ -17,7 +17,7 @@ const Item = ({children}) => {
 };
 
 const Amount = ({children, isDifference}) => {
-    const value = parseFloat(children);
+    const value = (children);
     if (isNaN(value)) {
         return value;
     }

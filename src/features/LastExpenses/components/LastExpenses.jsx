@@ -125,8 +125,6 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
             </div>
             <h3>{removedAmounts} filtered</h3>
             <LastExpensesChart
-                startDate={startDate}
-                endDate={endDate}
                 expenses={lastItems}
                 timeframeName={timeframeName}/>
             <button

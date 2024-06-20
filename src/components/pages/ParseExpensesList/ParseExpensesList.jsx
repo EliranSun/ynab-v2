@@ -96,9 +96,9 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="w-full flex flex-col md:flex-row-reverse gap-2">
+        <div className="flex flex-col justify-center md:flex-row-reverse gap-2">
             <LastExpenses/>
-            <section className="w-1/2 h-screen overflow-y-auto p-4">
+            <section className="p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
                     <ClipboardText size={50}/> Parse
                 </Title>
@@ -132,7 +132,7 @@ export const ParseExpensesList = ({
                                 setIsParseButtonDisabled(!event.target.value);
                                 setValue(event.target.value);
                             }}/>
-                        </div>
+                    </div>
                     <div className="mb-4">
                         <Title type={Title.Types.H2} className="mb-4">Upload</Title>
                         <SheetUpload onSheetParse={data => console.log(data)}/>
@@ -141,14 +141,14 @@ export const ParseExpensesList = ({
                         <Title type={Title.Types.H2} className="mb-4">Manual</Title>
                         WIP
                     </div>
-                        <Button
-                            size={Button.Sizes.FULL}
-                            isDisabled={isParseButtonDisabled}
-                            onClick={setNewExpenses}
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        onClick={setNewExpenses}
                         className={classNames("my-4 w-72 mx-auto text-center", {
-                                "animate-pulse duration-500": isStatusAnimated,
-                            })}>
-                            {isStatusAnimated ? message : "Parse expenses"}
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}>
+                        {isStatusAnimated ? message : "Parse expenses"}
                     </Button>
                 </div>
             </section>

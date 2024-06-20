@@ -1,6 +1,6 @@
-import {startOfWeek, getYear, subDays} from "date-fns";
+import {endOfWeek, endOfMonth, startOfMonth, getYear, startOfWeek, subDays} from "date-fns";
 import {useState} from "react";
-import {MonthNames, Timeframe} from "../constants";
+import {FilterName, MonthNames, Timeframe} from "../constants";
 import {Trans} from "@lingui/macro";
 import {Filters} from "./Filters";
 import {FilterGroup} from "./FilterGroup";
@@ -18,13 +18,22 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
             <Filters>
                 <FilterGroup>
                     <Filter
-                        id={3}
-                        isSelected={selectedLabel === "Last week"}
                         onClick={setSelectedLabel}
-                        label="Last week"
-                        startDate={startOfWeek(new Date(), {weekStartsOn: 1})}
-                        endDate={new Date()}
                         timeframe={Timeframe.WEEK}
+                        label={FilterName.THIS_WEEK}
+                        isSelected={selectedLabel === FilterName.THIS_WEEK}
+                        startDate={startOfWeek(new Date(), {weekStartsOn: 1})}
+                        endDate={endOfWeek(new Date(), {weekStartsOn: 1})}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        setTimeframeName={setTimeframeName}/>
+                    <Filter
+                        onClick={setSelectedLabel}
+                        timeframe={Timeframe.MONTH}
+                        label={FilterName.THIS_MONTH}
+                        isSelected={selectedLabel === FilterName.THIS_MONTH}
+                        startDate={startOfMonth(new Date())}
+                        endDate={endOfMonth(new Date())}
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
@@ -34,7 +43,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         return (
                             <Filter
                                 key={index}
-                                id={index}
                                 isSelected={selectedLabel === month}
                                 onClick={setSelectedLabel}
                                 label={month}
@@ -49,7 +57,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                 </FilterGroup>
                 <FilterGroup>
                     <Filter
-                        id={7}
                         isSelected={selectedLabel === "May 2024"}
                         onClick={setSelectedLabel}
                         label="May 2024"
@@ -60,7 +67,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
-                        id={8}
                         isSelected={selectedLabel === "April 2024"}
                         onClick={setSelectedLabel}
                         label="April 2024"
@@ -71,7 +77,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
-                        id={13}
                         isSelected={selectedLabel === "February 2024"}
                         onClick={setSelectedLabel}
                         label="February 2024"
@@ -82,7 +87,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
-                        id={9}
                         label="February 2023"
                         isSelected={selectedLabel === "February 2023"}
                         onClick={setSelectedLabel}
@@ -95,7 +99,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                 </FilterGroup>
                 <FilterGroup>
                     <Filter
-                        id={10}
                         isSelected={selectedLabel === "Last quarter"}
                         onClick={setSelectedLabel}
                         label="Last quarter"
@@ -106,7 +109,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
-                        id={11}
                         isSelected={selectedLabel === "2024"}
                         onClick={setSelectedLabel}
                         label="2024"
@@ -117,7 +119,6 @@ export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                     <Filter
-                        id={12}
                         label="2023"
                         isSelected={selectedLabel === "2023"}
                         onClick={setSelectedLabel}

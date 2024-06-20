@@ -6,11 +6,9 @@ export const Timeframe = {
 };
 export const INCOME_CATEGORY_ID = '8';
 
-const FilterName = {
-    LAST_WEEK: 3,
-    LAST_MONTH: 0,
-    LAST_QUARTER: 10,
-    CURRENT_YEAR: 11,
+export const FilterName = {
+    THIS_WEEK: "This week",
+    THIS_MONTH: "This month",
 }
 export const MonthNames = [
     "January", "February", "March", "April", "May", "June",

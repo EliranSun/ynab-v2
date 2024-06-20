@@ -25,8 +25,8 @@ const Amount = ({children, isDifference}) => {
     return (
         <h2 className={classNames({
             "text-7xl md:text-6xl font-mono": true,
-            "text-green-500": isDifference && value >= 0,
-            "text-red-500": isDifference && value < 0,
+            "text-green-500": isDifference && (value >= 0),
+            "text-red-500": isDifference && (value < 0),
         })}>
             {formatCurrency(value, false, false)}
         < /h2>

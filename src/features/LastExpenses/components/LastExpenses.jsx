@@ -10,7 +10,7 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 
 const Item = ({children}) => {
     return (
-        <div className="md:flex md:flex-col-reverse md:items-center">
+        <div className="flex flex-col-reverse md:items-center">
             {children}
         </div>
     );

@@ -7,7 +7,7 @@ import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
 import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
 import {ClipboardText} from "@phosphor-icons/react";
-import LastExpenses from "../../../features/LastExpenses/components/LastExpenses";
+import LastExpenses from "../../../features/LastExpenses/components/ExpensesSummary";
 
 const isMobile = window.innerWidth < 768;
 

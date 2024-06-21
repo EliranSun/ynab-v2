@@ -1,11 +1,11 @@
 import React from 'react';
-import {LastExpenses} from './LastExpenses';
+import {ExpensesSummary} from './ExpensesSummary';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {LocaleProvider} from "../../../context/LocaleContext";
 
 export default {
-    title: 'Organisms/LastExpenses',
-    component: LastExpenses,
+    title: 'Organisms/ExpensesSummary',
+    component: ExpensesSummary,
     decorators: [
         (Story) => (
             <Router>
@@ -18,7 +18,7 @@ export default {
 };
 
 const Template = (args) => (
-    <LastExpenses {...args}/>
+    <ExpensesSummary {...args}/>
 );
 
 export const Default = Template.bind({});

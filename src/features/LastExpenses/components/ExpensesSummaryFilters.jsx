@@ -6,7 +6,7 @@ import {Filters} from "./Filters";
 import {FilterGroup} from "./FilterGroup";
 import {Filter} from "./Filter";
 
-export const LastExpensesFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
+export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
     const [selectedLabel, setSelectedLabel] = useState("Last week");
     const currentYear = getYear(new Date());
     const currentMonth = getMonth(new Date());

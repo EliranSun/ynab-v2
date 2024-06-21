@@ -1,8 +1,8 @@
 import {useContext, useMemo, useState} from "react";
 import {differenceInDays, format, isAfter, isBefore, subDays, startOfMonth, endOfMonth} from "date-fns";
 import {formatCurrency} from "../../../utils";
-import LastExpensesChart from "./LastExpensesChart";
-import {LastExpensesFilters} from "./LastExpensesFilters";
+import ExpensesSummaryChart from "./ExpensesSummaryChart";
+import {ExpensesSummaryFilters} from "./ExpensesSummaryFilters";
 import classNames from "classnames";
 import {Trans} from "@lingui/macro";
 import {INCOME_CATEGORY_ID, Timeframe} from "../constants";
@@ -33,7 +33,7 @@ const Amount = ({children, isDifference}) => {
     );
 };
 
-export const LastExpenses = ({budget = {}, expensesArray = []}) => {
+export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
         const [startDate, setStartDate] = useState(subDays(new Date(), 7));
         const [endDate, setEndDate] = useState(new Date());
@@ -186,7 +186,7 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
                             </div>
                         </div>
                         <h3>{removedAmounts} filtered</h3>
-                        <LastExpensesChart
+                        <ExpensesSummaryChart
                             expenses={lastItems}
                             budget={budgetForTimeframe / 7}
                             income={incomeForTimeframe}
@@ -227,7 +227,7 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
                         })}
                     </div>
                 </div>
-                <LastExpensesFilters
+                <ExpensesSummaryFilters
                     setStartDate={setStartDate}
                     setEndDate={setEndDate}
                     setTimeframeName={setTimeframeName}/>
@@ -240,7 +240,7 @@ const ProvidedLastExpenses = () => {
     const {budget} = useContext(BudgetContext);
     const {expensesArray} = useContext(ExpensesContext);
 
-    return <LastExpenses budget={budget} expensesArray={expensesArray}/>
+    return <ExpensesSummary budget={budget} expensesArray={expensesArray}/>
 }
 
 export default ProvidedLastExpenses;

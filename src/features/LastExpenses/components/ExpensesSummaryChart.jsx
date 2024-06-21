@@ -4,12 +4,12 @@ import {Timeframe} from "../constants";
 import {formatChartDates} from "../utils";
 import {ChartType} from "../../../components/pages/BalanceView/useBasicChart";
 
-const LastExpensesChart = ({
-                               expenses = [],
-                               budget = 0,
-                               income = [],
-                               timeframeName = Timeframe.MONTH,
-                           }) => {
+const ExpensesSummaryChart = ({
+                                  expenses = [],
+                                  budget = 0,
+                                  income = [],
+                                  timeframeName = Timeframe.MONTH,
+                              }) => {
     const data = useMemo(() => {
         return formatChartDates({expenses, timeframeName});
     }, [expenses, timeframeName]);
@@ -38,4 +38,4 @@ const LastExpensesChart = ({
     );
 };
 
-export default LastExpensesChart;
+export default ExpensesSummaryChart;

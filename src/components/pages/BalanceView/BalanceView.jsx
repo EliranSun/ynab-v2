@@ -55,7 +55,8 @@ const BalanceView = () => {
                     </div>
                 </div>
                 <div className="w-full flex flex-col md:flex-row gap-4">
-                    <div className="flex flex-col md:flex-row md:w-2/3 gap-4 h-[1000px] overflow-auto thin-scrollbar">
+                    <div
+                        className="flex flex-col md:flex-row md:w-2/3 md:flex-wrap gap-4 h-[1000px] overflow-auto thin-scrollbar">
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance

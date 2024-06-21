@@ -96,7 +96,7 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="flex flex-col justify-center md:flex-row-reverse gap-2">
+        <div className="flex flex-col justify-center 2xl:flex-row-reverse gap-2">
             <LastExpenses/>
             <section className="p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">

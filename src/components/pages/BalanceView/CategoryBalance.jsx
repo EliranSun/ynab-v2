@@ -56,7 +56,7 @@ export const CategoryBalance = ({
                                     selectedId,
                                     setSelectedId
                                 }) => {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
     const {expensesArray} = useContext(ExpensesContext);
     const {budget} = useContext(BudgetContext);
     const budgetKey = getDateKey(currentTimestamp);

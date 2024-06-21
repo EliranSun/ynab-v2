@@ -2,10 +2,11 @@ import {useMemo} from 'react';
 import ExpensesChart from "../../../components/pages/BalanceView/ExpensesChart";
 import {Timeframe} from "../constants";
 import {formatChartDates} from "../utils";
+import {ChartType} from "../../../components/pages/BalanceView/useBasicChart";
 
 const LastExpensesChart = ({
                                expenses = [],
-                               budget = [],
+                               budget = 0,
                                income = [],
                                timeframeName = Timeframe.MONTH,
                            }) => {
@@ -14,13 +15,26 @@ const LastExpensesChart = ({
     }, [expenses, timeframeName]);
 
     // TODO:
-    // console.log({ income });
-    // const incomeData = useMemo(() => {
-    //     return formatChartDates({expenses: income, timeframeName});
-    // }, [income, timeframeName]);
+    const incomeData = useMemo(() => {
+        return formatChartDates({expenses: income, timeframeName});
+    }, [income, timeframeName]);
+
+    const budgetData = useMemo(() => {
+        const foo = new Array(data.length).fill(null).map((_, index) => ({
+            timestamp: expenses[index].timestamp,
+            amount: budget
+        }));
+
+        return formatChartDates({
+            timeframeName,
+            expenses: foo
+        });
+    }, [data, budget, timeframeName]);
+
+    console.log({budget, budgetData, incomeData, data});
 
     return (
-        <ExpensesChart data={data} />
+        <ExpensesChart data={data} type={ChartType.BAR} incomeData={incomeData} budgetData={budgetData}/>
     );
 };
 

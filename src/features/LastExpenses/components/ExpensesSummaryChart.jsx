@@ -14,24 +14,40 @@ const ExpensesSummaryChart = ({
         return formatChartDates({expenses, timeframeName});
     }, [expenses, timeframeName]);
 
-    // TODO:
     const incomeData = useMemo(() => {
-        return formatChartDates({expenses: income, timeframeName});
-    }, [income, timeframeName]);
+        let totalIncome = income.reduce((acc, item) => item.amount + acc, 0);
 
-    const budgetData = useMemo(() => {
-        const foo = new Array(data.length).fill(null).map((_, index) => ({
-            timestamp: expenses[index].timestamp,
-            amount: budget
+        switch (timeframeName) {
+            case Timeframe.WEEK:
+                totalIncome = totalIncome / 7;
+                break;
+            case Timeframe.MONTH:
+                totalIncome = totalIncome / 4;
+                break;
+            case Timeframe.YEAR:
+                totalIncome = totalIncome / 12;
+                break;
+            default:
+                break;
+        }
+
+        let incomeExpenses = new Array(data.length).fill(null).map((_, index) => ({
+            x: data[index].x,
+            y: totalIncome
         }));
 
-        return formatChartDates({
-            timeframeName,
-            expenses: foo
-        });
-    }, [data, budget, timeframeName]);
+        console.log({incomeExpenses})
 
-    console.log({budget, budgetData, incomeData, data});
+        // return formatChartDates({expenses: incomeExpenses, timeframeName});
+        return incomeExpenses;
+    }, [data, income, timeframeName]);
+
+    const budgetData = useMemo(() => {
+        return new Array(data.length).fill(null).map((_, index) => ({
+            x: data[index].x,
+            y: budget
+        }));
+    }, [data, budget, timeframeName]);
 
     return (
         <ExpensesChart data={data} type={ChartType.BAR} incomeData={incomeData} budgetData={budgetData}/>

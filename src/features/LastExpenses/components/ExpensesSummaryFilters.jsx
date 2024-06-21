@@ -1,4 +1,4 @@
-import {endOfWeek, endOfMonth, startOfMonth, getYear, startOfWeek, subDays, getMonth} from "date-fns";
+import {endOfWeek, getYear, startOfWeek, subDays, getMonth} from "date-fns";
 import {useState} from "react";
 import {FilterName, MonthNames, Timeframe} from "../constants";
 import {Trans} from "@lingui/macro";
@@ -7,7 +7,7 @@ import {FilterGroup} from "./FilterGroup";
 import {Filter} from "./Filter";
 
 export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeName}) => {
-    const [selectedLabel, setSelectedLabel] = useState("Last week");
+    const [selectedLabel, setSelectedLabel] = useState(MonthNames[getMonth(new Date())]);
     const currentYear = getYear(new Date());
     const currentMonth = getMonth(new Date());
 

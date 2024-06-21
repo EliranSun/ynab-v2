@@ -30,7 +30,7 @@ const useBasicChart = ({data = [], incomeData = [], budgetData = [], type = Char
                 datasets: [
                     {
                         label: "Expenses",
-                        data: data.map(item => item.y),
+                        data: data,
                         backgroundColor: ["rgba(235,54,54,0.2)",],
                         borderColor: ["rgb(235,54,54)",],
                         spanGaps: true,

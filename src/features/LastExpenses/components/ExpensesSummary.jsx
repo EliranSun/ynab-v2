@@ -1,5 +1,15 @@
 import {useContext, useMemo, useState} from "react";
-import {differenceInDays, format, isAfter, isBefore, subDays, startOfMonth, endOfMonth} from "date-fns";
+import {
+    differenceInDays,
+    format,
+    isAfter,
+    isBefore,
+    subDays,
+    startOfMonth,
+    endOfMonth,
+    getYear,
+    getMonth
+} from "date-fns";
 import {formatCurrency} from "../../../utils";
 import ExpensesSummaryChart from "./ExpensesSummaryChart";
 import {ExpensesSummaryFilters} from "./ExpensesSummaryFilters";
@@ -34,9 +44,11 @@ const Amount = ({children, isDifference}) => {
 };
 
 export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
-        const [timeframeName, setTimeframeName] = useState(Timeframe.WEEK);
-        const [startDate, setStartDate] = useState(subDays(new Date(), 7));
-        const [endDate, setEndDate] = useState(new Date());
+        const currentYear = getYear(new Date());
+        const currentMonth = getMonth(new Date());
+        const [startDate, setStartDate] = useState(new Date(currentYear, currentMonth, 1));
+        const [endDate, setEndDate] = useState(new Date(currentYear, currentMonth + 1, 0));
+        const [timeframeName, setTimeframeName] = useState(Timeframe.MONTH);
         const [sortBy, setSortBy] = useState("timestamp");
         const [filteredItems, setFilteredItems] = useState([]);
         const budgetForTimeframe = useMemo(() => {
@@ -132,11 +144,6 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const differenceBudgetAmount = budgetForTimeframe - totalSpent;
         const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
-        console.log({
-
-            incomes: incomeForTimeframe.reduce((acc, item) => acc + item.amount, 0)
-        });
-
         return (
             <section
                 className={classNames({
@@ -188,7 +195,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                         <h3>{removedAmounts} filtered</h3>
                         <ExpensesSummaryChart
                             expenses={lastItems}
-                            budget={budgetForTimeframe / 7}
+                            budget={budgetForTimeframe}
                             income={incomeForTimeframe}
                             timeframeName={timeframeName}/>
                     </div>

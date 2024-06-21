@@ -140,13 +140,13 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
         return (
             <section
                 className={classNames({
-                    "bg-neutral-50 m-4 md:p-4": true,
+                    "bg-neutral-50 p-2 md:m-4 md:p-4": true,
                     "h-full overflow-y-auto": true,
                     "shadow-lg border-2 border-dashed rounded-lg": true,
                     "w-full 2xl:w-1/2": true,
                 })}>
-                <div className="flex overflow-hidden">
-                    <div className="w-1/2 h-fit">
+                <div className="flex flex-col md:flex-row overflow-hidden">
+                    <div className="md:w-1/2 h-fit">
                         <div className="flex flex-col justify-evenly gap-2 my-4">
                             <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
                                 <Item>
@@ -192,7 +192,7 @@ export const LastExpenses = ({budget = {}, expensesArray = []}) => {
                             income={incomeForTimeframe}
                             timeframeName={timeframeName}/>
                     </div>
-                    <div className="w-1/2 h-[500px] overflow-y-auto overflow-x-hidden">
+                    <div className="md:w-1/2 h-[500px] overflow-y-auto overflow-x-hidden">
                         <button
                             className="border rounded p-2 shadow-md sticky top-0 bg-white"
                             onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>

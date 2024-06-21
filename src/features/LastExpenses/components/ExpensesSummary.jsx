@@ -83,7 +83,8 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         }, [timeframeName, budget]);
 
         const lastItems = useMemo(() => {
-            const aggregatedByNameExpenses = {};
+            // const aggregatedByNameExpenses = {};
+            const expensesFoo = {};
             for (const item of expensesArray) {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
                 const itemIsFiltered = filteredItems.some(filteredItem => filteredItem.id === item.id);
@@ -91,21 +92,23 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                     continue;
                 }
 
-                if (!aggregatedByNameExpenses[item.name]) {
-                    aggregatedByNameExpenses[item.name] = {
-                        ...item,
-                        amount: item.amount,
-                    };
-                } else {
-                    aggregatedByNameExpenses[item.name].amount += item.amount;
-                }
+                // if (!aggregatedByNameExpenses[item.name]) {
+                //     aggregatedByNameExpenses[item.name] = {
+                //         ...item,
+                //         amount: item.amount,
+                //     };
+                // } else {
+                //     aggregatedByNameExpenses[item.name].amount += item.amount;
+                // }
+
+                expensesFoo[item.id] = item;
             }
 
             if (sortBy === "timestamp") {
-                return Object.values(aggregatedByNameExpenses).sort((a, b) => b.timestamp - a.timestamp);
+                return Object.values(expensesFoo).sort((a, b) => b.timestamp - a.timestamp);
             }
 
-            return Object.values(aggregatedByNameExpenses).sort((a, b) => b.amount - a.amount);
+            return Object.values(expensesFoo).sort((a, b) => b.amount - a.amount);
         }, [expensesArray, startDate, endDate, sortBy, filteredItems]);
 
         const incomeForTimeframe = useMemo(() => {
@@ -144,6 +147,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const differenceBudgetAmount = budgetForTimeframe - totalSpent;
         const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
+        console.log({lastItems});
         return (
             <section
                 className={classNames({

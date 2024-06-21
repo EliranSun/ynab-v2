@@ -3,6 +3,7 @@ import ExpensesChart from "../../../components/pages/BalanceView/ExpensesChart";
 import {Timeframe} from "../constants";
 import {formatChartDates} from "../utils";
 import {ChartType} from "../../../components/pages/BalanceView/useBasicChart";
+import {getDaysInMonth, getWeeksInMonth} from "date-fns";
 
 const ExpensesSummaryChart = ({
                                   expenses = [],
@@ -16,38 +17,52 @@ const ExpensesSummaryChart = ({
 
     const incomeData = useMemo(() => {
         let totalIncome = income.reduce((acc, item) => item.amount + acc, 0);
+        const date = expenses[0]?.timestamp;
+        console.log({totalIncome});
 
         switch (timeframeName) {
             case Timeframe.WEEK:
-                totalIncome = totalIncome / 7;
+                totalIncome = totalIncome / getDaysInMonth(date);
                 break;
             case Timeframe.MONTH:
-                totalIncome = totalIncome / 4;
+                totalIncome = totalIncome / data.length;
                 break;
             case Timeframe.YEAR:
-                totalIncome = totalIncome / 12;
+                totalIncome = totalIncome / data.length;
                 break;
+
             default:
                 break;
         }
 
-        let incomeExpenses = new Array(data.length).fill(null).map((_, index) => ({
+        return new Array(data.length).fill(null).map((_, index) => ({
             x: data[index].x,
             y: totalIncome
         }));
-
-        console.log({incomeExpenses})
-
-        // return formatChartDates({expenses: incomeExpenses, timeframeName});
-        return incomeExpenses;
     }, [data, income, timeframeName]);
 
     const budgetData = useMemo(() => {
+        let budgetForTimeframe = budget;
+        switch (timeframeName) {
+            case Timeframe.WEEK:
+                budgetForTimeframe = budget / 7;
+                break;
+            case Timeframe.MONTH:
+                budgetForTimeframe = budget / 4;
+                break;
+            case Timeframe.YEAR:
+                budgetForTimeframe = budget / 12;
+                break;
+
+            default:
+                break;
+        }
+
         return new Array(data.length).fill(null).map((_, index) => ({
             x: data[index].x,
-            y: budget
+            y: budgetForTimeframe
         }));
-    }, [data, budget, timeframeName]);
+    }, [data, timeframeName, budget]);
 
     return (
         <ExpensesChart data={data} type={ChartType.BAR} incomeData={incomeData} budgetData={budgetData}/>

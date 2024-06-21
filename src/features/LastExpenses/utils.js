@@ -34,9 +34,9 @@ export const formatChartDates = ({expenses, timeframeName, sort = 'asc'}) => {
     for (const expense of expenses) {
         const timeframe =
             timeframeName === Timeframe.MONTH
-                ? `${weekOfYearFormat(expense.timestamp)} week, ${format(expense.timestamp, 'yyyy')}`
+                ? `${weekOfYearFormat(expense.timestamp)} week, ${format(expense.timestamp, 'LLL yyyy')}`
                 : format(expense.timestamp, timeframeFormat);
-        
+
         if (!aggregatedBy[timeframe]) {
             aggregatedBy[timeframe] = {
                 y: expense.amount,

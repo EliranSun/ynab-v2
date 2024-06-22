@@ -169,13 +169,13 @@ export const Categories = [
                 icon: "📞",
             },
             {
-                id: CategoriesIds.,Decor,
+                id: CategoriesIds.Decor,
                 name: "Decor",
                 label: <Trans>Decor</Trans>,
                 icon: "🖼️"
             },
             {
-                id: 313,
+                id: CategoriesIds.Maintenance,
                 name: "Maintenance",
                 label: <Trans>Maintenance</Trans>,
                 icon: "🔧",

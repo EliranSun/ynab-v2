@@ -156,6 +156,10 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                     "shadow-lg border-2 border-dashed rounded-lg": true,
                     "w-full 2xl:w-1/2": true,
                 })}>
+                <ExpensesSummaryFilters
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                    setTimeframeName={setTimeframeName}/>
                 <div className="flex flex-col md:flex-row overflow-hidden">
                     <div className="md:w-1/2 h-fit">
                         <div className="flex flex-col justify-evenly gap-2 my-4">
@@ -238,10 +242,6 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                         })}
                     </div>
                 </div>
-                <ExpensesSummaryFilters
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    setTimeframeName={setTimeframeName}/>
             </section>
         )
     }

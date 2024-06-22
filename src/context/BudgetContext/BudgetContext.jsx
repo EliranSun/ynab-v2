@@ -1,5 +1,6 @@
 import {createContext, useEffect, useMemo, useState} from "react";
 import {addBudget, getBudget} from "../../utils";
+import {InitBudget} from "../../constants/init-budget";
 
 export const BudgetContext = createContext({
     budget: {},
@@ -14,7 +15,7 @@ export const getDateKey = (timestamp) => {
 };
 
 export const BudgetContextProvider = ({children}) => {
-    const [budget, setBudget] = useState({});
+    const [budget, setBudget] = useState({'8.2023': InitBudget});
 
     useEffect(() => {
         (async () => {

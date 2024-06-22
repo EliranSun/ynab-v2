@@ -94,7 +94,6 @@ export const CategoryBalance = ({
             };
         })
         // .filter((subcategory) => {
-        //     // console.log({subcategory});
         //     return (subcategory.budget - subcategory.amount) < 0;
         // });
 

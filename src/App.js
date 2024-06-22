@@ -9,7 +9,6 @@ import {messages as heMessages} from "./locales/he/messages";
 import {Root} from "./components/templates/Root";
 import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
-import {createExpensesByDateCollection} from "./utils";
 
 i18n.load({
     en: enMessages,
@@ -17,53 +16,38 @@ i18n.load({
 });
 i18n.activate("en");
 
+
+function App() {
+    return (
+        <I18nProvider i18n={i18n}>
+            <BudgetContextProvider>
+                <ExpensesContextProvider>
+                    <RouterProvider router={router}/>
+                </ExpensesContextProvider>
+            </BudgetContextProvider>
+        </I18nProvider>
+    );
+}
+
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <>
+
+            <UserProvider>
                 <Header/>
                 <Login>
                     <Root/>
                 </Login>
-            </>
+            </UserProvider>
         ),
         children: [
             {
                 path: ":page",
                 element: <PageRouter/>,
-            },
-            {
-                path: "*",
-                element: <Navigate to="/parse" replace/>,
             }
         ]
     },
 ]);
-
-function App() {
-    return (
-        <I18nProvider i18n={i18n}>
-            <UserProvider>
-                <BudgetContextProvider>
-                    <ExpensesContextProvider>
-                        <RouterProvider router={router}/>
-                        {/*<button onClick={async () => {*/}
-                        {/*    try {*/}
-                        {/*        await createExpensesByDateCollection();*/}
-                        {/*        alert("Success");*/}
-                        {/*    } catch (e) {*/}
-                        {/*        console.error(e);*/}
-                        {/*        alert("Error");*/}
-                        {/*    }*/}
-                        {/*}}>*/}
-                        {/*    TEST*/}
-                        {/*</button>*/}
-                    </ExpensesContextProvider>
-                </BudgetContextProvider>
-            </UserProvider>
-        </I18nProvider>
-    );
-}
 
 export default App;

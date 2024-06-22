@@ -147,102 +147,107 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const differenceBudgetAmount = budgetForTimeframe - totalSpent;
         const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
-        console.log({lastItems});
         return (
-            <section
-                className={classNames({
-                    "bg-neutral-50 p-2 md:m-4 md:p-4": true,
-                    "h-full overflow-y-auto": true,
-                    "shadow-lg border-2 border-dashed rounded-lg": true,
-                    "w-full 2xl:w-1/2": true,
-                })}>
-                <ExpensesSummaryFilters
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    setTimeframeName={setTimeframeName}/>
-                <div className="flex flex-col md:flex-row overflow-hidden">
-                    <div className="md:w-1/2 h-fit">
-                        <div className="flex flex-col justify-evenly gap-2 my-4">
-                            <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
-                                <Item>
-                                    <h1 className="font-mono"><Trans>Spent</Trans></h1>
-                                    <Amount>{totalSpent}</Amount>
-                                </Item>
-                                <Item>
-                                    <h1 className="font-mono">
-                                        <Trans>Budget</Trans>
-                                    </h1>
-                                    <Amount>{budgetForTimeframe}</Amount>
-                                </Item>
-                                <Item>
-                                    <h1 className="font-mono">
-                                        {differenceBudgetAmount > 0 ?
-                                            <Trans>Left 😄</Trans> :
-                                            <Trans>Over 😢</Trans>}
-                                    </h1>
-                                    <Amount isDifference>{differenceBudgetAmount}</Amount>
-                                </Item>
-                            </div>
-                            <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
-                                <Item>
-                                    <h1 className="font-mono"><Trans>Spent</Trans></h1>
-                                    <Amount>{totalSpent}</Amount>
-                                </Item>
-                                <Item>
-                                    <h1 className="font-mono"><Trans>Income</Trans></h1>
-                                    <Amount>{incomeAmountForTimeframe}</Amount>
-                                </Item>
-                                <Item>
-                                    <h1 className="font-mono">
-                                        <Trans>diff</Trans>
-                                    </h1>
-                                    <Amount isDifference>{differenceAmount}</Amount>
-                                </Item>
-                            </div>
-                        </div>
-                        <h3>{removedAmounts} filtered</h3>
-                        <ExpensesSummaryChart
-                            expenses={lastItems}
-                            budget={budgetForTimeframe}
-                            income={incomeForTimeframe}
-                            timeframeName={timeframeName}/>
-                    </div>
-                    <div className="md:w-1/2 h-[500px] overflow-y-auto overflow-x-hidden">
-                        <button
-                            className="border rounded p-2 shadow-md sticky top-0 bg-white"
-                            onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
-                            Sorting by {sortBy}
-                        </button>
-                        {lastItems.map(item => {
-                            return (
-                                <div
-                                    key={item.id}
-                                    className={classNames({
-                                        "p-2 border-b border-gray-500": true,
-                                        "flex flex-col md:flex-row justify-between md:items-center": true,
-                                    })}
-                                    onClick={() => {
-                                        setFilteredItems([item, ...filteredItems]);
-                                    }}>
-                                    <div>
-                                        <h2 className="text-2xl font-mono">{item.name}</h2>
-                                        <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
-                                            {item.note}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
-                                        <p className="md:text-lg font-mono">
-                                            {differenceInDays(new Date(), item.timestamp)} days ago<br/>
-                                            {format(item.timestamp, "d.LL.yy, EEE")}
-                                        </p>
-                                    </div>
+            <div className="p-2 md:p-4 w-full max-w-screen-2xl m-auto">
+                <h1 className="w-full m-auto text-8xl font-mono">
+                    <Trans>
+                        Summary
+                    </Trans>
+                </h1>
+                <section
+                    className={classNames({
+                        "bg-neutral-50 p-2": true,
+                        "h-full overflow-y-auto": true,
+                        "shadow-lg border-2 border-dashed rounded-lg": true,
+                    })}>
+                    <ExpensesSummaryFilters
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        setTimeframeName={setTimeframeName}/>
+                    <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
+                        <div className="md:w-1/2 h-fit">
+                            <div className="flex flex-col justify-evenly gap-2 my-4">
+                                <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
+                                    <Item>
+                                        <h1 className="font-mono"><Trans>Spent</Trans></h1>
+                                        <Amount>{totalSpent}</Amount>
+                                    </Item>
+                                    <Item>
+                                        <h1 className="font-mono">
+                                            <Trans>Budget</Trans>
+                                        </h1>
+                                        <Amount>{budgetForTimeframe}</Amount>
+                                    </Item>
+                                    <Item>
+                                        <h1 className="font-mono">
+                                            {differenceBudgetAmount > 0 ?
+                                                <Trans>Left 😄</Trans> :
+                                                <Trans>Over 😢</Trans>}
+                                        </h1>
+                                        <Amount isDifference>{differenceBudgetAmount}</Amount>
+                                    </Item>
                                 </div>
-                            )
-                        })}
+                                <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
+                                    <Item>
+                                        <h1 className="font-mono"><Trans>Spent</Trans></h1>
+                                        <Amount>{totalSpent}</Amount>
+                                    </Item>
+                                    <Item>
+                                        <h1 className="font-mono"><Trans>Income</Trans></h1>
+                                        <Amount>{incomeAmountForTimeframe}</Amount>
+                                    </Item>
+                                    <Item>
+                                        <h1 className="font-mono">
+                                            <Trans>diff</Trans>
+                                        </h1>
+                                        <Amount isDifference>{differenceAmount}</Amount>
+                                    </Item>
+                                </div>
+                            </div>
+                            <h3>{removedAmounts} filtered</h3>
+                            <ExpensesSummaryChart
+                                expenses={lastItems}
+                                budget={budgetForTimeframe}
+                                income={incomeForTimeframe}
+                                timeframeName={timeframeName}/>
+                        </div>
+                        <div className="md:w-1/2 h-[500px] md:h-[66vh] overflow-y-auto overflow-x-hidden">
+                            <button
+                                className="border rounded p-2 shadow-md sticky top-0 bg-white"
+                                onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
+                                Sorting by {sortBy}
+                            </button>
+                            {lastItems.map(item => {
+                                return (
+                                    <div
+                                        key={item.id}
+                                        className={classNames({
+                                            "p-2 border-b border-gray-500": true,
+                                            "flex flex-col md:flex-row justify-between md:items-center": true,
+                                        })}
+                                        onClick={() => {
+                                            setFilteredItems([item, ...filteredItems]);
+                                        }}>
+                                        <div>
+                                            <h2 className="text-2xl font-mono">{item.name}</h2>
+                                            <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
+                                                {item.note}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
+                                            <p className="md:text-lg font-mono">
+                                                {differenceInDays(new Date(), item.timestamp)} days ago<br/>
+                                                {format(item.timestamp, "d.LL.yy, EEE")}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         )
     }
 ;

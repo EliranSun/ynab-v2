@@ -23,7 +23,7 @@ export const LocaleProvider = ({children}) => {
     const [locale, setLocale] = useState('');
 
     const changeLocale = useCallback((locale) => {
-        console.log('changing locale to', locale);
+        console.info('changing locale to', locale);
         dynamicActivate(locale)
             .then(() => {
                 setLocale(locale);
@@ -38,7 +38,7 @@ export const LocaleProvider = ({children}) => {
     }, []);
 
     if (!locale) {
-        console.log("locale not set");
+        console.info("locale not set");
         return null;
     }
 

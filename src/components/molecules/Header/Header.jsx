@@ -6,6 +6,7 @@ import {UserContext} from "../../../context";
 import {BUTTON_SIZE} from "../../../constants";
 import {ButtonLink, isDesktop} from "../../atoms/ButtonLink";
 import {useParams} from "react-router-dom";
+import classNames from "classnames";
 
 const isMobile = window.innerWidth < 768;
 
@@ -65,10 +66,15 @@ export const Header = () => {
                             <div className="text-lg">{PageTitle[page]}</div>
                         </div>
                     </div>}
-                <LoginButton/>
                 {(isDesktop || isMenuOpen) &&
-                    <ul className="absolute md:sticky bg-white left-0 top-12 z-10 flex flex-col md:flex-row h-screen md:h-fit p-4 border-r w-2/3 md:border-none md:text-sm md:top-0 md:gap-4 md:justify-end">
-                        <ButtonLink onClick={closeMenu} name="parse"/>
+                    <ul className={classNames({
+                        "p-4": true,
+                        "border-r md:border-none": true,
+                        "h-screen flex flex-col md:flex-row md:justify-end md:gap-4": true,
+                        "md:h-fit": true,
+                    })}>
+                        <ButtonLink onClick={closeMenu} name="home"/>
+                        <ButtonLink onClick={closeMenu} name="import"/>
                         <ButtonLink onClick={closeMenu} name="balance"/>
                         <ButtonLink onClick={closeMenu} name="expenses"/>
                         <ButtonLink onClick={closeMenu} name="categories"/>
@@ -78,6 +84,7 @@ export const Header = () => {
                         <ButtonLink onClick={closeMenu} name="coffee"/>
                         <ButtonLink onClick={closeMenu} name="patreon"/>
                     </ul>}
+                <LoginButton/>
             </div>
             {isMenuOpen && isMobile && <div className="backdrop-brightness-50 fixed w-screen h-screen"/>}
         </>

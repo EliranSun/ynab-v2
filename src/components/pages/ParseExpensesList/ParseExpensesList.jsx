@@ -6,8 +6,10 @@ import {withExpensesContext} from "../../../HOC/withExpensesContext";
 import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
 import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
-import {ClipboardText} from "@phosphor-icons/react";
-import LastExpenses from "../../../features/LastExpenses/components/ExpensesSummary";
+import {ArrowSquareIn} from "@phosphor-icons/react";
+import {Trans} from "@lingui/macro";
+import {ExportData} from "./ExportData";
+import {addExpensesToUser} from "../../../utils";
 
 const isMobile = window.innerWidth < 768;
 
@@ -96,13 +98,12 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="flex flex-col justify-center 2xl:flex-row-reverse gap-2">
-            <LastExpenses/>
+        <div className="flex flex-col justify-center md:flex-row gap-2 items-start">
             <section className="p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
-                    <ClipboardText size={50}/> Parse
+                    <ArrowSquareIn size={50}/>
+                    <Trans>Import</Trans>
                 </Title>
-
                 <div className="max-w-6xl m-auto">
                     {parsedExpenses.length > 0 &&
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
@@ -120,8 +121,10 @@ export const ParseExpensesList = ({
                         }}/>
                 </div>
                 <div className="flex items-start gap-4 max-w-7xl flex-col">
-                    <div className="flex flex-col md:w-1/3 h-full">
-                        <Title type={Title.Types.H2} className="mb-4">Paste</Title>
+                    <div className="flex flex-col h-full">
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>From Text</Trans>
+                        </Title>
                         <textarea
                             className="border border-dashed border-black p-4 outline-none w-96 h-full"
                             placeholder="Paste expenses here"
@@ -134,12 +137,43 @@ export const ParseExpensesList = ({
                             }}/>
                     </div>
                     <div className="mb-4">
-                        <Title type={Title.Types.H2} className="mb-4">Upload</Title>
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>From Sheet/XLS</Trans>
+                        </Title>
                         <SheetUpload onSheetParse={data => console.log(data)}/>
                     </div>
+                    <div className="mb-4">
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>From JSON (use export ↗)</Trans>
+                        </Title>
+                        <input
+                            type="file"
+                            name="upload-json"
+                            id="upload-json"
+                            onChange={(event) => {
+                                event.preventDefault();
+                                if (event.target.files) {
+                                    const reader = new FileReader();
+                                    reader.onload = async (e) => {
+                                        const data = e.target.result;
+                                        const expenses = JSON.parse(data);
+                                        console.log(expenses);
+
+                                        try {
+                                            await addExpensesToUser(expenses);
+                                            alert("Expenses added to user!");
+                                        } catch (error) {
+                                            console.error(error);
+                                        }
+                                    };
+                                    reader.readAsText(event.target.files[0]);
+                                }
+                            }}/>
+                    </div>
                     <div className="">
-                        <Title type={Title.Types.H2} className="mb-4">Manual</Title>
-                        WIP
+                        <Title type={Title.Types.H2} className="mb-4">
+                            Manually - TBD
+                        </Title>
                     </div>
                     <Button
                         size={Button.Sizes.FULL}
@@ -152,6 +186,7 @@ export const ParseExpensesList = ({
                     </Button>
                 </div>
             </section>
+            <ExportData/>
         </div>
     );
 };

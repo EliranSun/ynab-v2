@@ -18,7 +18,6 @@ const ExpensesSummaryChart = ({
     const incomeData = useMemo(() => {
         let totalIncome = income.reduce((acc, item) => item.amount + acc, 0);
         const date = expenses[0]?.timestamp;
-        console.log({totalIncome});
 
         switch (timeframeName) {
             case Timeframe.WEEK:

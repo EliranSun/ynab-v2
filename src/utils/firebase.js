@@ -2,17 +2,17 @@ import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {
     collection,
+    connectFirestoreEmulator,
     deleteDoc,
     doc,
     getDocs,
     getFirestore,
     setDoc,
     updateDoc,
-    writeBatch,
-    connectFirestoreEmulator
+    writeBatch
 } from "firebase/firestore";
 import {Expense} from "../models";
-import expensesMock from "../mocks/expenses.json";
+import {getAuth} from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -39,7 +39,11 @@ export const emulateDB = () =>
 
 const EXPENSES_COLLECTION = "expenses";
 const BUDGET_COLLECTION = "budget";
-const EXPENSES_BY_DATE_COLLECTION = "expensesByDate";
+
+export const auth = getAuth();
+const userBudgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
+const userExpensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
+
 
 export const getExpenses = async () => {
     try {
@@ -100,8 +104,6 @@ export const createExpensesByDateCollection = async () => {
         };
     });
 
-    console.log({expensesByDateAndCategory});
-
     for (const [yearMonth, categories] of Object.entries(expensesByDateAndCategory)) {
         // Create or update a document for each yearMonth
         const yearMonthDocRef = doc(db, 'expensesByDateAndCategory', yearMonth);
@@ -111,7 +113,7 @@ export const createExpensesByDateCollection = async () => {
         // use setDoc with { merge: true } option.
         await setDoc(yearMonthDocRef, categories, {merge: true})
             .then(() => {
-                console.log(`Successfully stored expenses for ${yearMonth}`);
+                console.info(`Successfully stored expenses for ${yearMonth}`);
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
@@ -139,7 +141,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
             batch.update(expenseRef, {isOriginal: true});
         });
 
-        console.log("Marking expenses as original success", duplicateIds);
+        console.info("Marking expenses as original success", duplicateIds);
         return batch.commit();
     } catch (error) {
         console.error("Error marking expenses as original:", error);
@@ -232,3 +234,35 @@ export const updateCategory = async (expenseId, categoryId) => {
         return {};
     }
 }
+
+export const addExpensesToUser = async (expenses = []) => {
+    try {
+        const batch = writeBatch(db);
+        console.info("Adding expenses to user", expenses);
+        expenses.forEach((expense) => {
+            const expenseRef = doc(db, userExpensesPath(), expense.id);
+            // must be a plain object
+            batch.set(expenseRef, {
+                amount: Number(expense.amount),
+                amountCurrency: expense.amountCurrency,
+                categoryId: Number(expense.categoryId),
+                date: expense.date,
+                id: expense.id,
+                isIncome: expense.isIncome,
+                isOriginal: expense.isOriginal,
+                isThirdParty: expense.isThirdParty,
+                mainCategoryId: Number(expense.mainCategoryId),
+                name: expense.name,
+                note: expense.note,
+                subcategoryId: Number(expense.subcategoryId),
+                subcategoryLabel: expense.subcategoryLabel,
+                timestamp: expense.timestamp,
+            });
+        });
+
+        await batch.commit();
+    } catch (error) {
+        console.error("Error adding expenses to user:", error);
+        throw new Error(error);
+    }
+};

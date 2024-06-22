@@ -375,7 +375,7 @@ export const Categories = [
                 isIncome: true,
             },
             {
-                // TODO: elliminate these categories. they hide a lot of things and
+                // TODO: eliminate these categories. they hide a lot of things and
                 // is a recipe for leaks/untracked expenses
                 id: CategoriesIds.Other,
                 name: "Other",

@@ -1,15 +1,7 @@
-import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    connectAuthEmulator,
-    signInWithRedirect
-} from "firebase/auth";
+import {connectAuthEmulator, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
+import {auth} from "./firebase";
 
 const provider = new GoogleAuthProvider();
-
-export const auth = getAuth();
 
 export const emulateAuth = () =>
     connectAuthEmulator(auth, "http://127.0.0.1:9099");

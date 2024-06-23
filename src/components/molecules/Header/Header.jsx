@@ -17,8 +17,12 @@ const Messages = [
 ];
 
 const Pages = {
-    parse: {
-        name: 'parse',
+    home: {
+        name: 'home',
+        label: msg`Home`,
+    },
+    import: {
+        name: 'import',
         label: msg`Parse`,
     },
     balance: {

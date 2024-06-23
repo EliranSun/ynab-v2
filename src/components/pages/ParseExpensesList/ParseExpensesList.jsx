@@ -239,7 +239,7 @@ export const ParseExpensesList = ({
                                 .filter(item => !isExistingExpense(item, expenses))
                                 .map(item => new Expense(item)));
                         }}>
-                        {isStatusAnimated ? message : _(msg`Parse File`)}
+                        {isStatusAnimated ? message : <Trans>Parse File</Trans>}
                     </Button>
                 </div>
             </section>

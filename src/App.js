@@ -12,23 +12,21 @@ import Picture from "./assets/picture.png";
 function App() {
     return (
         <LocaleProvider>
-            <UserProvider>
-                <BudgetContextProvider>
-                    <ExpensesContextProvider>
-                        <RouterProvider router={router}/>
-                        <div className="opacity-50">
-                            <img
-                                src={Picture}
-                                className="fixed bottom-[50vh] left-32 w-3/12 h-auto z-0"
-                                alt="bg-frame"/>
-                            <img
-                                src={Couch}
-                                className="fixed bottom-20 left-20 w-2/3 h-auto z-0"
-                                alt="bg-couch"/>
-                        </div>
-                    </ExpensesContextProvider>
-                </BudgetContextProvider>
-            </UserProvider>
+            <BudgetContextProvider>
+                <ExpensesContextProvider>
+                    <RouterProvider router={router}/>
+                    <div className="fixed opacity-10">
+                        <img
+                            src={Picture}
+                            className="fixed -z-10 bottom-[50vh] left-32 w-3/12 md:w-1/12 h-auto"
+                            alt="bg-frame"/>
+                        <img
+                            src={Couch}
+                            className="fixed  z-0 bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
+                            alt="bg-couch"/>
+                    </div>
+                </ExpensesContextProvider>
+            </BudgetContextProvider>
         </LocaleProvider>
     );
 }
@@ -37,7 +35,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-
             <UserProvider>
                 <Header/>
                 <Login>

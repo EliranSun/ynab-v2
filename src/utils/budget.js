@@ -3,17 +3,19 @@ import {Categories} from "../constants";
 const BALANCE_CATEGORY_ID = 8;
 
 export const getLastBudgetByCategory = (budget, categoryId) => {
-    if (!budget)
+    if (!budget || !budget[categoryId]) {
         return 0;
+    }
 
     return Object.values(budget[categoryId]).reduce((acc, curr) => acc + curr, 0);
 };
 
 export const getBudgetSummary = budget => {
-    if (!budget) {
+    if (!budget || !budget[BALANCE_CATEGORY_ID]) {
         return {totalExpenses: 0, totalIncome: 0};
     }
 
+    console.log({budget});
     const budgetIncome = Object.values(budget[BALANCE_CATEGORY_ID]);
     const budgetExpenses = Object.entries(budget).filter(([categoryId]) => String(categoryId) !== String(BALANCE_CATEGORY_ID));
     const categoricalExpenses = budgetExpenses.map(([categoryId, amounts]) => {

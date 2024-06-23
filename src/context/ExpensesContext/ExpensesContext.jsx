@@ -210,6 +210,7 @@ export const ExpensesContextProvider = ({children}) => {
         <ExpensesContext.Provider
             value={{
                 expenses,
+                expensesArray,
                 expensesPerMonthPerCategory,
                 categories,
                 categoriesByAmount,
@@ -218,7 +219,6 @@ export const ExpensesContextProvider = ({children}) => {
                 changeExpenseCategory,
                 deleteExpense,
                 setExpenseNote,
-                expensesArray,
                 markExpensesAsOriginal,
                 setExpenses: async (newExpenses = []) => {
                     const expensesObject = {};

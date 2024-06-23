@@ -9,7 +9,6 @@ import {BudgetContext} from "../../../context";
 import {RealityVsExpectation} from "../../molecules/RealityVsExpectation";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import {LocaleContext} from "../../../context/LocaleContext";
-import {Trans} from "@lingui/macro";
 
 const BalanceView = () => {
         const {budget} = useContext(BudgetContext);
@@ -53,6 +52,10 @@ const BalanceView = () => {
                         <NextButton/>
                     </div>
                 </div>
+                <div className="overflow-hidden w-full">
+                    <BalanceSummary timestamp={currentTimestamp}/>
+                    <RealityVsExpectation categories={categories} budgetSummary={budgetSummary}/>
+                </div>
                 <div className="w-full flex flex-col md:flex-row gap-4">
                     <div
                         className="flex flex-col md:flex-row w-full md:w-2/3 md:flex-wrap gap-4 md:h-[1000px] overflow-auto md:thin-scrollbar">
@@ -78,10 +81,7 @@ const BalanceView = () => {
                             subcategory={selectedSubcategory}/>
                     </div>
                 </div>
-                <div className="overflow-hidden w-full">
-                    <BalanceSummary timestamp={currentTimestamp}/>
-                    <RealityVsExpectation categories={categories} budgetSummary={budgetSummary}/>
-                </div>
+
             </section>
         );
     }

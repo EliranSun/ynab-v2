@@ -68,6 +68,7 @@ export const getExpenses = async () => {
             return [];
         }
 
+        console.info(`Fetching from ${expensesPath()}`);
         const querySnapshot = await getDocs(collection(db, expensesPath()));
         querySnapshot.forEach((doc) => {
             const expense = doc.data();

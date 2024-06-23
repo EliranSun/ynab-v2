@@ -157,7 +157,6 @@ export const ParseExpensesList = ({
                                     reader.onload = async (e) => {
                                         const data = e.target.result;
                                         const expenses = JSON.parse(data);
-                                        console.log(expenses);
 
                                         try {
                                             await addExpensesToUser(expenses);

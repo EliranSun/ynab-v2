@@ -125,6 +125,7 @@ export const CategoryBalance = ({
                 isExpanded ?
                     <div className="flex flex-col gap-2 my-4 h-[750px] overflow-x-hidden overflow-y-auto px-2">
                         {subcategories.map((subcategory) => {
+                            console.log({subcategory});
                             return (
                                 <Subcategory
                                     {...subcategory}

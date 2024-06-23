@@ -52,7 +52,6 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const [sortBy, setSortBy] = useState("timestamp");
         const [filteredItems, setFilteredItems] = useState([]);
         const budgetForTimeframe = useMemo(() => {
-            console.log({budget});
             if (!budget || Object.keys(budget).length === 0) {
                 return 0;
             }

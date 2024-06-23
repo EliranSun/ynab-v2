@@ -101,14 +101,14 @@ export const Categories = [
                 icon: "🛴",
             },
             {
-                id: 22,
-                name: CategoriesIds.Bus,
+                id: CategoriesIds.Bus,
+                name: "Bus",
                 label: <Trans>Bus</Trans>,
                 icon: "🚌",
             },
             {
-                id: 23,
-                name: CategoriesIds.KIA,
+                id: CategoriesIds.KIA,
+                name: "KIA",
                 label: <Trans>KIA</Trans>,
                 icon: "🚙",
             },

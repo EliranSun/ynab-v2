@@ -2,9 +2,10 @@ import {CategoriesIds, getCategoryName, getSubCategoryIcon, getSubCategoryName} 
 import {InitBudget} from "../../constants/init-budget";
 import {formatCurrency} from "../../utils";
 import {Trans} from "@lingui/macro";
-import {useContext, useState, useMemo} from "react";
+import {useContext, useMemo, useState} from "react";
 import {ExpensesContext} from "../../context";
 import {getAverageSubcategoryAmount, getLastSubcategoryAmount} from "../../utils/expenses";
+import classNames from "classnames";
 
 const BudgetInfoType = {
     INCOME: 'INCOME',
@@ -28,7 +29,11 @@ const BudgetInfoCard = ({amount, type}) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="text-4xl">
+            <div className={classNames({
+                "text-4xl": true,
+                "text-green-500": type === BudgetInfoType.DIFFERENCE && amount > 0,
+                "text-red-500": type === BudgetInfoType.DIFFERENCE && amount < 0,
+            })}>
                 {formatCurrency(amount, false, false)}
             </div>
             {label}
@@ -36,7 +41,13 @@ const BudgetInfoCard = ({amount, type}) => {
     );
 };
 
-const SubcategoryBudget = ({id, amount = 0, expenses = {}, cutoffInMonths = 3}) => {
+const SubcategoryBudget = ({
+                               id,
+                               amount = 0,
+                               expenses = {},
+                               cutoffInMonths = 3,
+                               onChange,
+                           }) => {
     const label = useMemo(() => getSubCategoryName(id), [id]);
     const icon = useMemo(() => getSubCategoryIcon(id), [id]);
     const average = useMemo(() => {
@@ -53,6 +64,7 @@ const SubcategoryBudget = ({id, amount = 0, expenses = {}, cutoffInMonths = 3}) 
             <input
                 type="text"
                 className="text-3xl text-center font-mono w-28"
+                onChange={(e) => onChange(id, e.target.value)}
                 defaultValue={formatCurrency(amount, false, false)}/>
             <p>{icon} {label}</p>
             <div className="flex gap-2 text-xs">
@@ -70,6 +82,7 @@ const SubcategoryBudget = ({id, amount = 0, expenses = {}, cutoffInMonths = 3}) 
 }
 
 export const ManageBudget = () => {
+    const [budget, setBudget] = useState(InitBudget);
     const [cutOffInMonths, setCutOffInMonths] = useState(3);
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
 
@@ -79,7 +92,8 @@ export const ManageBudget = () => {
             income: 0,
         };
 
-        Object.entries(InitBudget).forEach(([categoryId, value]) => {
+        console.log({budget});
+        Object.entries(budget).forEach(([categoryId, value]) => {
             Object.entries(value).forEach(([subcategoryId, amount]) => {
                 if (Number(categoryId) === CategoriesIds.Income) {
                     totalBudget.income += amount;
@@ -90,7 +104,7 @@ export const ManageBudget = () => {
         });
 
         return totalBudget;
-    }, []);
+    }, [budget]);
 
     return (
         <section className="p-4 max-w-screen-lg m-auto">
@@ -107,11 +121,11 @@ export const ManageBudget = () => {
                 <input
                     type="number"
                     value={cutOffInMonths}
-                    onChange={(e) => setCutOffInMonths(e.target.value)}
+                    onChange={(event) => setCutOffInMonths(Number(event.target.value))}
                     className="text-center font-mono w-28"/>
             </div>
             <div className="flex flex-wrap">
-                {Object.entries(InitBudget).map(([category, value]) => {
+                {Object.entries(budget).map(([category, value]) => {
                     return (
                         <div key={category}
                              className="flex flex-col w-fit gap-4 p-4 flex-wrap border rounded-xl">
@@ -130,7 +144,21 @@ export const ManageBudget = () => {
                                                 id={subcategoryId}
                                                 amount={amount}
                                                 cutoffInMonths={cutOffInMonths}
-                                                expenses={expensesPerMonthPerCategory || {}}/>
+                                                expenses={expensesPerMonthPerCategory || {}}
+                                                onChange={(id, value) => {
+                                                    setBudget((prev) => {
+                                                        return {
+                                                            ...prev,
+                                                            [category]: {
+                                                                ...prev[category],
+                                                                [id]: Number(value
+                                                                    .replace("$", "")
+                                                                    .replace("₪", "")
+                                                                    .replace(",", "")),
+                                                            },
+                                                        };
+                                                    });
+                                                }}/>
                                         )
                                     })}
                             </div>

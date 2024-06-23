@@ -61,7 +61,7 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/ManageBudget.jsx:61
+#: src/features/ManageBudget/ManageBudget.jsx:73
 msgid "Average"
 msgstr "Average"
 
@@ -93,7 +93,7 @@ msgstr "budget"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:98
+#: src/features/ManageBudget/ManageBudget.jsx:112
 msgid "Budget"
 msgstr "Budget"
 
@@ -142,7 +142,7 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
-#: src/features/ManageBudget/ManageBudget.jsx:106
+#: src/features/ManageBudget/ManageBudget.jsx:120
 msgid "Cutoff in months for average expenses"
 msgstr "Cutoff in months for average expenses"
 
@@ -326,7 +326,7 @@ msgstr "Jesus fucking christ man."
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/ManageBudget.jsx:65
+#: src/features/ManageBudget/ManageBudget.jsx:77
 msgid "Last"
 msgstr "Last"
 
@@ -488,15 +488,15 @@ msgstr "Therapist"
 #~ msgid "Total budgeted savings"
 #~ msgstr "Total budgeted savings"
 
-#: src/features/ManageBudget/ManageBudget.jsx:23
+#: src/features/ManageBudget/ManageBudget.jsx:24
 msgid "Total budgeted savings:"
 msgstr "Total budgeted savings:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:21
+#: src/features/ManageBudget/ManageBudget.jsx:22
 msgid "Total Expenses Budget:"
 msgstr "Total Expenses Budget:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:19
+#: src/features/ManageBudget/ManageBudget.jsx:20
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 

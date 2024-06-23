@@ -336,11 +336,11 @@ msgstr "less than my budget"
 msgid "Lime"
 msgstr "Lime"
 
-#: src/components/pages/Login/AuthButton.jsx:24
+#: src/components/pages/Login/AuthButton.jsx:26
 msgid "Login"
 msgstr "Login"
 
-#: src/components/pages/Login/AuthButton.jsx:20
+#: src/components/pages/Login/AuthButton.jsx:22
 msgid "Logout"
 msgstr "Logout"
 
@@ -351,6 +351,10 @@ msgstr "Lost this month..."
 #: src/constants/categories.js:180
 msgid "Maintenance"
 msgstr "Maintenance"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
+msgid "Manually - TBD"
+msgstr "Manually - TBD"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
@@ -394,7 +398,7 @@ msgstr "over my budget"
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:242
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:244
 msgid "Parse File"
 msgstr "Parse File"
 
@@ -470,7 +474,7 @@ msgstr "Therapist"
 msgid "TV"
 msgstr "TV"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:203
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
 msgid "Upload"
 msgstr "Upload"
 

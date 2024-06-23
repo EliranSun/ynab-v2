@@ -185,7 +185,9 @@ export const ParseExpensesList = ({
                     </div>
                     <div className="">
                         <Title type={Title.Types.H2} className="mb-4">
-                            Manually - TBD
+                            <Trans>
+                                Manually - TBD
+                            </Trans>
                         </Title>
                     </div>
                     <Button

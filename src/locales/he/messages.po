@@ -345,11 +345,11 @@ msgstr "פחות מהתקציב שלי"
 msgid "Lime"
 msgstr "קורקינט חשמלי"
 
-#: src/components/pages/Login/AuthButton.jsx:24
+#: src/components/pages/Login/AuthButton.jsx:26
 msgid "Login"
 msgstr "התחבר"
 
-#: src/components/pages/Login/AuthButton.jsx:20
+#: src/components/pages/Login/AuthButton.jsx:22
 msgid "Logout"
 msgstr "התנתק"
 
@@ -360,6 +360,10 @@ msgstr "אבדו בחודש זה..."
 #: src/constants/categories.js:180
 msgid "Maintenance"
 msgstr "תחזוקה"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
+msgid "Manually - TBD"
+msgstr "ידנית - ייקבע בהמשך"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
@@ -403,7 +407,7 @@ msgstr "מעבר לתקציב שלי"
 msgid "Parse"
 msgstr "פירסור"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:242
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:244
 msgid "Parse File"
 msgstr "עבד קובץ"
 
@@ -483,7 +487,7 @@ msgstr "פסיכולוג"
 msgid "TV"
 msgstr "טלוויזיה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:203
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
 msgid "Upload"
 msgstr "העלה קובץ"
 

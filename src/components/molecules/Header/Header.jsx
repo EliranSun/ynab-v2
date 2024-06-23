@@ -130,7 +130,7 @@ const Menu = ({isOpen, onMenuItemClick}) => {
                     name={name}
                     label={_(label)}/>
             ))}
-            <AuthButton/>
+            <AuthButton withLabel/>
         </ul>
     );
 };

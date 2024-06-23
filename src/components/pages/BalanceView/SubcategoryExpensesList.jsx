@@ -73,6 +73,7 @@ const SubcategoryExpensesList = ({
 
     return (
         <ListBox onClick={() => !isMobile && onSubcategoryClick(null)}>
+            <ExpensesChart data={data}/>
             <button
                 className="float-right"
                 onClick={() => onSubcategoryClick(null)}>
@@ -81,7 +82,6 @@ const SubcategoryExpensesList = ({
             <Title>
                 {subcategory.icon} {subcategory.name} - {amountCurrency}
             </Title>
-            <ExpensesChart data={data}/>
             <div className="overflow-y-auto max-h-[700px]">
                 {sameMonthData ? orderBy(sameMonthData.expenses, ['amount', 'timestamp'], ['desc']).map((expense) => {
                     return (

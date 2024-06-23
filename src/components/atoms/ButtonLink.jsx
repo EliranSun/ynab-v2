@@ -4,7 +4,7 @@ import {
     ChartLineUp,
     Coffee,
     House,
-    MagicWand,
+    MagicWand, PiggyBank,
     Receipt,
     Scales,
     SquaresFour,
@@ -24,6 +24,7 @@ const Icons = {
     projection: ChartLineUp,
     resolver: MagicWand,
     coffee: Coffee,
+    budget: PiggyBank,
     // patreon: PatreonLogo,
     // home: House,
 };

@@ -23,8 +23,6 @@ export const ExpensesContextProvider = ({children}) => {
 
     const expensesPerMonthPerCategory = useMemo(() => {
         const expensesPerMonthPerCategory = {};
-        console.log({expensesArray});
-
         expensesArray.forEach((expense) => {
             const {categoryId} = expense;
             // TODO: util
@@ -154,9 +152,9 @@ export const ExpensesContextProvider = ({children}) => {
                 setExpenseNote,
                 markExpensesAsOriginal,
                 fetchExpenses: async () => {
-                    console.log("ExpensesContext userEffect getExpenses");
+                    console.info("ExpensesContext userEffect getExpenses");
                     const expenses = await getExpenses();
-                    console.log("ExpensesContext userEffect getExpenses", expenses);
+                    console.info("ExpensesContext userEffect getExpenses", expenses);
                     setExpenses(expenses);
 
                     const newCategories = {};

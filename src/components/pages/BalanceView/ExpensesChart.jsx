@@ -4,13 +4,15 @@ const ExpensesChart = ({
                            data = [],
                            incomeData = [],
                            budgetData = [],
-                           type = ChartType.LINE
+                           type = ChartType.LINE,
+                           isZeroBaseline = true,
                        }) => {
     const canvasRef = useBasicChart({
         data,
         incomeData,
         budgetData,
-        type
+        type,
+        isZeroBaseline
     });
 
     return (

@@ -25,6 +25,10 @@ const Pages = {
         name: 'import',
         label: msg`Parse`,
     },
+    budget: {
+        name: 'budget',
+        label: msg`Budget`,
+    },
     balance: {
         name: 'balance',
         label: msg`Balance`,

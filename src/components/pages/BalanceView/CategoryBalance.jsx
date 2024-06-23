@@ -15,9 +15,6 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
     return (
         <div className="flex justify-between">
             <div className="flex flex-col items-center">
-                <div className="flex gap-1 items-center text-xs">
-                    <Exclude/> {diff > 0 ? "left" : "over"}
-                </div>
                 <div className={classNames({
                     "font-bold font-mono text-lg": true,
                     "text-green-500": diff > 0,
@@ -32,9 +29,6 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
             <div className="flex flex-col items-center">
                 <div className="font-mono text-lg">
                     {formatCurrency(categoryBudget, false, false)}
-                </div>
-                <div className="flex gap-1 items-center text-xs">
-                    <PiggyBank/> budget
                 </div>
                 <div className="flex gap-1 items-center text-xs">
                     <PiggyBank/> <Trans>budget</Trans>
@@ -69,6 +63,7 @@ export const CategoryBalance = ({
     const {budget} = useContext(BudgetContext);
     const budgetKey = getDateKey(currentTimestamp);
     const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
+
     const subcategories = useMemo(() => {
         const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
             const subcategoryBudget = subcategoryBudgets[subcategory.id];
@@ -109,10 +104,10 @@ export const CategoryBalance = ({
         return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
     }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
 
-    const diff = categoryBudget - totalExpensesSum;
+    const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
     return (
-        <div className="bg-gray-200 md:h-[950px] p-2 md:p-4 box-border relative">
+        <div className="bg-gray-200 md:h-fit p-2 md:p-4 box-border relative">
             <div
                 className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
                 onClick={() => setIsExpanded(!isExpanded)}>
@@ -129,9 +124,8 @@ export const CategoryBalance = ({
                 averages={averages}
                 diff={diff}/>
             {isExpanded ?
-                <div className="flex flex-col gap-2 my-4 w-full md:h-[750px] overflow-x-hidden overflow-y-auto px-2">
+                <div className="flex flex-col gap-2 my-4 w-full md:h-fit overflow-x-hidden overflow-y-auto px-2">
                     {subcategories.map((subcategory) => {
-                            console.log({subcategory});
                         return (
                             <Subcategory
                                 {...subcategory}

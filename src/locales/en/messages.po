@@ -57,15 +57,15 @@ msgstr "Actual:"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:49
+#: src/components/pages/BalanceView/CategoryBalance.jsx:43
 msgid "average"
 msgstr "average"
 
-#: src/components/molecules/Header/Header.jsx:30
+#: src/components/molecules/Header/Header.jsx:34
 msgid "Balance"
 msgstr "Balance"
 
-#: src/components/molecules/Header/Header.jsx:52
+#: src/components/molecules/Header/Header.jsx:56
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
 
@@ -81,10 +81,11 @@ msgstr "Bars"
 msgid "Books"
 msgstr "Books"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:40
+#: src/components/pages/BalanceView/CategoryBalance.jsx:34
 msgid "budget"
 msgstr "budget"
 
+#: src/components/molecules/Header/Header.jsx:30
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
@@ -111,8 +112,8 @@ msgstr "Bus"
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
 
-#: src/components/molecules/Header/Header.jsx:38
-#: src/components/molecules/Header/Header.jsx:54
+#: src/components/molecules/Header/Header.jsx:42
+#: src/components/molecules/Header/Header.jsx:58
 msgid "Categories"
 msgstr "Categories"
 
@@ -188,8 +189,8 @@ msgstr "Electronics"
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
-#: src/components/molecules/Header/Header.jsx:34
-#: src/components/molecules/Header/Header.jsx:53
+#: src/components/molecules/Header/Header.jsx:38
+#: src/components/molecules/Header/Header.jsx:57
 #: src/components/pages/ParseExpensesList/ExportData.jsx:20
 msgid "Expenses"
 msgstr "Expenses"
@@ -243,15 +244,15 @@ msgstr "Fun"
 msgid "Games"
 msgstr "Games"
 
-#: src/components/molecules/Header/Header.jsx:62
+#: src/components/molecules/Header/Header.jsx:66
 msgid "Good afternoon!"
 msgstr "Good afternoon!"
 
-#: src/components/molecules/Header/Header.jsx:63
+#: src/components/molecules/Header/Header.jsx:67
 msgid "Good evening!"
 msgstr "Good evening!"
 
-#: src/components/molecules/Header/Header.jsx:61
+#: src/components/molecules/Header/Header.jsx:65
 msgid "Good morning!"
 msgstr "Good morning!"
 
@@ -271,8 +272,8 @@ msgstr "Health"
 msgid "Health/Beauty"
 msgstr "Health/Beauty"
 
-#: src/components/molecules/Header/Header.jsx:85
-#: src/components/molecules/Header/Header.jsx:92
+#: src/components/molecules/Header/Header.jsx:89
+#: src/components/molecules/Header/Header.jsx:96
 msgid "Hey"
 msgstr "Hey"
 
@@ -320,7 +321,7 @@ msgstr "KIA"
 msgid "Left 😄"
 msgstr "Left 😄"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:29
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
 msgid "left to spend"
 msgstr "left to spend"
 
@@ -381,7 +382,7 @@ msgstr "Other"
 msgid "Over 😢"
 msgstr "Over 😢"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:29
+#: src/components/pages/BalanceView/CategoryBalance.jsx:26
 msgid "over budget"
 msgstr "over budget"
 
@@ -394,11 +395,11 @@ msgid "over my budget"
 msgstr "over my budget"
 
 #: src/components/molecules/Header/Header.jsx:26
-#: src/components/molecules/Header/Header.jsx:51
+#: src/components/molecules/Header/Header.jsx:55
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:244
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:243
 msgid "Parse File"
 msgstr "Parse File"
 
@@ -422,8 +423,8 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/molecules/Header/Header.jsx:42
-#: src/components/molecules/Header/Header.jsx:55
+#: src/components/molecules/Header/Header.jsx:46
+#: src/components/molecules/Header/Header.jsx:59
 msgid "Projection"
 msgstr "Projection"
 
@@ -440,8 +441,8 @@ msgstr "Rates"
 msgid "Rent"
 msgstr "Rent"
 
-#: src/components/molecules/Header/Header.jsx:46
-#: src/components/molecules/Header/Header.jsx:56
+#: src/components/molecules/Header/Header.jsx:50
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Resolver"
 msgstr "Resolver"
 
@@ -470,6 +471,22 @@ msgstr "Summary"
 msgid "Therapist"
 msgstr "Therapist"
 
+#: src/features/ManageBudget/ManageBudget.jsx:50
+#~ msgid "Total budgeted savings"
+#~ msgstr "Total budgeted savings"
+
+#: src/features/ManageBudget/ManageBudget.jsx:50
+msgid "Total budgeted savings:"
+msgstr "Total budgeted savings:"
+
+#: src/features/ManageBudget/ManageBudget.jsx:42
+msgid "Total Expenses Budget:"
+msgstr "Total Expenses Budget:"
+
+#: src/features/ManageBudget/ManageBudget.jsx:46
+msgid "Total Income Budget:"
+msgstr "Total Income Budget:"
+
 #: src/constants/categories.js:308
 msgid "TV"
 msgstr "TV"
@@ -486,7 +503,7 @@ msgstr "Vacation"
 msgid "Water"
 msgstr "Water"
 
-#: src/components/molecules/Header/Header.jsx:60
+#: src/components/molecules/Header/Header.jsx:64
 msgid "Welcome"
 msgstr "Welcome"
 

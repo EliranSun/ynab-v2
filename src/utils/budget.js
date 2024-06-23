@@ -14,8 +14,7 @@ export const getBudgetSummary = budget => {
     if (!budget || !budget[BALANCE_CATEGORY_ID]) {
         return {totalExpenses: 0, totalIncome: 0};
     }
-
-    console.log({budget});
+    
     const budgetIncome = Object.values(budget[BALANCE_CATEGORY_ID]);
     const budgetExpenses = Object.entries(budget).filter(([categoryId]) => String(categoryId) !== String(BALANCE_CATEGORY_ID));
     const categoricalExpenses = budgetExpenses.map(([categoryId, amounts]) => {

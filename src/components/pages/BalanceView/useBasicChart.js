@@ -8,7 +8,13 @@ export const ChartType = {
     BAR: "bar",
 }
 
-const useBasicChart = ({data = [], incomeData = [], budgetData = [], type = ChartType.LINE}) => {
+const useBasicChart = ({
+                           data = [],
+                           incomeData = [],
+                           budgetData = [],
+                           isZeroBaseline = true,
+                           type = ChartType.LINE
+                       }) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -56,6 +62,11 @@ const useBasicChart = ({data = [], incomeData = [], budgetData = [], type = Char
                 maintainAspectRatio: false,
                 interaction: {
                     intersect: false
+                },
+                scales: {
+                    y: {
+                        beginAtZero: isZeroBaseline,
+                    },
                 },
             }
         });

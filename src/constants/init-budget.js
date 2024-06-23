@@ -1,8 +1,10 @@
+import {CategoriesIds} from "./categories";
+
 export const InitBudget = {
-    1: {
-        11: 500,
-        12: 1500,
-        13: 500
+    [CategoriesIds.Eating]: {
+        [CategoriesIds.Delivery]: 500,
+        [CategoriesIds.Groceries]: 1500,
+        [CategoriesIds.Dining]: 500
     },
     2: {
         21: 50,
@@ -55,3 +57,7 @@ export const InitBudget = {
         83: 3750
     }
 }
+
+export const getSubcategoryBudget = (categoryId, subcategoryId) => {
+    return InitBudget[categoryId][subcategoryId];
+};

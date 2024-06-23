@@ -35,7 +35,6 @@ const Subcategory = ({
 
     const totalInPreviousMonth = useMemo(() => {
         const amount = expenses.reduce((total, expense) => {
-            console.log({id, eCatId: expense.categoryId, isPrev: isPreviousMonth(expense.timestamp)});
             if (id === expense.categoryId && isPreviousMonth(expense.timestamp)) {
                 return total + expense.amount;
             }
@@ -71,7 +70,7 @@ const Subcategory = ({
         : intThisMonthAmount.current > budgetAmount;
 
     return (
-        <div className="bg-white/80 p-3 md:w-60 flex justify-between">
+        <div className="bg-white/80 p-3 md:min-w-60 flex justify-between">
             <div
                 className="md:p-4 cursor-pointer flex flex-col justify-between items-start"
                 onClick={() => onSubcategoryClick(isSelected ? null : id)}>

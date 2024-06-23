@@ -207,7 +207,6 @@ export const ParseExpensesList = ({
                         </Trans>
                     </Title>
                     <SheetUpload onSheetParse={data => {
-                        console.log({data});
                         setParsedFile(data.map(row => ({
                             name: row["Name"] || row['שם'] || row['על מה?'],
                             timestamp: getDateTimestamp(row["Date"] || row['תאריך']),

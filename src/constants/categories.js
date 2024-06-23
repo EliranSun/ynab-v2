@@ -394,10 +394,23 @@ export const Categories = [
     },
 ];
 
+export const getCategoryName = (id) => {
+    const category = Categories.find((category) => Number(category.id) === Number(id));
+    return category ? category.label : "Unknown";
+};
+
 export const getSubCategoryName = (id) => {
     const subCategory = Categories
         .flatMap((category) => category.subCategories)
-        .find((subCategory) => subCategory.id === id);
+        .find((subCategory) => Number(subCategory.id) === Number(id));
 
-    return subCategory ? `${subCategory.icon} ${subCategory.name}` : "Unknown";
+    return subCategory ? subCategory.label : "Unknown";
+}
+
+export const getSubCategoryIcon = (id) => {
+    const subCategory = Categories
+        .flatMap((category) => category.subCategories)
+        .find((subCategory) => Number(subCategory.id) === Number(id));
+
+    return subCategory ? subCategory.icon : "❓";
 }

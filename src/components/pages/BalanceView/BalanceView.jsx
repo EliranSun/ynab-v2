@@ -8,6 +8,7 @@ import {BudgetContext} from "../../../context";
 import {RealityVsExpectation} from "../../molecules/RealityVsExpectation";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import {LocaleContext} from "../../../context/LocaleContext";
+import classNames from "classnames";
 
 const BalanceView = () => {
         const {budget} = useContext(BudgetContext);
@@ -57,7 +58,11 @@ const BalanceView = () => {
                 </div>
                 <div className="w-full flex flex-col md:flex-row gap-4">
                     <div
-                        className="flex flex-col md:flex-row w-full md:w-2/3 md:flex-wrap gap-4 md:h-[1000px] overflow-auto md:thin-scrollbar">
+                        className={classNames({
+                            "overflow-auto md:thin-scrollbar": true,
+                            "w-full md:w-2/3 md:h-fit": true,
+                            "flex flex-col md:flex-row md:flex-wrap gap-4 ": true,
+                        })}>
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance

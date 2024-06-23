@@ -75,6 +75,7 @@ export const getExpenses = async () => {
             expenses[expense.id] = new Expense(expense);
         });
 
+        console.info("Expenses fetched", expenses);
         return expenses;
     } catch (error) {
         console.error("Error getting document:", error);

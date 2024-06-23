@@ -146,15 +146,18 @@ export const ManageBudget = () => {
                                                 cutoffInMonths={cutOffInMonths}
                                                 expenses={expensesPerMonthPerCategory || {}}
                                                 onChange={(id, value) => {
+                                                    const amount = Number(
+                                                        value
+                                                            .replace("$", "")
+                                                            .replace("₪", "")
+                                                            .replace(",", "")
+                                                    );
                                                     setBudget((prev) => {
                                                         return {
                                                             ...prev,
                                                             [category]: {
                                                                 ...prev[category],
-                                                                [id]: Number(value
-                                                                    .replace("$", "")
-                                                                    .replace("₪", "")
-                                                                    .replace(",", "")),
+                                                                [id]: amount,
                                                             },
                                                         };
                                                     });

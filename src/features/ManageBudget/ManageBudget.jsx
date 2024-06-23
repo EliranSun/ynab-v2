@@ -2,7 +2,9 @@ import {CategoriesIds, getCategoryName, getSubCategoryIcon, getSubCategoryName} 
 import {InitBudget} from "../../constants/init-budget";
 import {formatCurrency} from "../../utils";
 import {Trans} from "@lingui/macro";
-import {useMemo} from "react";
+import {useContext, useState, useMemo} from "react";
+import {ExpensesContext} from "../../context";
+import {getAverageSubcategoryAmount, getLastSubcategoryAmount} from "../../utils/expenses";
 
 const BudgetInfoType = {
     INCOME: 'INCOME',
@@ -34,7 +36,43 @@ const BudgetInfoCard = ({amount, type}) => {
     );
 };
 
+const SubcategoryBudget = ({id, amount = 0, expenses = {}, cutoffInMonths = 3}) => {
+    const label = useMemo(() => getSubCategoryName(id), [id]);
+    const icon = useMemo(() => getSubCategoryIcon(id), [id]);
+    const average = useMemo(() => {
+        return getAverageSubcategoryAmount(id, expenses, cutoffInMonths);
+    }, [id, cutoffInMonths, expenses]);
+    const last = useMemo(() => {
+        return getLastSubcategoryAmount(id, expenses);
+    }, [id, expenses]);
+
+    return (
+        <div
+            key={id}
+            className="flex flex-col gap-2 p-2 justify-center items-center border rounded-xl">
+            <input
+                type="text"
+                className="text-3xl text-center font-mono w-28"
+                defaultValue={formatCurrency(amount, false, false)}/>
+            <p>{icon} {label}</p>
+            <div className="flex gap-2 text-xs">
+                <div className="flex flex-col items-center">
+                    <span>{formatCurrency(average, false, false)}</span>
+                    <Trans>Average</Trans>
+                </div>
+                <div className="flex flex-col items-center">
+                    <span>{formatCurrency(last, false, false)}</span>
+                    <Trans>Last</Trans>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export const ManageBudget = () => {
+    const [cutOffInMonths, setCutOffInMonths] = useState(3);
+    const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
+
     const totalBudget = useMemo(() => {
         const totalBudget = {
             expenses: 0,
@@ -59,39 +97,47 @@ export const ManageBudget = () => {
             <h1 className="text-5xl">
                 <Trans>Budget</Trans>
             </h1>
-            <div className="flex justify-between gap-4 w-1/2 m-auto">
+            <div className="sticky top-0 p-4 w-full bg-white flex justify-evenly gap-4 m-auto border-b shadow">
                 <BudgetInfoCard amount={totalBudget.income} type={BudgetInfoType.INCOME}/>
                 <BudgetInfoCard amount={totalBudget.expenses} type={BudgetInfoType.EXPENSES}/>
                 <BudgetInfoCard amount={totalBudget.income - totalBudget.expenses} type={BudgetInfoType.DIFFERENCE}/>
             </div>
-            {Object.entries(InitBudget).map(([category, value]) => {
-                return (
-                    <div key={category}
-                         className="flex flex-col gap-4 w-full p-4 flex-wrap border rounded-xl">
-                        <h2>{getCategoryName(category)}</h2>
-                        <div className="flex flex-wrap gap-4">
-                            {Object.entries(value).map(([subcategoryId, amount]) => {
-                                const label = getSubCategoryName(subcategoryId);
-                                const icon = getSubCategoryIcon(subcategoryId);
-
-                                return (
-                                    <div
-                                        key={subcategoryId}
-                                        className="flex flex-col gap-2 p-2 justify-center items-center border rounded-xl">
-                                        <input
-                                            type="text"
-                                            className="text-3xl text-center font-mono w-28"
-                                            defaultValue={formatCurrency(amount, false, false)}/>
-                                        <p className="">
-                                            {icon} {label}
-                                        </p>
-                                    </div>
-                                );
-                            })}
+            <div className="text-3xl">
+                <Trans>Cutoff in months for average expenses</Trans>
+                <input
+                    type="number"
+                    value={cutOffInMonths}
+                    onChange={(e) => setCutOffInMonths(e.target.value)}
+                    className="text-center font-mono w-28"/>
+            </div>
+            <div className="flex flex-wrap">
+                {Object.entries(InitBudget).map(([category, value]) => {
+                    return (
+                        <div key={category}
+                             className="flex flex-col w-fit gap-4 p-4 flex-wrap border rounded-xl">
+                            <h2>{getCategoryName(category)}</h2>
+                            <div className="flex flex-wrap gap-4">
+                                {Object.entries(value)
+                                    .sort((a, b) => {
+                                        const [_a, amountA] = a;
+                                        const [_b, amountB] = b;
+                                        return amountB - amountA;
+                                    })
+                                    .map(([subcategoryId, amount]) => {
+                                        return (
+                                            <SubcategoryBudget
+                                                key={subcategoryId}
+                                                id={subcategoryId}
+                                                amount={amount}
+                                                cutoffInMonths={cutOffInMonths}
+                                                expenses={expensesPerMonthPerCategory || {}}/>
+                                        )
+                                    })}
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </section>
     )
 };

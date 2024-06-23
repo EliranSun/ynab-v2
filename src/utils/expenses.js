@@ -1,9 +1,10 @@
 import {Expense} from "../models";
-import {isSameMonth, startOfMonth} from "date-fns";
+import {isSameMonth, startOfMonth, subMonths} from "date-fns";
 import {getExpenses} from "./firebase";
 import {Categories} from "../constants";
 import {orderBy} from "lodash";
 import {getLastBudgetByCategory} from "./budget";
+import {formatCurrency} from "./currency";
 
 const RecurringExpenses = [
     "מרכז הספורט",
@@ -149,7 +150,7 @@ export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
         const year = date.getFullYear();
         const key = `${year}-${month}`;
         const total = (expensesByMonthByCategory[expense.mainCategoryId]?.[key] || 0) + expense.amount;
-        
+
         expensesByMonthByCategory = {
             ...expensesByMonthByCategory,
             [expense.mainCategoryId]: {
@@ -166,3 +167,31 @@ export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
 
     return averages;
 };
+
+export const getAverageSubcategoryAmount = (subcategoryId, expenses = {}, cutoffInMonths = 3) => {
+    const cutoffDate = subMonths(new Date(), cutoffInMonths);
+    if (!expenses[String(subcategoryId)]) {
+        return 0;
+    }
+
+    let total = 0;
+    const months = Object
+        .values(expenses[String(subcategoryId)])
+        .filter(expense => new Date(expense.timestamp) > cutoffDate);
+
+    for (const month of months) {
+        total += month.amount;
+    }
+
+    const amount = total / months.length;
+    return Math.round(amount) || 0;
+};
+
+export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {
+    if (!expenses[String(subcategoryId)]) {
+        return 0;
+    }
+
+    const lastMonth = Object.values(expenses[String(subcategoryId)]).pop();
+    return Math.round(lastMonth?.amount) || 0;
+}

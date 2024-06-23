@@ -6,6 +6,7 @@ import {formatCurrency} from "../../../utils";
 import classNames from "classnames";
 import {ArrowBendDownLeft, Faders} from "@phosphor-icons/react";
 import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
+import {getAverageSubcategoryAmount} from "../../../utils/expenses";
 
 const Subcategory = ({
                          icon,
@@ -13,10 +14,8 @@ const Subcategory = ({
                          id,
                          categoryId,
                          onSubcategoryClick = noop,
-                         // isSameDate = noop,
                          isPreviousMonth = noop,
                          isSelected = false,
-                         currentTimestamp,
                          isIncome,
                          thisMonthExpenses,
                          subcategoryBudget
@@ -43,23 +42,7 @@ const Subcategory = ({
         return formatCurrency(amount, false, false);
     }, [expenses, id, isPreviousMonth]);
 
-    const getAverageAmount = (id) => {
-        if (!expensesPerMonthPerCategory[id]) {
-            return 0;
-        }
-
-        let total = 0;
-        const months = Object.values(expensesPerMonthPerCategory[id]);
-
-
-        for (const month of months) {
-            total += month.amount;
-        }
-
-        return formatCurrency(total / months.length, false, false) || 0;
-    };
-
-    const averageAmount = getAverageAmount(String(id));
+    const averageAmount = getAverageSubcategoryAmount(String(id), expensesPerMonthPerCategory);
 
     if (thisMonthAmount === formatCurrency(0)) {
         return null;

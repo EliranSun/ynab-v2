@@ -70,6 +70,10 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
+#: src/features/ManageBudget/ManageBudget.jsx:61
+msgid "Average"
+msgstr "ממוצע"
+
 #: src/components/molecules/Header/Header.jsx:34
 msgid "Balance"
 msgstr "תנועות"
@@ -106,6 +110,7 @@ msgstr "תקציב"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
+#: src/features/ManageBudget/ManageBudget.jsx:98
 msgid "Budget"
 msgstr "תקציב"
 
@@ -149,6 +154,10 @@ msgstr "שולט הוא כך, במציאות"
 #: src/components/atoms/LoginWelcomeMessage.jsx:34
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
+
+#: src/features/ManageBudget/ManageBudget.jsx:106
+msgid "Cutoff in months for average expenses"
+msgstr "ממוצע לפי מספר חודשים אחרונים"
 
 #: src/constants/categories.js:288
 msgid "Dates"
@@ -330,6 +339,10 @@ msgstr "אלוקים אדירים אבינו שבשמיים."
 msgid "KIA"
 msgstr "רכב"
 
+#: src/features/ManageBudget/ManageBudget.jsx:65
+msgid "Last"
+msgstr "אחרון"
+
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:183
 msgid "Left 😄"
 msgstr "נשאר 😄"
@@ -480,15 +493,15 @@ msgstr "תמונת מצב"
 msgid "Therapist"
 msgstr "פסיכולוג"
 
-#: src/features/ManageBudget/ManageBudget.jsx:50
+#: src/features/ManageBudget/ManageBudget.jsx:23
 msgid "Total budgeted savings:"
 msgstr "סך חיסכון"
 
-#: src/features/ManageBudget/ManageBudget.jsx:42
+#: src/features/ManageBudget/ManageBudget.jsx:21
 msgid "Total Expenses Budget:"
 msgstr "סך הוצאות מתוכננות"
 
-#: src/features/ManageBudget/ManageBudget.jsx:46
+#: src/features/ManageBudget/ManageBudget.jsx:19
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 

@@ -64,7 +64,7 @@ export const CategoryBalance = ({
                                     selectedId,
                                     setSelectedId
                                 }) => {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
     const {expensesArray} = useContext(ExpensesContext);
     const {budget} = useContext(BudgetContext);
     const budgetKey = getDateKey(currentTimestamp);
@@ -102,7 +102,6 @@ export const CategoryBalance = ({
             };
         })
         // .filter((subcategory) => {
-        //     // console.log({subcategory});
         //     return (subcategory.budget - subcategory.amount) < 0;
         // });
 
@@ -132,6 +131,7 @@ export const CategoryBalance = ({
             {isExpanded ?
                 <div className="flex flex-col gap-2 my-4 w-full md:h-[750px] overflow-x-hidden overflow-y-auto px-2">
                     {subcategories.map((subcategory) => {
+                            console.log({subcategory});
                         return (
                             <Subcategory
                                 {...subcategory}

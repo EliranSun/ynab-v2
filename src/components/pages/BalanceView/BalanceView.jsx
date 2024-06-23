@@ -55,7 +55,7 @@ const BalanceView = () => {
                 </div>
                 <div className="w-full flex flex-col md:flex-row gap-4">
                     <div
-                        className="flex flex-col md:flex-row w-full md:w-2/3 gap-4 md:h-[1000px] overflow-auto md:thin-scrollbar">
+                        className="flex flex-col md:flex-row w-full md:w-2/3 md:flex-wrap gap-4 md:h-[1000px] overflow-auto md:thin-scrollbar">
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance
@@ -65,7 +65,7 @@ const BalanceView = () => {
                                     categoryId={category.id}
                                     categoryName={category.label}
                                     categoryBudget={category.budget}
-                                    subcategoryBudgets={budget["8.2023"] ? budget["8.2023"][category.id] : {}}
+                                    subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
                                     currentTimestamp={currentTimestamp}
                                     isSameDate={isSameDate}
                                     isPreviousMonth={isPreviousMonth}/>

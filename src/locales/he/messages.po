@@ -103,6 +103,7 @@ msgid "budget"
 msgstr ""
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:154
 msgid "Budget"
 msgstr "תקציב"
 
@@ -273,6 +274,10 @@ msgstr "אני בצרות -גדולות-."
 msgid "I'm in trouble."
 msgstr "אני בצרות."
 
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:173
+msgid "Income"
+msgstr ""
+
 #: src/constants/categories.js:107
 msgid "Internet"
 msgstr "אינטרנט"
@@ -349,6 +354,22 @@ msgstr ""
 #: src/features/LastExpenses/components/LastExpenses.jsx:107
 msgid "over budget...️"
 msgstr ""
+
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:115
+#~ msgid "Over️"
+#~ msgstr "Over️"
+
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:162
+msgid "Over 😢"
+msgstr ""
+
+#: src/components/pages/BalanceView/CategoryBalance.jsx:29
+#~ msgid "over budget"
+#~ msgstr ""
+
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:107
+#~ msgid "over budget...️"
+#~ msgstr ""
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:77
 msgid "over my budget"

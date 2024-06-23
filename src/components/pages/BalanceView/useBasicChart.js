@@ -3,7 +3,12 @@ import {Chart, registerables} from "chart.js";
 
 let singleton = null;
 
-const useBasicChart = (data) => {
+export const ChartType = {
+    LINE: "line",
+    BAR: "bar",
+}
+
+const useBasicChart = ({data = [], incomeData = [], budgetData = [], type = ChartType.LINE}) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -19,15 +24,29 @@ const useBasicChart = (data) => {
 
         const ctx = document.getElementById("myChart").getContext("2d");
         let myChart = new Chart(ctx, {
-            type: "line",
+            type,
             data: {
                 labels: data.map(item => item.x),
                 datasets: [
                     {
                         label: "Expenses",
-                        data: data.map(item => item.y),
-                        backgroundColor: ["rgba(54, 162, 235, 0.2)",],
-                        borderColor: ["rgba(54, 162, 235, 1)",],
+                        data: data,
+                        backgroundColor: ["rgba(235,54,54,0.2)",],
+                        borderColor: ["rgb(235,54,54)",],
+                        spanGaps: true,
+                    },
+                    {
+                        label: "Income",
+                        data: incomeData,
+                        backgroundColor: ["rgba(43,143,20,0.2)"],
+                        borderColor: ["rgba(93,235,54,0.66)"],
+                        spanGaps: true,
+                    },
+                    {
+                        label: "Budget",
+                        data: budgetData,
+                        backgroundColor: ["rgba(54,54,235,0.2)"],
+                        borderColor: ["rgba(54,54,235,0.66)"],
                         spanGaps: true,
                     }
                 ]

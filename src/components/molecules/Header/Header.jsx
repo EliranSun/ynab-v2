@@ -4,11 +4,10 @@ import {Button} from "../../atoms";
 import {List} from "@phosphor-icons/react";
 import {UserContext} from "../../../context";
 import {BUTTON_SIZE} from "../../../constants";
-import {ButtonLink} from "../../atoms/ButtonLink";
 import {useLingui} from "@lingui/react";
 import {msg, Trans} from "@lingui/macro";
+import {ButtonLink} from "../../atoms/ButtonLink";
 import classNames from "classnames";
-import translate from "translate";
 import {isDesktop, isMobile} from "../../../utils/device";
 
 const Messages = [

@@ -41,6 +41,12 @@ export const emulateDB = () => connectFirestoreEmulator(db, '127.0.0.1', 8080);
 const budgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
 const expensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
 
+const EXPENSES_COLLECTION = "expenses";
+const BUDGET_COLLECTION = "budget";
+
+const userBudgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
+const userExpensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
+
 export const setUserDoc = async (user) => {
     const userRef = doc(db, `users/${user.uid}`);
     const userDoc = await getDoc(userRef);
@@ -124,7 +130,7 @@ export const createExpensesByDateCollection = async () => {
         // use setDoc with { merge: true } option.
         await setDoc(yearMonthDocRef, categories, {merge: true})
             .then(() => {
-                console.log(`Successfully stored expenses for ${yearMonth}`);
+                console.info(`Successfully stored expenses for ${yearMonth}`);
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
@@ -153,7 +159,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
             batch.update(expenseRef, {isOriginal: true});
         });
 
-        console.log("Marking expenses as original success", duplicateIds);
+        console.info("Marking expenses as original success", duplicateIds);
         return batch.commit();
     } catch (error) {
         console.error("Error marking expenses as original:", error);
@@ -214,22 +220,21 @@ export const getBudget = async () => {
     }
 };
 
-export const addBudget = async ({dateKey, categoryId, subcategoryId, amount}) => {
-    console.info("Adding budget to DB", {dateKey, categoryId, amount});
+export const addBudget = async ({categoryId, subcategoryId, amount}) => {
+    console.info("Adding budget to DB", {categoryId, amount});
     const budget = await getBudget();
-    const isExist = budget[dateKey];
 
-    if (isExist) {
-        const docRef = doc(db, budgetPath(), String(dateKey));
+    if (budget) {
+        const docRef = doc(db, budgetPath());
         return await updateDoc(docRef, {
             [String(categoryId)]: {
-                ...budget[dateKey][categoryId],
+                ...budget[categoryId],
                 [String(subcategoryId)]: Number(amount)
             },
         });
     }
 
-    const docRef = doc(db, budgetPath(), String(dateKey));
+    const docRef = doc(db, budgetPath());
     return await setDoc(docRef, {
         [String(categoryId)]: {
             [String(subcategoryId)]: Number(amount)
@@ -237,10 +242,10 @@ export const addBudget = async ({dateKey, categoryId, subcategoryId, amount}) =>
     });
 };
 
-export const updateBudget = async (budgetId, props) => {
-    const budgetRef = doc(db, budgetPath(), budgetId);
-    return await updateDoc(budgetRef, props);
-};
+// export const updateBudget = async (budgetId, props) => {
+//     const budgetRef = doc(db, budgetPath(), budgetId);
+//     return await updateDoc(budgetRef, props);
+// };
 
 export const updateCategory = async (expenseId, categoryId) => {
     try {
@@ -250,3 +255,35 @@ export const updateCategory = async (expenseId, categoryId) => {
         return {};
     }
 }
+
+export const addExpensesToUser = async (expenses = []) => {
+    try {
+        const batch = writeBatch(db);
+        console.info("Adding expenses to user", expenses);
+        expenses.forEach((expense) => {
+            const expenseRef = doc(db, userExpensesPath(), expense.id);
+            // must be a plain object
+            batch.set(expenseRef, {
+                amount: Number(expense.amount),
+                amountCurrency: expense.amountCurrency,
+                categoryId: Number(expense.categoryId),
+                date: expense.date,
+                id: expense.id,
+                isIncome: expense.isIncome,
+                isOriginal: expense.isOriginal,
+                isThirdParty: expense.isThirdParty,
+                mainCategoryId: Number(expense.mainCategoryId),
+                name: expense.name,
+                note: expense.note,
+                subcategoryId: Number(expense.subcategoryId),
+                subcategoryLabel: expense.subcategoryLabel,
+                timestamp: expense.timestamp,
+            });
+        });
+
+        await batch.commit();
+    } catch (error) {
+        console.error("Error adding expenses to user:", error);
+        throw new Error(error);
+    }
+};

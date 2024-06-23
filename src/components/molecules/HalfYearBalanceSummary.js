@@ -53,6 +53,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
             total
         };
     }, [currentTimestamp, expensesArray]);
+
     return (
         <div>
             {summary.incomes.map((income, index) => {

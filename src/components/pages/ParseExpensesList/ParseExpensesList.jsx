@@ -5,11 +5,11 @@ import {Button, Title} from "../../atoms";
 import {withExpensesContext} from "../../../HOC/withExpensesContext";
 import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
-import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
-import {ClipboardText} from "@phosphor-icons/react";
-import {msg, Trans} from "@lingui/macro";
-import {useLingui} from "@lingui/react";
-import LastExpenses from "../../../features/LastExpenses/components/LastExpenses";
+import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
+import {ArrowSquareIn} from "@phosphor-icons/react";
+import {Trans} from "@lingui/macro";
+import {ExportData} from "./ExportData";
+import {addExpensesToUser} from "../../../utils";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -30,7 +30,6 @@ export const ParseExpensesList = ({
                                       setExpenses = () => {
                                       }
                                   }) => {
-    const {_} = useLingui();
     const textAreaRef = useRef(null);
     const [message, setMessage] = useState("");
     const [value, setValue] = useState(text);
@@ -111,16 +110,12 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="w-full flex flex-col md:flex-row-reverse gap-2">
-            <LastExpenses/>
-            <section className="w-1/2 h-screen overflow-y-auto p-4">
+        <div className="flex flex-col justify-center md:flex-row gap-2 items-start">
+            <section className="p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
-                    <ClipboardText/>
-                    <Trans>
-                        Parse
-                    </Trans>
+                    <ArrowSquareIn size={50}/>
+                    <Trans>Import</Trans>
                 </Title>
-
                 <div className="max-w-6xl m-auto">
                     {parsedExpenses.length > 0 &&
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
@@ -140,11 +135,9 @@ export const ParseExpensesList = ({
                         }}/>
                 </div>
                 <div className="flex items-start gap-4 max-w-7xl flex-col">
-                    <div className="flex flex-col md:w-1/3 h-full">
+                    <div className="flex flex-col h-full">
                         <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>
-                                Paste
-                            </Trans>
+                            <Trans>From Text</Trans>
                         </Title>
                         <textarea
                             className="border border-dashed border-black p-4 outline-none w-96 h-full"
@@ -156,62 +149,101 @@ export const ParseExpensesList = ({
                                 setIsParseButtonDisabled(!event.target.value);
                                 setValue(event.target.value);
                             }}/>
-                        <Button
-                            size={Button.Sizes.FULL}
-                            isDisabled={isParseButtonDisabled}
-                            onClick={setNewExpenses}
-                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                                "animate-pulse duration-500": isStatusAnimated,
-                            })}>
-                            {isStatusAnimated ? message : "Parse Text"}
-                        </Button>
                     </div>
                     <div className="mb-4">
                         <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>
-                                Upload
-                            </Trans>
+                            <Trans>From Sheet/XLS</Trans>
                         </Title>
-                        <SheetUpload onSheetParse={data => {
-                            console.log({data});
-                            setParsedFile(data.map(row => ({
-                                name: row["Name"] || row['שם'] || row['על מה?'],
-                                timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
-                                amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
-                                categoryName: row["Category"] || row['קטגוריה'],
-                            })));
-                        }}/>
-                        <pre>
+                        <SheetUpload onSheetParse={data => console.log(data)}/>
+                    </div>
+                    <div className="mb-4">
+                        <Title type={Title.Types.H2} className="mb-4">
+                            <Trans>From JSON (use export ↗)</Trans>
+                        </Title>
+                        <input
+                            type="file"
+                            name="upload-json"
+                            id="upload-json"
+                            onChange={(event) => {
+                                event.preventDefault();
+                                if (event.target.files) {
+                                    const reader = new FileReader();
+                                    reader.onload = async (e) => {
+                                        const data = e.target.result;
+                                        const expenses = JSON.parse(data);
+
+                                        try {
+                                            await addExpensesToUser(expenses);
+                                            alert("Expenses added to user!");
+                                        } catch (error) {
+                                            console.error(error);
+                                        }
+                                    };
+                                    reader.readAsText(event.target.files[0]);
+                                }
+                            }}/>
+                    </div>
+                    <div className="">
+                        <Title type={Title.Types.H2} className="mb-4">
+                            Manually - TBD
+                        </Title>
+                    </div>
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        onClick={setNewExpenses}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}>
+                        {isStatusAnimated ? message : "Parse Text"}
+                    </Button>
+                </div>
+                <div className="mb-4">
+                    <Title type={Title.Types.H2} className="mb-4">
+                        <Trans>
+                            Upload
+                        </Trans>
+                    </Title>
+                    <SheetUpload onSheetParse={data => {
+                        console.log({data});
+                        setParsedFile(data.map(row => ({
+                            name: row["Name"] || row['שם'] || row['על מה?'],
+                            timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                            amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                            categoryName: row["Category"] || row['קטגוריה'],
+                        })));
+                    }}/>
+                    <pre>
                         {JSON.stringify(parsedFile, null, 2)}
                     </pre>
-                        <Button
-                            size={Button.Sizes.FULL}
-                            isDisabled={isParseButtonDisabled}
-                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                                "animate-pulse duration-500": isStatusAnimated,
-                            })}
-                            onClick={() => {
-                                const newExpenses = parsedFile.map(item => {
-                                    const similarExpense = expenses.find(existingItem => {
-                                        return existingItem.name === item.name;
-                                    });
-
-                                    if (similarExpense?.categoryId) {
-                                        item.categoryId = similarExpense.categoryId;
-                                    }
-
-                                    return item;
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}
+                        onClick={() => {
+                            const newExpenses = parsedFile.map(item => {
+                                const similarExpense = expenses.find(existingItem => {
+                                    return existingItem.name === item.name;
                                 });
 
-                                setParsedExpenses(newExpenses
-                                    .filter(item => !isExistingExpense(item, expenses))
-                                    .map(item => new Expense(item)));
-                            }}>
-                            {isStatusAnimated ? message : _(msg`Parse File`)}
-                        </Button>
-                    </div>
+                                if (similarExpense?.categoryId) {
+                                    item.categoryId = similarExpense.categoryId;
+                                }
+
+                                return item;
+                            });
+
+                            setParsedExpenses(newExpenses
+                                .filter(item => !isExistingExpense(item, expenses))
+                                .map(item => new Expense(item)));
+                        }}>
+                        {isStatusAnimated ? message : _(msg`Parse File`)}
+                    </Button>
                 </div>
             </section>
+            <ExportData/>
         </div>
     );
 };

@@ -1,12 +1,14 @@
 import {useParams} from "react-router-dom";
 import FuturePredictionPage from "../pages/FuturePredictionPage/FuturePredictionPage";
 import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "..";
+import ExpensesSummary from "../../features/LastExpenses/components/ExpensesSummary";
 
 export const PageRouter = () => {
     const {page} = useParams();
 
     const pages = {
-        parse: <ParseExpensesList/>,
+        home: <ExpensesSummary/>,
+        import: <ParseExpensesList/>,
         balance: <BalanceView/>,
         expenses: <ExpenseView/>,
         categories: <CategoryView/>,

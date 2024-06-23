@@ -49,7 +49,7 @@ msgstr "🛎️ Apps Sub"
 msgid "Actual"
 msgstr "Actual"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:82
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:83
 msgid "Actual:"
 msgstr "Actual:"
 
@@ -58,16 +58,28 @@ msgid "Authoring"
 msgstr "Authoring"
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:49
+#~ msgid "average"
+#~ msgstr "average"
+
+#: src/components/molecules/Header/Header.jsx:27
+#~ msgid "Balance"
+#~ msgstr "Balance"
+
+#: src/components/pages/BalanceView/CategoryBalance.jsx:49
 msgid "average"
 msgstr "average"
 
 #: src/components/molecules/Header/Header.jsx:27
-msgid "Balance"
-msgstr "Balance"
+#~ msgid "Balance"
+#~ msgstr "Balance"
 
 #: src/components/molecules/Header/Header.jsx:49
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
+
+#: src/components/molecules/Header/Header.jsx:49
+#~ msgid "Balance: Where's my fucking money?"
+#~ msgstr "Balance: Where's my fucking money?"
 
 #: src/constants/categories.js:151
 msgid "Barber"
@@ -86,6 +98,7 @@ msgid "budget"
 msgstr "budget"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:154
 msgid "Budget"
 msgstr "Budget"
 
@@ -154,7 +167,11 @@ msgstr "Design"
 msgid "Dev"
 msgstr "Dev"
 
-#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:89
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:178
+msgid "diff"
+msgstr "diff"
+
+#: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:90
 msgid "Diffs:"
 msgstr "Diffs:"
 
@@ -255,6 +272,10 @@ msgstr "I'm in BIG trouble."
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:29
 msgid "I'm in trouble."
 msgstr "I'm in trouble."
+
+#: src/features/ExpensesSummary/components/ExpensesSummary.jsx:173
+msgid "Income"
+msgstr "Income"
 
 #: src/constants/categories.js:107
 msgid "Internet"

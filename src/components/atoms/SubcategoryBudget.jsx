@@ -24,7 +24,7 @@ export const SubcategoryBudget = ({categoryId, subcategoryId, isMeetingBudget = 
                 event.stopPropagation();
                 setIsSettingBudget(true);
             }}
-            className={classNames("text-sm flex flex-col items-center font-mono", {
+            className={classNames("text-sm flex gap-1 md:flex-col items-center font-mono", {
                 "text-red-500": !isMeetingBudget,
                 "text-green-600": isMeetingBudget
             })}>

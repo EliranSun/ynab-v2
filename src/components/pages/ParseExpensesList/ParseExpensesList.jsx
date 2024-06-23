@@ -5,13 +5,24 @@ import {Button, Title} from "../../atoms";
 import {withExpensesContext} from "../../../HOC/withExpensesContext";
 import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
-import {parseNewExpenses, isExistingExpense} from "../../../utils/expenses";
+import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
 import {ArrowSquareIn} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
 import {addExpensesToUser} from "../../../utils";
 
 const isMobile = window.innerWidth < 768;
+const formatAmount = (amount) => {
+    return parseFloat(amount.replace("₪", "").replace(",", "").trim());
+};
+
+const getDateTimestamp = (date) => {
+    const dateParts = date?.split("/");
+    const year = dateParts && dateParts[2] ? `20${dateParts[2]}` : new Date().getFullYear();
+    const month = dateParts && Number(dateParts[1]);
+    const day = dateParts && Number(dateParts[0]);
+    return new Date(Date.UTC(year, month - 1, day)).getTime();
+};
 
 export const ParseExpensesList = ({
                                       text = "",
@@ -24,6 +35,7 @@ export const ParseExpensesList = ({
     const [value, setValue] = useState(text);
     const [isParseButtonDisabled, setIsParseButtonDisabled] = useState(false);
     const [parsedExpenses, setParsedExpenses] = useState([]);
+    const [parsedFile, setParsedFile] = useState([]);
     const [isStatusAnimated, setIsStatusAnimated] = useState(false);
 
     useEffect(() => {
@@ -107,7 +119,9 @@ export const ParseExpensesList = ({
                 <div className="max-w-6xl m-auto">
                     {parsedExpenses.length > 0 &&
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
-                            Existing expenses: {expenses.length} • New expenses: {parsedExpenses.length}
+                            <Trans>Existing expenses</Trans>:
+                            {expenses.length} •
+                            <Trans>New expenses</Trans>: {parsedExpenses.length}
                         </Title>}
                     <ExpensesList
                         expenses={parsedExpenses}
@@ -171,17 +185,63 @@ export const ParseExpensesList = ({
                     </div>
                     <div className="">
                         <Title type={Title.Types.H2} className="mb-4">
-                            Manually - TBD
+                            <Trans>
+                                Manually - TBD
+                            </Trans>
                         </Title>
                     </div>
                     <Button
                         size={Button.Sizes.FULL}
                         isDisabled={isParseButtonDisabled}
                         onClick={setNewExpenses}
-                        className={classNames("my-4 w-72 mx-auto text-center", {
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
                             "animate-pulse duration-500": isStatusAnimated,
                         })}>
-                        {isStatusAnimated ? message : "Parse expenses"}
+                        {isStatusAnimated ? message : "Parse Text"}
+                    </Button>
+                </div>
+                <div className="mb-4">
+                    <Title type={Title.Types.H2} className="mb-4">
+                        <Trans>
+                            Upload
+                        </Trans>
+                    </Title>
+                    <SheetUpload onSheetParse={data => {
+                        console.log({data});
+                        setParsedFile(data.map(row => ({
+                            name: row["Name"] || row['שם'] || row['על מה?'],
+                            timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                            amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                            categoryName: row["Category"] || row['קטגוריה'],
+                        })));
+                    }}/>
+                    <pre>
+                        {JSON.stringify(parsedFile, null, 2)}
+                    </pre>
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={isParseButtonDisabled}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}
+                        onClick={() => {
+                            const newExpenses = parsedFile.map(item => {
+                                const similarExpense = expenses.find(existingItem => {
+                                    return existingItem.name === item.name;
+                                });
+
+                                if (similarExpense?.categoryId) {
+                                    item.categoryId = similarExpense.categoryId;
+                                }
+
+                                return item;
+                            });
+
+                            setParsedExpenses(newExpenses
+                                .filter(item => !isExistingExpense(item, expenses))
+                                .map(item => new Expense(item)));
+                        }}>
+                        {isStatusAnimated ? message : <Trans>Parse File</Trans>}
                     </Button>
                 </div>
             </section>

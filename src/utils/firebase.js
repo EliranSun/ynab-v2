@@ -2,14 +2,15 @@ import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {
     collection,
-    connectFirestoreEmulator,
     deleteDoc,
     doc,
     getDocs,
     getFirestore,
     setDoc,
     updateDoc,
-    writeBatch
+    writeBatch,
+    connectFirestoreEmulator,
+    getDoc
 } from "firebase/firestore";
 import {Expense} from "../models";
 import {getAuth} from "firebase/auth";
@@ -33,26 +34,42 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const db = getFirestore();
+export const auth = getAuth(app);
 
-export const emulateDB = () =>
-    connectFirestoreEmulator(db, '127.0.0.1', 8080);
+export const emulateDB = () => connectFirestoreEmulator(db, '127.0.0.1', 8080);
+
+const budgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
+const expensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
 
 const EXPENSES_COLLECTION = "expenses";
 const BUDGET_COLLECTION = "budget";
 
-export const auth = getAuth();
 const userBudgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
 const userExpensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
 
+export const setUserDoc = async (user) => {
+    const userRef = doc(db, `users/${user.uid}`);
+    const userDoc = await getDoc(userRef);
+
+    if (!userDoc.exists()) {
+        await setDoc(userRef, {
+            email: user.email,
+            name: user.displayName,
+            photoUrl: user.photoURL,
+            uid: user.uid,
+        });
+    }
+};
 
 export const getExpenses = async () => {
     try {
-        // if (process.env.NODE_ENV === "development") {
-        //     return expensesMock.map((expense) => new Expense(expense));
-        // }
-
         const expenses = {};
-        const querySnapshot = await getDocs(collection(db, EXPENSES_COLLECTION));
+        if (!auth.currentUser) {
+            return [];
+        }
+
+        console.info(`Fetching from ${expensesPath()}`);
+        const querySnapshot = await getDocs(collection(db, expensesPath()));
         querySnapshot.forEach((doc) => {
             const expense = doc.data();
             expenses[expense.id] = new Expense(expense);
@@ -87,26 +104,27 @@ export const createExpensesByDateCollection = async () => {
         // Now that the structure is guaranteed to exist, add the expense.
         // Assuming `expense.id` is unique and you want to store the whole expense object under its ID
         expensesByDateAndCategory[yearMonthKey][categoryKey][expense.id] = {
-            amount: Number(expense.amount),
-            amountCurrency: expense.amountCurrency,
-            categoryId: Number(expense.categoryId),
-            date: expense.date,
             id: expense.id,
+            date: expense.date,
+            name: expense.name,
+            note: expense.note,
+            amountCurrency: expense.amountCurrency,
             isIncome: expense.isIncome,
             isOriginal: expense.isOriginal,
             isThirdParty: expense.isThirdParty,
+            timestamp: expense.timestamp,
+            amount: Number(expense.amount),
+            categoryId: Number(expense.categoryId),
             mainCategoryId: Number(expense.mainCategoryId),
-            name: expense.name,
-            note: expense.note,
             subcategoryId: Number(expense.subcategoryId),
             subcategoryLabel: expense.subcategoryLabel,
-            timestamp: expense.timestamp,
         };
     });
 
+    const path = `users/${auth.currentUser.uid}/expensesByDateAndCategory`;
+    // Create or update a document for each yearMonth
     for (const [yearMonth, categories] of Object.entries(expensesByDateAndCategory)) {
-        // Create or update a document for each yearMonth
-        const yearMonthDocRef = doc(db, 'expensesByDateAndCategory', yearMonth);
+        const yearMonthDocRef = doc(db, path, yearMonth);
 
         // Prepare the categories data
         // Note: This operation will overwrite the document's data. If you want to merge with existing data,
@@ -122,14 +140,15 @@ export const createExpensesByDateCollection = async () => {
 }
 
 export const updateExpense = async (expenseId, props) => {
-    const expensesRef = doc(db, EXPENSES_COLLECTION, expenseId);
+    const expensesRef = doc(db, expensesPath(), expenseId);
     return updateDoc(expensesRef, props);
 };
 
+
 export const deleteExpense = async (expenseId) => {
-    const expensesRef = doc(db, EXPENSES_COLLECTION, expenseId);
+    const expensesRef = doc(db, expensesPath(), expenseId);
     const result = await deleteDoc(expensesRef);
-    console.info("Deleted expense", result, EXPENSES_COLLECTION, expenseId);
+    console.info("Deleted expense", result, expensesPath(), expenseId);
     return result;
 };
 
@@ -137,7 +156,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
     try {
         const batch = writeBatch(db);
         duplicateIds.forEach((id) => {
-            const expenseRef = doc(db, EXPENSES_COLLECTION, id);
+            const expenseRef = doc(db, expensesPath(), id);
             batch.update(expenseRef, {isOriginal: true});
         });
 
@@ -154,7 +173,7 @@ export const addExpenses = async (expenses) => {
         const batch = writeBatch(db);
         console.info("Adding expenses to DB", expenses);
         expenses.forEach((expense) => {
-            const expenseRef = doc(db, EXPENSES_COLLECTION, expense.id);
+            const expenseRef = doc(db, expensesPath(), expense.id);
             // must be a plain object
             batch.set(expenseRef, {
                 amount: Number(expense.amount),
@@ -183,7 +202,11 @@ export const addExpenses = async (expenses) => {
 export const getBudget = async () => {
     try {
         let budget = {};
-        const querySnapshot = await getDocs(collection(db, BUDGET_COLLECTION));
+        if (!auth.currentUser) {
+            return [];
+        }
+
+        const querySnapshot = await getDocs(collection(db, budgetPath()));
         querySnapshot.forEach((doc) => {
             budget = {
                 ...budget,
@@ -203,7 +226,7 @@ export const addBudget = async ({categoryId, subcategoryId, amount}) => {
     const budget = await getBudget();
 
     if (budget) {
-        const docRef = doc(db, BUDGET_COLLECTION);
+        const docRef = doc(db, budgetPath());
         return await updateDoc(docRef, {
             [String(categoryId)]: {
                 ...budget[categoryId],
@@ -212,7 +235,7 @@ export const addBudget = async ({categoryId, subcategoryId, amount}) => {
         });
     }
 
-    const docRef = doc(db, BUDGET_COLLECTION);
+    const docRef = doc(db, budgetPath());
     return await setDoc(docRef, {
         [String(categoryId)]: {
             [String(subcategoryId)]: Number(amount)
@@ -221,7 +244,7 @@ export const addBudget = async ({categoryId, subcategoryId, amount}) => {
 };
 
 // export const updateBudget = async (budgetId, props) => {
-//     const budgetRef = doc(db, BUDGET_COLLECTION, budgetId);
+//     const budgetRef = doc(db, budgetPath(), budgetId);
 //     return await updateDoc(budgetRef, props);
 // };
 

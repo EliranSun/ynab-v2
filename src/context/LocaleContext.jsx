@@ -34,7 +34,7 @@ export const LocaleProvider = ({children}) => {
     }, []);
 
     useEffect(() => {
-        changeLocale('en');
+        changeLocale('he');
     }, []);
 
     if (!locale) {

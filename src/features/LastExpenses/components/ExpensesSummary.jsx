@@ -147,7 +147,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
         return (
-            <div className="p-2 md:p-4 w-full max-w-screen-2xl m-auto">
+            <div className="p-2 md:p-4 w-full max-w-screen-2xl m-auto bg-white/90">
                 <h1 className="w-full m-auto text-8xl font-mono">
                     <Trans>
                         Summary
@@ -157,7 +157,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                     className={classNames({
                         "bg-neutral-50 p-2": true,
                         "h-full overflow-y-auto": true,
-                        "shadow-lg border-2 border-dashed rounded-lg": true,
+                        "shadow-lg border-2 border-solid     rounded-lg": true,
                     })}>
                     <ExpensesSummaryFilters
                         setStartDate={setStartDate}

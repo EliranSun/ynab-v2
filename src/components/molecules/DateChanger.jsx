@@ -1,6 +1,7 @@
 import {useMemo, useState} from "react";
 import classNames from "classnames";
 import {SkipBack, SkipForward} from "@phosphor-icons/react";
+import {isMobile} from "../../utils/device";
 
 const ONE_MONTH_MS = 1000 * 60 * 60 * 24 * 30;
 const now = new Date();
@@ -17,7 +18,9 @@ const Button = ({onClick, children, disabled}) => {
         <button
             onClick={onClick}
             disabled={disabled}
-            className={classNames("box-content flex items-center p-3 bg-gray-200 rounded-full w-6 h-6 text-xl font-bold border border-gray-500", {
+            className={classNames({
+                "flex items-center p-2 bg-gray-200": true,
+                "rounded-full w-10 h-10 font-bold border border-gray-500": true,
                 "opacity-20": disabled,
             })}
         >
@@ -57,12 +60,16 @@ export const useDate = () => {
                 // disabled={isSame}
                 onClick={() => setCurrentTimestamp(currentTimestamp + ONE_MONTH_MS)}
             >
-                <SkipForward color="black" size={32}/>
+                {isMobile() ?
+                    <SkipBack color="black" size={32}/> :
+                    <SkipForward color="black" size={32}/>}
             </Button>
         ),
         PreviousButton: ({children}) => (
             <Button onClick={() => setCurrentTimestamp(currentTimestamp - ONE_MONTH_MS)}>
-                <SkipBack color="black" size={32}/>
+                {isMobile() ?
+                    <SkipForward color="black" size={32}/> :
+                    <SkipBack color="black" size={32}/>}
             </Button>
         ),
     };

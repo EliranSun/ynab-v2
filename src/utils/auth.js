@@ -9,14 +9,9 @@ export const emulateAuth = () =>
 export const login = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
-        // const result = await signInWithRedirect(auth, provider);
-        const user = result.user;
-        console.info({user});
-        alert(`Welcome ${user.displayName}!`);
-        return user;
+        return result.user;
     } catch (error) {
         console.error(error);
-        alert(error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
@@ -31,12 +26,10 @@ export const logout = () => {
         .then(() => {
             // Sign-out successful.
             console.info("Sign-out successful.");
-            alert("Sign-out successful.");
         })
         .catch((error) => {
             // An error happened.
             console.error(error);
-            alert(error.message);
         });
 };
 

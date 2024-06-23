@@ -1,46 +1,55 @@
 import {noop} from "lodash";
 import {
-    ChartLineUp,
     ArrowSquareIn,
+    ChartLineUp,
     Coffee,
+    House,
     MagicWand,
-    PatreonLogo,
     Receipt,
     Scales,
     SquaresFour,
-    House,
 } from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import {BUTTON_SIZE} from "../../constants";
+import {useMemo} from "react";
+import {isDesktop} from "../../utils/device";
+import classNames from "classnames";
 
-export const isDesktop = window.innerWidth >= 768;
-export const ButtonLink = ({name, onClick = noop}) => {
-    const Icon = {
-        home: House,
-        import: ArrowSquareIn,
-        balance: Scales,
-        expenses: Receipt,
-        categories: SquaresFour,
-        projection: ChartLineUp,
-        resolver: MagicWand,
-        coffee: Coffee,
-        patreon: PatreonLogo
-    }[name];
+const Icons = {
+    home: House,
+    import: ArrowSquareIn,
+    balance: Scales,
+    expenses: Receipt,
+    categories: SquaresFour,
+    projection: ChartLineUp,
+    resolver: MagicWand,
+    coffee: Coffee,
+    // patreon: PatreonLogo,
+    // home: House,
+};
 
-    let link = `/${name}`;
-    if (name === "coffee") {
-        link = "https://www.buymeacoffee.com/omriharel";
-    }
+// let link = `/${name}`;
+// if (name === "coffee") {
+//     link = "https://www.buymeacoffee.com/omriharel";
+// }
+//
+// if (name === "patreon") {
+//     link = "https://www.patreon.com/omriharel";
+// }
 
-    if (name === "patreon") {
-        link = "https://www.patreon.com/omriharel";
-    }
+
+export const ButtonLink = ({name, label, onClick = noop, href, isDisabled}) => {
+    const Icon = useMemo(() => {
+        return Icons[name];
+    }, [name]);
 
     return (
-        <Link to={link} onClick={onClick}>
+        <Link to={href} onClick={onClick} className={classNames({
+            "pointer-events-none": isDisabled,
+        })}>
             <li className="flex items-center gap-2 h-12 md:flex-col">
                 <Icon size={isDesktop ? BUTTON_SIZE * 2 : BUTTON_SIZE}/>
-                <span className="text-xs">{name.toUpperCase()}</span>
+                <span className="text-xs">{label.toUpperCase()}</span>
             </li>
         </Link>
     )

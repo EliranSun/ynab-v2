@@ -1,9 +1,9 @@
 {
   "name": "ynab",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "private": true,
   "dependencies": {
-    "@lingui/react": "^4.4.0",
+    "@lingui/react": "^4.11.1",
     "@phosphor-icons/react": "^2.0.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
@@ -27,7 +27,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "cross-env PORT=3006 react-scripts start",
+    "start": "cross-env PORT=3006 GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -56,9 +56,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.24.6",
     "@faker-js/faker": "^8.0.2",
-    "@lingui/cli": "^4.4.0",
-    "@lingui/macro": "^4.4.0",
+    "@lingui/cli": "^4.11.1",
+    "@lingui/core": "^4.11.1",
+    "@lingui/macro": "^4.11.1",
     "@storybook/addon-essentials": "^7.3.2",
     "@storybook/addon-interactions": "^7.3.2",
     "@storybook/addon-links": "^7.3.2",
@@ -68,6 +70,7 @@
     "@storybook/react": "^7.3.2",
     "@storybook/react-webpack5": "^7.3.2",
     "@storybook/testing-library": "^0.2.0",
+    "babel-plugin-macros": "^3.1.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "cross-env": "^7.0.3",
     "eslint-plugin-storybook": "^0.6.13",

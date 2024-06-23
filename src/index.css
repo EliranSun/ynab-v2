@@ -5,6 +5,8 @@
 @tailwind utilities;
 
 body {
+    /*opacity: 0.2;*/
+    /*font-size: 10px;*/
     margin: 0;
     font-family: Roboto, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;

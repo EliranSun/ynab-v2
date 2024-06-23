@@ -60,7 +60,7 @@ const Expense = ({
                         setNote(event.target.value);
                     }}
                 />
-                <div className="hidden lg:block">
+                <div className="lg:block">
                     <label className="p-2">Recurring?</label>
                     <input
                         type="number"

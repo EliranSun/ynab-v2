@@ -4,11 +4,12 @@ export const InitBudget = {
     [CategoriesIds.Eating]: {
         [CategoriesIds.Delivery]: 500,
         [CategoriesIds.Groceries]: 1500,
-        [CategoriesIds.Dining]: 500
+        [CategoriesIds.Dining]: 500,
+        [CategoriesIds.Bars]: 100,
     },
     [CategoriesIds.Travel]: {
         [CategoriesIds.Lime]: 50,
-        [CategoriesIds.Bus]: 0,
+        [CategoriesIds.Bus]: 50,
         [CategoriesIds.KIA]: 500
     },
     [CategoriesIds.House]: {
@@ -20,20 +21,21 @@ export const InitBudget = {
         [CategoriesIds.Pets]: 40,
         [CategoriesIds.Internet]: 40,
         [CategoriesIds.Phone]: 50,
-        [CategoriesIds.Decor]: 100
+        [CategoriesIds.Decor]: 100,
+        [CategoriesIds.Maintenance]: 100,
     },
     [CategoriesIds.SelfCare]: {
         [CategoriesIds.Therapist]: 400,
         [CategoriesIds.Gym]: 400,
         [CategoriesIds.Barber]: 120,
         [CategoriesIds.Hobbies]: 500,
-        [CategoriesIds.Games]: 0,
+        [CategoriesIds.Games]: 20,
         [CategoriesIds.Clothes]: 100,
         [CategoriesIds.HealthBeauty]: 100,
-        [CategoriesIds.Donations]: 700,
-        [CategoriesIds.Education]: 30,
-        [CategoriesIds.Electronics]: 0,
-        [CategoriesIds.Books]: 1000,
+        [CategoriesIds.Electronics]: 700,
+        [CategoriesIds.Books]: 30,
+        [CategoriesIds.Donations]: 30,
+        [CategoriesIds.Education]: 1000,
         [CategoriesIds.SelfCareOther]: 50,
     },
     [CategoriesIds.Out]: {
@@ -43,11 +45,12 @@ export const InitBudget = {
         [CategoriesIds.Vacation]: 0,
     },
     [CategoriesIds.AppsSub]: {
-        [CategoriesIds.Friends]: 100,
-        [CategoriesIds.Family]: 150,
-        [CategoriesIds.Dates]: 100,
-        [CategoriesIds.Vacation]: 150,
-        [CategoriesIds.AppsSub]: 70,
+        [CategoriesIds.TV]: 100,
+        [CategoriesIds.Authoring]: 150,
+        [CategoriesIds.Design]: 100,
+        [CategoriesIds.iOS]: 150,
+        [CategoriesIds.Dev]: 70,
+        [CategoriesIds.Fun]: 70,
     },
     [CategoriesIds.Taxes]: {
         [CategoriesIds.Health]: 300,

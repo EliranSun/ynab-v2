@@ -107,22 +107,25 @@ export const ManageBudget = () => {
     }, [budget]);
 
     return (
-        <section className="p-4 max-w-screen-lg m-auto">
+        <section className="max-w-screen-lg m-auto">
             <h1 className="text-5xl">
                 <Trans>Budget</Trans>
             </h1>
-            <div className="sticky top-0 p-4 w-full bg-white flex justify-evenly gap-4 m-auto border-b shadow">
-                <BudgetInfoCard amount={totalBudget.income} type={BudgetInfoType.INCOME}/>
-                <BudgetInfoCard amount={totalBudget.expenses} type={BudgetInfoType.EXPENSES}/>
-                <BudgetInfoCard amount={totalBudget.income - totalBudget.expenses} type={BudgetInfoType.DIFFERENCE}/>
-            </div>
-            <div className="text-3xl">
-                <Trans>Cutoff in months for average expenses</Trans>
-                <input
-                    type="number"
-                    value={cutOffInMonths}
-                    onChange={(event) => setCutOffInMonths(Number(event.target.value))}
-                    className="text-center font-mono w-28"/>
+            <div className="sticky top-0 p-4 w-screen bg-white border-b shadow">
+                <div className="flex justify-evenly gap-4 m-auto">
+                    <BudgetInfoCard amount={totalBudget.income} type={BudgetInfoType.INCOME}/>
+                    <BudgetInfoCard amount={totalBudget.expenses} type={BudgetInfoType.EXPENSES}/>
+                    <BudgetInfoCard amount={totalBudget.income - totalBudget.expenses}
+                                    type={BudgetInfoType.DIFFERENCE}/>
+                </div>
+                <div className="text-3xl">
+                    <Trans>Cutoff in months for average expenses</Trans>
+                    <input
+                        type="number"
+                        value={cutOffInMonths}
+                        onChange={(event) => setCutOffInMonths(Number(event.target.value))}
+                        className="text-center font-mono w-28"/>
+                </div>
             </div>
             <div className="flex flex-wrap">
                 {Object.entries(budget).map(([category, value]) => {

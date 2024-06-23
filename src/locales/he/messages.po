@@ -292,7 +292,7 @@ msgstr "בריאות"
 
 #: src/constants/categories.js:230
 msgid "Health/Beauty"
-msgstr "בריאות/יופי"
+msgstr "טיפוח"
 
 #: src/components/molecules/Header/Header.jsx:89
 #: src/components/molecules/Header/Header.jsx:96

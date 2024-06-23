@@ -6,10 +6,12 @@ export const CategoriesIds = {
     Groceries: 12,
     Dining: 13,
     Bars: 14,
+
     Travel: 2,
     Lime: 21,
     Bus: 22,
     KIA: 23,
+
     House: 3,
     Rent: 31,
     BuildingCommittee: 32,
@@ -21,6 +23,7 @@ export const CategoriesIds = {
     Phone: 311,
     Decor: 312,
     Maintenance: 313,
+
     SelfCare: 4,
     Therapist: 41,
     Gym: 42,
@@ -34,11 +37,13 @@ export const CategoriesIds = {
     Electronics: 411,
     Books: 412,
     SelfCareOther: 46,
+
     Out: 5,
     Friends: 51,
     Family: 52,
     Dates: 53,
     Vacation: 54,
+
     AppsSub: 6,
     TV: 310,
     Authoring: 61,
@@ -46,9 +51,11 @@ export const CategoriesIds = {
     iOS: 63,
     Dev: 64,
     Fun: 65,
+
     Taxes: 7,
     Health: 71,
     Fees: 72,
+    
     Income: 8,
     Salary: 81,
     Other: 82,

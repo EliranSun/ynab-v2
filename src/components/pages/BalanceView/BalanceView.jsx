@@ -66,7 +66,7 @@ const BalanceView = () => {
                                     categoryId={category.id}
                                     categoryName={category.name}
                                     categoryBudget={category.budget}
-                                    subcategoryBudgets={budget["8.2023"] ? budget["8.2023"][category.id] : {}}
+                                    subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
                                     currentTimestamp={currentTimestamp}
                                     isSameDate={isSameDate}
                                     isPreviousMonth={isPreviousMonth}/>

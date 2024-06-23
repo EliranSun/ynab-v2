@@ -47,17 +47,17 @@ export const ExportData = () => {
                     <Trans>Budget</Trans>
                 </Title>
                 <pre className="h-96 overflow-y-auto overflow-x-hidden">
-                    {JSON.stringify(budget['8.2023'], null, 2)}
+                    {JSON.stringify(budget, null, 2)}
                 </pre>
                 <Button
                     size={Button.Sizes.FULL}
-                    isDisabled={Object.keys(budget['8.2023']).length === 0}
+                    isDisabled={Object.keys(budget).length === 0}
                     className={classNames("my-4 w-72 mx-auto text-center", {
                         "animate-pulse duration-500": false,
                     })}
                     onClick={() => {
                         const element = document.createElement("a");
-                        const file = new Blob([JSON.stringify(budget['8.2023'], null, 2)], {type: "text/plain"});
+                        const file = new Blob([JSON.stringify(budget, null, 2)], {type: "text/plain"});
                         element.href = URL.createObjectURL(file);
                         element.download = "budget.json";
                         document.body.appendChild(element);

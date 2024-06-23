@@ -198,22 +198,21 @@ export const getBudget = async () => {
     }
 };
 
-export const addBudget = async ({dateKey, categoryId, subcategoryId, amount}) => {
-    console.info("Adding budget to DB", {dateKey, categoryId, amount});
+export const addBudget = async ({categoryId, subcategoryId, amount}) => {
+    console.info("Adding budget to DB", {categoryId, amount});
     const budget = await getBudget();
-    const isExist = budget[dateKey];
 
-    if (isExist) {
-        const docRef = doc(db, BUDGET_COLLECTION, String(dateKey));
+    if (budget) {
+        const docRef = doc(db, BUDGET_COLLECTION);
         return await updateDoc(docRef, {
             [String(categoryId)]: {
-                ...budget[dateKey][categoryId],
+                ...budget[categoryId],
                 [String(subcategoryId)]: Number(amount)
             },
         });
     }
 
-    const docRef = doc(db, BUDGET_COLLECTION, String(dateKey));
+    const docRef = doc(db, BUDGET_COLLECTION);
     return await setDoc(docRef, {
         [String(categoryId)]: {
             [String(subcategoryId)]: Number(amount)
@@ -221,10 +220,10 @@ export const addBudget = async ({dateKey, categoryId, subcategoryId, amount}) =>
     });
 };
 
-export const updateBudget = async (budgetId, props) => {
-    const budgetRef = doc(db, BUDGET_COLLECTION, budgetId);
-    return await updateDoc(budgetRef, props);
-};
+// export const updateBudget = async (budgetId, props) => {
+//     const budgetRef = doc(db, BUDGET_COLLECTION, budgetId);
+//     return await updateDoc(budgetRef, props);
+// };
 
 export const updateCategory = async (expenseId, categoryId) => {
     try {

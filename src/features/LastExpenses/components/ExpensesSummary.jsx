@@ -52,12 +52,12 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         const [sortBy, setSortBy] = useState("timestamp");
         const [filteredItems, setFilteredItems] = useState([]);
         const budgetForTimeframe = useMemo(() => {
+            console.log({budget});
             if (!budget || Object.keys(budget).length === 0) {
                 return 0;
             }
 
-            const budgetObject = budget['8.2023'];
-            const relevantCategories = Object.entries(budgetObject).filter(([key]) => {
+            const relevantCategories = Object.entries(budget).filter(([key]) => {
                 return key !== INCOME_CATEGORY_ID;
             });
             let totalBudget = 0;

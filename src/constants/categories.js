@@ -55,7 +55,7 @@ export const CategoriesIds = {
     Taxes: 7,
     Health: 71,
     Fees: 72,
-    
+
     Income: 8,
     Salary: 81,
     Other: 82,
@@ -391,7 +391,7 @@ export const Categories = [
                 isIncome: true,
             },
             {
-                id: CategoriesIds.Rent,
+                id: CategoriesIds.IncomeRent,
                 name: "Rent",
                 label: <Trans>Rent</Trans>,
                 icon: "🏠",

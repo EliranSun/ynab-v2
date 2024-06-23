@@ -13,35 +13,35 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/constants/categories.js:188
+#: src/constants/categories.js:195
 msgid "❤️ Self Care"
 msgstr "❤️ Self Care"
 
-#: src/constants/categories.js:62
+#: src/constants/categories.js:69
 msgid "🍔 Eating"
 msgstr "🍔 Eating"
 
-#: src/constants/categories.js:270
+#: src/constants/categories.js:277
 msgid "🎁💃 Out"
 msgstr "🎁💃 Out"
 
-#: src/constants/categories.js:120
+#: src/constants/categories.js:127
 msgid "🏠 House"
 msgstr "🏠 House"
 
-#: src/constants/categories.js:366
+#: src/constants/categories.js:373
 msgid "💰 Income"
 msgstr "💰 Income"
 
-#: src/constants/categories.js:347
+#: src/constants/categories.js:354
 msgid "🧾 Taxes"
 msgstr "🧾 Taxes"
 
-#: src/constants/categories.js:94
+#: src/constants/categories.js:101
 msgid "🚌 Travel"
 msgstr "🚌 Travel"
 
-#: src/constants/categories.js:302
+#: src/constants/categories.js:309
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ Apps Sub"
 
@@ -53,7 +53,7 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
-#: src/constants/categories.js:314
+#: src/constants/categories.js:321
 msgid "Authoring"
 msgstr "Authoring"
 
@@ -61,7 +61,7 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/ManageBudget.jsx:73
+#: src/features/ManageBudget/ManageBudget.jsx:78
 msgid "Average"
 msgstr "Average"
 
@@ -73,15 +73,15 @@ msgstr "Balance"
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
 
-#: src/constants/categories.js:206
+#: src/constants/categories.js:213
 msgid "Barber"
 msgstr "Barber"
 
-#: src/constants/categories.js:86
+#: src/constants/categories.js:93
 msgid "Bars"
 msgstr "Bars"
 
-#: src/constants/categories.js:254
+#: src/constants/categories.js:261
 msgid "Books"
 msgstr "Books"
 
@@ -93,7 +93,7 @@ msgstr "budget"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:112
+#: src/features/ManageBudget/ManageBudget.jsx:116
 msgid "Budget"
 msgstr "Budget"
 
@@ -105,11 +105,11 @@ msgstr "Budget"
 msgid "Budget:"
 msgstr "Budget:"
 
-#: src/constants/categories.js:132
+#: src/constants/categories.js:139
 msgid "Building Committee"
 msgstr "Building Committee"
 
-#: src/constants/categories.js:106
+#: src/constants/categories.js:113
 msgid "Bus"
 msgstr "Bus"
 
@@ -122,7 +122,7 @@ msgstr "but it's negligible!"
 msgid "Categories"
 msgstr "Categories"
 
-#: src/constants/categories.js:224
+#: src/constants/categories.js:231
 msgid "Clothes"
 msgstr "Clothes"
 
@@ -142,27 +142,31 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
-#: src/features/ManageBudget/ManageBudget.jsx:120
-msgid "Cutoff in months for average expenses"
-msgstr "Cutoff in months for average expenses"
+#: src/features/ManageBudget/ManageBudget.jsx:127
+msgid "Cutoff by"
+msgstr "Average by"
 
-#: src/constants/categories.js:288
+#: src/features/ManageBudget/ManageBudget.jsx:120
+#~ msgid "Cutoff in months for average expenses"
+#~ msgstr "Cutoff in months for average expenses"
+
+#: src/constants/categories.js:295
 msgid "Dates"
 msgstr "Dates"
 
-#: src/constants/categories.js:174
+#: src/constants/categories.js:181
 msgid "Decor"
 msgstr "Decor"
 
-#: src/constants/categories.js:68
+#: src/constants/categories.js:75
 msgid "Delivery"
 msgstr "Delivery"
 
-#: src/constants/categories.js:320
+#: src/constants/categories.js:327
 msgid "Design"
 msgstr "Design"
 
-#: src/constants/categories.js:332
+#: src/constants/categories.js:339
 msgid "Dev"
 msgstr "Dev"
 
@@ -174,23 +178,23 @@ msgstr "diff"
 msgid "Diffs:"
 msgstr "Diffs:"
 
-#: src/constants/categories.js:80
+#: src/constants/categories.js:87
 msgid "Dining"
 msgstr "Dining"
 
-#: src/constants/categories.js:236
+#: src/constants/categories.js:243
 msgid "Donations"
 msgstr "Donations"
 
-#: src/constants/categories.js:242
+#: src/constants/categories.js:249
 msgid "Education"
 msgstr "Education"
 
-#: src/constants/categories.js:138
+#: src/constants/categories.js:145
 msgid "Electricity"
 msgstr "Electricity"
 
-#: src/constants/categories.js:248
+#: src/constants/categories.js:255
 msgid "Electronics"
 msgstr "Electronics"
 
@@ -216,11 +220,11 @@ msgstr "Export budget to file"
 msgid "Export expenses to file"
 msgstr "Export expenses to file"
 
-#: src/constants/categories.js:282
+#: src/constants/categories.js:289
 msgid "Family"
 msgstr "Family"
 
-#: src/constants/categories.js:358
+#: src/constants/categories.js:365
 msgid "Fees"
 msgstr "Fees"
 
@@ -229,7 +233,7 @@ msgstr "Fees"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/constants/categories.js:276
+#: src/constants/categories.js:283
 msgid "Friends"
 msgstr "Friends"
 
@@ -245,11 +249,11 @@ msgstr "From Sheet/XLS"
 msgid "From Text"
 msgstr "From Text"
 
-#: src/constants/categories.js:338
+#: src/constants/categories.js:345
 msgid "Fun"
 msgstr "Fun"
 
-#: src/constants/categories.js:218
+#: src/constants/categories.js:225
 msgid "Games"
 msgstr "Games"
 
@@ -265,19 +269,19 @@ msgstr "Good evening!"
 msgid "Good morning!"
 msgstr "Good morning!"
 
-#: src/constants/categories.js:74
+#: src/constants/categories.js:81
 msgid "Groceries"
 msgstr "Groceries"
 
-#: src/constants/categories.js:200
+#: src/constants/categories.js:207
 msgid "Gym"
 msgstr "Gym"
 
-#: src/constants/categories.js:352
+#: src/constants/categories.js:359
 msgid "Health"
 msgstr "Health"
 
-#: src/constants/categories.js:230
+#: src/constants/categories.js:237
 msgid "Health/Beauty"
 msgstr "Health/Beauty"
 
@@ -286,7 +290,7 @@ msgstr "Health/Beauty"
 msgid "Hey"
 msgstr "Hey"
 
-#: src/constants/categories.js:212
+#: src/constants/categories.js:219
 msgid "Hobbies"
 msgstr "Hobbies"
 
@@ -310,11 +314,11 @@ msgstr "Import"
 msgid "Income"
 msgstr "Income"
 
-#: src/constants/categories.js:162
+#: src/constants/categories.js:169
 msgid "Internet"
 msgstr "Internet"
 
-#: src/constants/categories.js:326
+#: src/constants/categories.js:333
 msgid "iOS"
 msgstr "iOS"
 
@@ -322,11 +326,11 @@ msgstr "iOS"
 msgid "Jesus fucking christ man."
 msgstr "Jesus fucking christ man."
 
-#: src/constants/categories.js:112
+#: src/constants/categories.js:119
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/ManageBudget.jsx:77
+#: src/features/ManageBudget/ManageBudget.jsx:82
 msgid "Last"
 msgstr "Last"
 
@@ -346,7 +350,7 @@ msgstr "left to spend"
 msgid "less than my budget"
 msgstr "less than my budget"
 
-#: src/constants/categories.js:100
+#: src/constants/categories.js:107
 msgid "Lime"
 msgstr "Lime"
 
@@ -362,13 +366,17 @@ msgstr "Logout"
 msgid "Lost this month..."
 msgstr "Lost this month..."
 
-#: src/constants/categories.js:180
+#: src/constants/categories.js:187
 msgid "Maintenance"
 msgstr "Maintenance"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
 msgid "Manually - TBD"
 msgstr "Manually - TBD"
+
+#: src/features/ManageBudget/ManageBudget.jsx:133
+msgid "months"
+msgstr "last months"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
@@ -386,8 +394,8 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/constants/categories.js:262
-#: src/constants/categories.js:382
+#: src/constants/categories.js:269
+#: src/constants/categories.js:389
 msgid "Other"
 msgstr "Other"
 
@@ -428,11 +436,11 @@ msgstr "Past 12 months"
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr "perhaps a one-off, but I should understand why if this keeps going."
 
-#: src/constants/categories.js:156
+#: src/constants/categories.js:163
 msgid "Pets"
 msgstr "Pets"
 
-#: src/constants/categories.js:168
+#: src/constants/categories.js:175
 msgid "Phone"
 msgstr "Phone"
 
@@ -445,12 +453,12 @@ msgstr "Projection"
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 
-#: src/constants/categories.js:150
+#: src/constants/categories.js:157
 msgid "Rates"
 msgstr "Rates"
 
-#: src/constants/categories.js:126
-#: src/constants/categories.js:389
+#: src/constants/categories.js:133
+#: src/constants/categories.js:396
 msgid "Rent"
 msgstr "Rent"
 
@@ -459,7 +467,7 @@ msgstr "Rent"
 msgid "Resolver"
 msgstr "Resolver"
 
-#: src/constants/categories.js:373
+#: src/constants/categories.js:380
 msgid "Salary"
 msgstr "Salary"
 
@@ -480,7 +488,7 @@ msgstr "Spent"
 msgid "Summary"
 msgstr "Summary"
 
-#: src/constants/categories.js:194
+#: src/constants/categories.js:201
 msgid "Therapist"
 msgstr "Therapist"
 
@@ -488,19 +496,19 @@ msgstr "Therapist"
 #~ msgid "Total budgeted savings"
 #~ msgstr "Total budgeted savings"
 
-#: src/features/ManageBudget/ManageBudget.jsx:24
+#: src/features/ManageBudget/ManageBudget.jsx:29
 msgid "Total budgeted savings:"
 msgstr "Total budgeted savings:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:22
+#: src/features/ManageBudget/ManageBudget.jsx:27
 msgid "Total Expenses Budget:"
 msgstr "Total Expenses Budget:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:20
+#: src/features/ManageBudget/ManageBudget.jsx:25
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
-#: src/constants/categories.js:308
+#: src/constants/categories.js:315
 msgid "TV"
 msgstr "TV"
 
@@ -508,11 +516,11 @@ msgstr "TV"
 msgid "Upload"
 msgstr "Upload"
 
-#: src/constants/categories.js:294
+#: src/constants/categories.js:301
 msgid "Vacation"
 msgstr "Vacation"
 
-#: src/constants/categories.js:144
+#: src/constants/categories.js:151
 msgid "Water"
 msgstr "Water"
 

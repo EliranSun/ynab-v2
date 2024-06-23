@@ -22,35 +22,35 @@ msgstr ""
 #~ msgid "{children}"
 #~ msgstr "{children}"
 
-#: src/constants/categories.js:188
+#: src/constants/categories.js:195
 msgid "❤️ Self Care"
 msgstr "❤️ עצמי"
 
-#: src/constants/categories.js:62
+#: src/constants/categories.js:69
 msgid "🍔 Eating"
 msgstr "🍔 אוכל"
 
-#: src/constants/categories.js:270
+#: src/constants/categories.js:277
 msgid "🎁💃 Out"
 msgstr "🎁💃 יציאות"
 
-#: src/constants/categories.js:120
+#: src/constants/categories.js:127
 msgid "🏠 House"
 msgstr "🏠 בית"
 
-#: src/constants/categories.js:366
+#: src/constants/categories.js:373
 msgid "💰 Income"
 msgstr "💰 הכנסות"
 
-#: src/constants/categories.js:347
+#: src/constants/categories.js:354
 msgid "🧾 Taxes"
 msgstr "🧾 מיסים"
 
-#: src/constants/categories.js:94
+#: src/constants/categories.js:101
 msgid "🚌 Travel"
 msgstr "🚌 נסיעות"
 
-#: src/constants/categories.js:302
+#: src/constants/categories.js:309
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ מינויים"
 
@@ -62,7 +62,7 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
-#: src/constants/categories.js:314
+#: src/constants/categories.js:321
 msgid "Authoring"
 msgstr "כתיבה"
 
@@ -70,7 +70,7 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
-#: src/features/ManageBudget/ManageBudget.jsx:73
+#: src/features/ManageBudget/ManageBudget.jsx:78
 msgid "Average"
 msgstr "ממוצע"
 
@@ -90,15 +90,15 @@ msgstr "תנועות"
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
-#: src/constants/categories.js:206
+#: src/constants/categories.js:213
 msgid "Barber"
 msgstr "ספר"
 
-#: src/constants/categories.js:86
+#: src/constants/categories.js:93
 msgid "Bars"
 msgstr "ברים"
 
-#: src/constants/categories.js:254
+#: src/constants/categories.js:261
 msgid "Books"
 msgstr "ספרים"
 
@@ -110,7 +110,7 @@ msgstr "תקציב"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:112
+#: src/features/ManageBudget/ManageBudget.jsx:116
 msgid "Budget"
 msgstr "תקציב"
 
@@ -118,11 +118,11 @@ msgstr "תקציב"
 msgid "Budget:"
 msgstr "תקציב:"
 
-#: src/constants/categories.js:132
+#: src/constants/categories.js:139
 msgid "Building Committee"
 msgstr "ועד"
 
-#: src/constants/categories.js:106
+#: src/constants/categories.js:113
 msgid "Bus"
 msgstr "אוטובוס"
 
@@ -135,7 +135,7 @@ msgstr "אבל זה זניח!"
 msgid "Categories"
 msgstr "קטגוריות"
 
-#: src/constants/categories.js:224
+#: src/constants/categories.js:231
 msgid "Clothes"
 msgstr "ביגוד"
 
@@ -155,27 +155,31 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
-#: src/features/ManageBudget/ManageBudget.jsx:120
-msgid "Cutoff in months for average expenses"
-msgstr "ממוצע לפי מספר חודשים אחרונים"
+#: src/features/ManageBudget/ManageBudget.jsx:127
+msgid "Cutoff by"
+msgstr "ממוצע לפי"
 
-#: src/constants/categories.js:288
+#: src/features/ManageBudget/ManageBudget.jsx:120
+#~ msgid "Cutoff in months for average expenses"
+#~ msgstr "ממוצע לפי מספר חודשים אחרונים"
+
+#: src/constants/categories.js:295
 msgid "Dates"
 msgstr "דייטים"
 
-#: src/constants/categories.js:174
+#: src/constants/categories.js:181
 msgid "Decor"
 msgstr "עיצוב פנים"
 
-#: src/constants/categories.js:68
+#: src/constants/categories.js:75
 msgid "Delivery"
 msgstr "משלוחים"
 
-#: src/constants/categories.js:320
+#: src/constants/categories.js:327
 msgid "Design"
 msgstr "עיצוב"
 
-#: src/constants/categories.js:332
+#: src/constants/categories.js:339
 msgid "Dev"
 msgstr "פיתוח"
 
@@ -187,23 +191,23 @@ msgstr "הפרש"
 msgid "Diffs:"
 msgstr "הפרש:"
 
-#: src/constants/categories.js:80
+#: src/constants/categories.js:87
 msgid "Dining"
 msgstr "מסעדות"
 
-#: src/constants/categories.js:236
+#: src/constants/categories.js:243
 msgid "Donations"
 msgstr "תרומות"
 
-#: src/constants/categories.js:242
+#: src/constants/categories.js:249
 msgid "Education"
 msgstr "לימודים"
 
-#: src/constants/categories.js:138
+#: src/constants/categories.js:145
 msgid "Electricity"
 msgstr "חשמל"
 
-#: src/constants/categories.js:248
+#: src/constants/categories.js:255
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
@@ -229,11 +233,11 @@ msgstr "יצוא תקציב לקובץ"
 msgid "Export expenses to file"
 msgstr "יצוא הוצאות לקובץ"
 
-#: src/constants/categories.js:282
+#: src/constants/categories.js:289
 msgid "Family"
 msgstr "משפחה"
 
-#: src/constants/categories.js:358
+#: src/constants/categories.js:365
 msgid "Fees"
 msgstr "עמלות"
 
@@ -242,7 +246,7 @@ msgstr "עמלות"
 msgid "Filters"
 msgstr "סננים"
 
-#: src/constants/categories.js:276
+#: src/constants/categories.js:283
 msgid "Friends"
 msgstr "חברים"
 
@@ -258,11 +262,11 @@ msgstr "מגיליון/אקסל"
 msgid "From Text"
 msgstr "מטקסט"
 
-#: src/constants/categories.js:338
+#: src/constants/categories.js:345
 msgid "Fun"
 msgstr "כייף"
 
-#: src/constants/categories.js:218
+#: src/constants/categories.js:225
 msgid "Games"
 msgstr "משחקים"
 
@@ -278,19 +282,19 @@ msgstr "ערב טוב!"
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
-#: src/constants/categories.js:74
+#: src/constants/categories.js:81
 msgid "Groceries"
 msgstr "מצרכים"
 
-#: src/constants/categories.js:200
+#: src/constants/categories.js:207
 msgid "Gym"
 msgstr "כושר"
 
-#: src/constants/categories.js:352
+#: src/constants/categories.js:359
 msgid "Health"
 msgstr "בריאות"
 
-#: src/constants/categories.js:230
+#: src/constants/categories.js:237
 msgid "Health/Beauty"
 msgstr "טיפוח"
 
@@ -299,7 +303,7 @@ msgstr "טיפוח"
 msgid "Hey"
 msgstr "היי"
 
-#: src/constants/categories.js:212
+#: src/constants/categories.js:219
 msgid "Hobbies"
 msgstr "תחביבים"
 
@@ -323,11 +327,11 @@ msgstr "יבוא"
 msgid "Income"
 msgstr "הכנסות"
 
-#: src/constants/categories.js:162
+#: src/constants/categories.js:169
 msgid "Internet"
 msgstr "אינטרנט"
 
-#: src/constants/categories.js:326
+#: src/constants/categories.js:333
 msgid "iOS"
 msgstr "אפליקציות"
 
@@ -335,11 +339,11 @@ msgstr "אפליקציות"
 msgid "Jesus fucking christ man."
 msgstr "אלוקים אדירים אבינו שבשמיים."
 
-#: src/constants/categories.js:112
+#: src/constants/categories.js:119
 msgid "KIA"
 msgstr "רכב"
 
-#: src/features/ManageBudget/ManageBudget.jsx:77
+#: src/features/ManageBudget/ManageBudget.jsx:82
 msgid "Last"
 msgstr "אחרון"
 
@@ -355,7 +359,7 @@ msgstr "נשאר להוציא"
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
 
-#: src/constants/categories.js:100
+#: src/constants/categories.js:107
 msgid "Lime"
 msgstr "קורקינט חשמלי"
 
@@ -371,13 +375,17 @@ msgstr "התנתק"
 msgid "Lost this month..."
 msgstr "אבדו בחודש זה..."
 
-#: src/constants/categories.js:180
+#: src/constants/categories.js:187
 msgid "Maintenance"
 msgstr "תחזוקה"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
 msgid "Manually - TBD"
 msgstr "ידנית - ייקבע בהמשך"
+
+#: src/features/ManageBudget/ManageBudget.jsx:133
+msgid "months"
+msgstr "חודשים אחרונים"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:20
 msgid "my budget is nowhere NEAR reality."
@@ -395,8 +403,8 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/constants/categories.js:262
-#: src/constants/categories.js:382
+#: src/constants/categories.js:269
+#: src/constants/categories.js:389
 msgid "Other"
 msgstr "אחר"
 
@@ -437,11 +445,11 @@ msgstr "12 החודשים האחרונים"
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr "אולי פשלה חד פעמית, אבל כדאי שאבין למה זה קרה"
 
-#: src/constants/categories.js:156
+#: src/constants/categories.js:163
 msgid "Pets"
 msgstr "חיות"
 
-#: src/constants/categories.js:168
+#: src/constants/categories.js:175
 msgid "Phone"
 msgstr "טלפון"
 
@@ -454,12 +462,12 @@ msgstr "חיזוי"
 msgid "Put in mind though - the budget is for the current month only, so some months (i.e. vacation) are skewing these results."
 msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), ולכן בחלק מהחודשים (למשל חופשה) התוצאות תהיינה מוטות."
 
-#: src/constants/categories.js:150
+#: src/constants/categories.js:157
 msgid "Rates"
 msgstr "מיסים"
 
-#: src/constants/categories.js:126
-#: src/constants/categories.js:389
+#: src/constants/categories.js:133
+#: src/constants/categories.js:396
 msgid "Rent"
 msgstr "שכר דירה"
 
@@ -468,7 +476,7 @@ msgstr "שכר דירה"
 msgid "Resolver"
 msgstr "המיישב"
 
-#: src/constants/categories.js:373
+#: src/constants/categories.js:380
 msgid "Salary"
 msgstr "משכורת"
 
@@ -489,23 +497,23 @@ msgstr "בוזבז"
 msgid "Summary"
 msgstr "תמונת מצב"
 
-#: src/constants/categories.js:194
+#: src/constants/categories.js:201
 msgid "Therapist"
 msgstr "פסיכולוג"
 
-#: src/features/ManageBudget/ManageBudget.jsx:24
+#: src/features/ManageBudget/ManageBudget.jsx:29
 msgid "Total budgeted savings:"
 msgstr "סך חיסכון"
 
-#: src/features/ManageBudget/ManageBudget.jsx:22
+#: src/features/ManageBudget/ManageBudget.jsx:27
 msgid "Total Expenses Budget:"
 msgstr "סך הוצאות מתוכננות"
 
-#: src/features/ManageBudget/ManageBudget.jsx:20
+#: src/features/ManageBudget/ManageBudget.jsx:25
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 
-#: src/constants/categories.js:308
+#: src/constants/categories.js:315
 msgid "TV"
 msgstr "טלוויזיה"
 
@@ -513,11 +521,11 @@ msgstr "טלוויזיה"
 msgid "Upload"
 msgstr "העלה קובץ"
 
-#: src/constants/categories.js:294
+#: src/constants/categories.js:301
 msgid "Vacation"
 msgstr "חופשה"
 
-#: src/constants/categories.js:144
+#: src/constants/categories.js:151
 msgid "Water"
 msgstr "מים"
 

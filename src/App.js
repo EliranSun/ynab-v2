@@ -15,14 +15,14 @@ function App() {
             <BudgetContextProvider>
                 <ExpensesContextProvider>
                     <RouterProvider router={router}/>
-                    <div className="fixed opacity-10">
-                        <img
-                            src={Picture}
-                            className="fixed -z-10 bottom-[50vh] left-32 w-3/12 md:w-1/12 h-auto"
-                            alt="bg-frame"/>
+                    <div className="fixed -z-10">
+                        {/*<img*/}
+                        {/*    src={Picture}*/}
+                        {/*    className="fixed -z-10 bottom-[50vh] left-32 w-3/12 md:w-1/12 h-auto"*/}
+                        {/*    alt="bg-frame"/>*/}
                         <img
                             src={Couch}
-                            className="fixed  z-0 bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
+                            className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
                             alt="bg-couch"/>
                     </div>
                 </ExpensesContextProvider>

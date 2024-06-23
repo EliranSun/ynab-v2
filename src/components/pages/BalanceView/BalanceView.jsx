@@ -1,5 +1,4 @@
 import {useDate} from "../../molecules";
-import {Title} from "../../atoms";
 import {CategoryBalance} from "./CategoryBalance";
 import {BalanceSummary} from "../../molecules/PastTwelveMonthsBalance/BalanceSummary";
 import {useCategories} from "../../../hooks/useCategories";

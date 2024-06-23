@@ -70,7 +70,7 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
-#: src/components/molecules/Header/Header.jsx:26
+#: src/components/molecules/Header/Header.jsx:30
 msgid "Balance"
 msgstr "תנועות"
 
@@ -82,7 +82,7 @@ msgstr "תנועות"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/components/molecules/Header/Header.jsx:48
+#: src/components/molecules/Header/Header.jsx:52
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -124,8 +124,8 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/Header/Header.jsx:34
-#: src/components/molecules/Header/Header.jsx:50
+#: src/components/molecules/Header/Header.jsx:38
+#: src/components/molecules/Header/Header.jsx:54
 msgid "Categories"
 msgstr "קטגוריות"
 
@@ -201,8 +201,8 @@ msgstr "אלקטרוניקה"
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
-#: src/components/molecules/Header/Header.jsx:30
-#: src/components/molecules/Header/Header.jsx:49
+#: src/components/molecules/Header/Header.jsx:34
+#: src/components/molecules/Header/Header.jsx:53
 #: src/components/pages/ParseExpensesList/ExportData.jsx:20
 msgid "Expenses"
 msgstr "הוצאות"
@@ -256,15 +256,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/components/molecules/Header/Header.jsx:58
+#: src/components/molecules/Header/Header.jsx:62
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/components/molecules/Header/Header.jsx:59
+#: src/components/molecules/Header/Header.jsx:63
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/components/molecules/Header/Header.jsx:57
+#: src/components/molecules/Header/Header.jsx:61
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -284,14 +284,18 @@ msgstr "בריאות"
 msgid "Health/Beauty"
 msgstr "בריאות/יופי"
 
-#: src/components/molecules/Header/Header.jsx:81
-#: src/components/molecules/Header/Header.jsx:88
+#: src/components/molecules/Header/Header.jsx:85
+#: src/components/molecules/Header/Header.jsx:92
 msgid "Hey"
 msgstr "היי"
 
 #: src/constants/categories.js:212
 msgid "Hobbies"
 msgstr "תחביבים"
+
+#: src/components/molecules/Header/Header.jsx:22
+msgid "Home"
+msgstr "בית"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:26
 msgid "I'm in BIG trouble."
@@ -394,10 +398,14 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/Header/Header.jsx:22
-#: src/components/molecules/Header/Header.jsx:47
+#: src/components/molecules/Header/Header.jsx:26
+#: src/components/molecules/Header/Header.jsx:51
 msgid "Parse"
 msgstr "פירסור"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:242
+msgid "Parse File"
+msgstr "עבד קובץ"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:63
 msgid "Past 12 months"
@@ -419,8 +427,8 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/Header/Header.jsx:38
-#: src/components/molecules/Header/Header.jsx:51
+#: src/components/molecules/Header/Header.jsx:42
+#: src/components/molecules/Header/Header.jsx:55
 msgid "Projection"
 msgstr "חיזוי"
 
@@ -437,8 +445,8 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/components/molecules/Header/Header.jsx:42
-#: src/components/molecules/Header/Header.jsx:52
+#: src/components/molecules/Header/Header.jsx:46
+#: src/components/molecules/Header/Header.jsx:56
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -457,7 +465,7 @@ msgstr "הצג הוצאות דומות רק בחודש זה"
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:171
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:191
 msgid "Spent"
-msgstr "בוזבזו"
+msgstr "בוזבז"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:152
 msgid "Summary"
@@ -487,7 +495,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/components/molecules/Header/Header.jsx:56
+#: src/components/molecules/Header/Header.jsx:60
 msgid "Welcome"
 msgstr "ברוך הבא!"
 

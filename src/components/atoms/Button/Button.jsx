@@ -21,6 +21,7 @@ const Button = ({
                 "bg-white/30 md:hover:bg-gray-500 md:text-gray-700 text-gray-700 hover:text-white hover:border-transparent rounded border border-gray-500": type === Types.GHOST_BORDERED,
                 "w-full": size === Sizes.FULL,
                 "w-fit": size === Sizes.DEFAULT,
+                "float-left bg-blue-500 md:hover:bg-blue-700 text-white font-bold rounded p-3": type === Types.PRIMARY_FLOAT,
             })}
         >
             {children}
@@ -34,6 +35,7 @@ const Types = {
     DANGER: "danger",
     GHOST: "ghost",
     GHOST_BORDERED: "ghost-bordered",
+    PRIMARY_FLOAT: "float",
 };
 
 const Sizes = {

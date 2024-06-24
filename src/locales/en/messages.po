@@ -61,7 +61,7 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/ManageBudget.jsx:78
+#: src/features/ManageBudget/ManageBudget.jsx:79
 msgid "Average"
 msgstr "Average"
 
@@ -93,7 +93,7 @@ msgstr "budget"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:116
+#: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
 msgstr "Budget"
 
@@ -142,7 +142,7 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
-#: src/features/ManageBudget/ManageBudget.jsx:127
+#: src/features/ManageBudget/ManageBudget.jsx:141
 msgid "Cutoff by"
 msgstr "Average by"
 
@@ -330,7 +330,7 @@ msgstr "Jesus fucking christ man."
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/ManageBudget.jsx:82
+#: src/features/ManageBudget/ManageBudget.jsx:83
 msgid "Last"
 msgstr "Last"
 
@@ -374,7 +374,7 @@ msgstr "Maintenance"
 msgid "Manually - TBD"
 msgstr "Manually - TBD"
 
-#: src/features/ManageBudget/ManageBudget.jsx:133
+#: src/features/ManageBudget/ManageBudget.jsx:147
 msgid "months"
 msgstr "last months"
 
@@ -471,6 +471,10 @@ msgstr "Resolver"
 msgid "Salary"
 msgstr "Salary"
 
+#: src/features/ManageBudget/ManageBudget.jsx:130
+msgid "Save Budget"
+msgstr "Save Budget"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
 msgstr "Saved this month!"
@@ -496,15 +500,15 @@ msgstr "Therapist"
 #~ msgid "Total budgeted savings"
 #~ msgstr "Total budgeted savings"
 
-#: src/features/ManageBudget/ManageBudget.jsx:29
+#: src/features/ManageBudget/ManageBudget.jsx:30
 msgid "Total budgeted savings:"
 msgstr "Total budgeted savings:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:27
+#: src/features/ManageBudget/ManageBudget.jsx:28
 msgid "Total Expenses Budget:"
 msgstr "Total Expenses Budget:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:25
+#: src/features/ManageBudget/ManageBudget.jsx:26
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 

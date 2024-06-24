@@ -54,8 +54,9 @@ export const ExpensesContextProvider = ({children}) => {
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
     const [expensesArray, setExpensesArray] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
-    const {budget} = useContext(BudgetContext);
+    const [budget] = useContext(BudgetContext);
 
+    console.log({budget});
 
     const setExpenseAsRecurring = (expenseId, recurring) => {
         new Array(Number(recurring)).fill(0).forEach((_, index) => {
@@ -156,7 +157,7 @@ export const ExpensesContextProvider = ({children}) => {
                 },
                 fetchExpenses: async () => {
                     const expenses = await getExpenses();
-                    
+
                     setExpenses(expenses);
                     setExpensesArray(Object.values(expenses));
                     setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(expenses)));
@@ -181,7 +182,8 @@ export const ExpensesContextProvider = ({children}) => {
                             const category = Categories.find(category => category.id === expense.mainCategoryId);
                             const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
 
-                            const categoryBudget = budget[budgetKey]?.[category.id];
+                            const categoryBudget = budget?.[category.id];
+                            console.log({budget, categoryBudget})
                             const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
                                 return acc + subcategory;
                             }, 0);

@@ -252,7 +252,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
 ;
 
 const ProvidedLastExpenses = () => {
-    const {budget} = useContext(BudgetContext);
+    const [budget] = useContext(BudgetContext);
     const {expensesArray} = useContext(ExpensesContext);
 
     return <ExpensesSummary budget={budget} expensesArray={expensesArray}/>

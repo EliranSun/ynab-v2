@@ -60,8 +60,7 @@ export const CategoryBalance = ({
                                 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const {expensesArray} = useContext(ExpensesContext);
-    const {budget} = useContext(BudgetContext);
-    const budgetKey = getDateKey(currentTimestamp);
+    const [budget] = useContext(BudgetContext);
     const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
 
     const subcategories = useMemo(() => {
@@ -102,7 +101,7 @@ export const CategoryBalance = ({
 
 
         return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
-    }, [budget, budgetKey, categoryId, currentTimestamp, expensesArray]);
+    }, [budget, categoryId, currentTimestamp, expensesArray]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 

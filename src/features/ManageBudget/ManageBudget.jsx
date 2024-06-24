@@ -1,12 +1,13 @@
 import {CategoriesIds, getCategoryName, getSubCategoryIcon, getSubCategoryName} from "../../constants";
 import {InitBudget} from "../../constants/init-budget";
-import {formatCurrency} from "../../utils";
+import {formatCurrency, updateBudget} from "../../utils";
 import {Trans} from "@lingui/macro";
 import {useContext, useMemo, useState} from "react";
-import {ExpensesContext} from "../../context";
+import {BudgetContext, ExpensesContext} from "../../context";
 import {getAverageSubcategoryAmount, getLastSubcategoryAmount} from "../../utils/expenses";
 import classNames from "classnames";
-import {toNumber} from "lodash";
+import {toNumber, isEqual} from "lodash";
+import {Button} from "../../components";
 
 const BudgetInfoType = {
     INCOME: 'INCOME',
@@ -65,10 +66,10 @@ const SubcategoryBudget = ({
     return (
         <div
             key={id}
-            className="flex flex-col gap-2 p-2 bg-white justify-center items-center border rounded-xl">
+            className="flex flex-col gap-2 p-2 w-fit bg-white justify-center items-center border rounded-xl">
             <input
                 type="text"
-                className="text-3xl text-center font-mono w-28"
+                className="text-3xl text-center font-mono w-40 p-4"
                 onChange={(e) => onChange(id, e.target.value)}
                 defaultValue={formatCurrency(amount, false, false)}/>
             <p>{icon} {label}</p>
@@ -87,8 +88,8 @@ const SubcategoryBudget = ({
 }
 
 export const ManageBudget = () => {
-    const [budget, setBudget] = useState(InitBudget);
     const [cutOffInMonths, setCutOffInMonths] = useState(3);
+    const [budget, setBudget] = useContext(BudgetContext);
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
 
     const totalBudget = useMemo(() => {
@@ -115,6 +116,19 @@ export const ManageBudget = () => {
             <h1 className="text-5xl">
                 <Trans>Budget</Trans>
             </h1>
+            <Button
+                type={Button.Types.PRIMARY_FLOAT}
+                isDisabled={isEqual(budget, InitBudget)}
+                onClick={async () => {
+                    console.log('Save budget', budget);
+                    try {
+                        await updateBudget(budget);
+                    } catch (error) {
+                        console.error("Error saving budget", error);
+                    }
+                }}>
+                <Trans>Save Budget</Trans>
+            </Button>
             <div className="flex gap-4">
                 <div className="sticky top-0 p-4 bg-white border-b shadow h-fit">
                     <div className="flex w-full flex-col justify-evenly gap-4 m-auto mb-2">

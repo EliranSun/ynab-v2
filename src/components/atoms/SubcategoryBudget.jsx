@@ -10,7 +10,6 @@ export const SubcategoryBudget = ({categoryId, subcategoryId, isMeetingBudget = 
     const [isSettingBudget, setIsSettingBudget] = useState(false);
     const [newBudgetAmount, setNewBudgetAmount] = useState(budgetAmount);
     const ref = useRef(null);
-    const {setBudget} = useContext(BudgetContext);
 
     useClickAway(ref, () => {
         setIsSettingBudget(false);
@@ -35,13 +34,13 @@ export const SubcategoryBudget = ({categoryId, subcategoryId, isMeetingBudget = 
                     value={newBudgetAmount}
                     className="flex w-fit max-w-[40px] text-center"
                     onChange={(event) => {
-                        setNewBudgetAmount(Number(event.target.value));
+                        // setNewBudgetAmount(Number(event.target.value));
 
-                        setBudget({
-                            amount: Number(event.target.value),
-                            categoryId,
-                            subcategoryId,
-                        });
+                        // setBudget({
+                        //     amount: Number(event.target.value),
+                        //     categoryId,
+                        //     subcategoryId,
+                        // });
                     }}/> :
                 formatCurrency(newBudgetAmount, false, false)}
         </div>

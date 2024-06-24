@@ -9,7 +9,7 @@ import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
 import {ArrowSquareIn} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
-import {addExpensesToUser} from "../../../utils";
+import {addExpenses} from "../../../utils";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -173,7 +173,7 @@ export const ParseExpensesList = ({
                                         const expenses = JSON.parse(data);
 
                                         try {
-                                            await addExpensesToUser(expenses);
+                                            await addExpenses(expenses);
                                             alert("Expenses added to user!");
                                         } catch (error) {
                                             console.error(error);

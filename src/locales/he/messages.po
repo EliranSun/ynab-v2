@@ -70,7 +70,7 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
-#: src/features/ManageBudget/ManageBudget.jsx:78
+#: src/features/ManageBudget/ManageBudget.jsx:79
 msgid "Average"
 msgstr "ממוצע"
 
@@ -110,7 +110,7 @@ msgstr "תקציב"
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:116
+#: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
 msgstr "תקציב"
 
@@ -155,7 +155,7 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
-#: src/features/ManageBudget/ManageBudget.jsx:127
+#: src/features/ManageBudget/ManageBudget.jsx:141
 msgid "Cutoff by"
 msgstr "ממוצע לפי"
 
@@ -343,7 +343,7 @@ msgstr "אלוקים אדירים אבינו שבשמיים."
 msgid "KIA"
 msgstr "רכב"
 
-#: src/features/ManageBudget/ManageBudget.jsx:82
+#: src/features/ManageBudget/ManageBudget.jsx:83
 msgid "Last"
 msgstr "אחרון"
 
@@ -383,7 +383,7 @@ msgstr "תחזוקה"
 msgid "Manually - TBD"
 msgstr "ידנית - ייקבע בהמשך"
 
-#: src/features/ManageBudget/ManageBudget.jsx:133
+#: src/features/ManageBudget/ManageBudget.jsx:147
 msgid "months"
 msgstr "חודשים אחרונים"
 
@@ -480,6 +480,10 @@ msgstr "המיישב"
 msgid "Salary"
 msgstr "משכורת"
 
+#: src/features/ManageBudget/ManageBudget.jsx:130
+msgid "Save Budget"
+msgstr ""
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
@@ -501,15 +505,15 @@ msgstr "תמונת מצב"
 msgid "Therapist"
 msgstr "פסיכולוג"
 
-#: src/features/ManageBudget/ManageBudget.jsx:29
+#: src/features/ManageBudget/ManageBudget.jsx:30
 msgid "Total budgeted savings:"
 msgstr "סך חיסכון"
 
-#: src/features/ManageBudget/ManageBudget.jsx:27
+#: src/features/ManageBudget/ManageBudget.jsx:28
 msgid "Total Expenses Budget:"
 msgstr "סך הוצאות מתוכננות"
 
-#: src/features/ManageBudget/ManageBudget.jsx:25
+#: src/features/ManageBudget/ManageBudget.jsx:26
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 

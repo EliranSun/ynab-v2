@@ -11,7 +11,7 @@ import {LocaleContext} from "../../../context/LocaleContext";
 import classNames from "classnames";
 
 const BalanceView = () => {
-        const {budget} = useContext(BudgetContext);
+        const [budget] = useContext(BudgetContext);
         const {currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth} = useDate();
         const categories = useCategories(currentTimestamp);
         const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
@@ -41,9 +41,10 @@ const BalanceView = () => {
             <section className="overflow-x-hidden border-10 border-black w-full p-2 md:mt-8">
                 <div
                     className="flex flex-col md:flex-row my-2 md:top-0 md:w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
-                    <div className="w-full flex gap-2 md:gap-16 items-center justify-between md:justify-center">
+                    <div
+                        className="w-full flex gap-2 md:gap-16 items-center justify-between md:justify-center">
                         <PreviousButton/>
-                        <h1 className="font-black font-mono text-2xl md:text-9xl md:w-[1000px] text-center">
+                        <h1 className="font-black font-mono text-2xl md:text-4xl text-center">
                             {new Date(currentTimestamp).toLocaleString(locale === "he" ? "he-IL" : "en-GB", {
                                 month: "long",
                                 year: "numeric",

@@ -7,7 +7,7 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 
 export const ExportData = () => {
     const {expensesArray} = useContext(ExpensesContext);
-    const {budget} = useContext(BudgetContext);
+    const [budget] = useContext(BudgetContext);
 
     return (
         <section className="p-4">

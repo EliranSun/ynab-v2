@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import {Expense} from "../models";
 import {getAuth} from "firebase/auth";
+import {format} from "date-fns";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -40,12 +41,6 @@ export const emulateDB = () => connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
 const budgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
 const expensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
-
-const EXPENSES_COLLECTION = "expenses";
-const BUDGET_COLLECTION = "budget";
-
-const userBudgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
-const userExpensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
 
 export const setUserDoc = async (user) => {
     const userRef = doc(db, `users/${user.uid}`);
@@ -75,7 +70,7 @@ export const getExpenses = async () => {
             expenses[expense.id] = new Expense(expense);
         });
 
-        console.info("Expenses fetched", expenses);
+        console.info("Expenses fetched", Object.keys(expenses).length);
         return expenses;
     } catch (error) {
         console.error("Error getting document:", error);
@@ -244,10 +239,12 @@ export const addBudget = async ({categoryId, subcategoryId, amount}) => {
     });
 };
 
-// export const updateBudget = async (budgetId, props) => {
-//     const budgetRef = doc(db, budgetPath(), budgetId);
-//     return await updateDoc(budgetRef, props);
-// };
+export const getBudgetKey = () => format(new Date(), "yyyy.MM");
+
+export const updateBudget = async (props) => {
+    const budgetRef = doc(db, budgetPath(), getBudgetKey());
+    return await setDoc(budgetRef, props);
+};
 
 export const updateCategory = async (expenseId, categoryId) => {
     try {
@@ -255,37 +252,5 @@ export const updateCategory = async (expenseId, categoryId) => {
     } catch (error) {
         console.error("Error updating category:", error);
         return {};
-    }
-}
-
-export const addExpensesToUser = async (expenses = []) => {
-    try {
-        const batch = writeBatch(db);
-        console.info("Adding expenses to user", expenses);
-        expenses.forEach((expense) => {
-            const expenseRef = doc(db, userExpensesPath(), expense.id);
-            // must be a plain object
-            batch.set(expenseRef, {
-                amount: Number(expense.amount),
-                amountCurrency: expense.amountCurrency,
-                categoryId: Number(expense.categoryId),
-                date: expense.date,
-                id: expense.id,
-                isIncome: expense.isIncome,
-                isOriginal: expense.isOriginal,
-                isThirdParty: expense.isThirdParty,
-                mainCategoryId: Number(expense.mainCategoryId),
-                name: expense.name,
-                note: expense.note,
-                subcategoryId: Number(expense.subcategoryId),
-                subcategoryLabel: expense.subcategoryLabel,
-                timestamp: expense.timestamp,
-            });
-        });
-
-        await batch.commit();
-    } catch (error) {
-        console.error("Error adding expenses to user:", error);
-        throw new Error(error);
     }
 };

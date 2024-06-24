@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {getExpensesSummary} from "../utils/expenses";
 
 export const useCategories = (timestamp) => {
-    const {budget} = useContext(BudgetContext);
+    const [budget] = useContext(BudgetContext);
     const [categories, setCategories] = useState({summary: [], totalExpenses: 0, totalIncome: 0});
 
     useEffect(() => {

@@ -23,8 +23,8 @@ export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeNa
                         timeframe={Timeframe.WEEK}
                         label={FilterName.THIS_WEEK}
                         isSelected={selectedLabel === FilterName.THIS_WEEK}
-                        startDate={startOfWeek(new Date(), {weekStartsOn: 1})}
-                        endDate={endOfWeek(new Date(), {weekStartsOn: 1})}
+                        startDate={startOfWeek(new Date(), {weekStartsOn: 0})}
+                        endDate={endOfWeek(new Date(), {weekStartsOn: 0})}
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
@@ -33,8 +33,8 @@ export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeNa
                         timeframe={Timeframe.WEEK}
                         label={FilterName.LAST_WEEK}
                         isSelected={selectedLabel === FilterName.LAST_WEEK}
-                        startDate={startOfWeek(subDays(new Date(), 7), {weekStartsOn: 1})}
-                        endDate={endOfWeek(subDays(new Date(), 7), {weekStartsOn: 1})}
+                        startDate={startOfWeek(subDays(new Date(), 7), {weekStartsOn: 0})}
+                        endDate={endOfWeek(subDays(new Date(), 7), {weekStartsOn: 0})}
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>

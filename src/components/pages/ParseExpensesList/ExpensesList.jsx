@@ -69,11 +69,12 @@ export const ExpensesList = ({
                         className="flex items-center gap-2"
                         onClick={async () => {
                             setIsLoading(true);
+                            console.info({ expensesWithCategory });
                             await submitExpenses(expensesWithCategory);
                             setIsLoading(false);
                         }}>
                         <Spinner className={isLoading ? "animate-spin" : ''}/>
-                        <span>Submit {expensesWithCategory.length}</span>
+                        <span>Submit {expensesWithCategory.length}!</span>
                     </Button>
                 </div>
                 <div className="mb-4 h-2/3 snap-y overflow-y-auto xl:p-4">

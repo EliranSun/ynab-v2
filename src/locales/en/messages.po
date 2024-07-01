@@ -53,6 +53,14 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
+#: src/components/molecules/ExpenseInput.jsx:80
+msgid "Add Expense"
+msgstr "Add Expense"
+
+#: src/components/molecules/ExpenseInput.jsx:10
+msgid "amount"
+msgstr "amount"
+
 #: src/constants/categories.js:321
 msgid "Authoring"
 msgstr "Authoring"
@@ -65,11 +73,11 @@ msgstr "average"
 msgid "Average"
 msgstr "Average"
 
-#: src/components/molecules/Header/Header.jsx:34
+#: src/constants/index.js:29
 msgid "Balance"
 msgstr "Balance"
 
-#: src/components/molecules/Header/Header.jsx:56
+#: src/constants/index.js:50
 msgid "Balance: Where's my fucking money?"
 msgstr "Balance: Where's my fucking money?"
 
@@ -89,9 +97,9 @@ msgstr "Books"
 msgid "budget"
 msgstr "budget"
 
-#: src/components/molecules/Header/Header.jsx:30
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
+#: src/constants/index.js:25
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
@@ -117,8 +125,8 @@ msgstr "Bus"
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
 
-#: src/components/molecules/Header/Header.jsx:42
-#: src/components/molecules/Header/Header.jsx:58
+#: src/constants/index.js:37
+#: src/constants/index.js:52
 msgid "Categories"
 msgstr "Categories"
 
@@ -198,13 +206,13 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:123
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
-#: src/components/molecules/Header/Header.jsx:38
-#: src/components/molecules/Header/Header.jsx:57
 #: src/components/pages/ParseExpensesList/ExportData.jsx:20
+#: src/constants/index.js:33
+#: src/constants/index.js:51
 msgid "Expenses"
 msgstr "Expenses"
 
@@ -237,15 +245,19 @@ msgstr "Filters"
 msgid "Friends"
 msgstr "Friends"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
-msgid "From JSON (use export ↗)"
-msgstr "From JSON (use export ↗)"
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:177
+msgid "From exported JSON"
+msgstr "From exported JSON"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:155
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
+#~ msgid "From JSON (use export ↗)"
+#~ msgstr "From JSON (use export ↗)"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:171
 msgid "From Sheet/XLS"
 msgstr "From Sheet/XLS"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:140
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
 msgid "From Text"
 msgstr "From Text"
 
@@ -257,15 +269,15 @@ msgstr "Fun"
 msgid "Games"
 msgstr "Games"
 
-#: src/components/molecules/Header/Header.jsx:66
+#: src/constants/index.js:59
 msgid "Good afternoon!"
 msgstr "Good afternoon!"
 
-#: src/components/molecules/Header/Header.jsx:67
+#: src/constants/index.js:60
 msgid "Good evening!"
 msgstr "Good evening!"
 
-#: src/components/molecules/Header/Header.jsx:65
+#: src/constants/index.js:58
 msgid "Good morning!"
 msgstr "Good morning!"
 
@@ -285,8 +297,8 @@ msgstr "Health"
 msgid "Health/Beauty"
 msgstr "Health/Beauty"
 
-#: src/components/molecules/Header/Header.jsx:89
-#: src/components/molecules/Header/Header.jsx:96
+#: src/components/molecules/Header/WelcomeMessage.jsx:25
+#: src/components/molecules/Header/WelcomeMessage.jsx:32
 msgid "Hey"
 msgstr "Hey"
 
@@ -294,7 +306,7 @@ msgstr "Hey"
 msgid "Hobbies"
 msgstr "Hobbies"
 
-#: src/components/molecules/Header/Header.jsx:22
+#: src/constants/index.js:17
 msgid "Home"
 msgstr "Home"
 
@@ -306,7 +318,7 @@ msgstr "I'm in BIG trouble."
 msgid "I'm in trouble."
 msgstr "I'm in trouble."
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:117
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Import"
 msgstr "Import"
 
@@ -370,9 +382,13 @@ msgstr "Lost this month..."
 msgid "Maintenance"
 msgstr "Maintenance"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:140
+msgid "Manually"
+msgstr "Manually"
+
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
-msgid "Manually - TBD"
-msgstr "Manually - TBD"
+#~ msgid "Manually - TBD"
+#~ msgstr "Manually - TBD"
 
 #: src/features/ManageBudget/ManageBudget.jsx:147
 msgid "months"
@@ -386,13 +402,21 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:124
+#: src/components/molecules/ExpenseInput.jsx:9
+msgid "name"
+msgstr "name"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:125
 msgid "New expenses"
 msgstr "New expenses"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:73
 msgid "No budget set this month."
 msgstr "No budget set this month."
+
+#: src/components/molecules/ExpenseInput.jsx:11
+msgid "note"
+msgstr "note"
 
 #: src/constants/categories.js:269
 #: src/constants/categories.js:389
@@ -415,14 +439,18 @@ msgstr "over budget"
 msgid "over my budget"
 msgstr "over my budget"
 
-#: src/components/molecules/Header/Header.jsx:26
-#: src/components/molecules/Header/Header.jsx:55
+#: src/constants/index.js:21
+#: src/constants/index.js:49
 msgid "Parse"
 msgstr "Parse"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:243
 msgid "Parse File"
 msgstr "Parse File"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:166
+msgid "Parse Text"
+msgstr "Parse Text"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:63
 msgid "Past 12 months"
@@ -444,8 +472,8 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/molecules/Header/Header.jsx:46
-#: src/components/molecules/Header/Header.jsx:59
+#: src/constants/index.js:41
+#: src/constants/index.js:53
 msgid "Projection"
 msgstr "Projection"
 
@@ -462,8 +490,8 @@ msgstr "Rates"
 msgid "Rent"
 msgstr "Rent"
 
-#: src/components/molecules/Header/Header.jsx:50
-#: src/components/molecules/Header/Header.jsx:60
+#: src/constants/index.js:45
+#: src/constants/index.js:54
 msgid "Resolver"
 msgstr "Resolver"
 
@@ -528,7 +556,7 @@ msgstr "Vacation"
 msgid "Water"
 msgstr "Water"
 
-#: src/components/molecules/Header/Header.jsx:64
+#: src/constants/index.js:57
 msgid "Welcome"
 msgstr "Welcome"
 

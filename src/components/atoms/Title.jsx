@@ -20,18 +20,18 @@ const Title = ({children, type, className, transId, ...rest}) => {
             );
         case Types.H2:
             return (
-                <h2 className={classNames("text-3xl md:text-4xl", className)}>
+                <h2 className={classNames("text-2xl md:text-4xl", className)}>
                     {children}
                 </h2>
             );
         case Types.H3:
-            return <h3 className={classNames("text-3xl", className)}>{children}</h3>;
+            return <h3 className={classNames("text-xl", className)}>{children}</h3>;
         case Types.H4:
-            return <h4 className={classNames("text-2xl", className)}>{children}</h4>;
+            return <h4 className={classNames("text-lg", className)}>{children}</h4>;
         case Types.H5:
-            return <h5 className={classNames("text-xl", className)}>{children}</h5>;
+            return <h5 className={classNames("text-md", className)}>{children}</h5>;
         case Types.H6:
-            return <h6 className={classNames("text-lg", className)}>{children}</h6>;
+            return <h6 className={classNames("text-sm", className)}>{children}</h6>;
     }
 };
 

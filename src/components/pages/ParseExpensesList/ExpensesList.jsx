@@ -1,17 +1,17 @@
-import { Categories } from "../../../constants";
-import { noop } from "lodash"
-import { LeanCategorySelection } from "../../organisms/CategorySelection";
-import { Button, Spinner } from "../../atoms";
-import { useEffect, useMemo, useState } from "react";
-import { SimilarExpenses } from "../../organisms/SimilarExpenses";
-import { ParseExpenseHeader } from "../../molecules/ParseExpenseHeader";
+import {Categories} from "../../../constants";
+import {noop} from "lodash"
+import {LeanCategorySelection} from "../../organisms/CategorySelection";
+import {Button, Spinner} from "../../atoms";
+import {useEffect, useMemo, useState} from "react";
+import {SimilarExpenses} from "../../organisms/SimilarExpenses";
+import {ExpenseInput} from "../../molecules/ExpenseInput";
 
 export const ExpensesList = ({
-        expenses = [],
-        existingExpenses = [],
-        setExpenses = noop,
-        submitExpenses = noop
-    }) => {
+                                 expenses = [],
+                                 existingExpenses = [],
+                                 setExpenses = noop,
+                                 submitExpenses = noop
+                             }) => {
         const [isCategorySelectionVisible, setIsCategorySelectionVisible] = useState(true);
         const [isLoading, setIsLoading] = useState(false);
         const expensesWithCategory = useMemo(() => expenses.filter((expense) => {
@@ -69,7 +69,7 @@ export const ExpensesList = ({
                         className="flex items-center gap-2"
                         onClick={async () => {
                             setIsLoading(true);
-                            console.info({ expensesWithCategory });
+                            console.info({expensesWithCategory});
                             await submitExpenses(expensesWithCategory);
                             setIsLoading(false);
                         }}>
@@ -94,7 +94,7 @@ export const ExpensesList = ({
                                 className="snap-start"
                                 id={expense.id}
                                 onClick={() => setActiveId(expense.id)}>
-                                <ParseExpenseHeader
+                                <ExpenseInput
                                     index={index}
                                     name={expense.name}
                                     note={expense.note}

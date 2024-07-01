@@ -62,6 +62,14 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
+#: src/components/molecules/ExpenseInput.jsx:80
+msgid "Add Expense"
+msgstr ""
+
+#: src/components/molecules/ExpenseInput.jsx:10
+msgid "amount"
+msgstr "סכום"
+
 #: src/constants/categories.js:321
 msgid "Authoring"
 msgstr "כתיבה"
@@ -74,7 +82,7 @@ msgstr "ממוצע"
 msgid "Average"
 msgstr "ממוצע"
 
-#: src/components/molecules/Header/Header.jsx:34
+#: src/constants/index.js:29
 msgid "Balance"
 msgstr "תנועות"
 
@@ -86,7 +94,7 @@ msgstr "תנועות"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/components/molecules/Header/Header.jsx:56
+#: src/constants/index.js:50
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -106,9 +114,9 @@ msgstr "ספרים"
 msgid "budget"
 msgstr "תקציב"
 
-#: src/components/molecules/Header/Header.jsx:30
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/components/pages/ParseExpensesList/ExportData.jsx:47
+#: src/constants/index.js:25
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
@@ -130,8 +138,8 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/molecules/Header/Header.jsx:42
-#: src/components/molecules/Header/Header.jsx:58
+#: src/constants/index.js:37
+#: src/constants/index.js:52
 msgid "Categories"
 msgstr "קטגוריות"
 
@@ -211,13 +219,13 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:123
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
-#: src/components/molecules/Header/Header.jsx:38
-#: src/components/molecules/Header/Header.jsx:57
 #: src/components/pages/ParseExpensesList/ExportData.jsx:20
+#: src/constants/index.js:33
+#: src/constants/index.js:51
 msgid "Expenses"
 msgstr "הוצאות"
 
@@ -250,15 +258,19 @@ msgstr "סננים"
 msgid "Friends"
 msgstr "חברים"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
-msgid "From JSON (use export ↗)"
-msgstr "מג'ייסון (השתמש ביצוא ↗)"
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:177
+msgid "From exported JSON"
+msgstr "מג'ייסון מיוצא"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:155
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
+#~ msgid "From JSON (use export ↗)"
+#~ msgstr "מג'ייסון (השתמש ביצוא ↗)"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:171
 msgid "From Sheet/XLS"
 msgstr "מגיליון/אקסל"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:140
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
 msgid "From Text"
 msgstr "מטקסט"
 
@@ -270,15 +282,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/components/molecules/Header/Header.jsx:66
+#: src/constants/index.js:59
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/components/molecules/Header/Header.jsx:67
+#: src/constants/index.js:60
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/components/molecules/Header/Header.jsx:65
+#: src/constants/index.js:58
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -298,8 +310,8 @@ msgstr "בריאות"
 msgid "Health/Beauty"
 msgstr "טיפוח"
 
-#: src/components/molecules/Header/Header.jsx:89
-#: src/components/molecules/Header/Header.jsx:96
+#: src/components/molecules/Header/WelcomeMessage.jsx:25
+#: src/components/molecules/Header/WelcomeMessage.jsx:32
 msgid "Hey"
 msgstr "היי"
 
@@ -307,7 +319,7 @@ msgstr "היי"
 msgid "Hobbies"
 msgstr "תחביבים"
 
-#: src/components/molecules/Header/Header.jsx:22
+#: src/constants/index.js:17
 msgid "Home"
 msgstr "בית"
 
@@ -319,7 +331,7 @@ msgstr "אני בצרות -גדולות-."
 msgid "I'm in trouble."
 msgstr "אני בצרות."
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:117
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Import"
 msgstr "יבוא"
 
@@ -379,9 +391,13 @@ msgstr "אבדו בחודש זה..."
 msgid "Maintenance"
 msgstr "תחזוקה"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:140
+msgid "Manually"
+msgstr "הוספה ידנית"
+
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
-msgid "Manually - TBD"
-msgstr "ידנית - ייקבע בהמשך"
+#~ msgid "Manually - TBD"
+#~ msgstr "ידנית - ייקבע בהמשך"
 
 #: src/features/ManageBudget/ManageBudget.jsx:147
 msgid "months"
@@ -395,13 +411,21 @@ msgstr "התקציב שלי לא -קרוב- למציאות."
 msgid "my budget is spot on!"
 msgstr "התקציב שלי מדויק!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:124
+#: src/components/molecules/ExpenseInput.jsx:9
+msgid "name"
+msgstr "שם"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:125
 msgid "New expenses"
 msgstr "הוצאות חדשות"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:73
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
+
+#: src/components/molecules/ExpenseInput.jsx:11
+msgid "note"
+msgstr "הערה"
 
 #: src/constants/categories.js:269
 #: src/constants/categories.js:389
@@ -424,14 +448,18 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/molecules/Header/Header.jsx:26
-#: src/components/molecules/Header/Header.jsx:55
+#: src/constants/index.js:21
+#: src/constants/index.js:49
 msgid "Parse"
 msgstr "פירסור"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:243
 msgid "Parse File"
 msgstr "עבד קובץ"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:166
+msgid "Parse Text"
+msgstr "עבד טקסט"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:63
 msgid "Past 12 months"
@@ -453,8 +481,8 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/molecules/Header/Header.jsx:46
-#: src/components/molecules/Header/Header.jsx:59
+#: src/constants/index.js:41
+#: src/constants/index.js:53
 msgid "Projection"
 msgstr "חיזוי"
 
@@ -471,8 +499,8 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/components/molecules/Header/Header.jsx:50
-#: src/components/molecules/Header/Header.jsx:60
+#: src/constants/index.js:45
+#: src/constants/index.js:54
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -533,7 +561,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/components/molecules/Header/Header.jsx:64
+#: src/constants/index.js:57
 msgid "Welcome"
 msgstr "ברוך הבא!"
 

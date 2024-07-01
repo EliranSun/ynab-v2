@@ -113,7 +113,7 @@ export const ParseExpensesList = ({
     return (
         <div className="flex flex-col justify-center md:flex-row gap-2 items-start">
             <section className="w-full p-4">
-                <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
+                <Title type={Title.Types.H1} className="flex items-center gap-2 mb-8">
                     <ArrowSquareIn size={50}/>
                     <Trans>Import</Trans>
                 </Title>
@@ -135,11 +135,11 @@ export const ParseExpensesList = ({
                             localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
                         }}/>
                 </div>
-                <div className="">
-                    <Title type={Title.Types.H2} className="mb-4">
+                <div className="mb-8">
+                    <Title type={Title.Types.H2} className="mb-2">
                         <Trans>Manually</Trans>
                     </Title>
-                    <ExpenseInputEntry />
+                    <ExpenseInputEntry/>
                 </div>
                 <div className="flex items-start gap-4 max-w-7xl flex-col">
                     <div className="flex flex-col h-full">

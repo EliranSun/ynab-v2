@@ -20,7 +20,7 @@ const Title = ({children, type, className, transId, ...rest}) => {
             );
         case Types.H2:
             return (
-                <h2 className={classNames("text-4xl", className)}>
+                <h2 className={classNames("text-3xl md:text-4xl", className)}>
                     {children}
                 </h2>
             );

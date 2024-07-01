@@ -10,6 +10,7 @@ import {ArrowSquareIn} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
 import {addExpenses} from "../../../utils";
+import {ExpenseInputEntry} from "./ExpenseInputEntry";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -111,7 +112,7 @@ export const ParseExpensesList = ({
 
     return (
         <div className="flex flex-col justify-center md:flex-row gap-2 items-start">
-            <section className="p-4">
+            <section className="w-full p-4">
                 <Title type={Title.Types.H1} className="flex items-center gap-2 mb-4">
                     <ArrowSquareIn size={50}/>
                     <Trans>Import</Trans>
@@ -134,6 +135,12 @@ export const ParseExpensesList = ({
                             localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
                         }}/>
                 </div>
+                <div className="">
+                    <Title type={Title.Types.H2} className="mb-4">
+                        <Trans>Manually</Trans>
+                    </Title>
+                    <ExpenseInputEntry />
+                </div>
                 <div className="flex items-start gap-4 max-w-7xl flex-col">
                     <div className="flex flex-col h-full">
                         <Title type={Title.Types.H2} className="mb-4">
@@ -149,6 +156,15 @@ export const ParseExpensesList = ({
                                 setIsParseButtonDisabled(!event.target.value);
                                 setValue(event.target.value);
                             }}/>
+                        <Button
+                            size={Button.Sizes.FULL}
+                            isDisabled={isParseButtonDisabled}
+                            onClick={setNewExpenses}
+                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                                "animate-pulse duration-500": isStatusAnimated,
+                            })}>
+                            {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
+                        </Button>
                     </div>
                     <div className="mb-4">
                         <Title type={Title.Types.H2} className="mb-4">
@@ -158,7 +174,7 @@ export const ParseExpensesList = ({
                     </div>
                     <div className="mb-4">
                         <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>From JSON (use export ↗)</Trans>
+                            <Trans>From exported JSON</Trans>
                         </Title>
                         <input
                             type="file"
@@ -183,22 +199,6 @@ export const ParseExpensesList = ({
                                 }
                             }}/>
                     </div>
-                    <div className="">
-                        <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>
-                                Manually - TBD
-                            </Trans>
-                        </Title>
-                    </div>
-                    <Button
-                        size={Button.Sizes.FULL}
-                        isDisabled={isParseButtonDisabled}
-                        onClick={setNewExpenses}
-                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                            "animate-pulse duration-500": isStatusAnimated,
-                        })}>
-                        {isStatusAnimated ? message : "Parse Text"}
-                    </Button>
                 </div>
                 <div className="mb-4">
                     <Title type={Title.Types.H2} className="mb-4">

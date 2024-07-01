@@ -49,8 +49,8 @@ export const ButtonLink = ({name, label, onClick = noop, href, isDisabled}) => {
             "pointer-events-none": isDisabled,
         })}>
             <li className="flex items-center gap-2 h-12 md:flex-col">
-                <Icon size={isDesktop ? BUTTON_SIZE * 2 : BUTTON_SIZE}/>
-                <span className="text-xs">{label.toUpperCase()}</span>
+                <Icon size={isDesktop() ? BUTTON_SIZE * 2 : BUTTON_SIZE}/>
+                <span className="md:text-xs">{label.toUpperCase()}</span>
             </li>
         </Link>
     )

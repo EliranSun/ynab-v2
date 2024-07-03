@@ -164,7 +164,7 @@ export const markExpensesAsOriginal = (duplicateIds = []) => {
     }
 };
 
-export const addExpenses = async (expenses) => {
+export const addExpenses = async (expenses = []) => {
     try {
         const batch = writeBatch(db);
         console.info("Adding expenses to DB", expenses);

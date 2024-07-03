@@ -49,9 +49,16 @@ const SubcategoryExpensesList = ({
             .reverse();
     }, [subcategory, expensesPerMonthPerCategory]);
 
-    const sameMonthData = data.filter(item => {
-        return isSameMonth(item.timestamp, timestamp);
-    })[0];
+    const sameMonthData = useMemo(() => {
+        return data.filter(item => {
+            console.debug({
+                itemName: item.x,
+                itemDate: new Date(item.timestamp),
+                currentDate: new Date(timestamp),
+            });
+            return isSameMonth(item.timestamp, timestamp);
+        })[0];
+    }, [data, timestamp]);
 
     if (Object.keys(expensesPerMonthPerCategory).length === 0) {
         return (
@@ -83,14 +90,16 @@ const SubcategoryExpensesList = ({
                 {subcategory.icon} {subcategory.name} - {amountCurrency}
             </Title>
             <div className="overflow-y-auto max-h-[700px]">
-                {sameMonthData ? orderBy(sameMonthData.expenses, ['amount', 'timestamp'], ['desc']).map((expense) => {
-                    return (
-                        <Expense
-                            isListView
-                            key={expense.id}
-                            expense={expense}/>
-                    );
-                }) : null}
+                {sameMonthData
+                    ? orderBy(sameMonthData.expenses, ['amount', 'timestamp'], ['desc'])
+                        .map((expense) => {
+                            return (
+                                <Expense
+                                    isListView
+                                    key={expense.id}
+                                    expense={expense}/>
+                            );
+                        }) : null}
             </div>
         </ListBox>
     )

@@ -4,7 +4,8 @@ import {LeanCategorySelection} from "../../organisms/CategorySelection";
 import {Button, Spinner} from "../../atoms";
 import {useEffect, useMemo, useState} from "react";
 import {SimilarExpenses} from "../../organisms/SimilarExpenses";
-import {ExpenseInput} from "../../molecules/ExpenseInput";
+import {ExpenseInputs} from "../../molecules/ExpenseInputs";
+import classNames from "classnames";
 
 export const ExpensesList = ({
                                  expenses = [],
@@ -57,70 +58,79 @@ export const ExpensesList = ({
         }
 
         return (
-            <div className="w-full h-full border-none lg:border-l border-black">
-                <div className="sticky top-0 flex justify-between bg-white">
-                    <Button onClick={() => {
-                        setIsCategorySelectionVisible(!isCategorySelectionVisible);
-                    }}>
-                        {isCategorySelectionVisible ? "Hide" : "Show"} category selection
-                    </Button>
-                    <Button
-                        isDisabled={isLoading || expensesWithCategory.length === 0}
-                        className="flex items-center gap-2"
-                        onClick={async () => {
-                            setIsLoading(true);
-                            console.info({expensesWithCategory});
-                            await submitExpenses(expensesWithCategory);
-                            setIsLoading(false);
-                        }}>
-                        <Spinner className={isLoading ? "animate-spin" : ''}/>
-                        <span>Submit {expensesWithCategory.length}!</span>
-                    </Button>
-                </div>
-                <div className="mb-4 h-2/3 snap-y overflow-y-auto xl:p-4">
-                    {expenses.map((expense, index) => {
-                        let subcategory;
-                        Categories.forEach((category) => {
-                            category.subCategories.forEach((sub) => {
-                                if (sub.id === expense.categoryId) {
-                                    subcategory = sub;
-                                }
+            <div
+                className={classNames({
+                    "fixed inset-0 z-30 flex flex-col items-center justify-center": true,
+                    "size-screen border-none backdrop-brightness-50": true,
+                })}>
+                <div className="max-w-screen-xl border-2 border-gray-500 bg-white p-8 h-[90vh] overflow-y-auto">
+                    <div className="flex justify-between bg-white">
+                        <Button
+                            type={Button.Types.GHOST_BORDERED}
+                            onClick={() => {
+                                setIsCategorySelectionVisible(!isCategorySelectionVisible);
+                            }}>
+                            {isCategorySelectionVisible ? "Hide" : "Show"} category selection
+                        </Button>
+                        <Button
+                            isDisabled={isLoading || expensesWithCategory.length === 0}
+                            className="flex items-center gap-2"
+                            onClick={async () => {
+                                setIsLoading(true);
+                                console.info({expensesWithCategory});
+                                await submitExpenses(expensesWithCategory);
+                                setIsLoading(false);
+                            }}>
+                            <Spinner className={isLoading ? "animate-spin" : ''}/>
+                            <span>Submit {expensesWithCategory.length}!</span>
+                        </Button>
+                    </div>
+                    <div className="mb-4 snap-y overflow-y-auto xl:p-4">
+                        {expenses.map((expense, index) => {
+                            let subcategory;
+                            Categories.forEach((category) => {
+                                category.subCategories.forEach((sub) => {
+                                    if (sub.id === expense.categoryId) {
+                                        subcategory = sub;
+                                    }
+                                });
                             });
-                        });
 
-                        return (
-                            <div
-                                key={expense.id}
-                                className="snap-start"
-                                id={expense.id}
-                                onClick={() => setActiveId(expense.id)}>
-                                <ExpenseInput
-                                    index={index}
-                                    name={expense.name}
-                                    note={expense.note}
-                                    amount={expense.amountCurrency}
-                                    date={expense.date}
-                                    isVisible={isCategorySelectionVisible}
-                                    setExpenses={setExpenses}
-                                    subcategory={subcategory}
-                                />
-                                {isCategorySelectionVisible && activeId === expense.id &&
-                                    <>
-                                        <SimilarExpenses
-                                            expense={expense}
-                                            existingExpenses={existingExpenses}/>
-                                        <LeanCategorySelection
-                                            onCategorySelect={(categoryId) => {
-                                                setExpenses((prev) => {
-                                                    const newExpenses = [...prev];
-                                                    newExpenses[index].categoryId = categoryId;
-                                                    return newExpenses;
-                                                });
-                                            }}/>
-                                    </>}
-                            </div>
-                        )
-                    })}
+                            return (
+                                <div
+                                    key={expense.id}
+                                    className="snap-start"
+                                    id={expense.id}
+                                    onClick={() => setActiveId(expense.id)}>
+                                    <ExpenseInputs
+                                        index={index}
+                                        name={expense.name}
+                                        note={expense.note}
+                                        amount={expense.amountCurrency}
+                                        date={expense.date}
+                                        timestamp={expense.timestamp}
+                                        isVisible={isCategorySelectionVisible}
+                                        setExpenses={setExpenses}
+                                        subcategory={subcategory}
+                                    />
+                                    {isCategorySelectionVisible && activeId === expense.id &&
+                                        <>
+                                            <SimilarExpenses
+                                                expense={expense}
+                                                existingExpenses={existingExpenses}/>
+                                            <LeanCategorySelection
+                                                onCategorySelect={(categoryId) => {
+                                                    setExpenses((prev) => {
+                                                        const newExpenses = [...prev];
+                                                        newExpenses[index].categoryId = categoryId;
+                                                        return newExpenses;
+                                                    });
+                                                }}/>
+                                        </>}
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         );

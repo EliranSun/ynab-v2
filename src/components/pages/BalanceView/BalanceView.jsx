@@ -40,18 +40,18 @@ const BalanceView = () => {
         return (
             <section className="overflow-x-hidden border-10 border-black w-full p-2 md:mt-8">
                 <div
-                    className="flex flex-col md:flex-row my-2 md:top-0 md:w-2/3 md:my-0 items-center justify-between md:justify-evenly bg-white">
-                    <div
-                        className="w-full flex gap-2 md:gap-16 items-center justify-between md:justify-center">
-                        <PreviousButton/>
-                        <h1 className="font-black font-mono text-2xl md:text-4xl text-center">
-                            {new Date(currentTimestamp).toLocaleString(locale === "he" ? "he-IL" : "en-GB", {
-                                month: "long",
-                                year: "numeric",
-                            })}
-                        </h1>
-                        <NextButton/>
-                    </div>
+                    className={classNames({
+                        "flex flex-col md:flex-row my-2 md:top-0 md:w-96 md:m-auto": true,
+                        "items-center justify-between md:justify-evenly bg-white": true,
+                    })}>
+                    <PreviousButton/>
+                    <h1 className="font-black font-mono text-2xl md:text-4xl text-center">
+                        {new Date(currentTimestamp).toLocaleString(locale === "he" ? "he-IL" : "en-GB", {
+                            month: "long",
+                            year: "numeric",
+                        })}
+                    </h1>
+                    <NextButton/>
                 </div>
                 <div className="overflow-hidden w-full">
                     <BalanceSummary timestamp={currentTimestamp}/>

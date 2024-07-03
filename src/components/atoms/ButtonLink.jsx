@@ -39,14 +39,16 @@ const Icons = {
 // }
 
 
-export const ButtonLink = ({name, label, onClick = noop, href, isDisabled}) => {
+export const ButtonLink = ({name, label, onClick = noop, href, isDisabled, isSelected}) => {
     const Icon = useMemo(() => {
         return Icons[name];
     }, [name]);
 
     return (
         <Link to={href} onClick={onClick} className={classNames({
+            "p-1": true,
             "pointer-events-none": isDisabled,
+            "bg-black text-white": isSelected,
         })}>
             <li className="flex items-center gap-2 h-12 md:flex-col">
                 <Icon size={isDesktop() ? BUTTON_SIZE * 2 : BUTTON_SIZE}/>

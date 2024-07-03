@@ -1,28 +1,30 @@
-import { v4 as uuidv4 } from "uuid";
-import { Categories, ThirdParties } from "../constants";
-import { IncomeSubcategoryIds } from "../constants/income";
+import {v4 as uuidv4} from "uuid";
+import {Categories, ThirdParties} from "../constants";
+import {IncomeSubcategoryIds} from "../constants/income";
 
 class Expense {
     constructor({
-        id = uuidv4(),
-        name = "",
-        note = "",
-        amount = 0,
-        timestamp,
-        categoryId = null,
-        isOriginal = false,
-        recurring = 0,
-    }) {
+                    id = uuidv4(),
+                    name = "",
+                    note = "",
+                    amount = 0,
+                    timestamp,
+                    date,
+                    categoryId = null,
+                    subcategoryId = null,
+                    isOriginal = false,
+                    recurring = 0,
+                }) {
         const locale = navigator.language;
         this.id = id;
         this.name = name;
         this.isThirdParty = ThirdParties.includes(name);
         this.amount = amount;
         this.note = note;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp || new Date(date).getTime();
         this.isOriginal = isOriginal;
         this.recurring = recurring;
-        this.date = new Date(timestamp).toLocaleString(locale, {
+        this.date = new Date(timestamp || date).toLocaleString(locale, {
             month: "long",
             year: '2-digit',
             day: 'numeric',
@@ -34,14 +36,16 @@ class Expense {
 
 
         // TODO: refactor to subcategoryId
-        this.categoryId = categoryId;
-        this.subcategoryId = categoryId;
+        this.categoryId = categoryId || Categories.find((category) => {
+            return category.subCategories.find((sub) => sub.id === subcategoryId);
+        })?.id || null;
+        this.subcategoryId = categoryId || subcategoryId;
         this.mainCategoryId = null;
         this.isIncome = IncomeSubcategoryIds.includes(Number(this.subcategoryId));
 
         Categories.forEach((category) => {
             category.subCategories.forEach((sub) => {
-                if (sub.id === this.categoryId) {
+                if (sub.id === subcategoryId) {
                     this.subcategory = sub;
                     this.mainCategoryId = category.id;
                 }

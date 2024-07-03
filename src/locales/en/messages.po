@@ -53,11 +53,11 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
-#: src/components/molecules/ExpenseInput.jsx:80
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:95
 msgid "Add Expense"
 msgstr "Add Expense"
 
-#: src/components/molecules/ExpenseInput.jsx:10
+#: src/components/molecules/ExpenseInputs.jsx:10
 msgid "amount"
 msgstr "amount"
 
@@ -98,7 +98,6 @@ msgid "budget"
 msgstr "budget"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/components/pages/ParseExpensesList/ExportData.jsx:47
 #: src/constants/index.js:25
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
 #: src/features/ManageBudget/ManageBudget.jsx:117
@@ -206,25 +205,32 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:123
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:20
 #: src/constants/index.js:33
 #: src/constants/index.js:51
 msgid "Expenses"
 msgstr "Expenses"
 
 #: src/components/pages/ParseExpensesList/ExportData.jsx:16
-msgid "Export"
-msgstr "Export"
+#~ msgid "Export"
+#~ msgstr "Export"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:66
+#: src/components/pages/ParseExpensesList/ExportData.jsx:44
+msgid "Export Budget"
+msgstr "Export Budget"
+
+#: src/components/pages/ParseExpensesList/ExportData.jsx:63
 msgid "Export budget to file"
 msgstr "Export budget to file"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:42
+#: src/components/pages/ParseExpensesList/ExportData.jsx:17
+msgid "Export Expenses"
+msgstr "Export Expenses"
+
+#: src/components/pages/ParseExpensesList/ExportData.jsx:39
 msgid "Export expenses to file"
 msgstr "Export expenses to file"
 
@@ -246,18 +252,22 @@ msgid "Friends"
 msgstr "Friends"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:177
-msgid "From exported JSON"
-msgstr "From exported JSON"
+#~ msgid "From exported JSON"
+#~ msgstr "From exported JSON"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:158
+msgid "From File"
+msgstr "From File"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
 #~ msgid "From JSON (use export ↗)"
 #~ msgstr "From JSON (use export ↗)"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:171
-msgid "From Sheet/XLS"
-msgstr "From Sheet/XLS"
+#~ msgid "From Sheet/XLS"
+#~ msgstr "From Sheet/XLS"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:133
 msgid "From Text"
 msgstr "From Text"
 
@@ -319,8 +329,8 @@ msgid "I'm in trouble."
 msgstr "I'm in trouble."
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
-msgid "Import"
-msgstr "Import"
+#~ msgid "Import"
+#~ msgstr "Import"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:195
 msgid "Income"
@@ -382,7 +392,7 @@ msgstr "Lost this month..."
 msgid "Maintenance"
 msgstr "Maintenance"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:140
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
 msgid "Manually"
 msgstr "Manually"
 
@@ -402,11 +412,11 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
-#: src/components/molecules/ExpenseInput.jsx:9
+#: src/components/molecules/ExpenseInputs.jsx:9
 msgid "name"
 msgstr "name"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:125
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
 msgid "New expenses"
 msgstr "New expenses"
 
@@ -414,9 +424,13 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/components/molecules/ExpenseInput.jsx:11
+#: src/components/molecules/ExpenseInputs.jsx:11
 msgid "note"
 msgstr "note"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:104
+msgid "Nothing new"
+msgstr "Nothing new"
 
 #: src/constants/categories.js:269
 #: src/constants/categories.js:389
@@ -444,11 +458,11 @@ msgstr "over my budget"
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:243
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:221
 msgid "Parse File"
 msgstr "Parse File"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:166
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:151
 msgid "Parse Text"
 msgstr "Parse Text"
 
@@ -507,6 +521,10 @@ msgstr "Save Budget"
 msgid "Saved this month!"
 msgstr "Saved this month!"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:185
+msgid "Sheet"
+msgstr "Sheet"
+
 #: src/components/organisms/SimilarExpenses.jsx:32
 msgid "Show same month only"
 msgstr "Show same month only"
@@ -545,8 +563,8 @@ msgid "TV"
 msgstr "TV"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
-msgid "Upload"
-msgstr "Upload"
+#~ msgid "Upload"
+#~ msgstr "Upload"
 
 #: src/constants/categories.js:301
 msgid "Vacation"

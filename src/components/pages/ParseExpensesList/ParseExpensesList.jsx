@@ -6,11 +6,11 @@ import {withExpensesContext} from "../../../HOC/withExpensesContext";
 import {SheetUpload} from "../../organisms/SheetUpload";
 import {ExpensesList} from "./ExpensesList";
 import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
-import {ArrowSquareIn} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
 import {addExpenses} from "../../../utils";
-import {ExpenseInputEntry} from "./ExpenseInputEntry";
+import {AddExpenseEntry} from "./AddExpenseEntry";
+import {Box} from "../../atoms/Box";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -25,16 +25,15 @@ const getDateTimestamp = (date) => {
     return new Date(Date.UTC(year, month - 1, day)).getTime();
 };
 
+
 export const ParseExpensesList = ({
-                                      text = "",
                                       expenses,
                                       setExpenses = () => {
                                       }
                                   }) => {
     const textAreaRef = useRef(null);
     const [message, setMessage] = useState("");
-    const [value, setValue] = useState(text);
-    const [isParseButtonDisabled, setIsParseButtonDisabled] = useState(false);
+    const [value, setValue] = useState("");
     const [parsedExpenses, setParsedExpenses] = useState([]);
     const [parsedFile, setParsedFile] = useState([]);
     const [isStatusAnimated, setIsStatusAnimated] = useState(false);
@@ -101,7 +100,7 @@ export const ParseExpensesList = ({
         const newExpenses = parseNewExpenses(textAreaRef.current.value, expenses);
 
         if (newExpenses.length === 0) {
-            setMessage("Nothing new");
+            setMessage(<Trans>Nothing new</Trans>);
             return;
         }
 
@@ -111,115 +110,93 @@ export const ParseExpensesList = ({
     }
 
     return (
-        <div className="flex flex-col justify-center md:flex-row gap-2 items-start">
-            <section className="w-full p-4">
-                <Title type={Title.Types.H1} className="flex items-center gap-2 mb-8">
-                    <ArrowSquareIn size={50}/>
-                    <Trans>Import</Trans>
-                </Title>
-                <div className="max-w-6xl m-auto">
+        <>
+            <section
+                className="flex flex-col justify-center gap-2 md:gap-16 items-center max-w-screen-xl m-auto px-4 md:px-8">
+                <div className="w-full">
                     {parsedExpenses.length > 0 &&
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
                             <Trans>Existing expenses</Trans>:
                             {expenses.length} •
                             <Trans>New expenses</Trans>: {parsedExpenses.length}
                         </Title>}
-                    <ExpensesList
-                        expenses={parsedExpenses}
-                        existingExpenses={expenses}
-                        setExpenses={setParsedExpenses}
-                        submitExpenses={async expenses => {
-                            await setExpenses(expenses);
-                            const newExpenses = parsedExpenses.filter(item => !item.categoryId);
-                            setParsedExpenses(newExpenses);
-                            localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
-                        }}/>
                 </div>
-                <div className="mb-8">
-                    <Title type={Title.Types.H2} className="mb-2">
+                <Box>
+                    <Title type={Title.Types.H1} className="mb-2">
                         <Trans>Manually</Trans>
                     </Title>
-                    <ExpenseInputEntry/>
-                </div>
-                <div className="flex items-start gap-4 max-w-7xl flex-col">
-                    <div className="flex flex-col h-full">
-                        <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>From Text</Trans>
-                        </Title>
-                        <textarea
-                            className="border border-dashed border-black p-4 outline-none w-96 h-full"
-                            placeholder="Paste expenses here"
-                            rows={isMobile ? 5 : 15}
-                            ref={textAreaRef}
-                            value={value}
-                            onChange={event => {
-                                setIsParseButtonDisabled(!event.target.value);
-                                setValue(event.target.value);
-                            }}/>
-                        <Button
-                            size={Button.Sizes.FULL}
-                            isDisabled={isParseButtonDisabled}
-                            onClick={setNewExpenses}
-                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                                "animate-pulse duration-500": isStatusAnimated,
-                            })}>
-                            {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
-                        </Button>
-                    </div>
-                    <div className="mb-4">
-                        <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>From Sheet/XLS</Trans>
-                        </Title>
-                        <SheetUpload onSheetParse={data => console.log(data)}/>
-                    </div>
-                    <div className="mb-4">
-                        <Title type={Title.Types.H2} className="mb-4">
-                            <Trans>From exported JSON</Trans>
-                        </Title>
-                        <input
-                            type="file"
-                            name="upload-json"
-                            id="upload-json"
-                            onChange={(event) => {
-                                event.preventDefault();
-                                if (event.target.files) {
-                                    const reader = new FileReader();
-                                    reader.onload = async (e) => {
-                                        const data = e.target.result;
-                                        const expenses = JSON.parse(data);
-
-                                        try {
-                                            await addExpenses(expenses);
-                                            alert("Expenses added to user!");
-                                        } catch (error) {
-                                            console.error(error);
-                                        }
-                                    };
-                                    reader.readAsText(event.target.files[0]);
-                                }
-                            }}/>
-                    </div>
-                </div>
-                <div className="mb-4">
-                    <Title type={Title.Types.H2} className="mb-4">
-                        <Trans>
-                            Upload
-                        </Trans>
+                    <AddExpenseEntry/>
+                </Box>
+                <Box>
+                    <Title type={Title.Types.H1} className="mb-4">
+                        <Trans>From Text</Trans>
                     </Title>
-                    <SheetUpload onSheetParse={data => {
-                        setParsedFile(data.map(row => ({
-                            name: row["Name"] || row['שם'] || row['על מה?'],
-                            timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
-                            amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
-                            categoryName: row["Category"] || row['קטגוריה'],
-                        })));
-                    }}/>
-                    <pre>
-                        {JSON.stringify(parsedFile, null, 2)}
-                    </pre>
+                    <textarea
+                        className="border border-dashed border-black p-4 outline-none w-full h-full"
+                        placeholder="Paste expenses here"
+                        rows={isMobile ? 5 : 15}
+                        ref={textAreaRef}
+                        value={value}
+                        onChange={event => {
+                            setValue(event.target.value);
+                        }}/>
                     <Button
                         size={Button.Sizes.FULL}
-                        isDisabled={isParseButtonDisabled}
+                        isDisabled={value.length === 0}
+                        onClick={setNewExpenses}
+                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                            "animate-pulse duration-500": isStatusAnimated,
+                        })}>
+                        {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
+                    </Button>
+                </Box>
+                <Box>
+                    <div className="flex w-full justify-center gap-8">
+                        <div>
+                            <Title type={Title.Types.H1} className="mb-4">
+                                <Trans>From File</Trans>
+                            </Title>
+                            <input
+                                type="file"
+                                name="upload-json"
+                                id="upload-json"
+                                onChange={(event) => {
+                                    event.preventDefault();
+                                    if (event.target.files) {
+                                        const reader = new FileReader();
+                                        reader.onload = async (e) => {
+                                            const data = e.target.result;
+                                            const expenses = JSON.parse(data);
+
+                                            try {
+                                                await addExpenses(expenses);
+                                                alert("Expenses added to user!");
+                                            } catch (error) {
+                                                console.error(error);
+                                            }
+                                        };
+                                        reader.readAsText(event.target.files[0]);
+                                    }
+                                }}/>
+                        </div>
+                        <div>
+                            <Title type={Title.Types.H1} className="mb-4">
+                                <Trans>Sheet</Trans>
+                            </Title>
+                            <SheetUpload onSheetParse={data => {
+                                setParsedFile(data.map(row => ({
+                                    name: row["Name"] || row['שם'] || row['על מה?'],
+                                    timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                                    amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                                    categoryName: row["Category"] || row['קטגוריה'],
+                                })));
+                            }}/>
+                        </div>
+                    </div>
+
+                    <Button
+                        size={Button.Sizes.FULL}
+                        isDisabled={Boolean(parsedFile.length === 0)}
                         className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
                             "animate-pulse duration-500": isStatusAnimated,
                         })}
@@ -242,10 +219,21 @@ export const ParseExpensesList = ({
                         }}>
                         {isStatusAnimated ? message : <Trans>Parse File</Trans>}
                     </Button>
-                </div>
+                </Box>
+                <ExportData/>
             </section>
-            <ExportData/>
-        </div>
+
+            <ExpensesList
+                expenses={parsedExpenses}
+                existingExpenses={expenses}
+                setExpenses={setParsedExpenses}
+                submitExpenses={async expenses => {
+                    await setExpenses(expenses);
+                    const newExpenses = parsedExpenses.filter(item => !item.categoryId);
+                    setParsedExpenses(newExpenses);
+                    localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
+                }}/>
+        </>
     );
 };
 

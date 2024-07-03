@@ -4,20 +4,17 @@ import {Button, Title} from "../../atoms";
 import classNames from "classnames";
 import {useContext} from "react";
 import {BudgetContext, ExpensesContext} from "../../../context";
+import {Box} from "../../atoms/Box";
 
 export const ExportData = () => {
     const {expensesArray} = useContext(ExpensesContext);
     const [budget] = useContext(BudgetContext);
 
     return (
-        <section className="p-4">
-            <Title className="flex gap-2">
-                <ArrowSquareOut/>
-                <Trans>Export</Trans>
-            </Title>
-            <div>
-                <Title type={Title.Types.H2}>
-                    <Trans>Expenses</Trans>
+        <section className="w-full flex flex-col gap-16">
+            <Box>
+                <Title type={Title.Types.H1}>
+                    <Trans>Export Expenses</Trans>
                 </Title>
                 <p>
                     {expensesArray.length} expenses. Last expense:
@@ -41,10 +38,10 @@ export const ExportData = () => {
                     }}>
                     <Trans>Export expenses to file</Trans>
                 </Button>
-            </div>
-            <div>
-                <Title type={Title.Types.H2}>
-                    <Trans>Budget</Trans>
+            </Box>
+            <Box>
+                <Title type={Title.Types.H1}>
+                    <Trans>Export Budget</Trans>
                 </Title>
                 <pre className="h-96 overflow-y-auto overflow-x-hidden">
                     {JSON.stringify(budget, null, 2)}
@@ -65,7 +62,7 @@ export const ExportData = () => {
                     }}>
                     <Trans>Export budget to file</Trans>
                 </Button>
-            </div>
+            </Box>
         </section>
     )
 };

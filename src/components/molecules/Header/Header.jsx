@@ -12,17 +12,20 @@ export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex">
+        <div className="flex sticky md:static top-0">
             <header
                 className={classNames({
-                    "bg-white text-xs md:text-base ": true,
-                    "sticky md:static top-0 p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
+                    "bg-white text-xs md:text-base": true,
+                    " p-2 md:p-4 md:h-16 w-screen bg-white z-10": true,
                     "flex justify-between items-center md:gap-8": true,
+                    "rtl:flex-row-reverse": true,
                 })}>
                 <WelcomeMessage userName={user.displayName}/>
                 <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>
             </header>
-            <Menu isOpen={isMenuOpen} onMenuItemClick={() => setIsMenuOpen(false)}/>
+            <Menu
+                isOpen={isMenuOpen}
+                onMenuItemClick={() => setIsMenuOpen(false)}/>
             <MobileMenuBackdrop isOpen={isMenuOpen}/>
         </div>
     )

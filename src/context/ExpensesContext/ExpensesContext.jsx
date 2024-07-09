@@ -1,7 +1,7 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {noop} from "lodash";
 import {addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense} from "../../utils";
-import {Categories} from "../../constants";
+import {Categories, getCategoryBySubcategoryId, getCategoryName} from "../../constants";
 import {BudgetContext, getDateKey} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
@@ -161,7 +161,7 @@ export const ExpensesContextProvider = ({children}) => {
 
         Object.values(expensesThisMonth).forEach(expense => {
             if (!newCategories[expense.mainCategoryId]) {
-                const category = Categories.find(category => category.id === expense.mainCategoryId);
+                const category = getCategoryBySubcategoryId(expense.subcategoryId)
                 const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
 
                 const categoryBudget = budget?.[category.id];

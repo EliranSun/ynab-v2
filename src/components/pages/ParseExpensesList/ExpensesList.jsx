@@ -11,7 +11,8 @@ export const ExpensesList = ({
                                  expenses = [],
                                  existingExpenses = [],
                                  setExpenses = noop,
-                                 submitExpenses = noop
+                                 submitExpenses = noop,
+                                 deleteExpense = noop,
                              }) => {
         const [isCategorySelectionVisible, setIsCategorySelectionVisible] = useState(true);
         const [isLoading, setIsLoading] = useState(false);
@@ -106,12 +107,27 @@ export const ExpensesList = ({
                                         index={index}
                                         name={expense.name}
                                         note={expense.note}
-                                        amount={expense.amountCurrency}
+                                        amount={expense.amount}
                                         date={expense.date}
                                         timestamp={expense.timestamp}
                                         isVisible={isCategorySelectionVisible}
-                                        setExpenses={setExpenses}
                                         subcategory={subcategory}
+                                        onRemove={() => {
+                                            setExpenses((prev) => {
+                                                const newExpenses = [...prev];
+                                                newExpenses.splice(index, 1);
+                                                return newExpenses;
+                                            });
+
+                                            deleteExpense(expense);
+                                        }}
+                                        onInputChange={(type, value) => {
+                                            setExpenses((prev) => {
+                                                const newExpenses = [...prev];
+                                                newExpenses[index][type] = value;
+                                                return newExpenses;
+                                            });
+                                        }}
                                     />
                                     {isCategorySelectionVisible && activeId === expense.id &&
                                         <>

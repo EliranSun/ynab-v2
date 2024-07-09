@@ -401,6 +401,12 @@ export const Categories = [
     },
 ];
 
+export const getCategoryBySubcategoryId = (subCategoryId) => {
+    return Categories.find((category) =>
+        category.subCategories.some((subCategory) =>
+            subCategory.id === subCategoryId));
+}
+
 export const getCategoryName = (id) => {
     const category = Categories.find((category) => Number(category.id) === Number(id));
     return category ? category.label : "Unknown";

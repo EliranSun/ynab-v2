@@ -33,8 +33,10 @@ export const ExpenseInputs = ({
                                   onCategoryMenuClick = noop,
                                   isCategoryMenuOpen,
                                   onInputChange = noop,
+                                  onRemove = noop,
                               }) => {
     const {_} = useLingui();
+    console.log({amount, name});
 
     return (
         <div className={classNames("text-right w-full", {
@@ -42,7 +44,7 @@ export const ExpenseInputs = ({
             "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
             "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
         })}>
-            <span className="cursor-pointer">
+            <span className="cursor-pointer" onClick={onRemove}>
                 <X color="red" size={42}/>
             </span>
             <input
@@ -95,7 +97,7 @@ export const ExpenseInputs = ({
             <input
                 type="text"
                 placeholder={_(InputPlaceholder.note)}
-                value={note}
+                defaultValue={note}
                 className="border border-gray-300 rounded p-4 h-20 md:h-auto"
                 onChange={(event) => {
                     onInputChange(InputTypes.NOTE, event.target.value);

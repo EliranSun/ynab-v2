@@ -227,6 +227,11 @@ export const ParseExpensesList = ({
                 expenses={parsedExpenses}
                 existingExpenses={expenses}
                 setExpenses={setParsedExpenses}
+                deleteExpense={expense => {
+                    const newExpenses = parsedExpenses.filter(item => item.id !== expense.id);
+                    setParsedExpenses(newExpenses);
+                    localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
+                }}
                 submitExpenses={async expenses => {
                     await setExpenses(expenses);
                     const newExpenses = parsedExpenses.filter(item => !item.categoryId);

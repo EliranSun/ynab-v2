@@ -1,5 +1,5 @@
 import {useContext, useMemo, useState} from "react";
-import {orderBy} from "lodash";
+import {orderBy, round} from "lodash";
 import {isSameMonth} from "date-fns";
 import {Exclude, Faders, PiggyBank} from "@phosphor-icons/react";
 import {Categories} from "../../../constants";
@@ -106,7 +106,7 @@ export const CategoryBalance = ({
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
     return (
-        <div className="bg-gray-200 md:h-fit p-2 md:p-4 box-border relative">
+        <div className="bg-gray-200 md:h-fit p-2 md:p-4 box-border relative min-w-[360px] flex-grow">
             <div
                 className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
                 onClick={() => setIsExpanded(!isExpanded)}>
@@ -114,7 +114,7 @@ export const CategoryBalance = ({
                     {categoryName}
                 </Title>
                 <div className="font-black font-mono text-4xl">
-                    {formatCurrency(totalExpensesSum, false, false)}
+                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
                 </div>
             </div>
             <DataStrip

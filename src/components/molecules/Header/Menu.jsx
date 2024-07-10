@@ -31,17 +31,18 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
             "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
         })}>
             <div className="flex flex-col md:flex-row gap-6 md:gap-4">
-                {Object.values(MenuPages).map(({name, label}) => (
+                {Object.values(MenuPages).map((item) => (
                     <ButtonLink
-                        isSelected={selectedPage === name}
-                        key={name}
+                        isSelected={selectedPage === item.name}
+                        key={item.name}
+                        icon={item.icon}
                         isDisabled={!isLoggedIn}
-                        href={name}
-                        name={name}
-                        label={_(label)}
+                        href={item.name}
+                        name={item.name}
+                        label={_(item.label)}
                         onClick={() => {
                             onMenuItemClick();
-                            setSelectedPage(name);
+                            setSelectedPage(item.name);
                         }}/>
                 ))}
             </div>

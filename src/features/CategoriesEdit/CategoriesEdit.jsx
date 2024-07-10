@@ -8,25 +8,14 @@ import {Category} from "./Category";
 import {Title} from "../../components";
 
 export const CategoriesEdit = () => {
-    const {user} = useContext(UserContext);
     const [categories, setCategories] = useState([]);
     const [isAddCategoryView, setIsAddCategoryView] = useState(false);
-    const fetch = useCallback(() => {
-        getCategories(user.uid).then(setCategories);
-    }, [user]);
 
-    useEffect(() => {
-        if (!user || !user.uid) {
-            return;
-        }
-
-        fetch();
-    }, [user]);
 
     return (
         <div className="flex flex-col rounded-3xl max-w-screen-xl m-auto relative">
             <Title><Trans>Categories Edit</Trans></Title>
-            <div className="absolute left-0">
+            <div className="absolute -bottom-10 left-0">
                 <Button
                     variation={Button.Variation.ADD}
                     onClick={() => setIsAddCategoryView(true)}>
@@ -35,7 +24,7 @@ export const CategoriesEdit = () => {
                 </Button>
             </div>
             <div className="flex gap-4 my-8">
-                {categories.map((category) => {
+                {categories.map((category, index) => {
                     return (
                         <Category
                             key={category.id}

@@ -62,7 +62,7 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:53
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:23
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
@@ -70,15 +70,15 @@ msgstr "הוספת קטגוריה"
 msgid "Add Expense"
 msgstr "הוספת תנועה"
 
-#: src/features/CategoriesEdit/Category.jsx:105
-#~ msgid "Add Subcategory"
-#~ msgstr "הוספת תת קטגוריה"
+#: src/features/CategoriesEdit/Category.jsx:84
+msgid "Add Subcategory"
+msgstr "הוספת תת קטגוריה"
 
 #: src/components/molecules/ExpenseInputs.jsx:10
 msgid "amount"
 msgstr "סכום"
 
-#: src/features/CategoriesEdit/Category.jsx:118
+#: src/features/CategoriesEdit/Category.jsx:121
 msgid "Are you sure you want to delete this category?"
 msgstr "האם אתה בטוח שאתה רוצה למחוק את הקטגוריה הזאת"
 
@@ -98,7 +98,7 @@ msgstr "ממוצע"
 msgid "Average"
 msgstr "ממוצע"
 
-#: src/constants/index.js:29
+#: src/constants/index.js:43
 msgid "Balance"
 msgstr "תנועות"
 
@@ -110,7 +110,7 @@ msgstr "תנועות"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/constants/index.js:50
+#: src/constants/index.js:75
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -131,7 +131,7 @@ msgid "budget"
 msgstr "תקציב"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/constants/index.js:25
+#: src/constants/index.js:38
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:176
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
@@ -154,12 +154,16 @@ msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
 #: src/components/pages/CategoryView/CategoryView.jsx:94
-#: src/constants/index.js:37
-#: src/constants/index.js:52
+#: src/constants/index.js:53
+#: src/constants/index.js:77
 msgid "Categories"
 msgstr "קטגוריות"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:28
+#: src/context/CategoriesContext.js:49
+msgid "Categories are your way to make order, out of the chaos."
+msgstr "קטגוריות הן הדרך שלך לייצר סדר מתוך הכאוס"
+
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:17
 msgid "Categories Edit"
 msgstr "קטגוריות - עריכה"
 
@@ -167,11 +171,11 @@ msgstr "קטגוריות - עריכה"
 msgid "Category"
 msgstr "קטגוריה"
 
-#: src/features/CategoriesEdit/Category.jsx:95
+#: src/features/CategoriesEdit/Category.jsx:98
 msgid "Category added successfully"
 msgstr "קטגוריה התווספה בהצלחה"
 
-#: src/features/CategoriesEdit/Category.jsx:101
+#: src/features/CategoriesEdit/Category.jsx:104
 msgid "Category updated successfully"
 msgstr "קטגוריה עודכנה בהצלחה"
 
@@ -211,7 +215,7 @@ msgstr "דייטים"
 msgid "Decor"
 msgstr "עיצוב פנים"
 
-#: src/features/CategoriesEdit/Category.jsx:123
+#: src/features/CategoriesEdit/Category.jsx:126
 msgid "Deleted successfully"
 msgstr "מחיקה בוצעה בהצלחה"
 
@@ -243,6 +247,10 @@ msgstr "מסעדות"
 msgid "Donations"
 msgstr "תרומות"
 
+#: src/constants/index.js:58
+msgid "Edit Categories"
+msgstr ""
+
 #: src/constants/categories.js:249
 msgid "Education"
 msgstr "לימודים"
@@ -259,8 +267,8 @@ msgstr "אלקטרוניקה"
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
-#: src/constants/index.js:33
-#: src/constants/index.js:51
+#: src/constants/index.js:48
+#: src/constants/index.js:76
 msgid "Expenses"
 msgstr "הוצאות"
 
@@ -329,15 +337,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/constants/index.js:59
+#: src/constants/index.js:85
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/constants/index.js:60
+#: src/constants/index.js:86
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/constants/index.js:58
+#: src/constants/index.js:84
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -359,6 +367,7 @@ msgstr "טיפוח"
 
 #: src/components/molecules/Header/WelcomeMessage.jsx:25
 #: src/components/molecules/Header/WelcomeMessage.jsx:32
+#: src/context/CategoriesContext.js:46
 msgid "Hey"
 msgstr "היי"
 
@@ -366,7 +375,7 @@ msgstr "היי"
 msgid "Hobbies"
 msgstr "תחביבים"
 
-#: src/constants/index.js:17
+#: src/constants/index.js:28
 msgid "Home"
 msgstr "בית"
 
@@ -381,6 +390,10 @@ msgstr "אני בצרות."
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 #~ msgid "Import"
 #~ msgstr "יבוא"
+
+#: src/context/CategoriesContext.js:48
+msgid "In order to use the app, you have got to set up categories."
+msgstr "בשביל להשתמש באפליקציה, אתה צריך ליצור קטגוריות"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:195
 msgid "Income"
@@ -397,6 +410,10 @@ msgstr "אפליקציות"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
 msgstr "אלוקים אדירים אבינו שבשמיים."
+
+#: src/context/CategoriesContext.js:47
+msgid "Just wanted to say, welcome!"
+msgstr "רק רצינו לומר, ברוך הבא!"
 
 #: src/constants/categories.js:119
 msgid "KIA"
@@ -417,6 +434,10 @@ msgstr "נשאר להוציא"
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:78
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
+
+#: src/context/CategoriesContext.js:50
+msgid "Let us take you there"
+msgstr "בוא ניקח אותך לשם"
 
 #: src/constants/categories.js:107
 msgid "Lime"
@@ -482,6 +503,10 @@ msgstr "הערה"
 msgid "Nothing new"
 msgstr "אין חדש"
 
+#: src/context/CategoriesContext.js:52
+msgid "OK"
+msgstr "אוקיי"
+
 #: src/constants/categories.js:269
 #: src/constants/categories.js:389
 msgid "Other"
@@ -503,8 +528,8 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/constants/index.js:21
-#: src/constants/index.js:49
+#: src/constants/index.js:33
+#: src/constants/index.js:74
 msgid "Parse"
 msgstr "פירסור"
 
@@ -536,8 +561,8 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/constants/index.js:41
-#: src/constants/index.js:53
+#: src/constants/index.js:63
+#: src/constants/index.js:78
 msgid "Projection"
 msgstr "חיזוי"
 
@@ -554,8 +579,8 @@ msgstr "מיסים"
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/constants/index.js:45
-#: src/constants/index.js:54
+#: src/constants/index.js:68
+#: src/constants/index.js:79
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -628,7 +653,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/constants/index.js:57
+#: src/constants/index.js:83
 msgid "Welcome"
 msgstr "ברוך הבא!"
 

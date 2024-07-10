@@ -13,6 +13,7 @@ import {ExpensesSummary} from "./features/LastExpenses/components/ExpensesSummar
 import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import {ManageBudget} from "./features/ManageBudget/ManageBudget";
+import {CategoriesProvider} from "./context/CategoriesContext";
 
 function App() {
     return (
@@ -39,10 +40,12 @@ const router = createBrowserRouter([
         path: "/",
         element: (
             <UserProvider>
-                <Header/>
-                <Login>
-                    <Root/>
-                </Login>
+                <CategoriesProvider>
+                    <Header/>
+                    <Login>
+                        <Root/>
+                    </Login>
+                </CategoriesProvider>
             </UserProvider>
         ),
         children: [

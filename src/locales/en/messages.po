@@ -124,6 +124,7 @@ msgstr "Bus"
 msgid "but it's negligible!"
 msgstr "but it's negligible!"
 
+#: src/components/pages/CategoryView/CategoryView.jsx:84
 #: src/constants/index.js:37
 #: src/constants/index.js:52
 msgid "Categories"
@@ -205,7 +206,7 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
@@ -255,7 +256,7 @@ msgstr "Friends"
 #~ msgid "From exported JSON"
 #~ msgstr "From exported JSON"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:158
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:157
 msgid "From File"
 msgstr "From File"
 
@@ -267,7 +268,7 @@ msgstr "From File"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "From Sheet/XLS"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:133
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:132
 msgid "From Text"
 msgstr "From Text"
 
@@ -392,7 +393,7 @@ msgstr "Lost this month..."
 msgid "Maintenance"
 msgstr "Maintenance"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
 msgid "Manually"
 msgstr "Manually"
 
@@ -416,7 +417,7 @@ msgstr "my budget is spot on!"
 msgid "name"
 msgstr "name"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:121
 msgid "New expenses"
 msgstr "New expenses"
 
@@ -428,7 +429,7 @@ msgstr "No budget set this month."
 msgid "note"
 msgstr "note"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:104
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:103
 msgid "Nothing new"
 msgstr "Nothing new"
 
@@ -458,11 +459,11 @@ msgstr "over my budget"
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:221
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:220
 msgid "Parse File"
 msgstr "Parse File"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:151
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:150
 msgid "Parse Text"
 msgstr "Parse Text"
 
@@ -521,7 +522,7 @@ msgstr "Save Budget"
 msgid "Saved this month!"
 msgstr "Saved this month!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:185
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:184
 msgid "Sheet"
 msgstr "Sheet"
 
@@ -533,6 +534,10 @@ msgstr "Show same month only"
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:191
 msgid "Spent"
 msgstr "Spent"
+
+#: src/components/pages/CategoryView/CategoryView.jsx:99
+msgid "Subcategories"
+msgstr "Subcategories"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:152
 msgid "Summary"

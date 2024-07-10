@@ -8,12 +8,26 @@ import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
 import Couch from "./assets/couch.png";
 import Picture from "./assets/picture.png";
+import {useEffect} from "react";
+import {createCategory, getCategories, signIn} from "./utils/db";
 
 function App() {
+    useEffect(() => {
+        // signIn();
+        getCategories();
+    }, []);
+
     return (
         <LocaleProvider>
             <BudgetContextProvider>
                 <ExpensesContextProvider>
+                    <button
+                        onClick={() => createCategory({
+                            name: "test",
+                            icon: "😚",
+                        })}
+                        className="bg-blue-500 p-4 m-4">CREATE
+                    </button>
                     <RouterProvider router={router}/>
                     <div className="fixed -z-10">
                         {/*<img*/}

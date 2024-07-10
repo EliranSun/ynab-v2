@@ -137,6 +137,7 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
+#: src/components/pages/CategoryView/CategoryView.jsx:84
 #: src/constants/index.js:37
 #: src/constants/index.js:52
 msgid "Categories"
@@ -218,7 +219,7 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
@@ -268,7 +269,7 @@ msgstr "חברים"
 #~ msgid "From exported JSON"
 #~ msgstr "הוספת תנועות מקובץ מיוצא"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:158
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:157
 msgid "From File"
 msgstr "קובץ מיוצא"
 
@@ -280,7 +281,7 @@ msgstr "קובץ מיוצא"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "הוספת תנועות מגיליון/אקסל"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:133
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:132
 msgid "From Text"
 msgstr "הוספת תנועות - טקסט"
 
@@ -401,7 +402,7 @@ msgstr "אבדו בחודש זה..."
 msgid "Maintenance"
 msgstr "תחזוקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
 msgid "Manually"
 msgstr "הוספת תנועות - ידנית"
 
@@ -425,7 +426,7 @@ msgstr "התקציב שלי מדויק!"
 msgid "name"
 msgstr "שם"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:121
 msgid "New expenses"
 msgstr "הוצאות חדשות"
 
@@ -437,7 +438,7 @@ msgstr "החודש הנוכחי לא תוקצב."
 msgid "note"
 msgstr "הערה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:104
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:103
 msgid "Nothing new"
 msgstr "אין חדש"
 
@@ -467,11 +468,11 @@ msgstr "מעבר לתקציב שלי"
 msgid "Parse"
 msgstr "פירסור"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:221
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:220
 msgid "Parse File"
 msgstr "עבד קובץ"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:151
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:150
 msgid "Parse Text"
 msgstr "עבד טקסט"
 
@@ -530,7 +531,7 @@ msgstr ""
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:185
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:184
 msgid "Sheet"
 msgstr "גיליון"
 
@@ -542,6 +543,10 @@ msgstr "הצג הוצאות דומות רק בחודש זה"
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:191
 msgid "Spent"
 msgstr "בוזבז"
+
+#: src/components/pages/CategoryView/CategoryView.jsx:99
+msgid "Subcategories"
+msgstr "תת קטגוריות"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:152
 msgid "Summary"

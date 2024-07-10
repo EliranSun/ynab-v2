@@ -65,7 +65,7 @@ export const CategoriesIds = {
 export const Categories = [
     {
         id: CategoriesIds.Eating,
-        name: "🍔 Eating",
+        name: "Eating",
         label: <Trans>🍔 Eating</Trans>,
         budget: 0,
         subCategories: [

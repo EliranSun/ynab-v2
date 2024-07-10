@@ -1,4 +1,4 @@
-import {createClient} from "@supabase/supabase-js";
+// import {createClient} from "@supabase/supabase-js";
 
 // const supabase = createClient(
 //     process.env.REACT_APP_SUPABASE_URL,

@@ -20,7 +20,9 @@ export const Header = () => {
                     "flex justify-between items-center md:gap-8": true,
                     "rtl:flex-row-reverse": true,
                 })}>
-                <WelcomeMessage userName={user.displayName}/>
+                <div className="hidden lg:inline">
+                    <WelcomeMessage userName={user.displayName}/>
+                </div>
                 <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>
             </header>
             <Menu

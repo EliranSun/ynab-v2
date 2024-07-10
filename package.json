@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^8.4.1",
     "@lingui/cli": "^4.11.1",
     "@lingui/core": "^4.11.1",
     "@lingui/macro": "^4.11.1",

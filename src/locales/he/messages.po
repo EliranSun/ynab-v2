@@ -62,13 +62,29 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:53
+msgid "Add Category"
+msgstr "הוספת קטגוריה"
+
 #: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:95
 msgid "Add Expense"
 msgstr "הוספת תנועה"
 
+#: src/features/CategoriesEdit/Category.jsx:105
+#~ msgid "Add Subcategory"
+#~ msgstr "הוספת תת קטגוריה"
+
 #: src/components/molecules/ExpenseInputs.jsx:10
 msgid "amount"
 msgstr "סכום"
+
+#: src/features/CategoriesEdit/Category.jsx:118
+msgid "Are you sure you want to delete this category?"
+msgstr "האם אתה בטוח שאתה רוצה למחוק את הקטגוריה הזאת"
+
+#: src/features/CategoriesEdit/Subcategory.jsx:47
+#~ msgid "Are you sure you want to delete this sub-category?"
+#~ msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
 
 #: src/constants/categories.js:321
 msgid "Authoring"
@@ -137,11 +153,27 @@ msgstr "אוטובוס"
 msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
-#: src/components/pages/CategoryView/CategoryView.jsx:84
+#: src/components/pages/CategoryView/CategoryView.jsx:94
 #: src/constants/index.js:37
 #: src/constants/index.js:52
 msgid "Categories"
 msgstr "קטגוריות"
+
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:28
+msgid "Categories Edit"
+msgstr "קטגוריות - עריכה"
+
+#: src/features/CategoriesEdit/Category.jsx:35
+msgid "Category"
+msgstr "קטגוריה"
+
+#: src/features/CategoriesEdit/Category.jsx:95
+msgid "Category added successfully"
+msgstr "קטגוריה התווספה בהצלחה"
+
+#: src/features/CategoriesEdit/Category.jsx:101
+msgid "Category updated successfully"
+msgstr "קטגוריה עודכנה בהצלחה"
 
 #: src/constants/categories.js:231
 msgid "Clothes"
@@ -178,6 +210,10 @@ msgstr "דייטים"
 #: src/constants/categories.js:181
 msgid "Decor"
 msgstr "עיצוב פנים"
+
+#: src/features/CategoriesEdit/Category.jsx:123
+msgid "Deleted successfully"
+msgstr "מחיקה בוצעה בהצלחה"
 
 #: src/constants/categories.js:75
 msgid "Delivery"
@@ -434,6 +470,10 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
+#: src/features/CategoriesEdit/Category.jsx:70
+msgid "No subcategories for this category"
+msgstr "אין תת קטגוריות"
+
 #: src/components/molecules/ExpenseInputs.jsx:11
 msgid "note"
 msgstr "הערה"
@@ -544,8 +584,12 @@ msgstr "הצג הוצאות דומות רק בחודש זה"
 msgid "Spent"
 msgstr "בוזבז"
 
-#: src/components/pages/CategoryView/CategoryView.jsx:99
+#: src/components/pages/CategoryView/CategoryView.jsx:110
 msgid "Subcategories"
+msgstr "תת קטגוריות"
+
+#: src/features/CategoriesEdit/Category.jsx:58
+msgid "Subcategory"
 msgstr "תת קטגוריות"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:152

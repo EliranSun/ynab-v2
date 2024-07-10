@@ -42,6 +42,8 @@ export const emulateDB = () => connectFirestoreEmulator(db, '127.0.0.1', 8080);
 const budgetPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/budget` : "";
 const expensesPath = () => auth.currentUser ? `users/${auth.currentUser?.uid}/expenses` : "";
 
+export const getUserId = () => auth.currentUser?.uid;
+
 export const setUserDoc = async (user) => {
     const userRef = doc(db, `users/${user.uid}`);
     const userDoc = await getDoc(userRef);

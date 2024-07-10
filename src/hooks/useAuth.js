@@ -26,7 +26,7 @@ const useAuthState = () => {
                     await setUserDoc(user);
                     !singleton && fetchExpenses();
                     params.page === '/' && navigate('/home');
-                    supabaseSignInWithOtp(user.email);
+                    // supabaseSignInWithOtp(user.email);
                     singleton = true;
                 }
             } catch (e) {

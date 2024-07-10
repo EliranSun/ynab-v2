@@ -7,15 +7,12 @@ import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
 import Couch from "./assets/couch.png";
-// import Picture from "./assets/picture.png";
 import {useEffect} from "react";
-
-// import {createCategory, getCategories, signIn} from "./utils/db";
+import {getCategories} from "./utils/db";
 
 function App() {
     useEffect(() => {
-        // signIn();
-        // getCategories();
+        getCategories();
     }, []);
 
     return (

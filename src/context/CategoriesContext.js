@@ -35,6 +35,8 @@ export const CategoriesProvider = ({children}) => {
         });
     }, [user]);
 
+    console.log({user});
+
     if (isWalkthroughView) {
         return (
             <div
@@ -44,7 +46,7 @@ export const CategoriesProvider = ({children}) => {
                     "text-xl p-4 shadow-lg text-right": true,
                 })}>
                 <p className="mb-16">
-                    <Trans>Hey</Trans>,<br/>
+                    <Trans>Hey</Trans>, {user.displayName}<br/>
                     <Trans>Just wanted to say, welcome!</Trans><br/><br/>
                     <Trans>In order to use the app, you have got to set up categories.</Trans>.<br/>
                     <Trans>Categories are your way to make order, out of the chaos.</Trans>.<br/>

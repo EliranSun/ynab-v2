@@ -62,15 +62,15 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:23
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:21
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:95
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:82
 msgid "Add Expense"
 msgstr "הוספת תנועה"
 
-#: src/features/CategoriesEdit/Category.jsx:84
+#: src/features/CategoriesEdit/Category.jsx:87
 msgid "Add Subcategory"
 msgstr "הוספת תת קטגוריה"
 
@@ -78,13 +78,13 @@ msgstr "הוספת תת קטגוריה"
 msgid "amount"
 msgstr "סכום"
 
-#: src/features/CategoriesEdit/Category.jsx:121
+#: src/features/CategoriesEdit/Category.jsx:124
 msgid "Are you sure you want to delete this category?"
 msgstr "האם אתה בטוח שאתה רוצה למחוק את הקטגוריה הזאת"
 
-#: src/features/CategoriesEdit/Subcategory.jsx:47
-#~ msgid "Are you sure you want to delete this sub-category?"
-#~ msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
+#: src/features/CategoriesEdit/Subcategory.jsx:80
+msgid "Are you sure you want to delete this sub-category?"
+msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
 
 #: src/constants/categories.js:321
 msgid "Authoring"
@@ -159,23 +159,29 @@ msgstr "אבל זה זניח!"
 msgid "Categories"
 msgstr "קטגוריות"
 
-#: src/context/CategoriesContext.js:49
+#: src/context/CategoriesContext.js:62
 msgid "Categories are your way to make order, out of the chaos."
 msgstr "קטגוריות הן הדרך שלך לייצר סדר מתוך הכאוס"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:17
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:15
 msgid "Categories Edit"
 msgstr "קטגוריות - עריכה"
 
-#: src/features/CategoriesEdit/Category.jsx:35
+#: src/features/CategoriesEdit/Category.jsx:37
 msgid "Category"
 msgstr "קטגוריה"
 
-#: src/features/CategoriesEdit/Category.jsx:98
+#: src/features/CategoriesEdit/Category.jsx:101
+#: src/features/CategoriesEdit/Subcategory.jsx:56
 msgid "Category added successfully"
 msgstr "קטגוריה התווספה בהצלחה"
 
-#: src/features/CategoriesEdit/Category.jsx:104
+#: src/features/CategoriesEdit/Category.jsx:53
+msgid "Category Name"
+msgstr "שם קטגוריה"
+
+#: src/features/CategoriesEdit/Category.jsx:107
+#: src/features/CategoriesEdit/Subcategory.jsx:62
 msgid "Category updated successfully"
 msgstr "קטגוריה עודכנה בהצלחה"
 
@@ -215,7 +221,8 @@ msgstr "דייטים"
 msgid "Decor"
 msgstr "עיצוב פנים"
 
-#: src/features/CategoriesEdit/Category.jsx:126
+#: src/features/CategoriesEdit/Category.jsx:129
+#: src/features/CategoriesEdit/Subcategory.jsx:85
 msgid "Deleted successfully"
 msgstr "מחיקה בוצעה בהצלחה"
 
@@ -367,7 +374,8 @@ msgstr "טיפוח"
 
 #: src/components/molecules/Header/WelcomeMessage.jsx:25
 #: src/components/molecules/Header/WelcomeMessage.jsx:32
-#: src/context/CategoriesContext.js:46
+#: src/context/CategoriesContext.js:59
+#: src/context/CategoriesContext.js:67
 msgid "Hey"
 msgstr "היי"
 
@@ -391,7 +399,7 @@ msgstr "אני בצרות."
 #~ msgid "Import"
 #~ msgstr "יבוא"
 
-#: src/context/CategoriesContext.js:48
+#: src/context/CategoriesContext.js:61
 msgid "In order to use the app, you have got to set up categories."
 msgstr "בשביל להשתמש באפליקציה, אתה צריך ליצור קטגוריות"
 
@@ -407,11 +415,15 @@ msgstr "אינטרנט"
 msgid "iOS"
 msgstr "אפליקציות"
 
+#: src/context/CategoriesContext.js:68
+msgid "It is us again"
+msgstr "אנחנו, שוב"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
 msgstr "אלוקים אדירים אבינו שבשמיים."
 
-#: src/context/CategoriesContext.js:47
+#: src/context/CategoriesContext.js:60
 msgid "Just wanted to say, welcome!"
 msgstr "רק רצינו לומר, ברוך הבא!"
 
@@ -435,7 +447,7 @@ msgstr "נשאר להוציא"
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
 
-#: src/context/CategoriesContext.js:50
+#: src/context/CategoriesContext.js:63
 msgid "Let us take you there"
 msgstr "בוא ניקח אותך לשם"
 
@@ -491,7 +503,7 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/features/CategoriesEdit/Category.jsx:70
+#: src/features/CategoriesEdit/Category.jsx:73
 msgid "No subcategories for this category"
 msgstr "אין תת קטגוריות"
 
@@ -503,7 +515,11 @@ msgstr "הערה"
 msgid "Nothing new"
 msgstr "אין חדש"
 
-#: src/context/CategoriesContext.js:52
+#: src/context/CategoriesContext.js:70
+msgid "Now you must add subcategories"
+msgstr "עכשיו אתה צריך להוסיף תת קטגוריות"
+
+#: src/context/CategoriesContext.js:75
 msgid "OK"
 msgstr "אוקיי"
 
@@ -613,7 +629,7 @@ msgstr "בוזבז"
 msgid "Subcategories"
 msgstr "תת קטגוריות"
 
-#: src/features/CategoriesEdit/Category.jsx:58
+#: src/features/CategoriesEdit/Category.jsx:61
 msgid "Subcategory"
 msgstr "תת קטגוריות"
 
@@ -665,6 +681,14 @@ msgstr "ברוך הבא!"
 msgid "which is good, but I should understand why my budget is off."
 msgstr "שזה טוב, אבל כדאי שעדיין אבין מאיפה ההפרש מגיע."
 
+#: src/context/CategoriesContext.js:69
+msgid "You have completed entering categories"
+msgstr "סיימת להוסיף קטגוריות"
+
 #: src/components/atoms/LoginWelcomeMessage.jsx:28
 msgid "You Need Balance"
 msgstr "תשמע, אתה צריך איזון"
+
+#: src/context/CategoriesContext.js:71
+msgid "You will associate these with each entry you add"
+msgstr "בהמשך, כל רשומה שתוסיף תשוייך לתת קטגוריה"

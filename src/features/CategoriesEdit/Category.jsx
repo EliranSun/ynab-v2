@@ -3,21 +3,26 @@ import {ToastContext, ToastTypes} from "../../context/ToastProvider";
 import {createCategory, deleteCategory, getSubcategories, updateCategory} from "../../utils/db";
 import classNames from "classnames";
 import {Button} from "./Button";
-import {Trans} from "@lingui/macro";
+import {msg, Trans} from "@lingui/macro";
 import {FloppyDisk, Plus, Trash} from "@phosphor-icons/react";
 import {Subcategory} from "./Subcategory";
+import {faker} from "@faker-js/faker";
+import {useLingui} from "@lingui/react";
+import {UserContext} from "../../context";
 
 const ICON_SIZE = 16;
 
 export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
+    const {user} = useContext(UserContext);
     const [newName, setNewName] = useState(name);
-    const [newIcon, setNewIcon] = useState(icon);
+    const [newIcon, setNewIcon] = useState(icon || faker.internet.emoji());
     const [isAddSubcategoryView, setIsAddSubcategoryView] = useState(false);
     const [subcategories, setSubcategories] = useState([]);
     const {setMessage} = useContext(ToastContext);
     const fetch = useCallback(() => {
         getSubcategories(id).then(setSubcategories);
     }, [id]);
+    const {_} = useLingui();
 
     useEffect(() => {
         if (!id) {
@@ -47,6 +52,7 @@ export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
                             value={newIcon}/>
                         <input
                             type="text"
+                            placeholder={_(msg`Category Name`)}
                             className="w-full text-3xl md:text-lg px-4 rounded-lg font-mono"
                             onChange={(e) => setNewName(e.target.value)}
                             value={newName}/>
@@ -97,7 +103,11 @@ export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
                                 text: <Trans>Category added successfully</Trans>
                             });
                         } else {
-                            await createCategory({name: newName, icon: newIcon});
+                            await createCategory({
+                                name: newName,
+                                icon: newIcon,
+                                uid: user.uid
+                            });
                             setMessage({
                                 type: ToastTypes.INFO,
                                 text: <Trans>Category updated successfully</Trans>
@@ -119,7 +129,7 @@ export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
                             type: ToastTypes.DANGER,
                             text: <Trans>Are you sure you want to delete this category?</Trans>,
                             onConfirm: async () => {
-                                await deleteCategory(id);
+                                await deleteCategory(id, user.uid);
                                 setMessage({
                                     type: ToastTypes.INFO,
                                     text: <Trans>Deleted successfully</Trans>

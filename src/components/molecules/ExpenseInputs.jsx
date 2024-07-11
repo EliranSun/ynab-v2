@@ -29,7 +29,7 @@ export const ExpenseInputs = ({
                                   timestamp,
                                   isVisible,
                                   // setExpenses = noop,
-                                  subcategory,
+                                  subcategory = {},
                                   onCategoryMenuClick = noop,
                                   isCategoryMenuOpen,
                                   onInputChange = noop,
@@ -91,7 +91,7 @@ export const ExpenseInputs = ({
                     //     return newExpenses;
                     // });
                 }}>
-                <span>{subcategory?.icon} {subcategory?.label}</span>
+                <span>{subcategory.icon} {subcategory.name}</span>
                 <CaretDown/>
             </button>
             <input

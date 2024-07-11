@@ -1,10 +1,12 @@
-import {createContext, useCallback, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {getCategories} from "../utils/db";
 import {orderBy} from "lodash";
 import {UserContext} from "./UserContext";
 import {Trans} from "@lingui/macro";
 import {Button} from "../components";
 import classNames from "classnames";
+import {useNavigate} from "react-router-dom";
+import {Routes} from "../constants/route";
 
 export const CategoriesContext = createContext({
     categories: [],
@@ -13,11 +15,11 @@ export const CategoriesContext = createContext({
 });
 
 export const CategoriesProvider = ({children}) => {
+    const navigate = useNavigate();
     const {user} = useContext(UserContext);
     const [categories, setCategories] = useState([]);
     const [isWalkthroughView, setIsWalkthroughView] = useState(false);
-    const fetch = useCallback(() => {
-    }, [user]);
+    const currentRoute = window.location.pathname;
 
     useEffect(() => {
         if (!user || !user.uid) {
@@ -35,13 +37,11 @@ export const CategoriesProvider = ({children}) => {
         });
     }, [user]);
 
-    console.log({user});
-
-    if (isWalkthroughView) {
+    if (isWalkthroughView && currentRoute !== Routes.CATEGORIES_EDIT) {
         return (
             <div
                 className={classNames({
-                    "max-w-screen-lg m-auto fixed inset-0 m-auto": true,
+                    "max-w-screen-lg fixed inset-0 m-auto": true,
                     "flex flex-col justify-center items-center rounded-3xl": true,
                     "text-xl p-4 shadow-lg text-right": true,
                 })}>
@@ -52,7 +52,7 @@ export const CategoriesProvider = ({children}) => {
                     <Trans>Categories are your way to make order, out of the chaos.</Trans>.<br/>
                     <Trans>Let us take you there</Trans>.<br/>
                 </p>
-                <Button>
+                <Button onClick={() => navigate(Routes.CATEGORIES_EDIT)}>
                     <Trans>OK</Trans>
                 </Button>
             </div>

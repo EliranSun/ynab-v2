@@ -9,14 +9,13 @@ const supabase = createClient(
 export const getCategories = async (uid) => {
     const {data, error} = await supabase
         .from('categories')
-        .select("*")
+        .select("*, subcategories ( id, name, icon )")
         .eq("user_id", uid);
 
     if (error) {
         throw error;
     }
 
-    console.log({data});
     return data;
 };
 
@@ -24,7 +23,7 @@ export const getSubcategories = async (id) => {
     const userId = getUserId();
     const {data, error} = await supabase
         .from('subcategories')
-        .select("*")
+        .select("* ")
         .eq("category_id", id)
         .eq("user_id", userId);
 
@@ -32,7 +31,6 @@ export const getSubcategories = async (id) => {
         throw error;
     }
 
-    console.log({data, userId});
     return data;
 }
 

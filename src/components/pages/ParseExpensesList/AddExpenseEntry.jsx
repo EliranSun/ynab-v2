@@ -1,9 +1,8 @@
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import {SimilarExpenses} from "../../organisms/SimilarExpenses";
 import {LeanCategorySelection} from "../../organisms/CategorySelection";
-import {useMemo, useState, useRef} from "react";
+import {useState, useRef, useContext} from "react";
 import {format} from "date-fns";
-import {Categories} from "../../../constants";
 import {X} from "@phosphor-icons/react";
 import classNames from "classnames";
 import {useClickAway} from "react-use";
@@ -12,43 +11,31 @@ import {addExpenses} from "../../../utils";
 import {Expense} from "../../../models";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
+import {CategoriesContext} from "../../../context/CategoriesContext";
+import {get} from "lodash";
 
 export const AddExpenseEntry = ({
                                     id = null,
                                     expenses = [],
-                                    activeId = null,
                                     isCategorySelectionVisible = true
                                 }) => {
-    // eslint-disable-next-line no-undef
     const ref = useRef(null);
+    const [categories] = useContext(CategoriesContext);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
-    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(11);
-    const subcategory = useMemo(() => {
-        let subcategoryFoo;
-        Categories.forEach((category) => {
-            category.subCategories.forEach((sub) => {
-                if (sub.id === selectedSubcategoryId) {
-                    subcategoryFoo = sub;
-                }
-            });
-        });
-
-        return subcategoryFoo;
-    }, [selectedSubcategoryId]);
-
     const [expense, setExpense] = useState({
         id: uuid(),
         [InputTypes.NAME]: "",
         [InputTypes.NOTE]: "",
-        [InputTypes.AMOUNT]: null,
-        // eslint-disable-next-line no-undef
-        [InputTypes.DATE]: format(new Date(), "yyyy-MM-dd"),
+        [InputTypes.AMOUNT]: 0,
+        [InputTypes.DATE]: new Date(),
         subcategoryId: 11,
     });
 
     useClickAway(ref, () => {
         setIsCategoryMenuOpen(false);
     });
+
+    console.log({expense});
 
     return (
         <div
@@ -66,7 +53,7 @@ export const AddExpenseEntry = ({
                 onCategoryMenuClick={() => setIsCategoryMenuOpen((prev) => !prev)}
                 isCategoryMenuOpen={isCategoryMenuOpen}
                 // setExpenses={setExpenses}
-                subcategory={subcategory}
+                subcategory={get(categories, '[0].subcategories[0]', null)}
                 onInputChange={(type, value) => {
                     setExpense((prev) => {
                         const newExpense = {...prev};
@@ -117,7 +104,6 @@ export const AddExpenseEntry = ({
                         <LeanCategorySelection
                             onCategorySelect={(id) => {
                                 setIsCategoryMenuOpen(false);
-                                setSelectedSubcategoryId(id);
                                 setExpense((prev) => {
                                     const newExpense = {...prev};
                                     newExpense.subcategoryId = id;

@@ -163,9 +163,7 @@ export const ExpensesContextProvider = ({children}) => {
             if (!newCategories[expense.mainCategoryId]) {
                 const category = getCategoryBySubcategoryId(expense.subcategoryId)
                 const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
-
                 const categoryBudget = budget?.[category.id];
-                console.log({budget, categoryBudget})
                 const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
                     return acc + subcategory;
                 }, 0);

@@ -3,7 +3,6 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {BudgetContextProvider, ExpensesContextProvider, UserProvider} from "./context";
 import {Login} from "./components/pages/Login";
 import {Root} from "./components/templates/Root";
-import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
 import Couch from "./assets/couch.png";
@@ -14,6 +13,7 @@ import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoubleP
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import {ManageBudget} from "./features/ManageBudget/ManageBudget";
 import {CategoriesProvider} from "./context/CategoriesContext";
+import {Routes} from "./constants/route";
 
 function App() {
     return (
@@ -50,43 +50,43 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "/home",
+                path: Routes.HOME,
                 element: <ExpensesSummary/>,
             },
             {
-                path: "/categories-edit",
+                path: Routes.CATEGORIES_EDIT,
                 element: <CategoriesEdit/>,
             },
             {
-                path: "/import",
+                path: Routes.IMPORT,
                 element: <ParseExpensesList/>,
             },
             {
-                path: "/balance",
+                path: Routes.BALANCE,
                 element: <BalanceView/>,
             },
             {
-                path: "/expenses",
+                path: Routes.EXPENSES,
                 element: <ExpenseView/>,
             },
             {
-                path: "/categories",
+                path: Routes.CATEGORIES,
                 element: <CategoryView/>,
             },
             {
-                path: "/projection",
+                path: Routes.PROJECTION,
                 element: <FuturePredictionPage/>,
             },
             {
-                path: "/resolver",
+                path: Routes.RESOLVER,
                 element: <SeeingDoublePage/>,
             },
             {
-                path: "/budget",
+                path: Routes.BUDGET,
                 element: <ManageBudget/>,
             },
             {
-                path: "/",
+                path: Routes.ROOT,
                 element: <Navigate to="/home" replace/>,
             }
         ]

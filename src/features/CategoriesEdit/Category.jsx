@@ -6,7 +6,6 @@ import {Button} from "./Button";
 import {Trans} from "@lingui/macro";
 import {FloppyDisk, Plus, Trash} from "@phosphor-icons/react";
 import {Subcategory} from "./Subcategory";
-import {Title} from "../../components";
 
 const ICON_SIZE = 16;
 

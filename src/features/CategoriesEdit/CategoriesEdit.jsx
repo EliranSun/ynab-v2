@@ -1,16 +1,14 @@
-import {getCategories} from "../../utils/db";
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {Plus} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
-import {UserContext} from "../../context";
 import {Button} from "./Button";
 import {Category} from "./Category";
 import {Title} from "../../components";
+import {CategoriesContext} from "../../context/CategoriesContext";
 
 export const CategoriesEdit = () => {
-    const [categories, setCategories] = useState([]);
+    const {categories, fetch} = useContext(CategoriesContext);
     const [isAddCategoryView, setIsAddCategoryView] = useState(false);
-
 
     return (
         <div className="flex flex-col rounded-3xl max-w-screen-xl m-auto relative">

@@ -1,18 +1,26 @@
 import {noop} from 'lodash';
 import {Categories} from "../../../constants";
 import classNames from "classnames";
+import {useContext} from "react";
+import {CategoriesContext} from "../../../context/CategoriesContext";
 
 const LeanCategorySelection = ({onCategorySelect = noop}) => {
+    const {categories} = useContext(CategoriesContext);
+
+    if (!categories) {
+        return null;
+    }
+
     return (
         <div className="flex flex-col md:flex-row w-full gap-1">
-            {Categories.map((category) => {
+            {categories.map((category) => {
                 return (
                     <div key={category.id} className="flex flex-col bg-gray-100 w-full">
                         <div className="p-4 bg-gray-500 text-white">
-                            <b>{category.label}</b>
+                            <b>{category.icon}</b> <b>{category.name}</b>
                         </div>
                         <div className="flex flex-wrap md:inline-block">
-                            {category.subCategories.map((sub) => {
+                            {category.subcategories.map((sub) => {
                                 return (
                                     <div
                                         key={sub.id}
@@ -23,7 +31,7 @@ const LeanCategorySelection = ({onCategorySelect = noop}) => {
                                             "hover:text-white cursor-pointer hover:border-black-300": true,
                                         })}>
                                         <span>{sub.icon.slice(0, 2)}</span>
-                                        <span>{sub.label}</span>
+                                        <span>{sub.name}</span>
                                     </div>
                                 );
                             })}

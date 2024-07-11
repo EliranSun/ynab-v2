@@ -1,6 +1,6 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useCallback, useState} from "react";
 import {getCategories} from "../utils/db";
-import {orderBy} from "lodash";
+import {noop, orderBy} from "lodash";
 import {UserContext} from "./UserContext";
 import {Trans} from "@lingui/macro";
 import {Button} from "../components";
@@ -10,8 +10,7 @@ import {Routes} from "../constants/route";
 
 export const CategoriesContext = createContext({
     categories: [],
-    setCategories: () => {
-    },
+    fetch: noop,
 });
 
 export const CategoriesProvider = ({children}) => {
@@ -20,13 +19,7 @@ export const CategoriesProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
     const [isWalkthroughView, setIsWalkthroughView] = useState(false);
     const currentRoute = window.location.pathname;
-
-    useEffect(() => {
-        if (!user || !user.uid) {
-            return;
-        }
-
-
+    const fetch = useCallback(() => {
         getCategories(user.uid).then(results => {
             if (!results || !results.length) {
                 setIsWalkthroughView(true);
@@ -35,6 +28,15 @@ export const CategoriesProvider = ({children}) => {
 
             setCategories(orderBy(results, ['id'], ['asc']))
         });
+    }, [user]);
+
+    useEffect(() => {
+        if (!user || !user.uid) {
+            return;
+        }
+
+
+        fetch();
     }, [user]);
 
     if (isWalkthroughView && currentRoute !== Routes.CATEGORIES_EDIT) {
@@ -60,7 +62,7 @@ export const CategoriesProvider = ({children}) => {
     }
 
     return (
-        <CategoriesContext.Provider value={[categories]}>
+        <CategoriesContext.Provider value={{categories, fetch}}>
             {children}
         </CategoriesContext.Provider>
     );

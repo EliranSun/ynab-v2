@@ -20,7 +20,7 @@ export const AddExpenseEntry = ({
                                     isCategorySelectionVisible = true
                                 }) => {
     const ref = useRef(null);
-    const [categories] = useContext(CategoriesContext);
+    const {categories} = useContext(CategoriesContext);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
     const [expense, setExpense] = useState({
         id: uuid(),

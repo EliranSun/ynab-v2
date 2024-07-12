@@ -6,6 +6,13 @@ const supabase = createClient(
     process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
+export const login = async () => {
+    await supabase.auth.signInWithOAuth({
+        provider: 'google',
+
+    });
+}
+
 export const getCategories = async () => {
     const userId = getUserId();
 

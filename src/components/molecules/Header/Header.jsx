@@ -5,6 +5,7 @@ import {WelcomeMessage} from "./WelcomeMessage";
 import {HamburgerMenu} from "./HamburgerMenu";
 import {MobileMenuBackdrop} from "./MobileMenuBackdrop";
 import {Menu} from "./Menu";
+import {login} from "../../../utils/db";
 
 
 export const Header = () => {
@@ -20,6 +21,9 @@ export const Header = () => {
                     "flex justify-between items-center md:gap-8": true,
                     "rtl:flex-row-reverse": false,
                 })}>
+                <button onClick={login}>
+                    LOGIN
+                </button>
                 <span className="hidden lg:inline">
                     <WelcomeMessage userName={user.displayName}/>
                 </span>

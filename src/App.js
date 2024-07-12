@@ -8,7 +8,7 @@ import {LocaleProvider} from "./context/LocaleContext";
 import Couch from "./assets/couch.png";
 import {CategoriesEdit} from "./features/CategoriesEdit/CategoriesEdit";
 import {ToastProvider} from "./context/ToastProvider";
-import {ExpensesSummary} from "./features/LastExpenses/components/ExpensesSummary";
+import ExpensesSummary from "./features/LastExpenses/components/ExpensesSummary";
 import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import {ManageBudget} from "./features/ManageBudget/ManageBudget";

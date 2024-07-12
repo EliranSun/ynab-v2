@@ -1,14 +1,16 @@
-import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
+import {createContext, useCallback, useContext, useState} from "react";
 import {noop} from "lodash";
-import {addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense} from "../../utils";
-import {Categories, getCategoryBySubcategoryId, getCategoryName} from "../../constants";
+import {addExpenses, deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
+import {Categories, getCategoryBySubcategoryId} from "../../constants";
 import {BudgetContext, getDateKey} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
+import {getExpenses} from "../../utils/db";
 
 export const ExpensesContext = createContext({
-    expenses: {},
+    expenses: [],
     changeExpenseCategoryByName: noop,
+    refetch: noop,
 });
 
 const getExpensesPerMonthPerCategory = (expenses = []) => {
@@ -49,14 +51,12 @@ const getExpensesPerMonthPerCategory = (expenses = []) => {
 }
 
 export const ExpensesContextProvider = ({children}) => {
-    const [expenses, setExpenses] = useState({});
+    const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
-    const [expensesArray, setExpensesArray] = useState([]);
+    // const [expensesArray, setExpensesArray] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
     const [budget] = useContext(BudgetContext);
-
-    console.log({budget});
 
     const setExpenseAsRecurring = (expenseId, recurring) => {
         new Array(Number(recurring)).fill(0).forEach((_, index) => {
@@ -109,7 +109,7 @@ export const ExpensesContextProvider = ({children}) => {
 
     const changeExpenseCategory = async (expenseId, categoryId, note = "") => {
         const expense = expenses[expenseId];
-        const allExpensesWithTheSameName = expensesArray.filter(
+        const allExpensesWithTheSameName = expenses.filter(
             ({name}) => name === expense.name
         );
         if (!expense.isThirdParty) {
@@ -137,16 +137,18 @@ export const ExpensesContextProvider = ({children}) => {
         });
     };
 
-    const foo = useCallback(async () => {
+    const fetchExpenses = useCallback(async () => {
         const expenses = await getExpenses();
+        const modeledExpenses = expenses.map(expense => new Expense(expense));
 
-        setExpenses(expenses);
-        setExpensesArray(Object.values(expenses));
-        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(expenses)));
+        console.log({modeledExpenses});
+
+        setExpenses(modeledExpenses);
+        // setExpensesArray(Object.values(modeledExpenses));
+        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
 
         const newCategories = {};
-        const budgetKey = getDateKey(new Date().getTime());
-        const expensesThisMonth = Object.values(expenses).filter(expense => {
+        const expensesThisMonth = Object.values(modeledExpenses).filter(expense => {
             const date = new Date();
             const expenseDate = new Date(expense.timestamp);
 
@@ -163,14 +165,15 @@ export const ExpensesContextProvider = ({children}) => {
             if (!newCategories[expense.mainCategoryId]) {
                 const category = getCategoryBySubcategoryId(expense.subcategoryId)
                 const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
-                const categoryBudget = budget?.[category.id];
-                const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
-                    return acc + subcategory;
-                }, 0);
+                // const categoryBudget = budget?.[category.id];
+                // const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
+                //     return acc + subcategory;
+                // }, 0);
 
                 newCategories[expense.mainCategoryId] = {
                     ...category,
-                    budget: categoryBudgetValue,
+                    // budget: categoryBudgetValue,
+                    budget: 0,
                     amount: expense.amount,
                     subcategories: {
                         [expense.subcategoryId]: {
@@ -209,7 +212,7 @@ export const ExpensesContextProvider = ({children}) => {
         <ExpensesContext.Provider
             value={{
                 expenses,
-                expensesArray,
+                // expensesArray,
                 expensesPerMonthPerCategory,
                 categories,
                 categoriesByAmount,
@@ -219,7 +222,7 @@ export const ExpensesContextProvider = ({children}) => {
                 deleteExpense,
                 setExpenseNote,
                 markExpensesAsOriginal,
-                fetchExpenses: foo,
+                fetchExpenses,
                 setExpenses: async (newExpenses = []) => {
                     const expensesObject = {};
                     newExpenses.forEach((expense) => {

@@ -1,5 +1,4 @@
 import {Trans} from "@lingui/macro";
-import {ArrowSquareOut} from "@phosphor-icons/react";
 import {Button, Title} from "../../atoms";
 import classNames from "classnames";
 import {useContext} from "react";
@@ -7,7 +6,7 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 import {Box} from "../../atoms/Box";
 
 export const ExportData = () => {
-    const {expensesArray} = useContext(ExpensesContext);
+    const {expenses} = useContext(ExpensesContext);
     const [budget] = useContext(BudgetContext);
 
     return (
@@ -17,20 +16,20 @@ export const ExportData = () => {
                     <Trans>Export Expenses</Trans>
                 </Title>
                 <p>
-                    {expensesArray.length} expenses. Last expense:
+                    {expenses.length} expenses. Last expense:
                 </p>
                 <pre className="h-96 overflow-y-auto overflow-x-hidden">
-                    {JSON.stringify(expensesArray.sort((a, b) => b.timestamp - a.timestamp)[0], null, 2)}
+                    {JSON.stringify(expenses.sort((a, b) => b.timestamp - a.timestamp)[0], null, 2)}
                 </pre>
                 <Button
                     size={Button.Sizes.FULL}
-                    isDisabled={expensesArray.length === 0}
+                    isDisabled={expenses.length === 0}
                     className={classNames("my-4 w-72 mx-auto text-center", {
                         "animate-pulse duration-500": false,
                     })}
                     onClick={() => {
                         const element = document.createElement("a");
-                        const file = new Blob([JSON.stringify(expensesArray, null, 2)], {type: "text/plain"});
+                        const file = new Blob([JSON.stringify(expenses, null, 2)], {type: "text/plain"});
                         element.href = URL.createObjectURL(file);
                         element.download = "expenses.json";
                         document.body.appendChild(element);

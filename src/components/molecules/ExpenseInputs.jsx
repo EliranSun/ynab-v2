@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {CaretDown, X} from "@phosphor-icons/react";
+import {CaretDown, Trash, X} from "@phosphor-icons/react";
 import {noop} from "lodash";
 import {msg} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
@@ -11,25 +11,29 @@ const InputPlaceholder = {
     note: msg`note`,
 };
 
-const formatTimestamp = (timestamp) => {
-    // timestamp to 2021-06-30
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
-};
+function formatDate(date) {
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // Months are zero based
+    let year = date.getFullYear();
+
+    // Add leading zeros to day and month if needed
+    if (day < 10) day = '0' + day;
+    if (month < 10) month = '0' + month;
+
+    return `${year}-${month}-${day}`;
+}
 
 export const ExpenseInputs = ({
                                   index,
                                   name,
                                   note,
                                   amount,
+                                  readonly,
                                   date,
                                   timestamp,
                                   isVisible,
                                   // setExpenses = noop,
-                                  subcategory,
+                                  subcategoryLabel,
                                   onCategoryMenuClick = noop,
                                   isCategoryMenuOpen,
                                   onInputChange = noop,
@@ -44,46 +48,48 @@ export const ExpenseInputs = ({
             "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
             "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
         })}>
-            <span className="cursor-pointer" onClick={onRemove}>
-                <X color="red" size={42}/>
-            </span>
             <input
                 type="date"
-                className="w-44 p-4 border border-gray-300 rounded"
+                disabled={readonly}
+                className="p-4 border border-gray-300 rounded w-1/6"
                 // date="June 30, 24"
                 // defaultValue="2021-06-30"
-                defaultValue={formatTimestamp(timestamp)}
+                defaultValue={formatDate(new Date())}
                 onChange={(event) => {
                     onInputChange(InputTypes.DATE, event.target.value);
                 }}
             />
-            <div className="flex gap-2">
-                <input
-                    type="text"
-                    defaultValue={name}
-                    placeholder={_(InputPlaceholder.name)}
-                    className="w-2/3 md:w-40 p-4 border border-gray-300 rounded"
-                    onChange={(event) => {
-                        onInputChange(InputTypes.NAME, event.target.value);
-                    }}/>
-                <input
-                    type="number"
-                    defaultValue={amount}
-                    placeholder={_(InputPlaceholder.amount)}
-                    className="w-1/3 md:w-40 p-4 border border-gray-300 rounded"
-                    onChange={(event) => {
-                        onInputChange(InputTypes.AMOUNT, event.target.value);
-                    }}
-                />
-            </div>
+            <input
+                type="text"
+                disabled={readonly}
+                defaultValue={name}
+                placeholder={_(InputPlaceholder.name)}
+                className="p-4 border border-gray-300 rounded w-1/6"
+                onChange={(event) => {
+                    onInputChange(InputTypes.NAME, event.target.value);
+                }}/>
+            <input
+                type="number"
+                disabled={readonly}
+                defaultValue={amount}
+                placeholder={_(InputPlaceholder.amount)}
+                className="p-4 border border-gray-300 rounded w-1/6"
+                onChange={(event) => {
+                    onInputChange(InputTypes.AMOUNT, event.target.value);
+                }}
+            />
             <button
                 className={classNames({
                     "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
                     "hover:bg-black hover:text-white": true,
                     "p-4 font-mono flex items-center justify-between": true,
-                    "cursor-pointer rounded md:w-32": true,
+                    "cursor-pointer rounded w-1/6": true,
                 })}
                 onClick={() => {
+                    if (readonly) {
+                        return;
+                    }
+
                     onCategoryMenuClick();
                     // setExpenses((prev) => {
                     //     const newExpenses = [...prev];
@@ -91,14 +97,15 @@ export const ExpenseInputs = ({
                     //     return newExpenses;
                     // });
                 }}>
-                <span>{subcategory?.icon} {subcategory?.name}</span>
+                <span>{subcategoryLabel}</span>
                 <CaretDown/>
             </button>
             <input
                 type="text"
                 placeholder={_(InputPlaceholder.note)}
                 defaultValue={note}
-                className="border border-gray-300 rounded p-4 h-20 md:h-auto"
+                disabled={readonly}
+                className="border border-gray-300 w-1/6 rounded p-4 h-20 md:h-auto"
                 onChange={(event) => {
                     onInputChange(InputTypes.NOTE, event.target.value);
                     // setExpenses((prev) => {
@@ -107,6 +114,9 @@ export const ExpenseInputs = ({
                     //     return newExpenses;
                     // });
                 }}/>
+            <span className="cursor-pointer" onClick={onRemove}>
+                <Trash color="red" size={42}/>
+            </span>
         </div>
     );
 };

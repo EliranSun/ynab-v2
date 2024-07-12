@@ -37,8 +37,6 @@ const useAuthState = () => {
         });
     }, []);
 
-    console.log({userId: user?.uid, isLoggedIn, loading});
-
     return {user, isLoggedIn, loading};
 };
 

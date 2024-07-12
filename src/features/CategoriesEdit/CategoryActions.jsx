@@ -3,23 +3,32 @@ import {ToastContext, ToastTypes} from "../../context/ToastProvider";
 import {Button} from "./Button";
 import {createCategory, deleteCategory, updateCategory} from "../../utils/db";
 import {Trans} from "@lingui/macro";
-import {FloppyDisk, Trash} from "@phosphor-icons/react";
+import {FloppyDisk, Plus, Trash} from "@phosphor-icons/react";
 import {ICON_SIZE} from "./Subcategories";
 import {isEqual} from "lodash";
 import {useMemo} from "react";
 import {TooltipContext} from "../../context/TooltipContext";
 
 
-export const CategoryActions = ({userId, categoryId, newEntry, oldEntry, onUpdate}) => {
+export const CategoryActions = ({categoryId, newEntry, oldEntry, onUpdate, onAddSubcategory}) => {
     const [setTooltipMessage] = useContext(TooltipContext);
     const {setMessage} = useContext(ToastContext);
     const isSame = useMemo(() => isEqual(newEntry, oldEntry), [newEntry, oldEntry]);
+    const isMissing = useMemo(() => !newEntry.name || !newEntry.icon, [newEntry]);
 
     return (
         <div className="flex gap-2">
             <Button
+                variation={Button.Variation.ADD}
+                onClick={onAddSubcategory}>
+                <Plus size={ICON_SIZE}/>
+                <label className="text-xs">
+                    <Trans>Add Subcategory</Trans>
+                </label>
+            </Button>
+            <Button
                 variation={Button.Variation.SAVE}
-                isDisabled={isSame}
+                isDisabled={isSame || isMissing}
                 onClick={async () => {
                     if (categoryId) {
                         await updateCategory({
@@ -27,7 +36,6 @@ export const CategoryActions = ({userId, categoryId, newEntry, oldEntry, onUpdat
                             name: newEntry.name,
                             icon: newEntry.icon,
                             isIncome: newEntry.isIncome,
-                            uid: userId,
                         });
 
                         setTooltipMessage(<Trans>Category added successfully</Trans>);
@@ -36,7 +44,6 @@ export const CategoryActions = ({userId, categoryId, newEntry, oldEntry, onUpdat
                             name: newEntry.name,
                             icon: newEntry.icon,
                             isIncome: newEntry.isIncome,
-                            uid: userId
                         });
                         setTooltipMessage(<Trans>Category updated successfully</Trans>);
                     }

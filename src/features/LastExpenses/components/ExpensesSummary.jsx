@@ -17,6 +17,7 @@ import classNames from "classnames";
 import {Trans} from "@lingui/macro";
 import {INCOME_CATEGORY_ID, Timeframe} from "../constants";
 import {BudgetContext, ExpensesContext} from "../../../context";
+import Expense from "../../../components/pages/ExpenseView/Expense";
 
 const Item = ({children}) => {
     return (
@@ -43,7 +44,7 @@ const Amount = ({children, isDifference}) => {
     );
 };
 
-export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
+export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const currentYear = getYear(new Date());
         const currentMonth = getMonth(new Date());
         const [startDate, setStartDate] = useState(new Date(currentYear, currentMonth, 1));
@@ -82,23 +83,14 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         }, [timeframeName, budget]);
 
         const lastItems = useMemo(() => {
-            // const aggregatedByNameExpenses = {};
+            console.log({expenses});
             const expensesFoo = {};
-            for (const item of expensesArray) {
+            for (const item of expenses) {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
                 const itemIsFiltered = filteredItems.some(filteredItem => filteredItem.id === item.id);
                 if (item.isIncome || itemIsFiltered || outOfRange) {
                     continue;
                 }
-
-                // if (!aggregatedByNameExpenses[item.name]) {
-                //     aggregatedByNameExpenses[item.name] = {
-                //         ...item,
-                //         amount: item.amount,
-                //     };
-                // } else {
-                //     aggregatedByNameExpenses[item.name].amount += item.amount;
-                // }
 
                 expensesFoo[item.id] = item;
             }
@@ -108,10 +100,10 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
             }
 
             return Object.values(expensesFoo).sort((a, b) => b.amount - a.amount);
-        }, [expensesArray, startDate, endDate, sortBy, filteredItems]);
+        }, [expenses, startDate, endDate, sortBy, filteredItems]);
 
         const incomeForTimeframe = useMemo(() => {
-            return expensesArray
+            return expenses
                 .filter(item => {
                     const inRange =
                         isAfter(item.timestamp, startOfMonth(startDate)) &&
@@ -120,7 +112,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                 });
 
 
-        }, [expensesArray, startDate, endDate]);
+        }, [expenses, startDate, endDate]);
 
         const incomeAmountForTimeframe = useMemo(() => {
             const total = incomeForTimeframe.reduce((acc, item) => acc + item.amount, 0);
@@ -149,9 +141,7 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
         return (
             <div className="p-2 md:p-4 w-full max-w-screen-2xl m-auto bg-white/90">
                 <h1 className="w-full m-auto text-8xl font-mono">
-                    <Trans>
-                        Summary
-                    </Trans>
+                    <Trans>Summary</Trans>
                 </h1>
                 <section
                     className={classNames({
@@ -218,28 +208,41 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
                             </button>
                             {lastItems.map(item => {
                                 return (
-                                    <div
-                                        key={item.id}
-                                        className={classNames({
-                                            "p-2 border-b border-gray-500": true,
-                                            "flex flex-col md:flex-row justify-between md:items-center": true,
-                                        })}
-                                        onClick={() => {
-                                            setFilteredItems([item, ...filteredItems]);
-                                        }}>
-                                        <div>
-                                            <h2 className="text-2xl font-mono">{item.name}</h2>
-                                            <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
-                                                {item.note}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
-                                            <p className="md:text-lg font-mono">
-                                                {differenceInDays(new Date(), item.timestamp)} days ago<br/>
-                                                {format(item.timestamp, "d.LL.yy, EEE")}
-                                            </p>
-                                        </div>
+                                    // <div
+                                    //     key={item.id}
+                                    //     className={classNames({
+                                    //         "p-2 border-b border-gray-500": true,
+                                    //         "flex flex-col md:flex-row justify-between md:items-center": true,
+                                    //     })}
+                                    //     onClick={() => {
+                                    //         setFilteredItems([item, ...filteredItems]);
+                                    //     }}>
+                                    //     <div>
+                                    //         <h2 className="text-2xl font-mono">{item.name}</h2>
+                                    //         <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
+                                    //             {item.note}
+                                    //         </p>
+                                    //     </div>
+                                    //     <div>
+                                    //         <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
+                                    //         <p className="md:text-lg font-mono">
+                                    //             {differenceInDays(new Date(), item.timestamp)} days ago<br/>
+                                    //             {format(item.timestamp, "d.LL.yy, EEE")}
+                                    //         </p>
+                                    //     </div>
+                                    // </div>
+                                    <div>
+                                        <button
+                                            className="absolute"
+                                            onClick={() => {
+                                                setFilteredItems([item, ...filteredItems]);
+                                            }}>
+                                            hide
+                                        </button>
+                                        <Expense
+                                            key={item.id}
+                                            isListView
+                                            expense={item}/>
                                     </div>
                                 )
                             })}
@@ -253,9 +256,11 @@ export const ExpensesSummary = ({budget = {}, expensesArray = []}) => {
 
 const ProvidedLastExpenses = () => {
     const [budget] = useContext(BudgetContext);
-    const {expensesArray} = useContext(ExpensesContext);
+    const {expenses} = useContext(ExpensesContext);
 
-    return <ExpensesSummary budget={budget} expensesArray={expensesArray}/>
+    console.log('ProvidedLastExpenses', {expenses});
+
+    return <ExpensesSummary budget={budget} expenses={expenses}/>
 }
 
 export default ProvidedLastExpenses;

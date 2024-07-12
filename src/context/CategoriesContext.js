@@ -21,7 +21,7 @@ export const CategoriesProvider = ({children}) => {
     const currentRoute = window.location.pathname;
 
     const fetch = useCallback(() => {
-        getCategories(user.uid).then(newCategories => {
+        getCategories().then(newCategories => {
             if (!newCategories || !newCategories.length) {
                 setWalkthroughViewStep(1);
                 return;
@@ -37,12 +37,14 @@ export const CategoriesProvider = ({children}) => {
 
             setCategories(orderBy(newCategories, ['id'], ['asc']))
         });
-    }, [user]);
+    }, []);
 
     useEffect(() => {
         if (!user || !user.uid) {
             return;
         }
+
+        console.log({user});
 
 
         fetch();

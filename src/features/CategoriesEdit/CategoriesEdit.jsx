@@ -38,6 +38,7 @@ export const CategoriesEdit = () => {
                             key={category.id}
                             id={category.id}
                             isIncome={category.isIncome}
+                            subcategories={category.subcategories}
                             name={category.name}
                             icon={category.icon}
                             onUpdate={fetch}

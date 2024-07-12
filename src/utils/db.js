@@ -1,66 +1,54 @@
 import {createClient} from "@supabase/supabase-js";
-import {getUserId} from "./firebase";
 
-const supabase = createClient(
+export const supabase = createClient(
     process.env.REACT_APP_SUPABASE_URL,
     process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
 export const login = async () => {
-    await supabase.auth.signInWithOAuth({
+    const {user, session, error} = await supabase.auth.signInWithOAuth({
         provider: 'google',
-
+        options: {
+            redirectTo: "http://localhost:3006",
+        }
     });
+
+    alert("Logged in as " + user.email);
+    console.log({user, session, error});
+    return {user, session, error};
 }
 
 export const getCategories = async () => {
-    const userId = getUserId();
+    const {data: userData} = await supabase.auth.getUser();
+    console.log("userData", {userData});
 
     const {data, error} = await supabase
         .from('categories')
         .select("*, subcategories:subcategories (id, name, icon)")
-        .eq("user_id", userId);
 
     if (error) {
         throw error;
     }
 
+    console.log("getCategories", {data});
     return data;
 };
-
-export const getSubcategories = async (categoryId) => {
-    const userId = getUserId();
-
-    const {data, error} = await supabase
-        .from('subcategories')
-        .select("* ")
-        .eq("category_id", categoryId)
-        .eq("user_id", userId);
-
-
-    if (error) {
-        throw error;
-    }
-
-    return data;
-}
 
 export const createCategory = async ({name, icon, isIncome}) => {
     if (!name || !icon) {
         throw new Error("Name and icon are required");
     }
 
-    const userId = getUserId();
+    const {data: userData} = await supabase.auth.getUser();
+
     const {data, error} = await supabase
         .from("categories")
         .insert({
             name,
             icon,
             isIncome,
-            user_id: userId
+            user_id: userData.user.id
         });
-
-    console.info("create category", {name, icon, userId});
 
     if (error) {
         throw error;
@@ -74,8 +62,7 @@ export const createSubcategory = async ({name, icon, categoryId}) => {
         throw new Error("Name, icon, and category ID are required");
     }
 
-    const userId = getUserId();
-    console.log({name, icon, categoryId, userId});
+    const {data: userData} = await supabase.auth.getUser();
 
     const {data, error} = await supabase
         .from("subcategories")
@@ -83,10 +70,8 @@ export const createSubcategory = async ({name, icon, categoryId}) => {
             name,
             icon,
             category_id: categoryId,
-            user_id: userId
+            user_id: userData.user.id
         });
-
-    console.info("create subcategory", data, error);
 
     if (error) {
         throw error;
@@ -96,13 +81,10 @@ export const createSubcategory = async ({name, icon, categoryId}) => {
 };
 
 export const deleteCategory = async (categoryId) => {
-    const userId = getUserId();
-
     const {data, error} = await supabase
         .from("categories")
         .delete()
         .eq("id", categoryId)
-        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -112,13 +94,10 @@ export const deleteCategory = async (categoryId) => {
 };
 
 export const deleteSubcategory = async (subcategoryId) => {
-    const userId = getUserId();
-
     const {data, error} = await supabase
         .from("subcategories")
         .delete()
         .eq("id", subcategoryId)
-        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -132,8 +111,6 @@ export const updateCategory = async ({id, name, isIncome, icon}) => {
         throw new Error("Name and icon are required");
     }
 
-    const userId = getUserId();
-
     const {data, error} = await supabase
         .from("categories")
         .update({
@@ -141,8 +118,7 @@ export const updateCategory = async ({id, name, isIncome, icon}) => {
             icon,
             isIncome
         })
-        .eq("id", id)
-        .eq("user_id", userId);
+        .eq("id", id);
 
     if (error) {
         throw error;
@@ -152,20 +128,52 @@ export const updateCategory = async ({id, name, isIncome, icon}) => {
 }
 
 export const updateSubcategory = async ({id, name, icon}) => {
-    const userId = getUserId();
-
     const {data, error} = await supabase
         .from("subcategories")
         .update({
             name,
             icon
         })
-        .eq("id", id)
-        .eq("user_id", userId);
+        .eq("id", id);
 
     if (error) {
         throw error;
     }
 
     return data;
-}
+};
+
+export const getExpenses = async () => {
+    const {data, error} = await supabase
+        .from("expenses")
+        .select("*");
+
+    if (error) {
+        throw error;
+    }
+
+    console.log("getExpenses", {data});
+    return data;
+};
+
+export const addExpense = async ({name, note, amount, subcategoryId, date}) => {
+    if (!name || !amount || !subcategoryId || !date) {
+        throw new Error("Name, amount, subcategory ID, and date are required");
+    }
+
+    const {data, error} = await supabase
+        .from("expenses")
+        .insert({
+            name,
+            note,
+            amount,
+            subcategory_id: subcategoryId,
+            date,
+        });
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};

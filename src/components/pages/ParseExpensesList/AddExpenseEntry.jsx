@@ -1,13 +1,12 @@
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import {SimilarExpenses} from "../../organisms/SimilarExpenses";
 import {LeanCategorySelection} from "../../organisms/CategorySelection";
-import {useState, useRef, useContext} from "react";
-import {format} from "date-fns";
+import {useState, useRef, useContext, useEffect} from "react";
 import {X} from "@phosphor-icons/react";
 import classNames from "classnames";
 import {useClickAway} from "react-use";
 import {Trans} from "@lingui/macro";
-import {addExpenses} from "../../../utils";
+import {addExpense} from "../../../utils/db";
 import {Expense} from "../../../models";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
@@ -22,6 +21,7 @@ export const AddExpenseEntry = ({
     const ref = useRef(null);
     const {categories} = useContext(CategoriesContext);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
     const [expense, setExpense] = useState({
         id: uuid(),
         [InputTypes.NAME]: "",
@@ -35,7 +35,12 @@ export const AddExpenseEntry = ({
         setIsCategoryMenuOpen(false);
     });
 
-    console.log({expense});
+    useEffect(() => {
+        const firstSubcategory = get(categories, "0.subcategories.0");
+        if (firstSubcategory) {
+            setSelectedSubcategoryId(firstSubcategory.id);
+        }
+    }, [categories]);
 
     return (
         <div
@@ -45,6 +50,7 @@ export const AddExpenseEntry = ({
         >
             <ExpenseInputs
                 // index={index}
+                readonly
                 name={expense.name}
                 note={expense.note}
                 amount={expense.amountCurrency}
@@ -52,8 +58,7 @@ export const AddExpenseEntry = ({
                 isVisible={isCategorySelectionVisible}
                 onCategoryMenuClick={() => setIsCategoryMenuOpen((prev) => !prev)}
                 isCategoryMenuOpen={isCategoryMenuOpen}
-                // setExpenses={setExpenses}
-                subcategory={get(categories, '[0].subcategories[0]', null)}
+                subcategoryId={selectedSubcategoryId}
                 onInputChange={(type, value) => {
                     setExpense((prev) => {
                         const newExpense = {...prev};
@@ -76,7 +81,7 @@ export const AddExpenseEntry = ({
                     }
 
                     const modeledExpense = new Expense(expense);
-                    await addExpenses([modeledExpense]);
+                    await addExpense(modeledExpense);
                     console.info("Success!", modeledExpense);
                 }}>
                 <Trans>Add Expense</Trans>
@@ -104,17 +109,12 @@ export const AddExpenseEntry = ({
                         <LeanCategorySelection
                             onCategorySelect={(id) => {
                                 setIsCategoryMenuOpen(false);
+                                setSelectedSubcategoryId(id);
                                 setExpense((prev) => {
                                     const newExpense = {...prev};
                                     newExpense.subcategoryId = id;
                                     return newExpense;
                                 });
-
-                                // setExpenses((prev) => {
-                                //     const newExpenses = [...prev];
-                                //     newExpenses[index].categoryId = categoryId;
-                                //     return newExpenses;
-                                // });
                             }}/>
                     </div>
                 </div>}

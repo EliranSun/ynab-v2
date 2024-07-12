@@ -23,7 +23,6 @@ export const Subcategory = ({id, categoryId, name = "", icon = "", onUpdate, onC
         <div
             className={classNames({
                 "w-full": true,
-                "text-lg": true,
                 "flex flex-col items-center justify-between rounded-lg": true,
             })}>
             <div className="flex gap-1 w-full">
@@ -36,7 +35,7 @@ export const Subcategory = ({id, categoryId, name = "", icon = "", onUpdate, onC
                 <input
                     type="text"
                     placeholder="Subcategory Name"
-                    className="rounded px-2 w-full"
+                    className="rounded px-2 w-full font-mono"
                     onChange={(e) => setNewName(e.target.value)}
                     value={newName}/>
                 <Button onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -44,7 +43,7 @@ export const Subcategory = ({id, categoryId, name = "", icon = "", onUpdate, onC
                 </Button>
             </div>
             {isMenuOpen ?
-                <div className="absolute bg-white p-2 flex gap-1">
+                <div className="absolute left-0 bg-white p-2 flex gap-1">
                     <Button
                         variation={Button.Variation.SAVE}
                         isDisabled={!newName || !newIcon || (newName === name && newIcon === icon)}

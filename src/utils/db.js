@@ -9,8 +9,10 @@ const supabase = createClient(
 export const getCategories = async (uid) => {
     const {data, error} = await supabase
         .from('categories')
-        .select("*, subcategories ( id, name, icon )")
+        .select("*, subcategories:subcategories ( id, name, icon )")
         .eq("user_id", uid);
+
+    console.log('getCategories', {uid, getUserId: getUserId(), data, error});
 
     if (error) {
         throw error;
@@ -21,11 +23,14 @@ export const getCategories = async (uid) => {
 
 export const getSubcategories = async (id) => {
     const userId = getUserId();
+    console.log('getCategories', {userId});
+
     const {data, error} = await supabase
         .from('subcategories')
         .select("* ")
         .eq("category_id", id)
         .eq("user_id", userId);
+
 
     if (error) {
         throw error;
@@ -34,20 +39,21 @@ export const getSubcategories = async (id) => {
     return data;
 }
 
-export const createCategory = async ({name, icon, uid}) => {
+export const createCategory = async ({name, icon}) => {
     if (!name || !icon) {
         throw new Error("Name and icon are required");
     }
 
+    const userId = getUserId();
     const {data, error} = await supabase
         .from("categories")
         .insert({
             name,
             icon,
-            user_id: uid
+            user_id: userId
         });
 
-    console.info("create category", {name, icon}, data, error);
+    console.info("create category", {name, icon, userId});
 
     if (error) {
         throw error;
@@ -56,10 +62,13 @@ export const createCategory = async ({name, icon, uid}) => {
     return data;
 };
 
-export const createSubcategory = async ({name, icon, categoryId, uid}) => {
+export const createSubcategory = async ({name, icon, categoryId}) => {
     if (!name || !icon || !categoryId) {
         throw new Error("Name, icon, and category ID are required");
     }
+
+    const userId = getUserId();
+    console.log({name, icon, categoryId, userId});
 
     const {data, error} = await supabase
         .from("subcategories")
@@ -67,7 +76,7 @@ export const createSubcategory = async ({name, icon, categoryId, uid}) => {
             name,
             icon,
             category_id: categoryId,
-            user_id: uid
+            user_id: userId
         });
 
     console.info("create subcategory", data, error);
@@ -79,12 +88,16 @@ export const createSubcategory = async ({name, icon, categoryId, uid}) => {
     return data;
 };
 
-export const deleteCategory = async (id, uid) => {
+export const deleteCategory = async (id) => {
+    const userId = getUserId();
+
+    console.log({userId});
+
     const {data, error} = await supabase
         .from("categories")
         .delete()
         .eq("id", id)
-        .eq("user_id", uid);
+        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -94,11 +107,14 @@ export const deleteCategory = async (id, uid) => {
 };
 
 export const deleteSubcategory = async (id) => {
+    const userId = getUserId();
+    console.log({userId});
+
     const {data, error} = await supabase
         .from("subcategories")
         .delete()
         .eq("id", id)
-        .eq("user_id", getUserId());
+        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -107,10 +123,13 @@ export const deleteSubcategory = async (id) => {
     return data;
 };
 
-export const updateCategory = async ({id, name, icon, uid}) => {
+export const updateCategory = async ({id, name, icon}) => {
     if (!name || !icon) {
         throw new Error("Name and icon are required");
     }
+
+    const userId = getUserId();
+    console.log({userId});
 
     const {data, error} = await supabase
         .from("categories")
@@ -119,7 +138,7 @@ export const updateCategory = async ({id, name, icon, uid}) => {
             icon
         })
         .eq("id", id)
-        .eq("user_id", uid);
+        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -128,7 +147,10 @@ export const updateCategory = async ({id, name, icon, uid}) => {
     return data;
 }
 
-export const updateSubcategory = async ({id, name, icon, uid}) => {
+export const updateSubcategory = async ({id, name, icon}) => {
+    const userId = getUserId();
+    console.log({userId});
+
     const {data, error} = await supabase
         .from("subcategories")
         .update({
@@ -136,7 +158,7 @@ export const updateSubcategory = async ({id, name, icon, uid}) => {
             icon
         })
         .eq("id", id)
-        .eq("user_id", uid);
+        .eq("user_id", userId);
 
     if (error) {
         throw error;

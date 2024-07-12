@@ -19,6 +19,7 @@ export const CategoriesProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
     const [walkthroughViewStep, setWalkthroughViewStep] = useState(0);
     const currentRoute = window.location.pathname;
+
     const fetch = useCallback(() => {
         getCategories(user.uid).then(newCategories => {
             if (!newCategories || !newCategories.length) {
@@ -26,10 +27,12 @@ export const CategoriesProvider = ({children}) => {
                 return;
             }
 
-            const atLeastOneHasSubcategories = newCategories.some(category => category.subcategories.length > 0);
+            const atLeastOneHasSubcategories = newCategories.some(category => {
+                return category.subcategories.length > 0;
+            });
+
             if (!atLeastOneHasSubcategories) {
                 setWalkthroughViewStep(2);
-                return;
             }
 
             setCategories(orderBy(newCategories, ['id'], ['asc']))

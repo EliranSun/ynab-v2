@@ -35,32 +35,30 @@ export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
     return (
         <div
             className="flex flex-col gap-1 bg-gray-100 p-2 rounded-xl shadow items-center w-full md:w-[calc(50vw-2rem)]">
-            <div className="bg-gray-200 p-2 rounded-lg">
-                <h2 className="w-full text-left rtl:text-right"><Trans>Category</Trans></h2>
+            <div className="bg-gray-200 w-full px-2 pb-4 rounded-lg">
+                {/*<h2 className="w-full text-left rtl:text-right"><Trans>Category</Trans></h2>*/}
                 <div
                     onClick={onClick}
                     className={classNames({
                         "w-full": true,
-                        "flex flex-col items-center gap-4 justify-between": true,
+                        "flex items-center justify-between": true,
                         "rounded-full": true,
                     })}>
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            className="w-16 text-center text-3xl md:text-lg px-2 rounded-lg"
-                            onChange={(e) => setNewIcon(e.target.value)}
-                            value={newIcon}/>
-                        <input
-                            type="text"
-                            placeholder={_(msg`Category Name`)}
-                            className="w-full text-3xl md:text-lg px-4 rounded-lg font-mono"
-                            onChange={(e) => setNewName(e.target.value)}
-                            value={newName}/>
-                    </div>
+                    <input
+                        type="text"
+                        className="w-16 text-center text-lg px-2 rounded-lg"
+                        onChange={(e) => setNewIcon(e.target.value)}
+                        value={newIcon}/>
+                    <input
+                        type="text"
+                        placeholder={_(msg`Category Name`)}
+                        className="w-full text-lg px-4 rounded-lg"
+                        onChange={(e) => setNewName(e.target.value)}
+                        value={newName}/>
                 </div>
             </div>
             <div className="flex flex-col gap-2 w-full bg-gray-200 p-2 rounded-lg">
-                <h2 className="text-sm"><Trans>Subcategory</Trans></h2>
+                {/*<h2 className="text-sm"><Trans>Subcategory</Trans></h2>*/}
                 {subcategories.length > 0 ? subcategories.map((subcategory) => {
                     return (
                         <Subcategory
@@ -140,6 +138,13 @@ export const Category = ({id, onClick, name = "", icon = "", onUpdate}) => {
                     }}>
                     <Trash size={ICON_SIZE}/>
                 </Button>
+                <div className="flex flex-col items-center">
+                    <input
+                        type="checkbox"
+                        className="w-6 h-6"
+                    />
+                    <label className="text-xs"><Trans>income?</Trans></label>
+                </div>
             </div>
         </div>
     );

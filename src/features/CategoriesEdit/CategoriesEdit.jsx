@@ -10,6 +10,8 @@ export const CategoriesEdit = () => {
     const {categories, fetch} = useContext(CategoriesContext);
     const [isAddCategoryView, setIsAddCategoryView] = useState(false);
 
+    console.log({categories});
+
     return (
         <div className="flex flex-col rounded-3xl max-w-screen-xl m-auto relative">
             <Title><Trans>Categories Edit</Trans></Title>
@@ -21,7 +23,7 @@ export const CategoriesEdit = () => {
                     <Trans>Add Category</Trans>
                 </Button>
             </div>
-            <div className="flex gap-4 my-8">
+            <div className="flex flex-col md:flex-row gap-4 my-8">
                 {categories.map((category, index) => {
                     return (
                         <Category

@@ -45,6 +45,11 @@ msgstr "🚌 Travel"
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ Apps Sub"
 
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:53
+#: src/features/CategoriesEdit/Category.jsx:41
+msgid "A category is an group of subcategories,"
+msgstr "A category is an group of subcategories,"
+
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:15
 msgid "Actual"
 msgstr "Actual"
@@ -53,7 +58,7 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:21
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:26
 msgid "Add Category"
 msgstr "Add Category"
 
@@ -61,7 +66,7 @@ msgstr "Add Category"
 msgid "Add Expense"
 msgstr "Add Expense"
 
-#: src/features/CategoriesEdit/Category.jsx:87
+#: src/features/CategoriesEdit/Subcategories.jsx:44
 msgid "Add Subcategory"
 msgstr "Add Subcategory"
 
@@ -69,11 +74,11 @@ msgstr "Add Subcategory"
 msgid "amount"
 msgstr "amount"
 
-#: src/features/CategoriesEdit/Category.jsx:124
+#: src/features/CategoriesEdit/CategoryActions.jsx:74
 msgid "Are you sure you want to delete this category?"
 msgstr "Are you sure you want to delete this category?"
 
-#: src/features/CategoriesEdit/Subcategory.jsx:80
+#: src/features/CategoriesEdit/Subcategory.jsx:79
 msgid "Are you sure you want to delete this sub-category?"
 msgstr "Are you sure you want to delete this sub-category?"
 
@@ -146,29 +151,29 @@ msgstr "but it's negligible!"
 msgid "Categories"
 msgstr "Categories"
 
-#: src/context/CategoriesContext.js:62
+#: src/context/CategoriesContext.js:65
 msgid "Categories are your way to make order, out of the chaos."
 msgstr "Categories are your way to make order, out of the chaos."
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:15
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:17
 msgid "Categories Edit"
 msgstr "Categories Edit"
 
 #: src/features/CategoriesEdit/Category.jsx:37
-msgid "Category"
-msgstr "Category"
+#~ msgid "Category"
+#~ msgstr "Category"
 
-#: src/features/CategoriesEdit/Category.jsx:101
-#: src/features/CategoriesEdit/Subcategory.jsx:56
+#: src/features/CategoriesEdit/CategoryActions.jsx:44
+#: src/features/CategoriesEdit/Subcategory.jsx:55
 msgid "Category added successfully"
 msgstr "Category added successfully"
 
 #: src/features/CategoriesEdit/Category.jsx:53
-msgid "Category Name"
-msgstr "Category Name"
+#~ msgid "Category Name"
+#~ msgstr "Category Name"
 
-#: src/features/CategoriesEdit/Category.jsx:107
-#: src/features/CategoriesEdit/Subcategory.jsx:62
+#: src/features/CategoriesEdit/CategoryActions.jsx:54
+#: src/features/CategoriesEdit/Subcategory.jsx:61
 msgid "Category updated successfully"
 msgstr "Category updated successfully"
 
@@ -208,8 +213,12 @@ msgstr "Dates"
 msgid "Decor"
 msgstr "Decor"
 
-#: src/features/CategoriesEdit/Category.jsx:129
-#: src/features/CategoriesEdit/Subcategory.jsx:85
+#: src/features/CategoriesEdit/CategoryActions.jsx:87
+msgid "delete"
+msgstr "delete"
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:79
+#: src/features/CategoriesEdit/Subcategory.jsx:84
 msgid "Deleted successfully"
 msgstr "Deleted successfully"
 
@@ -260,6 +269,10 @@ msgstr "Electronics"
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
 msgid "Existing expenses"
 msgstr "Existing expenses"
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:24
+msgid "expense"
+msgstr "expense"
 
 #: src/constants/index.js:48
 #: src/constants/index.js:76
@@ -361,8 +374,8 @@ msgstr "Health/Beauty"
 
 #: src/components/molecules/Header/WelcomeMessage.jsx:25
 #: src/components/molecules/Header/WelcomeMessage.jsx:32
-#: src/context/CategoriesContext.js:59
-#: src/context/CategoriesContext.js:67
+#: src/context/CategoriesContext.js:62
+#: src/context/CategoriesContext.js:70
 msgid "Hey"
 msgstr "Hey"
 
@@ -386,13 +399,21 @@ msgstr "I'm in trouble."
 #~ msgid "Import"
 #~ msgstr "Import"
 
-#: src/context/CategoriesContext.js:61
+#: src/context/CategoriesContext.js:64
 msgid "In order to use the app, you have got to set up categories."
 msgstr "In order to use the app, you have got to set up categories."
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:24
+msgid "income"
+msgstr "income"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:195
 msgid "Income"
 msgstr "Income"
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:32
+msgid "Income is defined per category level,"
+msgstr "Income is defined per category level,"
 
 #: src/constants/categories.js:169
 msgid "Internet"
@@ -402,7 +423,7 @@ msgstr "Internet"
 msgid "iOS"
 msgstr "iOS"
 
-#: src/context/CategoriesContext.js:68
+#: src/context/CategoriesContext.js:71
 msgid "It is us again"
 msgstr "It is us again"
 
@@ -410,7 +431,7 @@ msgstr "It is us again"
 msgid "Jesus fucking christ man."
 msgstr "Jesus fucking christ man."
 
-#: src/context/CategoriesContext.js:60
+#: src/context/CategoriesContext.js:63
 msgid "Just wanted to say, welcome!"
 msgstr "Just wanted to say, welcome!"
 
@@ -438,7 +459,7 @@ msgstr "left to spend"
 msgid "less than my budget"
 msgstr "less than my budget"
 
-#: src/context/CategoriesContext.js:63
+#: src/context/CategoriesContext.js:66
 msgid "Let us take you there"
 msgstr "Let us take you there"
 
@@ -494,7 +515,7 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/features/CategoriesEdit/Category.jsx:73
+#: src/features/CategoriesEdit/Subcategories.jsx:30
 msgid "No subcategories for this category"
 msgstr "No subcategories for this category"
 
@@ -506,11 +527,11 @@ msgstr "note"
 msgid "Nothing new"
 msgstr "Nothing new"
 
-#: src/context/CategoriesContext.js:70
+#: src/context/CategoriesContext.js:73
 msgid "Now you must add subcategories"
 msgstr "Now you must add subcategories"
 
-#: src/context/CategoriesContext.js:75
+#: src/context/CategoriesContext.js:78
 msgid "OK"
 msgstr "OK"
 
@@ -595,6 +616,10 @@ msgstr "Resolver"
 msgid "Salary"
 msgstr "Salary"
 
+#: src/features/CategoriesEdit/CategoryActions.jsx:62
+msgid "save"
+msgstr "save"
+
 #: src/features/ManageBudget/ManageBudget.jsx:130
 msgid "Save Budget"
 msgstr "Save Budget"
@@ -611,6 +636,10 @@ msgstr "Sheet"
 msgid "Show same month only"
 msgstr "Show same month only"
 
+#: src/features/CategoriesEdit/CategoryActions.jsx:33
+msgid "So all of the subcategories in this category will be defined as income"
+msgstr "So all of the subcategories in this category will be defined as income"
+
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:171
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:191
 msgid "Spent"
@@ -620,9 +649,13 @@ msgstr "Spent"
 msgid "Subcategories"
 msgstr "Subcategories"
 
+#: src/features/CategoriesEdit/Subcategories.jsx:51
+msgid "Subcategories are how expenses are grouped and calculated"
+msgstr "Subcategories are how expenses are grouped and calculated"
+
 #: src/features/CategoriesEdit/Category.jsx:61
-msgid "Subcategory"
-msgstr "Subcategory"
+#~ msgid "Subcategory"
+#~ msgstr "Subcategory"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:152
 msgid "Summary"
@@ -676,7 +709,12 @@ msgstr "Welcome"
 msgid "which is good, but I should understand why my budget is off."
 msgstr "which is good, but I should understand why my budget is off."
 
-#: src/context/CategoriesContext.js:69
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:54
+#: src/features/CategoriesEdit/Category.jsx:42
+msgid "You can call it cosmetic - it is there solely to organize subcategories"
+msgstr "You can call it cosmetic - it is there solely to organize subcategories"
+
+#: src/context/CategoriesContext.js:72
 msgid "You have completed entering categories"
 msgstr "You have completed entering categories"
 
@@ -684,6 +722,6 @@ msgstr "You have completed entering categories"
 msgid "You Need Balance"
 msgstr "You Need Balance"
 
-#: src/context/CategoriesContext.js:71
+#: src/context/CategoriesContext.js:74
 msgid "You will associate these with each entry you add"
 msgstr "You will associate these with each entry you add"

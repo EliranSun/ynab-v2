@@ -6,13 +6,13 @@ const supabase = createClient(
     process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
-export const getCategories = async (uid) => {
+export const getCategories = async () => {
+    const userId = getUserId();
+
     const {data, error} = await supabase
         .from('categories')
-        .select("*, subcategories:subcategories ( id, name, icon )")
-        .eq("user_id", uid);
-
-    console.log('getCategories', {uid, getUserId: getUserId(), data, error});
+        .select("*, subcategories:subcategories (id, name, icon)")
+        .eq("user_id", userId);
 
     if (error) {
         throw error;
@@ -21,14 +21,13 @@ export const getCategories = async (uid) => {
     return data;
 };
 
-export const getSubcategories = async (id) => {
+export const getSubcategories = async (categoryId) => {
     const userId = getUserId();
-    console.log('getCategories', {userId});
 
     const {data, error} = await supabase
         .from('subcategories')
         .select("* ")
-        .eq("category_id", id)
+        .eq("category_id", categoryId)
         .eq("user_id", userId);
 
 
@@ -39,7 +38,7 @@ export const getSubcategories = async (id) => {
     return data;
 }
 
-export const createCategory = async ({name, icon}) => {
+export const createCategory = async ({name, icon, isIncome}) => {
     if (!name || !icon) {
         throw new Error("Name and icon are required");
     }
@@ -50,6 +49,7 @@ export const createCategory = async ({name, icon}) => {
         .insert({
             name,
             icon,
+            isIncome,
             user_id: userId
         });
 
@@ -88,15 +88,13 @@ export const createSubcategory = async ({name, icon, categoryId}) => {
     return data;
 };
 
-export const deleteCategory = async (id) => {
+export const deleteCategory = async (categoryId) => {
     const userId = getUserId();
-
-    console.log({userId});
 
     const {data, error} = await supabase
         .from("categories")
         .delete()
-        .eq("id", id)
+        .eq("id", categoryId)
         .eq("user_id", userId);
 
     if (error) {
@@ -106,14 +104,13 @@ export const deleteCategory = async (id) => {
     return data;
 };
 
-export const deleteSubcategory = async (id) => {
+export const deleteSubcategory = async (subcategoryId) => {
     const userId = getUserId();
-    console.log({userId});
 
     const {data, error} = await supabase
         .from("subcategories")
         .delete()
-        .eq("id", id)
+        .eq("id", subcategoryId)
         .eq("user_id", userId);
 
     if (error) {
@@ -123,19 +120,19 @@ export const deleteSubcategory = async (id) => {
     return data;
 };
 
-export const updateCategory = async ({id, name, icon}) => {
+export const updateCategory = async ({id, name, isIncome, icon}) => {
     if (!name || !icon) {
         throw new Error("Name and icon are required");
     }
 
     const userId = getUserId();
-    console.log({userId});
 
     const {data, error} = await supabase
         .from("categories")
         .update({
             name,
-            icon
+            icon,
+            isIncome
         })
         .eq("id", id)
         .eq("user_id", userId);
@@ -149,7 +146,6 @@ export const updateCategory = async ({id, name, icon}) => {
 
 export const updateSubcategory = async ({id, name, icon}) => {
     const userId = getUserId();
-    console.log({userId});
 
     const {data, error} = await supabase
         .from("subcategories")

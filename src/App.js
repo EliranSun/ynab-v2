@@ -14,6 +14,7 @@ import FuturePredictionPage from "./components/pages/FuturePredictionPage/Future
 import {ManageBudget} from "./features/ManageBudget/ManageBudget";
 import {CategoriesProvider} from "./context/CategoriesContext";
 import {Routes} from "./constants/route";
+import {TooltipProvider} from "./context/TooltipContext";
 
 function App() {
     return (
@@ -21,13 +22,15 @@ function App() {
             <BudgetContextProvider>
                 <ExpensesContextProvider>
                     <ToastProvider>
-                        <RouterProvider router={router}/>
-                        <div className="fixed -z-10">
-                            <img
-                                src={Couch}
-                                className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
-                                alt="bg-couch"/>
-                        </div>
+                        <TooltipProvider>
+                            <RouterProvider router={router}/>
+                            <div className="fixed -z-10">
+                                <img
+                                    src={Couch}
+                                    className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
+                                    alt="bg-couch"/>
+                            </div>
+                        </TooltipProvider>
                     </ToastProvider>
                 </ExpensesContextProvider>
             </BudgetContextProvider>

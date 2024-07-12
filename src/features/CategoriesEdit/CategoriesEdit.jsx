@@ -2,20 +2,27 @@ import {useContext, useState} from "react";
 import {Plus} from "@phosphor-icons/react";
 import {Trans} from "@lingui/macro";
 import {Button} from "./Button";
-import {Category} from "./Category";
+import {CategoryEntry} from "./CategoryEntry";
 import {Title} from "../../components";
 import {CategoriesContext} from "../../context/CategoriesContext";
+import {TooltipContext} from "../../context/TooltipContext";
 
 export const CategoriesEdit = () => {
     const {categories, fetch} = useContext(CategoriesContext);
+    const [setTooltipMessage] = useContext(TooltipContext);
     const [isAddCategoryView, setIsAddCategoryView] = useState(false);
-
-    console.log({categories});
 
     return (
         <div className="flex flex-col rounded-3xl max-w-screen-xl m-auto relative">
             <Title><Trans>Categories Edit</Trans></Title>
-            <div className="absolute -bottom-10 left-0">
+            <div
+                className="absolute -bottom-10 left-0"
+                onMouseEnter={() => setTooltipMessage(
+                    <>
+                        <Trans>A category is an group of subcategories,</Trans><br/>
+                        <Trans>You can call it cosmetic - it is there solely to organize subcategories</Trans>
+                    </>
+                )}>
                 <Button
                     variation={Button.Variation.ADD}
                     onClick={() => setIsAddCategoryView(true)}>
@@ -23,12 +30,14 @@ export const CategoriesEdit = () => {
                     <Trans>Add Category</Trans>
                 </Button>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 my-8">
+            <div
+                className="flex flex-col md:flex-row gap-4 my-8">
                 {categories.map((category, index) => {
                     return (
-                        <Category
+                        <CategoryEntry
                             key={category.id}
                             id={category.id}
+                            isIncome={category.isIncome}
                             name={category.name}
                             icon={category.icon}
                             onUpdate={fetch}
@@ -36,7 +45,7 @@ export const CategoriesEdit = () => {
                     );
                 })}
                 {isAddCategoryView ?
-                    <Category
+                    <CategoryEntry
                         onUpdate={() => {
                             setIsAddCategoryView(false);
                             fetch();

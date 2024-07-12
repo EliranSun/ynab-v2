@@ -18,9 +18,10 @@ const Button = ({children, isDisabled, className, onClick, variation, ...rest}) 
 
                 onClick();
             }}
-            className={classNames({
-                "min-w-16 max-w-96 shadow-lg": true,
-                "cursor-pointer rounded-full p-2": true,
+            className={classNames(className, {
+                "min-w-16 max-w-96 ": true,
+                "cursor-pointer p-2": true,
+                "rounded-md shadow": true,
                 "flex items-center justify-center gap-2": true,
                 "cursor-not-allowed opacity-20": isDisabled,
                 "hover:bg-black hover:text-white": !isDisabled,

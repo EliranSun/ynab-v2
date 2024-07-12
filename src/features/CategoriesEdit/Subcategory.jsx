@@ -10,6 +10,7 @@ import {
 } from "../../utils/db";
 import {FloppyDisk, Trash, DotsThree} from "@phosphor-icons/react";
 import {faker} from "@faker-js/faker";
+import {TextInput} from "./TextInput";
 
 const ICON_SIZE = 10;
 
@@ -25,25 +26,15 @@ export const Subcategory = ({id, categoryId, name = "", icon = "", onUpdate, onC
                 "w-full": true,
                 "flex flex-col items-center justify-between rounded-lg": true,
             })}>
-            <div className="flex gap-1 w-full">
-                <input
-                    type="text"
-                    placeholder="Subcategory Icon"
-                    className="rounded px-2 w-16 text-center"
-                    onChange={(e) => setNewIcon(e.target.value)}
-                    value={newIcon}/>
-                <input
-                    type="text"
-                    placeholder="Subcategory Name"
-                    className="rounded px-2 w-full font-mono"
-                    onChange={(e) => setNewName(e.target.value)}
-                    value={newName}/>
-                <Button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    <DotsThree/>
-                </Button>
+            <div className="flex gap-1 w-full bg-white">
+                <TextInput value={newIcon} onChange={setNewIcon} isSecondary/>
+                <TextInput value={newName} onChange={setNewName}/>
+                {/*<Button onClick={() => setIsMenuOpen(!isMenuOpen)}>*/}
+                {/*    <DotsThree/>*/}
+                {/*</Button>*/}
             </div>
             {isMenuOpen ?
-                <div className="absolute left-0 bg-white p-2 flex gap-1">
+                <div className="absolute left-0 bg-white flex gap-1">
                     <Button
                         variation={Button.Variation.SAVE}
                         isDisabled={!newName || !newIcon || (newName === name && newIcon === icon)}

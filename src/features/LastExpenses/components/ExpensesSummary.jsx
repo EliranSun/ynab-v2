@@ -1,10 +1,7 @@
 import {useContext, useMemo, useState} from "react";
 import {
-    differenceInDays,
-    format,
     isAfter,
     isBefore,
-    subDays,
     startOfMonth,
     endOfMonth,
     getYear,
@@ -147,7 +144,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                     className={classNames({
                         "bg-neutral-50 p-2": true,
                         "h-full overflow-y-auto": true,
-                        "shadow-lg border-2 border-solid     rounded-lg": true,
+                        "shadow-lg border-2 border-solid rounded-lg": true,
                     })}>
                     <ExpensesSummaryFilters
                         setStartDate={setStartDate}

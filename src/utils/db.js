@@ -13,18 +13,17 @@ export const login = async () => {
         }
     });
 
-    alert("Logged in as " + user.email);
-    console.log({user, session, error});
     return {user, session, error};
 }
 
-export const getCategories = async () => {
+export const getCategories = async (userId) => {
     const {data: userData} = await supabase.auth.getUser();
     console.log("userData", {userData});
 
     const {data, error} = await supabase
         .from('categories')
         .select("*, subcategories:subcategories (id, name, icon)")
+    // .eq("user_id", userData.user.id);
 
     if (error) {
         throw error;
@@ -177,3 +176,30 @@ export const addExpense = async ({name, note, amount, subcategoryId, date}) => {
 
     return data;
 };
+
+class Expense {
+    constructor(expense) {
+        this.id = expense.id;
+        this.name = expense.name;
+        this.note = expense.note;
+        this.amount = expense.amount;
+        this.date = expense.date;
+        this.subcategoryId = expense.subcategoryId;
+    }
+}
+
+export const addExpenses = async (expenses = []) => {
+    if (expenses.length === 0) {
+        return [];
+    }
+
+    const {data, error} = await supabase
+        .from("expenses")
+        .insert(expenses.map(expense => new Expense(expense)));
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+}

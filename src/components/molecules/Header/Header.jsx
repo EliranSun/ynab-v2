@@ -5,10 +5,11 @@ import {WelcomeMessage} from "./WelcomeMessage";
 import {HamburgerMenu} from "./HamburgerMenu";
 import {MobileMenuBackdrop} from "./MobileMenuBackdrop";
 import {Menu} from "./Menu";
-import {login} from "../../../utils/db";
-
+import {Search} from "../../../features/Search";
+import {useLingui} from "@lingui/react";
 
 export const Header = () => {
+    const {_} = useLingui();
     const {user} = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -21,12 +22,10 @@ export const Header = () => {
                     "flex justify-between items-center md:gap-8": true,
                     "rtl:flex-row-reverse": false,
                 })}>
-                <button onClick={login}>
-                    LOGIN
-                </button>
                 <span className="hidden lg:inline">
-                    <WelcomeMessage userName={user.displayName}/>
+                    <WelcomeMessage userName={user.translatedUsername}/>
                 </span>
+                <Search/>
                 <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>
                 <Menu
                     isOpen={isMenuOpen}

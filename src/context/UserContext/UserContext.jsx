@@ -1,29 +1,65 @@
 import {createContext, useState, useEffect} from 'react';
-// import useAuthState from "../../hooks/useAuth";
+import {get, noop} from 'lodash';
 import {login, supabase} from "../../utils/db";
+import {SignIn, SignOut} from "@phosphor-icons/react";
+import {Trans} from "@lingui/macro";
+import {BUTTON_SIZE} from "../../constants";
+import translate from "translate";
 
-export const UserContext = createContext(null);
+export const UserContext = createContext({
+    user: {},
+    AuthButton: noop,
+});
 
 export const UserProvider = ({children}) => {
-    // const {user, isLoggedIn} = useAuthState();
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        supabase.auth.getUser().then((data) => {
-            console.log({data});
-            setUser(data);
+        supabase.auth.getUser().then(async (response) => {
+            if (response.error || !response.data) {
+                alert('Error fetching user data');
+                return;
+            }
+
+            const user = response.data.user;
+            const userFirstName = get(user, 'user_metadata.name', '').split(" ")[0];
+            const translatedUsername = await translate(userFirstName, "he");
+
+            console.log("User id", user.id);
+
+            setUser({
+                ...user,
+                translatedUsername,
+                userFirstName,
+            });
         });
     }, []);
 
     return (
-        <UserContext.Provider value={{user}}>
-            {/*<button onClick={async () => {*/}
-            {/*    const {userData} = await login();*/}
-            {/*    console.log({userData});*/}
-            {/*    setUser(userData.user);*/}
-            {/*}}>*/}
-            {/*    LOGIN*/}
-            {/*</button>*/}
+        <UserContext.Provider value={{
+            user,
+            AuthButton: () => {
+                if (user.email) {
+                    return (
+                        <button
+                            className="flex flex-col items-center"
+                            onClick={async () => {
+                                await supabase.auth.signOut();
+                            }}>
+                            <SignOut size={BUTTON_SIZE}/>
+                            <Trans>Logout</Trans>
+                        </button>
+                    )
+                }
+
+                return (
+                    <button onClick={login}>
+                        <SignIn/>
+                        <Trans>Login</Trans>
+                    </button>
+                )
+            }
+        }}>
             {children}
         </UserContext.Provider>
     );

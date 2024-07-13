@@ -5,16 +5,16 @@ import classNames from "classnames";
 import {isMobile} from "../../../utils/device";
 import {MenuPages} from "../../../constants";
 import {ButtonLink} from "../../atoms/ButtonLink";
-import {AuthButton} from "../../pages/Login/AuthButton";
 import {useClickAway} from "react-use";
 import {useParams} from "react-router-dom";
 
 export const Menu = ({isOpen, onMenuItemClick}) => {
+    const {_} = useLingui();
     const {page} = useParams();
     const [selectedPage, setSelectedPage] = useState(page);
     const ref = useRef(null);
-    const {isLoggedIn} = useContext(UserContext);
-    const {_} = useLingui();
+    const {AuthButton} = useContext(UserContext);
+
 
     useClickAway(ref, () => {
         if (isOpen) {
@@ -36,7 +36,6 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
                         isSelected={selectedPage === item.name}
                         key={item.name}
                         icon={item.icon}
-                        isDisabled={!isLoggedIn}
                         href={item.name}
                         name={item.name}
                         label={_(item.label)}
@@ -46,7 +45,7 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
                         }}/>
                 ))}
             </div>
-            <AuthButton withLabel/>
+            <AuthButton/>
         </ul>
     );
 };

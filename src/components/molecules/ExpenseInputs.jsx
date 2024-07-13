@@ -1,9 +1,12 @@
 import classNames from "classnames";
-import {CaretDown, Trash, X} from "@phosphor-icons/react";
+import {CaretDown, Trash} from "@phosphor-icons/react";
 import {noop} from "lodash";
 import {msg} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
 import {InputTypes} from "../pages/ParseExpensesList/constants";
+import {useMemo, useContext, useState} from "react";
+import {CategoriesContext} from "../../context/CategoriesContext";
+import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -24,29 +27,24 @@ function formatDate(date) {
 }
 
 export const ExpenseInputs = ({
-                                  index,
-                                  name,
-                                  note,
-                                  amount,
                                   readonly,
-                                  date,
-                                  timestamp,
                                   isVisible,
-                                  // setExpenses = noop,
-                                  subcategoryLabel,
-                                  onCategoryMenuClick = noop,
-                                  isCategoryMenuOpen,
+                                  expense,
+                                  subcategoryId,
                                   onInputChange = noop,
                                   onRemove = noop,
                               }) => {
     const {_} = useLingui();
-    console.log({amount, name});
+    
+    if (!isVisible || !expense) {
+        return null;
+    }
 
     return (
         <div className={classNames("text-right w-full", {
             "rounded-xl p-4 md:p-2": true,
             "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
-            "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
+            // "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
         })}>
             <input
                 type="date"
@@ -62,7 +60,7 @@ export const ExpenseInputs = ({
             <input
                 type="text"
                 disabled={readonly}
-                defaultValue={name}
+                defaultValue={expense.name}
                 placeholder={_(InputPlaceholder.name)}
                 className="p-4 border border-gray-300 rounded w-1/6"
                 onChange={(event) => {
@@ -71,39 +69,24 @@ export const ExpenseInputs = ({
             <input
                 type="number"
                 disabled={readonly}
-                defaultValue={amount}
+                defaultValue={expense.amount}
                 placeholder={_(InputPlaceholder.amount)}
                 className="p-4 border border-gray-300 rounded w-1/6"
                 onChange={(event) => {
                     onInputChange(InputTypes.AMOUNT, event.target.value);
                 }}
             />
-            <button
-                className={classNames({
-                    "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
-                    "hover:bg-black hover:text-white": true,
-                    "p-4 font-mono flex items-center justify-between": true,
-                    "cursor-pointer rounded w-1/6": true,
-                })}
-                onClick={() => {
-                    if (readonly) {
-                        return;
-                    }
-
-                    onCategoryMenuClick();
-                    // setExpenses((prev) => {
-                    //     const newExpenses = [...prev];
-                    //     newExpenses[index].categoryId = null;
-                    //     return newExpenses;
-                    // });
-                }}>
-                <span>{subcategoryLabel}</span>
-                <CaretDown/>
-            </button>
+            <ExpenseCategorySelection
+                expense={expense}
+                subcategoryId={subcategoryId}
+                readonly={readonly}
+                onClick={value => {
+                    onInputChange(InputTypes.SUBCATEGORY, value);
+                }}/>
             <input
                 type="text"
                 placeholder={_(InputPlaceholder.note)}
-                defaultValue={note}
+                defaultValue={expense.note}
                 disabled={readonly}
                 className="border border-gray-300 w-1/6 rounded p-4 h-20 md:h-auto"
                 onChange={(event) => {

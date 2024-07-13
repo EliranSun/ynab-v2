@@ -7,6 +7,7 @@ import translate from "translate";
 import {ExpensesContext} from "../context";
 
 let singleton = false;
+// TODO: Deprecated, delete
 const useAuthState = () => {
     const params = useParams();
     const navigate = useNavigate();

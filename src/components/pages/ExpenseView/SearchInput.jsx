@@ -1,11 +1,11 @@
-import { noop } from "lodash";
-import { useState } from "react";
-import { useDebounce } from "react-use";
+import {noop} from "lodash";
+import {useState} from "react";
+import {useDebounce} from "react-use";
 
 export const SearchInput = ({
-    placeholder = "Search through expenses",
-    onChange = noop
-}) => {
+                                placeholder = "Search through expenses",
+                                onChange = noop
+                            }) => {
     const [value, setValue] = useState("");
     useDebounce(
         () => {
@@ -16,7 +16,7 @@ export const SearchInput = ({
     );
     return (
         <input
-            className="w-full h-16 md:w-2/5 text-xl border-b border-black"
+            className="relative z-20 w-full h-16 md:w-2/5 text-xl border-b border-black"
             type="text"
             placeholder={placeholder}
             onChange={(event) => {

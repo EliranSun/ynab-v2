@@ -1,16 +1,18 @@
-import {createContext, useCallback, useContext, useState} from "react";
+import {createContext, useCallback, useContext, useEffect, useState} from "react";
 import {noop} from "lodash";
 import {addExpenses, deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
 import {Categories, getCategoryBySubcategoryId} from "../../constants";
-import {BudgetContext, getDateKey} from "../BudgetContext";
+import {BudgetContext} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
 import {getExpenses} from "../../utils/db";
+import {UserContext} from "../UserContext";
 
 export const ExpensesContext = createContext({
     expenses: [],
     changeExpenseCategoryByName: noop,
     refetch: noop,
+    setExpenses: noop,
 });
 
 const getExpensesPerMonthPerCategory = (expenses = []) => {
@@ -57,6 +59,7 @@ export const ExpensesContextProvider = ({children}) => {
     // const [expensesArray, setExpensesArray] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
     const [budget] = useContext(BudgetContext);
+    const {user} = useContext(UserContext);
 
     const setExpenseAsRecurring = (expenseId, recurring) => {
         new Array(Number(recurring)).fill(0).forEach((_, index) => {
@@ -141,8 +144,6 @@ export const ExpensesContextProvider = ({children}) => {
         const expenses = await getExpenses();
         const modeledExpenses = expenses.map(expense => new Expense(expense));
 
-        console.log({modeledExpenses});
-
         setExpenses(modeledExpenses);
         // setExpensesArray(Object.values(modeledExpenses));
         setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
@@ -207,6 +208,14 @@ export const ExpensesContextProvider = ({children}) => {
 
         setCategoriesByAmount(ordered);
     }, []);
+
+    useEffect(() => {
+        if (!user || !user.id) {
+            return;
+        }
+
+        fetchExpenses();
+    }, [user]);
 
     return (
         <ExpensesContext.Provider

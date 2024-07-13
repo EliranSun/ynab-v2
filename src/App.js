@@ -19,21 +19,17 @@ import {TooltipProvider} from "./context/TooltipContext";
 function App() {
     return (
         <LocaleProvider>
-            <BudgetContextProvider>
-                <ExpensesContextProvider>
-                    <ToastProvider>
-                        <TooltipProvider>
-                            <RouterProvider router={router}/>
-                            <div className="fixed -z-10">
-                                <img
-                                    src={Couch}
-                                    className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
-                                    alt="bg-couch"/>
-                            </div>
-                        </TooltipProvider>
-                    </ToastProvider>
-                </ExpensesContextProvider>
-            </BudgetContextProvider>
+            <ToastProvider>
+                <TooltipProvider>
+                    <RouterProvider router={router}/>
+                    <div className="fixed -z-10">
+                        <img
+                            src={Couch}
+                            className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
+                            alt="bg-couch"/>
+                    </div>
+                </TooltipProvider>
+            </ToastProvider>
         </LocaleProvider>
     );
 }
@@ -43,12 +39,16 @@ const router = createBrowserRouter([
         path: "/",
         element: (
             <UserProvider>
-                <CategoriesProvider>
-                    <Header/>
-                    <Login>
-                        <Root/>
-                    </Login>
-                </CategoriesProvider>
+                <BudgetContextProvider>
+                    <ExpensesContextProvider>
+                        <CategoriesProvider>
+                            <Header/>
+                            <Login>
+                                <Root/>
+                            </Login>
+                        </CategoriesProvider>
+                    </ExpensesContextProvider>
+                </BudgetContextProvider>
             </UserProvider>
         ),
         children: [
@@ -56,10 +56,10 @@ const router = createBrowserRouter([
                 path: Routes.HOME,
                 element: <ExpensesSummary/>,
             },
-            {
-                path: Routes.CATEGORIES_EDIT,
-                element: <CategoriesEdit/>,
-            },
+            // {
+            //     path: Routes.CATEGORIES_EDIT,
+            //     element: <CategoriesEdit/>,
+            // },
             {
                 path: Routes.IMPORT,
                 element: <ParseExpensesList/>,
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
             },
             {
                 path: Routes.CATEGORIES,
-                element: <CategoryView/>,
+                element: <CategoriesEdit/>,
             },
             {
                 path: Routes.PROJECTION,

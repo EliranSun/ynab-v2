@@ -3,4 +3,5 @@ export const InputTypes = {
     AMOUNT: "amount",
     NOTE: "note",
     DATE: "date",
+    SUBCATEGORY: "subcategory",
 }

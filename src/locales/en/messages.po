@@ -45,8 +45,8 @@ msgstr "🚌 Travel"
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ Apps Sub"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:53
-#: src/features/CategoriesEdit/Category.jsx:41
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:22
+#: src/features/CategoriesEdit/CategoryEntry.jsx:27
 msgid "A category is an group of subcategories,"
 msgstr "A category is an group of subcategories,"
 
@@ -58,15 +58,15 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:26
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "Add Category"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:82
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:88
 msgid "Add Expense"
 msgstr "Add Expense"
 
-#: src/features/CategoriesEdit/Subcategories.jsx:44
+#: src/features/CategoriesEdit/CategoryActions.jsx:26
 msgid "Add Subcategory"
 msgstr "Add Subcategory"
 
@@ -74,11 +74,11 @@ msgstr "Add Subcategory"
 msgid "amount"
 msgstr "amount"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:74
+#: src/features/CategoriesEdit/CategoryActions.jsx:67
 msgid "Are you sure you want to delete this category?"
 msgstr "Are you sure you want to delete this category?"
 
-#: src/features/CategoriesEdit/Subcategory.jsx:79
+#: src/features/CategoriesEdit/Subcategory.jsx:59
 msgid "Are you sure you want to delete this sub-category?"
 msgstr "Are you sure you want to delete this sub-category?"
 
@@ -120,7 +120,7 @@ msgstr "budget"
 
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:176
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:163
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
 msgstr "Budget"
@@ -163,8 +163,8 @@ msgstr "Categories Edit"
 #~ msgid "Category"
 #~ msgstr "Category"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:44
-#: src/features/CategoriesEdit/Subcategory.jsx:55
+#: src/features/CategoriesEdit/CategoryActions.jsx:41
+#: src/features/CategoriesEdit/Subcategory.jsx:35
 msgid "Category added successfully"
 msgstr "Category added successfully"
 
@@ -172,8 +172,8 @@ msgstr "Category added successfully"
 #~ msgid "Category Name"
 #~ msgstr "Category Name"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:54
-#: src/features/CategoriesEdit/Subcategory.jsx:61
+#: src/features/CategoriesEdit/CategoryActions.jsx:48
+#: src/features/CategoriesEdit/Subcategory.jsx:41
 msgid "Category updated successfully"
 msgstr "Category updated successfully"
 
@@ -181,7 +181,7 @@ msgstr "Category updated successfully"
 msgid "Clothes"
 msgstr "Clothes"
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:32
+#: src/components/atoms/LoginWelcomeMessage.jsx:35
 msgid "Control your financial situation"
 msgstr "Control your financial situation"
 
@@ -189,7 +189,7 @@ msgstr "Control your financial situation"
 #~ msgid "Control your financial situation."
 #~ msgstr "Control your financial situation."
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:34
+#: src/components/atoms/LoginWelcomeMessage.jsx:37
 msgid "Control your future"
 msgstr "Control your future"
 
@@ -213,12 +213,12 @@ msgstr "Dates"
 msgid "Decor"
 msgstr "Decor"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:87
+#: src/features/CategoriesEdit/CategoryActions.jsx:80
 msgid "delete"
 msgstr "delete"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:79
-#: src/features/CategoriesEdit/Subcategory.jsx:84
+#: src/features/CategoriesEdit/CategoryActions.jsx:72
+#: src/features/CategoriesEdit/Subcategory.jsx:64
 msgid "Deleted successfully"
 msgstr "Deleted successfully"
 
@@ -234,7 +234,7 @@ msgstr "Design"
 msgid "Dev"
 msgstr "Dev"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:200
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:187
 msgid "diff"
 msgstr "diff"
 
@@ -251,8 +251,8 @@ msgid "Donations"
 msgstr "Donations"
 
 #: src/constants/index.js:58
-msgid "Edit Categories"
-msgstr "Edit Categories"
+#~ msgid "Edit Categories"
+#~ msgstr "Edit Categories"
 
 #: src/constants/categories.js:249
 msgid "Education"
@@ -266,11 +266,11 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:24
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:26
 msgid "expense"
 msgstr "expense"
 
@@ -283,19 +283,19 @@ msgstr "Expenses"
 #~ msgid "Export"
 #~ msgstr "Export"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:44
+#: src/components/pages/ParseExpensesList/ExportData.jsx:43
 msgid "Export Budget"
 msgstr "Export Budget"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:63
+#: src/components/pages/ParseExpensesList/ExportData.jsx:62
 msgid "Export budget to file"
 msgstr "Export budget to file"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:17
+#: src/components/pages/ParseExpensesList/ExportData.jsx:16
 msgid "Export Expenses"
 msgstr "Export Expenses"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:39
+#: src/components/pages/ParseExpensesList/ExportData.jsx:38
 msgid "Export expenses to file"
 msgstr "Export expenses to file"
 
@@ -321,8 +321,8 @@ msgstr "Friends"
 #~ msgstr "From exported JSON"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:157
-msgid "From File"
-msgstr "From File"
+#~ msgid "From File"
+#~ msgstr "From File"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
 #~ msgid "From JSON (use export ↗)"
@@ -332,7 +332,7 @@ msgstr "From File"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "From Sheet/XLS"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:132
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:133
 msgid "From Text"
 msgstr "From Text"
 
@@ -399,19 +399,23 @@ msgstr "I'm in trouble."
 #~ msgid "Import"
 #~ msgstr "Import"
 
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:11
+msgid "Import from file"
+msgstr "Import from file"
+
 #: src/context/CategoriesContext.js:64
 msgid "In order to use the app, you have got to set up categories."
 msgstr "In order to use the app, you have got to set up categories."
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:24
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:26
 msgid "income"
 msgstr "income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:195
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:182
 msgid "Income"
 msgstr "Income"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:32
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:20
 msgid "Income is defined per category level,"
 msgstr "Income is defined per category level,"
 
@@ -443,7 +447,7 @@ msgstr "KIA"
 msgid "Last"
 msgstr "Last"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:183
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:170
 msgid "Left 😄"
 msgstr "Left 😄"
 
@@ -467,11 +471,13 @@ msgstr "Let us take you there"
 msgid "Lime"
 msgstr "Lime"
 
-#: src/components/pages/Login/AuthButton.jsx:26
+#: src/components/pages/Login/AuthButton.jsx:29
+#: src/context/UserContext/UserContext.jsx:58
 msgid "Login"
 msgstr "Login"
 
-#: src/components/pages/Login/AuthButton.jsx:22
+#: src/components/pages/Login/AuthButton.jsx:25
+#: src/context/UserContext/UserContext.jsx:50
 msgid "Logout"
 msgstr "Logout"
 
@@ -483,7 +489,7 @@ msgstr "Lost this month..."
 msgid "Maintenance"
 msgstr "Maintenance"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:127
 msgid "Manually"
 msgstr "Manually"
 
@@ -507,7 +513,7 @@ msgstr "my budget is spot on!"
 msgid "name"
 msgstr "name"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:121
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:122
 msgid "New expenses"
 msgstr "New expenses"
 
@@ -515,7 +521,7 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/features/CategoriesEdit/Subcategories.jsx:30
+#: src/features/CategoriesEdit/Subcategories.jsx:35
 msgid "No subcategories for this category"
 msgstr "No subcategories for this category"
 
@@ -523,7 +529,7 @@ msgstr "No subcategories for this category"
 msgid "note"
 msgstr "note"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:103
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:104
 msgid "Nothing new"
 msgstr "Nothing new"
 
@@ -540,7 +546,7 @@ msgstr "OK"
 msgid "Other"
 msgstr "Other"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:184
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:171
 msgid "Over 😢"
 msgstr "Over 😢"
 
@@ -561,11 +567,11 @@ msgstr "over my budget"
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:220
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:193
 msgid "Parse File"
 msgstr "Parse File"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:150
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:151
 msgid "Parse Text"
 msgstr "Parse Text"
 
@@ -616,7 +622,7 @@ msgstr "Resolver"
 msgid "Salary"
 msgstr "Salary"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:62
+#: src/features/CategoriesEdit/CategoryActions.jsx:55
 msgid "save"
 msgstr "save"
 
@@ -628,7 +634,11 @@ msgstr "Save Budget"
 msgid "Saved this month!"
 msgstr "Saved this month!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:184
+#: src/features/Search.jsx:43
+msgid "Search"
+msgstr "Search"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:158
 msgid "Sheet"
 msgstr "Sheet"
 
@@ -636,12 +646,12 @@ msgstr "Sheet"
 msgid "Show same month only"
 msgstr "Show same month only"
 
-#: src/features/CategoriesEdit/CategoryActions.jsx:33
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:21
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "So all of the subcategories in this category will be defined as income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:171
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:191
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:158
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:178
 msgid "Spent"
 msgstr "Spent"
 
@@ -649,7 +659,7 @@ msgstr "Spent"
 msgid "Subcategories"
 msgstr "Subcategories"
 
-#: src/features/CategoriesEdit/Subcategories.jsx:51
+#: src/features/CategoriesEdit/Subcategories.jsx:21
 msgid "Subcategories are how expenses are grouped and calculated"
 msgstr "Subcategories are how expenses are grouped and calculated"
 
@@ -657,7 +667,7 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #~ msgid "Subcategory"
 #~ msgstr "Subcategory"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:152
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:141
 msgid "Summary"
 msgstr "Summary"
 
@@ -709,8 +719,8 @@ msgstr "Welcome"
 msgid "which is good, but I should understand why my budget is off."
 msgstr "which is good, but I should understand why my budget is off."
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:54
-#: src/features/CategoriesEdit/Category.jsx:42
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:23
+#: src/features/CategoriesEdit/CategoryEntry.jsx:28
 msgid "You can call it cosmetic - it is there solely to organize subcategories"
 msgstr "You can call it cosmetic - it is there solely to organize subcategories"
 
@@ -718,7 +728,7 @@ msgstr "You can call it cosmetic - it is there solely to organize subcategories"
 msgid "You have completed entering categories"
 msgstr "You have completed entering categories"
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:28
+#: src/components/atoms/LoginWelcomeMessage.jsx:31
 msgid "You Need Balance"
 msgstr "You Need Balance"
 

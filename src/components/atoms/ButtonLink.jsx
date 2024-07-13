@@ -1,17 +1,6 @@
 import {noop} from "lodash";
-import {
-    ArrowSquareIn,
-    ChartLineUp,
-    Coffee,
-    House,
-    MagicWand, PiggyBank,
-    Receipt,
-    Scales,
-    SquaresFour,
-} from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import {BUTTON_SIZE} from "../../constants";
-import {useMemo} from "react";
 import {isDesktop} from "../../utils/device";
 import classNames from "classnames";
 

@@ -53,11 +53,11 @@ export const MenuPages = {
         label: msg`Categories`,
         icon: SquaresFour,
     },
-    editCategories: {
-        name: 'categories-edit',
-        label: msg`Edit Categories`,
-        icon: SquaresFour,
-    },
+    // editCategories: {
+    //     name: 'categories-edit',
+    //     label: msg`Edit Categories`,
+    //     icon: SquaresFour,
+    // },
     projection: {
         name: 'projection',
         label: msg`Projection`,

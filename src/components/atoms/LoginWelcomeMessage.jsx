@@ -1,8 +1,9 @@
 import {Scales} from "./index";
-import {AuthButton} from "../pages/Login/AuthButton";
 import classNames from "classnames";
 import {isMobile} from "../../utils/device";
 import {Trans} from "@lingui/macro";
+import {useContext} from "react";
+import {UserContext} from "../../context";
 
 const Position = {
     TOP_LEFT: "top-left",
@@ -12,6 +13,8 @@ const Position = {
 };
 
 const LoginWelcomeMessage = ({position}) => {
+    const {AuthButton} = useContext(UserContext);
+
     return (
         <div className={classNames({
             "flex flex-col items-center md:items-start justify-center gap-8": true,
@@ -33,7 +36,7 @@ const LoginWelcomeMessage = ({position}) => {
                 <br/>
                 <Trans>Control your future</Trans>
             </p>
-            <AuthButton withLabel/>
+            <AuthButton/>
         </div>
     );
 };

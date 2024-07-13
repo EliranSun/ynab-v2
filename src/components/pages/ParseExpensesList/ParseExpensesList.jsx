@@ -11,6 +11,7 @@ import {ExportData} from "./ExportData";
 import {addExpenses} from "../../../utils";
 import {AddExpenseEntry} from "./AddExpenseEntry";
 import {Box} from "../../atoms/Box";
+import {ImportFromFile} from "./ImportFromFile";
 
 const isMobile = window.innerWidth < 768;
 const formatAmount = (amount) => {
@@ -150,48 +151,20 @@ export const ParseExpensesList = ({
                         {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
                     </Button>
                 </Box>
+                <ImportFromFile/>
                 <Box>
-                    <div className="flex w-full justify-center gap-8">
-                        <div>
-                            <Title type={Title.Types.H1} className="mb-4">
-                                <Trans>From File</Trans>
-                            </Title>
-                            <input
-                                type="file"
-                                name="upload-json"
-                                id="upload-json"
-                                onChange={(event) => {
-                                    event.preventDefault();
-                                    if (event.target.files) {
-                                        const reader = new FileReader();
-                                        reader.onload = async (e) => {
-                                            const data = e.target.result;
-                                            const expenses = JSON.parse(data);
-
-                                            try {
-                                                await addExpenses(expenses);
-                                                alert("Expenses added to user!");
-                                            } catch (error) {
-                                                console.error(error);
-                                            }
-                                        };
-                                        reader.readAsText(event.target.files[0]);
-                                    }
-                                }}/>
-                        </div>
-                        <div>
-                            <Title type={Title.Types.H1} className="mb-4">
-                                <Trans>Sheet</Trans>
-                            </Title>
-                            <SheetUpload onSheetParse={data => {
-                                setParsedFile(data.map(row => ({
-                                    name: row["Name"] || row['שם'] || row['על מה?'],
-                                    timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
-                                    amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
-                                    categoryName: row["Category"] || row['קטגוריה'],
-                                })));
-                            }}/>
-                        </div>
+                    <div>
+                        <Title type={Title.Types.H1} className="mb-4">
+                            <Trans>Sheet</Trans>
+                        </Title>
+                        <SheetUpload onSheetParse={data => {
+                            setParsedFile(data.map(row => ({
+                                name: row["Name"] || row['שם'] || row['על מה?'],
+                                timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                                amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                                categoryName: row["Category"] || row['קטגוריה'],
+                            })));
+                        }}/>
                     </div>
 
                     <Button

@@ -9,23 +9,22 @@ import {useLingui} from "@lingui/react";
 
 export const ExpenseCategorySelection = ({
                                              expense = {},
-                                             subcategoryId,
                                              onCategorySelect = noop,
-                                             readonly,
-                                             onClick = noop
+                                             readonly = false,
                                          }) => {
     const {_} = useLingui();
     const {expenses} = useContext(ExpensesContext);
+    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
     const {categories} = useContext(CategoriesContext);
     const subcategoryLabel = useMemo(() => {
         const subcategory = categories
             .map(category => category.subcategories)
             .flat()
-            .find(subcategory => subcategory.id === subcategoryId);
+            .find(subcategory => subcategory.id === selectedSubcategoryId);
 
         return subcategory ? `${subcategory.icon} ${subcategory.name}` : _("Select category");
-    }, [categories, subcategoryId]);
+    }, [categories, selectedSubcategoryId]);
 
     return (
         <>
@@ -34,14 +33,14 @@ export const ExpenseCategorySelection = ({
                     "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
                     "hover:bg-black hover:text-white": true,
                     "p-4 font-mono flex items-center justify-between": true,
-                    "cursor-pointer rounded w-1/6": true,
+                    "cursor-pointer rounded": true,
                 })}
                 onClick={() => {
                     if (readonly) {
                         return;
                     }
 
-                    onClick();
+                    setIsCategoryMenuOpen(true);
                 }}>
                 <span>{subcategoryLabel}</span>
                 <CaretDown/>
@@ -51,7 +50,11 @@ export const ExpenseCategorySelection = ({
                 onClose={() => setIsCategoryMenuOpen(false)}
                 expense={expense}
                 expenses={expenses}
-                onCategorySelect={onCategorySelect}/>
+                onCategorySelect={id => {
+                    setIsCategoryMenuOpen(false);
+                    setSelectedSubcategoryId(id);
+                    onCategorySelect(id);
+                }}/>
         </>
     )
 }

@@ -30,12 +30,11 @@ export const ExpenseInputs = ({
                                   readonly,
                                   isVisible,
                                   expense,
-                                  subcategoryId,
                                   onInputChange = noop,
                                   onRemove = noop,
                               }) => {
     const {_} = useLingui();
-    
+
     if (!isVisible || !expense) {
         return null;
     }
@@ -78,10 +77,9 @@ export const ExpenseInputs = ({
             />
             <ExpenseCategorySelection
                 expense={expense}
-                subcategoryId={subcategoryId}
                 readonly={readonly}
-                onClick={value => {
-                    onInputChange(InputTypes.SUBCATEGORY, value);
+                onCategorySelect={value => {
+                    onInputChange(InputTypes.SUBCATEGORY_ID, value);
                 }}/>
             <input
                 type="text"

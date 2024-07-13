@@ -5,6 +5,10 @@ import {Trans} from "@lingui/macro";
 export const SimilarExpenses = ({expense, existingExpenses = []}) => {
     const [isSameMonthCheck, setIsSameMonthCheck] = useState(false);
     const similarExpenses = useMemo(() => {
+        if (!expense.name) {
+            return [];
+        }
+        
         return existingExpenses.filter((existingExpense) => {
             const sameName = existingExpense.name === expense.name;
             const sameMonth = isSameMonth(new Date(existingExpense.timestamp), new Date(expense.timestamp));

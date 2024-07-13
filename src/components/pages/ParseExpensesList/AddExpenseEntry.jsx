@@ -18,8 +18,10 @@ export const AddExpenseEntry = ({
         [InputTypes.NOTE]: "",
         [InputTypes.AMOUNT]: 0,
         [InputTypes.DATE]: new Date(),
-        subcategoryId: 11,
+        [InputTypes.SUBCATEGORY_ID]: null,
     });
+
+    console.log({expense});
 
     return (
         <div className="snap-start w-full flex flex-col gap-4">

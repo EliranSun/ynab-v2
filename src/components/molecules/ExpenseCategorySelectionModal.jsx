@@ -28,7 +28,7 @@ export const ExpenseCategorySelectionModal = ({
             className={classNames({
                 "backdrop-blur-md": true,
                 "backdrop-brightness-50": false,
-                "absolute m-auto z-30 inset-0": true,
+                "fixed m-auto z-30 inset-0": true,
                 "flex flex-col items-center justify-center": true,
             })}>
             <div className="mb-4 rounded-full bg-black p-8">

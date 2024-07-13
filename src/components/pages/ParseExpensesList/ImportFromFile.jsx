@@ -3,6 +3,7 @@ import {Trans} from "@lingui/macro";
 import {Box} from "../../atoms/Box";
 import {useContext, useState} from "react";
 import {CategoriesContext} from "../../../context/CategoriesContext";
+import {ExpenseCategorySelection} from "../../organisms/ExpenseCategorySelection";
 
 export const ImportFromFile = () => {
     const {categories} = useContext(CategoriesContext);
@@ -53,8 +54,9 @@ export const ImportFromFile = () => {
                 <div>
                     {Object.keys(notFoundSubcategories).length > 0 ? Object.values(notFoundSubcategories).map(subcategory => {
                         return (
-                            <div key={subcategory.id}>
-                                <p>{subcategory.name}</p>
+                            <div key={subcategory.id} className="flex gap-2 items-center">
+                                <p className="w-40">{subcategory.name}</p>
+                                <ExpenseCategorySelection/>
                             </div>
                         )
                     }) : null}

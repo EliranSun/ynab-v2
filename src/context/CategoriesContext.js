@@ -40,7 +40,6 @@ export const CategoriesProvider = ({children}) => {
     }, [user]);
 
     useEffect(() => {
-        console.log("CategoriesProvider", {user});
         if (!user || !user.id) {
             return;
         }

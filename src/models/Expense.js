@@ -12,6 +12,7 @@ class Expense {
                     date,
                     categoryId = null,
                     subcategoryId = null,
+                    subcategory_id = null,
                     isOriginal = false,
                     recurring = 0,
                 }) {
@@ -37,10 +38,10 @@ class Expense {
 
         // TODO: refactor to subcategoryId
         this.categoryId = categoryId || Categories.find((category) => {
-            return category.subCategories.find((sub) => sub.id === subcategoryId);
+            return category.subCategories.find((sub) => sub.id === subcategoryId || sub.id === subcategory_id);
         })?.id || null;
-        this.subcategoryId = categoryId || subcategoryId;
         this.mainCategoryId = null;
+        this.subcategoryId = subcategoryId || subcategory_id || null;
         this.isIncome = IncomeSubcategoryIds.includes(Number(this.subcategoryId));
 
         Categories.forEach((category) => {

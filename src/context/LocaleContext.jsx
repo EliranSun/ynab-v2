@@ -7,7 +7,6 @@ async function dynamicActivate(locale) {
         const {messages} = await import(`../locales/${locale}/messages.js`);
         i18n.load(locale, messages);
         i18n.activate(locale);
-        console.info(`Locale ${locale} loaded successfully`);
     } catch (error) {
         console.error(`Error loading locale ${locale}:`, error);
     }
@@ -23,7 +22,6 @@ export const LocaleProvider = ({children}) => {
     const [locale, setLocale] = useState('');
 
     const changeLocale = useCallback((locale) => {
-        console.info('changing locale to', locale);
         dynamicActivate(locale)
             .then(() => {
                 setLocale(locale);
@@ -38,7 +36,6 @@ export const LocaleProvider = ({children}) => {
     }, []);
 
     if (!locale) {
-        console.info("locale not set");
         return null;
     }
 

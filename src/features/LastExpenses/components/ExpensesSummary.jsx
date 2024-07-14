@@ -12,19 +12,23 @@ import ExpensesSummaryChart from "./ExpensesSummaryChart";
 import {ExpensesSummaryFilters} from "./ExpensesSummaryFilters";
 import classNames from "classnames";
 import {Trans} from "@lingui/macro";
-import {INCOME_CATEGORY_ID, Timeframe} from "../constants";
+import {INCOME_CATEGORY_ID, Timeframe, TimeframeNames} from "../constants";
 import {BudgetContext, ExpensesContext} from "../../../context";
 import Expense from "../../../components/pages/ExpenseView/Expense";
+import {Button} from "../../CategoriesEdit/Button";
+import {EyeSlash} from "@phosphor-icons/react";
+import {useLingui} from "@lingui/react";
+import {round} from "lodash";
 
 const Item = ({children}) => {
     return (
-        <div className="flex flex-col md:items-center">
+        <div className="flex flex-col md:items-start">
             {children}
         </div>
     );
 };
 
-const Amount = ({children, isDifference}) => {
+const Amount = ({children, withRounding = false, isDifference, size = Amount.Size.MEDIUM}) => {
     const value = (children);
     if (isNaN(value)) {
         return value;
@@ -32,15 +36,76 @@ const Amount = ({children, isDifference}) => {
 
     return (
         <h2 className={classNames({
-            "text-2xl md:text-4xl font-mono": true,
+            "font-mono": true,
+            "text-xs md:text-sm": size === Amount.Size.SMALL,
+            "text-3xl md:text-5xl": size === Amount.Size.MEDIUM,
+            "text-4xl md:text-8xl": size === Amount.Size.LARGE,
             "text-green-500": isDifference && (value >= 0),
             "text-red-500": isDifference && (value < 0),
         })}>
-            {formatCurrency(value, false, false)}
+            {formatCurrency(round(value, withRounding ? -1 : 0), false, true)}
         < /h2>
     );
 };
 
+Amount.Size = {
+    SMALL: "small",
+    MEDIUM: "medium",
+    LARGE: "large",
+}
+
+const BottomLine = ({
+                        totalSpent,
+                        timeframeName,
+                        budgetForTimeframe,
+                        incomeAmountForTimeframe,
+                    }) => {
+    const {_} = useLingui();
+    const differenceBudgetAmount = budgetForTimeframe - totalSpent;
+    const differenceAmount = incomeAmountForTimeframe - totalSpent;
+
+    return (
+        <div>
+            <h1>{_(timeframeName)}</h1>
+            <div className="flex items-center justify-evenly gap-2 my-4 m-auto">
+                <Item>
+                    <Amount size={Amount.Size.LARGE}>{-totalSpent}</Amount>
+                    <h1 className="text-sm">
+                        <Trans>Spent</Trans>
+                    </h1>
+                </Item>
+                <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-2 bg-white py-2 shadow rounded-2xl gap-8">
+                        <Item>
+                            <Amount withRounding>{budgetForTimeframe}</Amount>
+                            <h1 className="font-mono">
+                                <Trans>Budget</Trans>
+                            </h1>
+                        </Item>
+                        <Item>
+                            <Amount isDifference>{differenceBudgetAmount}</Amount>
+                            <h1 className="font-mono">
+                                <Trans>left</Trans>
+                            </h1>
+                        </Item>
+                    </div>
+                    <div className="grid grid-cols-2 bg-white p-2 shadow rounded-2xl gap-8">
+                        <Item>
+                            <Amount withRounding>{incomeAmountForTimeframe}</Amount>
+                            <h1 className="font-mono"><Trans>Income</Trans></h1>
+                        </Item>
+                        <Item>
+                            <Amount isDifference>{differenceAmount}</Amount>
+                            <h1 className="font-mono">
+                                <Trans>left</Trans>
+                            </h1>
+                        </Item>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
 export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const currentYear = getYear(new Date());
         const currentMonth = getMonth(new Date());
@@ -80,7 +145,6 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         }, [timeframeName, budget]);
 
         const lastItems = useMemo(() => {
-            console.log({expenses});
             const expensesFoo = {};
             for (const item of expenses) {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
@@ -132,64 +196,26 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 
         const totalSpent = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
         const removedAmounts = useMemo(() => formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false), [filteredItems]);
-        const differenceBudgetAmount = budgetForTimeframe - totalSpent;
-        const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
         return (
-            <div className="p-2 md:p-4 w-full max-w-screen-2xl m-auto bg-white/90">
-                <h1 className="w-full m-auto text-8xl font-mono">
+            <div className="p-2 md:p-4 w-full max-w-screen-xl m-auto bg-white/90">
+                <h1 className="w-full m-auto text-8xl font-mono mb-8">
                     <Trans>Summary</Trans>
                 </h1>
                 <section
                     className={classNames({
                         "bg-neutral-50 p-2": true,
-                        "h-full overflow-y-auto": true,
+                        "overflow-y-auto": true,
                         "shadow-lg border-2 border-solid rounded-lg": true,
                     })}>
-                    <ExpensesSummaryFilters
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
+                    <BottomLine
+                        totalSpent={totalSpent}
+                        timeframeName={TimeframeNames[timeframeName]}
+                        budgetForTimeframe={budgetForTimeframe}
+                        incomeAmountForTimeframe={incomeAmountForTimeframe}/>
+
                     <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
                         <div className="md:w-1/2 h-fit">
-                            <div className="flex flex-col justify-evenly gap-2 my-4">
-                                <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
-                                    <Item>
-                                        <h1 className="font-mono"><Trans>Spent</Trans></h1>
-                                        <Amount>{totalSpent}</Amount>
-                                    </Item>
-                                    <Item>
-                                        <h1 className="font-mono">
-                                            <Trans>Budget</Trans>
-                                        </h1>
-                                        <Amount>{budgetForTimeframe}</Amount>
-                                    </Item>
-                                    <Item>
-                                        <h1 className="font-mono">
-                                            {differenceBudgetAmount > 0 ?
-                                                <Trans>Left 😄</Trans> :
-                                                <Trans>Over 😢</Trans>}
-                                        </h1>
-                                        <Amount isDifference>{differenceBudgetAmount}</Amount>
-                                    </Item>
-                                </div>
-                                <div className="grid grid-cols-3 gap-2 border-4 p-2 rounded border-white my-2">
-                                    <Item>
-                                        <h1 className="font-mono"><Trans>Spent</Trans></h1>
-                                        <Amount>{totalSpent}</Amount>
-                                    </Item>
-                                    <Item>
-                                        <h1 className="font-mono"><Trans>Income</Trans></h1>
-                                        <Amount>{incomeAmountForTimeframe}</Amount>
-                                    </Item>
-                                    <Item>
-                                        <h1 className="font-mono">
-                                            <Trans>diff</Trans>
-                                        </h1>
-                                        <Amount isDifference>{differenceAmount}</Amount>
-                                    </Item>
-                                </div>
-                            </div>
                             <h3>{removedAmounts} filtered</h3>
                             <ExpensesSummaryChart
                                 expenses={lastItems}
@@ -197,54 +223,39 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                 income={incomeForTimeframe}
                                 timeframeName={timeframeName}/>
                         </div>
-                        <div className="md:w-1/2 h-[500px] md:h-[66vh] overflow-y-auto overflow-x-hidden">
+                        <div className="md:w-1/2">
                             <button
                                 className="border rounded p-2 shadow-md sticky top-0 bg-white"
                                 onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
                                 Sorting by {sortBy}
                             </button>
-                            {lastItems.map(item => {
-                                return (
-                                    // <div
-                                    //     key={item.id}
-                                    //     className={classNames({
-                                    //         "p-2 border-b border-gray-500": true,
-                                    //         "flex flex-col md:flex-row justify-between md:items-center": true,
-                                    //     })}
-                                    //     onClick={() => {
-                                    //         setFilteredItems([item, ...filteredItems]);
-                                    //     }}>
-                                    //     <div>
-                                    //         <h2 className="text-2xl font-mono">{item.name}</h2>
-                                    //         <p className="text-lg font-mono w-72 whitespace-nowrap text-ellipsis overflow-hidden">
-                                    //             {item.note}
-                                    //         </p>
-                                    //     </div>
-                                    //     <div>
-                                    //         <p className="text-2xl font-mono">{formatCurrency(item.amount, false, false)}</p>
-                                    //         <p className="md:text-lg font-mono">
-                                    //             {differenceInDays(new Date(), item.timestamp)} days ago<br/>
-                                    //             {format(item.timestamp, "d.LL.yy, EEE")}
-                                    //         </p>
-                                    //     </div>
-                                    // </div>
-                                    <div>
-                                        <button
-                                            className="absolute"
-                                            onClick={() => {
-                                                setFilteredItems([item, ...filteredItems]);
-                                            }}>
-                                            hide
-                                        </button>
-                                        <Expense
-                                            key={item.id}
-                                            isListView
-                                            expense={item}/>
-                                    </div>
-                                )
-                            })}
+                            <div className="h-96 overflow-y-auto">
+                                {lastItems.map(item => {
+                                    return (
+                                        <div key={item.id} className="flex">
+                                            <Expense
+                                                key={item.id}
+                                                isListView
+                                                expense={item}/>
+                                            <Button
+                                                variation={Button.Variation.ADD}
+                                                className=""
+                                                onClick={() => {
+                                                    setFilteredItems([item, ...filteredItems]);
+                                                }}>
+                                                <EyeSlash/>
+                                            </Button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
+
+                    <ExpensesSummaryFilters
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        setTimeframeName={setTimeframeName}/>
                 </section>
             </div>
         )
@@ -254,8 +265,6 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 const ProvidedLastExpenses = () => {
     const [budget] = useContext(BudgetContext);
     const {expenses} = useContext(ExpensesContext);
-
-    console.log('ProvidedLastExpenses', {expenses});
 
     return <ExpensesSummary budget={budget} expenses={expenses}/>
 }

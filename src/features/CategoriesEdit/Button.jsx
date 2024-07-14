@@ -19,7 +19,7 @@ const Button = ({children, isDisabled, className, onClick, variation, ...rest}) 
                 onClick();
             }}
             className={classNames(className, {
-                "min-w-16 max-w-96 ": true,
+                "min-w-16 max-w-96 max-h-10": true,
                 "cursor-pointer p-2": true,
                 "rounded-md shadow": true,
                 "flex items-center justify-center gap-2": true,

@@ -14,7 +14,7 @@ export const ExpenseCategorySelection = ({
                                          }) => {
     const {_} = useLingui();
     const {expenses} = useContext(ExpensesContext);
-    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
+    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(expense.subcategoryId);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
     const {categories} = useContext(CategoriesContext);
     const subcategoryLabel = useMemo(() => {
@@ -31,9 +31,9 @@ export const ExpenseCategorySelection = ({
             <button
                 className={classNames({
                     "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
-                    "hover:bg-black hover:text-white": true,
+                    "cursor-pointer hover:bg-black hover:text-white": !readonly,
                     "p-4 font-mono flex items-center justify-between": true,
-                    "cursor-pointer rounded": true,
+                    " rounded": true,
                 })}
                 onClick={() => {
                     if (readonly) {

@@ -24,9 +24,7 @@ export const UserProvider = ({children}) => {
             const user = response.data.user;
             const userFirstName = get(user, 'user_metadata.name', '').split(" ")[0];
             const translatedUsername = await translate(userFirstName, "he");
-
-            console.log("User id", user.id);
-
+            
             setUser({
                 ...user,
                 translatedUsername,

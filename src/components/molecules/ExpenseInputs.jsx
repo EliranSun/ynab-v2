@@ -7,6 +7,7 @@ import {InputTypes} from "../pages/ParseExpensesList/constants";
 import {useMemo, useContext, useState} from "react";
 import {CategoriesContext} from "../../context/CategoriesContext";
 import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
+import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -39,38 +40,33 @@ export const ExpenseInputs = ({
         return null;
     }
 
+    console.log({expense});
+
     return (
         <div className={classNames("text-right w-full", {
             "rounded-xl p-4 md:p-2": true,
             "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
-            // "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
         })}>
-            <input
+            <Input
                 type="date"
                 disabled={readonly}
-                className="p-4 border border-gray-300 rounded w-1/6"
-                // date="June 30, 24"
-                // defaultValue="2021-06-30"
                 defaultValue={formatDate(new Date())}
                 onChange={(event) => {
                     onInputChange(InputTypes.DATE, event.target.value);
                 }}
             />
-            <input
-                type="text"
+            <TextInput
                 disabled={readonly}
                 defaultValue={expense.name}
                 placeholder={_(InputPlaceholder.name)}
-                className="p-4 border border-gray-300 rounded w-1/6"
                 onChange={(event) => {
                     onInputChange(InputTypes.NAME, event.target.value);
                 }}/>
-            <input
+            <Input
                 type="number"
                 disabled={readonly}
                 defaultValue={expense.amount}
                 placeholder={_(InputPlaceholder.amount)}
-                className="p-4 border border-gray-300 rounded w-1/6"
                 onChange={(event) => {
                     onInputChange(InputTypes.AMOUNT, event.target.value);
                 }}
@@ -81,19 +77,12 @@ export const ExpenseInputs = ({
                 onCategorySelect={value => {
                     onInputChange(InputTypes.SUBCATEGORY_ID, value);
                 }}/>
-            <input
-                type="text"
+            <TextInput
                 placeholder={_(InputPlaceholder.note)}
                 defaultValue={expense.note}
                 disabled={readonly}
-                className="border border-gray-300 w-1/6 rounded p-4 h-20 md:h-auto"
                 onChange={(event) => {
                     onInputChange(InputTypes.NOTE, event.target.value);
-                    // setExpenses((prev) => {
-                    //     const newExpenses = [...prev];
-                    //     newExpenses[index].note = event.target.value;
-                    //     return newExpenses;
-                    // });
                 }}/>
             <span className="cursor-pointer" onClick={onRemove}>
                 <Trash color="red" size={42}/>

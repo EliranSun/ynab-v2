@@ -28,7 +28,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "cross-env PORT=3006 GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "cross-env PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

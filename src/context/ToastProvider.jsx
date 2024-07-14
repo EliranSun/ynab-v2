@@ -17,8 +17,6 @@ const Toast = ({message, onCancel}) => {
         return null;
     }
 
-    console.log({message});
-
     return (
         <div
             onClick={() => setIsHidden(true)}
@@ -45,9 +43,7 @@ export const ToastContext = createContext(null);
 
 export const ToastProvider = ({children}) => {
     const [message, setMessage] = useState(null);
-
-    console.log({message});
-
+    
     return (
         <ToastContext.Provider value={{setMessage}}>
             {children}

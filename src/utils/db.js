@@ -16,20 +16,15 @@ export const login = async () => {
     return {user, session, error};
 }
 
-export const getCategories = async (userId) => {
-    const {data: userData} = await supabase.auth.getUser();
-    console.log("userData", {userData});
-
+export const getCategories = async () => {
     const {data, error} = await supabase
         .from('categories')
         .select("*, subcategories:subcategories (id, name, icon)")
-    // .eq("user_id", userData.user.id);
 
     if (error) {
         throw error;
     }
 
-    console.log("getCategories", {data});
     return data;
 };
 
@@ -151,7 +146,6 @@ export const getExpenses = async () => {
         throw error;
     }
 
-    console.log("getExpenses", {data});
     return data;
 };
 

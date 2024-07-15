@@ -23,14 +23,14 @@ export const ExpenseCategorySelection = ({
             .flat()
             .find(subcategory => subcategory.id === selectedSubcategoryId);
 
-        return subcategory ? `${subcategory.icon} ${subcategory.name}` : _("Select category");
+        return subcategory ? `${subcategory.icon} ${subcategory.name}` : _("Subcategory");
     }, [categories, selectedSubcategoryId]);
 
     return (
         <>
             <button
                 className={classNames({
-                    "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
+                    "w-full border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
                     "cursor-pointer hover:bg-black hover:text-white": !readonly,
                     "p-4 font-mono flex items-center justify-between": true,
                     " rounded": true,
@@ -42,7 +42,7 @@ export const ExpenseCategorySelection = ({
 
                     setIsCategoryMenuOpen(true);
                 }}>
-                <span>{subcategoryLabel}</span>
+                <div className="w-fit">{subcategoryLabel.slice(0, 10)}</div>
                 <CaretDown/>
             </button>
             <ExpenseCategorySelectionModal

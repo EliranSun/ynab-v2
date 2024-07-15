@@ -4,6 +4,7 @@ const Variation = {
     DELETE: "delete",
     SAVE: "save",
     ADD: "add",
+    HIDE: "hide",
 };
 
 const Button = ({children, isDisabled, className, onClick, variation, ...rest}) => {
@@ -27,6 +28,7 @@ const Button = ({children, isDisabled, className, onClick, variation, ...rest}) 
                 "hover:bg-black hover:text-white": !isDisabled,
                 "text-red-500 bg-white": variation === Variation.DELETE,
                 "text-green-500 bg-white": variation === Variation.SAVE,
+                "text-black bg-white": variation === Variation.HIDE,
                 "text-white bg-blue-500": variation === Variation.ADD,
             })}>
             {children}

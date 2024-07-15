@@ -135,9 +135,9 @@ msgstr "ספרים"
 msgid "budget"
 msgstr "תקציב"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:82
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
 msgstr "תקציב"
@@ -412,7 +412,7 @@ msgstr "אני בצרות."
 #~ msgid "Import"
 #~ msgstr "יבוא"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:16
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:36
 msgid "Import from file"
 msgstr "יבוא מקובץ"
 
@@ -424,7 +424,7 @@ msgstr "בשביל להשתמש באפליקציה, אתה צריך ליצור �
 msgid "income"
 msgstr "הכנסה"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:95
+#: src/components/molecules/BottomLine/BottomLine.jsx:44
 msgid "Income"
 msgstr "הכנסות"
 
@@ -460,8 +460,8 @@ msgstr "רכב"
 msgid "Last"
 msgstr "אחרון"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:88
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:100
+#: src/components/molecules/BottomLine/BottomLine.jsx:37
+#: src/components/molecules/BottomLine/BottomLine.jsx:49
 msgid "left"
 msgstr "נשאר"
 
@@ -576,6 +576,7 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
 #: src/constants/index.js:33
 #: src/constants/index.js:74
 msgid "Parse"
@@ -664,7 +665,7 @@ msgstr "הצג הוצאות דומות רק בחודש זה"
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "כך שכל תת הקטגוריות בקטגוריה זו יהיו מוגדות כהכנסות"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:74
+#: src/components/molecules/BottomLine/BottomLine.jsx:23
 msgid "Spent"
 msgstr "בוזבז"
 
@@ -680,7 +681,7 @@ msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחו
 #~ msgid "Subcategory"
 #~ msgstr "תת קטגוריות"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:203
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:116
 msgid "Summary"
 msgstr "תמונת מצב"
 
@@ -715,6 +716,10 @@ msgstr "סך הוצאות מתוכננות"
 #: src/features/ManageBudget/ManageBudget.jsx:26
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
+
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
+msgid "Transactions"
+msgstr "תנועות"
 
 #: src/constants/categories.js:315
 msgid "TV"

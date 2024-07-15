@@ -1,13 +1,12 @@
 import classNames from "classnames";
-import {CaretDown, Trash} from "@phosphor-icons/react";
+import {CaretDown, EyeSlash, FloppyDisk, Trash} from "@phosphor-icons/react";
 import {noop} from "lodash";
 import {msg} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
 import {InputTypes} from "../pages/ParseExpensesList/constants";
-import {useMemo, useContext, useState} from "react";
-import {CategoriesContext} from "../../context/CategoriesContext";
 import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
 import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
+import {Button} from "../../features/CategoriesEdit/Button";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -33,6 +32,8 @@ export const ExpenseInputs = ({
                                   expense,
                                   onInputChange = noop,
                                   onRemove = noop,
+                                  onHide = noop,
+                                  isSaveDisabled = false,
                               }) => {
     const {_} = useLingui();
 
@@ -40,43 +41,51 @@ export const ExpenseInputs = ({
         return null;
     }
 
-    console.log({expense});
+    console.log({isSaveDisabled});
 
     return (
         <div className={classNames("text-right w-full", {
-            "rounded-xl p-4 md:p-2": true,
-            "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
+            "rounded-xl": true,
+            "flex items-center": true,
         })}>
-            <Input
-                type="date"
-                disabled={readonly}
-                defaultValue={formatDate(new Date())}
-                onChange={(event) => {
-                    onInputChange(InputTypes.DATE, event.target.value);
-                }}
-            />
-            <TextInput
-                disabled={readonly}
-                defaultValue={expense.name}
-                placeholder={_(InputPlaceholder.name)}
-                onChange={(event) => {
-                    onInputChange(InputTypes.NAME, event.target.value);
-                }}/>
-            <Input
-                type="number"
-                disabled={readonly}
-                defaultValue={expense.amount}
-                placeholder={_(InputPlaceholder.amount)}
-                onChange={(event) => {
-                    onInputChange(InputTypes.AMOUNT, event.target.value);
-                }}
-            />
-            <ExpenseCategorySelection
-                expense={expense}
-                readonly={readonly}
-                onCategorySelect={value => {
-                    onInputChange(InputTypes.SUBCATEGORY_ID, value);
-                }}/>
+            <div className="w-60 shrink-0">
+                <ExpenseCategorySelection
+                    expense={expense}
+                    readonly={readonly}
+                    onCategorySelect={value => {
+                        onInputChange(InputTypes.SUBCATEGORY_ID, value);
+                    }}/>
+            </div>
+            <div className="w-32 shrink-0">
+                <Input
+                    type="date"
+                    disabled={readonly}
+                    defaultValue={formatDate(new Date())}
+                    onChange={(event) => {
+                        onInputChange(InputTypes.DATE, event.target.value);
+                    }}
+                />
+            </div>
+            <div className="w-60 shrink-0">
+                <TextInput
+                    disabled={readonly}
+                    defaultValue={expense.name}
+                    placeholder={_(InputPlaceholder.name)}
+                    onChange={(event) => {
+                        onInputChange(InputTypes.NAME, event.target.value);
+                    }}/>
+            </div>
+            <div className="w-28 shrink-0">
+                <Input
+                    type="number"
+                    disabled={readonly}
+                    defaultValue={expense.amount}
+                    placeholder={_(InputPlaceholder.amount)}
+                    onChange={(event) => {
+                        onInputChange(InputTypes.AMOUNT, event.target.value);
+                    }}
+                />
+            </div>
             <TextInput
                 placeholder={_(InputPlaceholder.note)}
                 defaultValue={expense.note}
@@ -84,9 +93,23 @@ export const ExpenseInputs = ({
                 onChange={(event) => {
                     onInputChange(InputTypes.NOTE, event.target.value);
                 }}/>
-            <span className="cursor-pointer" onClick={onRemove}>
-                <Trash color="red" size={42}/>
-            </span>
+            <Button
+                variation={Button.Variation.HIDE}
+                className=""
+                onClick={onHide}>
+                <EyeSlash/>
+            </Button>
+            <Button
+                isDisabled={isSaveDisabled}
+                variation={Button.Variation.SAVE}>
+                <FloppyDisk/>
+            </Button>
+            <Button
+                onClick={onRemove}
+                variation={Button.Variation.DELETE}>
+                <Trash/>
+            </Button>
+
         </div>
     );
 };

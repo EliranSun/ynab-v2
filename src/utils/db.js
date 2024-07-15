@@ -20,6 +20,8 @@ export const getCategories = async () => {
     const {data, error} = await supabase
         .from('categories')
         .select("*, subcategories:subcategories (id, name, icon)")
+        .eq("subcategories.isActive", true)
+        .eq("isActive", true);
 
     if (error) {
         throw error;
@@ -77,8 +79,10 @@ export const createSubcategory = async ({name, icon, categoryId}) => {
 export const deleteCategory = async (categoryId) => {
     const {data, error} = await supabase
         .from("categories")
-        .delete()
-        .eq("id", categoryId)
+        .update({
+            isActive: false,
+        })
+        .eq("id", categoryId);
 
     if (error) {
         throw error;
@@ -88,9 +92,12 @@ export const deleteCategory = async (categoryId) => {
 };
 
 export const deleteSubcategory = async (subcategoryId) => {
+    console.log("Delete subcategory", subcategoryId);
     const {data, error} = await supabase
         .from("subcategories")
-        .delete()
+        .update({
+            isActive: false,
+        })
         .eq("id", subcategoryId)
 
     if (error) {
@@ -160,7 +167,7 @@ export const addExpense = async ({name, note, amount, subcategoryId, date}) => {
             name,
             note,
             amount,
-            subcategory_id: subcategoryId,
+            subcategoryId,
             date,
         });
 
@@ -173,7 +180,6 @@ export const addExpense = async ({name, note, amount, subcategoryId, date}) => {
 
 class Expense {
     constructor(expense) {
-        this.id = expense.id;
         this.name = expense.name;
         this.note = expense.note;
         this.amount = expense.amount;
@@ -190,6 +196,19 @@ export const addExpenses = async (expenses = []) => {
     const {data, error} = await supabase
         .from("expenses")
         .insert(expenses.map(expense => new Expense(expense)));
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
+
+export const deleteExpense = async (expenseId) => {
+    const {data, error} = await supabase
+        .from("expenses")
+        .delete()
+        .eq("id", expenseId);
 
     if (error) {
         throw error;

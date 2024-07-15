@@ -7,14 +7,14 @@ export const Input = ({isSecondary, ...rest}) => {
                 "shadow": false,
                 "w-10": isSecondary,
                 "w-full": !isSecondary,
-                "text-lg px-2 rounded-lg bg-transparent text-right": true,
+                "px-2 rounded-lg bg-transparent text-right": true,
             })}
             {...rest}
         />
     );
 
 }
-export const TextInput = ({value, onChange, isSecondary = false, ...rest}) => {
+export const TextInput = ({value, onChange, ...rest}) => {
     return (
         <Input
             type="text"

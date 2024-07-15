@@ -1,16 +1,21 @@
-import {useContext, useEffect, useMemo, useState} from "react";
-import {deleteExpense, getExpenseCategoryName} from "../../../utils";
-import classNames from "classnames";
+import {useContext, useEffect, useState} from "react";
+import {deleteExpense} from "../../../utils/db";
 import {ExpensesContext} from "../../../context";
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
+import {v4 as uuid} from "uuid";
+import {InputTypes} from "../ParseExpensesList/constants";
+import {isEqual, noop} from "lodash";
 
 const Expense = ({
                      expense,
                      isListView = false,
+                     onHide = noop,
                  }) => {
     const [isUpdated, setIsUpdated] = useState(false);
     const {refetch} = useContext(ExpensesContext);
-    const category = useMemo(() => getExpenseCategoryName(expense.categoryId), [expense]);
+    // const category = useMemo(() => getExpenseCategoryName(expense.categoryId), [expense]);
+
+    const [newExpense, setNewExpense] = useState(expense);
 
     useEffect(() => {
         if (isUpdated) {
@@ -21,24 +26,26 @@ const Expense = ({
     }, [isUpdated]);
 
     return (
-        <>
-            <div className={classNames("p-0 md:p-4 w-full", {
-                "flex w-full gap-4 mb-4 items-center": isListView,
-            })}>
-                <ExpenseInputs
-                    readonly
-                    expense={expense}
-                    isVisible={isListView}
-                    subcategoryLabel={category.subcategoryName}
-                    onRemove={async () => {
-                        if (window.confirm(`Are you sure you want to delete ${expense.name}?`)) {
-                            await deleteExpense(expense.id);
-                            setIsUpdated(true);
-                            refetch();
-                        }
-                    }}/>
-            </div>
-        </>
+        <ExpenseInputs
+            expense={expense}
+            isVisible={isListView}
+            // subcategoryLabel={category.subcategoryName}
+            isSaveDisabled={isEqual(newExpense, expense)}
+            onHide={onHide}
+            onInputChange={(type, value) => {
+                setNewExpense((prev) => {
+                    const newExpense = {...prev};
+                    newExpense[type] = value;
+                    return newExpense;
+                });
+            }}
+            onRemove={async () => {
+                if (window.confirm(`Are you sure you want to delete ${expense.name}?`)) {
+                    await deleteExpense(expense.id);
+                    setIsUpdated(true);
+                    refetch();
+                }
+            }}/>
     );
 };
 

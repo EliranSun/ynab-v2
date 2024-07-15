@@ -7,17 +7,10 @@ import classNames from "classnames";
 import {Trans} from "@lingui/macro";
 import {INCOME_CATEGORY_ID, Timeframe, TimeframeNames} from "../constants";
 import {BudgetContext, ExpensesContext} from "../../../context";
+import {CategoriesContext} from "../../../context/CategoriesContext";
 import Expense from "../../../components/pages/ExpenseView/Expense";
-import {Button} from "../../CategoriesEdit/Button";
-import {EyeSlash} from "@phosphor-icons/react";
 import {BottomLine} from "../../../components/molecules/BottomLine/BottomLine";
 import {Amount} from "../../../components/molecules/BottomLine/Amount";
-
-Amount.Size = {
-    SMALL: "small",
-    MEDIUM: "medium",
-    LARGE: "large",
-}
 
 export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const currentYear = getYear(new Date());
@@ -27,6 +20,11 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const [timeframeName, setTimeframeName] = useState(Timeframe.MONTH);
         const [sortBy, setSortBy] = useState("timestamp");
         const [filteredItems, setFilteredItems] = useState([]);
+        const {categories} = useContext(CategoriesContext);
+        const incomeSubcategoriesIds = useMemo(() => {
+            return categories.filter(category => category.isIncome).flatMap(category => category.subcategories.map(subcategory => subcategory.id));
+        }, [categories]);
+
         const budgetForTimeframe = useMemo(() => {
             if (!budget || Object.keys(budget).length === 0) {
                 return 0;
@@ -59,10 +57,11 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 
         const lastItems = useMemo(() => {
             const expensesFoo = {};
+
             for (const item of expenses) {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
                 const itemIsFiltered = filteredItems.some(filteredItem => filteredItem.id === item.id);
-                if (item.isIncome || itemIsFiltered || outOfRange) {
+                if (incomeSubcategoriesIds.includes(item.subcategoryId) || itemIsFiltered || outOfRange) {
                     continue;
                 }
 
@@ -82,7 +81,8 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                     const inRange =
                         isAfter(item.timestamp, startOfMonth(startDate)) &&
                         isBefore(item.timestamp, endOfMonth(endDate));
-                    return item.isIncome && inRange;
+
+                    return incomeSubcategoriesIds.includes(item.subcategoryId) && inRange;
                 });
 
 
@@ -128,15 +128,13 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                         incomeAmountForTimeframe={incomeAmountForTimeframe}/>
 
                     <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
-                        <div className="md:w-1/2 h-fit">
+                        <div className="w-full h-fit">
                             <h3>{removedAmounts} filtered</h3>
                             <ExpensesSummaryChart
                                 expenses={lastItems}
                                 budget={budgetForTimeframe}
                                 income={incomeForTimeframe}
                                 timeframeName={timeframeName}/>
-                        </div>
-                        <div className="md:w-1/2">
                             <button
                                 className="border rounded p-2 shadow-md sticky top-0 bg-white"
                                 onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
@@ -145,20 +143,13 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                             <div className="h-96 overflow-y-auto">
                                 {lastItems.map(item => {
                                     return (
-                                        <div key={item.id} className="flex">
-                                            <Expense
-                                                key={item.id}
-                                                isListView
-                                                expense={item}/>
-                                            <Button
-                                                variation={Button.Variation.ADD}
-                                                className=""
-                                                onClick={() => {
-                                                    setFilteredItems([item, ...filteredItems]);
-                                                }}>
-                                                <EyeSlash/>
-                                            </Button>
-                                        </div>
+                                        <Expense
+                                            key={item.id}
+                                            expense={item}
+                                            isListView
+                                            onHide={() => {
+                                                setFilteredItems([item, ...filteredItems]);
+                                            }}/>
                                     )
                                 })}
                             </div>

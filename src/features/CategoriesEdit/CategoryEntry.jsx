@@ -19,7 +19,7 @@ export const CategoryEntry = ({id, subcategories = [], name = "", icon = "", isI
     return (
         <>
             <div
-                className="flex flex-col w-full justify-between gap-2 bg-gray-100 shadow items-center w-full rounded-xl md:w-[calc(50vw-2rem)] max-w-lg">
+                className="flex flex-col w-full justify-between gap-2 bg-gray-100 shadow items-center w-full rounded-xl max-w-md">
                 <div className="w-full">
                     <div className="bg-gray-500 w-full flex items-center justify-between text-white py-2 rounded-t-xl">
                         <div className="flex items-center" onMouseEnter={() => setTooltipMessage(

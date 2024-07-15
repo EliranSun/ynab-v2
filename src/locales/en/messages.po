@@ -118,9 +118,9 @@ msgstr "Books"
 msgid "budget"
 msgstr "budget"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:82
 #: src/features/ManageBudget/ManageBudget.jsx:117
 msgid "Budget"
 msgstr "Budget"
@@ -399,7 +399,7 @@ msgstr "I'm in trouble."
 #~ msgid "Import"
 #~ msgstr "Import"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:16
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:36
 msgid "Import from file"
 msgstr "Import from file"
 
@@ -411,7 +411,7 @@ msgstr "In order to use the app, you have got to set up categories."
 msgid "income"
 msgstr "income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:95
+#: src/components/molecules/BottomLine/BottomLine.jsx:44
 msgid "Income"
 msgstr "Income"
 
@@ -447,8 +447,8 @@ msgstr "KIA"
 msgid "Last"
 msgstr "Last"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:88
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:100
+#: src/components/molecules/BottomLine/BottomLine.jsx:37
+#: src/components/molecules/BottomLine/BottomLine.jsx:49
 msgid "left"
 msgstr "left"
 
@@ -567,6 +567,7 @@ msgstr "over budget"
 msgid "over my budget"
 msgstr "over my budget"
 
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
 #: src/constants/index.js:33
 #: src/constants/index.js:74
 msgid "Parse"
@@ -655,7 +656,7 @@ msgstr "Show same month only"
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "So all of the subcategories in this category will be defined as income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:74
+#: src/components/molecules/BottomLine/BottomLine.jsx:23
 msgid "Spent"
 msgstr "Spent"
 
@@ -671,7 +672,7 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #~ msgid "Subcategory"
 #~ msgstr "Subcategory"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:203
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:116
 msgid "Summary"
 msgstr "Summary"
 
@@ -710,6 +711,10 @@ msgstr "Total Expenses Budget:"
 #: src/features/ManageBudget/ManageBudget.jsx:26
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
+
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
+msgid "Transactions"
+msgstr "Transactions"
 
 #: src/constants/categories.js:315
 msgid "TV"

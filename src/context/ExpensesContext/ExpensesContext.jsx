@@ -232,6 +232,7 @@ export const ExpensesContextProvider = ({children}) => {
                 setExpenseNote,
                 markExpensesAsOriginal,
                 fetchExpenses,
+                refetch: fetchExpenses,
                 setExpenses: async (newExpenses = []) => {
                     const expensesObject = {};
                     newExpenses.forEach((expense) => {
@@ -244,10 +245,6 @@ export const ExpensesContextProvider = ({children}) => {
                     } catch (error) {
                         console.error(`Error adding expenses - ${error.message}`);
                     }
-                },
-                refetch: async () => {
-                    const expenses = await getExpenses();
-                    setExpenses(expenses);
                 },
             }}
         >

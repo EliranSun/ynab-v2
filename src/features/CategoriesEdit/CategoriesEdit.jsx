@@ -31,7 +31,7 @@ export const CategoriesEdit = () => {
                 </Button>
             </div>
             <div
-                className="flex flex-col md:flex-row gap-4 my-8">
+                className="grid grid-cols-4 gap-4 my-8 h-fit">
                 {categories.map((category, index) => {
                     return (
                         <CategoryEntry

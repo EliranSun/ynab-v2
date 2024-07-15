@@ -46,29 +46,30 @@ export const Subcategory = ({subcategoryId, categoryId, name = "", icon = "", on
                 }}>
                 <FloppyDisk size={ICON_SIZE}/>
             </Button>
-            {subcategoryId ? <Button
-                variation={Button.Variation.DELETE}
-                onClick={() => {
-                    if (!subcategoryId) {
-                        onCancel();
-                        return;
-                    }
-
-                    setMessage({
-                        type: ToastTypes.DANGER,
-                        text: <Trans>Are you sure you want to delete this sub-category?</Trans>,
-                        onConfirm: async () => {
-                            await deleteSubcategory(subcategoryId);
-                            setMessage({
-                                type: ToastTypes.INFO,
-                                text: <Trans>Deleted successfully</Trans>
-                            });
-                            onUpdate();
+            {subcategoryId ?
+                <Button
+                    variation={Button.Variation.DELETE}
+                    onClick={() => {
+                        if (!subcategoryId) {
+                            onCancel();
+                            return;
                         }
-                    });
-                }}>
-                <Trash size={ICON_SIZE}/>
-            </Button> : null}
+
+                        setMessage({
+                            type: ToastTypes.DANGER,
+                            text: <Trans>Are you sure you want to delete this sub-category?</Trans>,
+                            onConfirm: async () => {
+                                await deleteSubcategory(subcategoryId);
+                                setMessage({
+                                    type: ToastTypes.INFO,
+                                    text: <Trans>Deleted successfully</Trans>
+                                });
+                                onUpdate();
+                            }
+                        });
+                    }}>
+                    <Trash size={ICON_SIZE}/>
+                </Button> : null}
         </div>
     );
 };

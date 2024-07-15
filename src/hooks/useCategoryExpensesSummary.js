@@ -4,12 +4,12 @@ import {ExpensesContext} from "../context";
 import {getAverageExpenseAmountPerCategoryPerMonth} from "../utils/expenses";
 
 export const useCategoryExpensesSummary = (categoryId, timestamp) => {
-    const {expensesArray} = useContext(ExpensesContext);
+    const {expenses} = useContext(ExpensesContext);
 
-    const averages = useMemo(() => getAverageExpenseAmountPerCategoryPerMonth(expensesArray), [expensesArray]);
+    const averages = useMemo(() => getAverageExpenseAmountPerCategoryPerMonth(expenses), [expenses]);
 
     return useMemo(() => {
-        const expensesInCategoryThisMonth = expensesArray.filter((expense) => {
+        const expensesInCategoryThisMonth = expenses.filter((expense) => {
             const date = new Date(timestamp);
             const expenseDate = new Date(expense.timestamp);
 
@@ -30,5 +30,5 @@ export const useCategoryExpensesSummary = (categoryId, timestamp) => {
             }, 0)),
             averages
         }
-    }, [categoryId, timestamp, expensesArray]);
+    }, [categoryId, timestamp, expenses]);
 }

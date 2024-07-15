@@ -20,7 +20,7 @@ const Subcategory = ({
                          thisMonthExpenses,
                          subcategoryBudget
                      }) => {
-    const {expensesArray: expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
+    const {expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const [budgetAmount] = useState(Number(subcategoryBudget || 0));
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {

@@ -3,7 +3,7 @@ import {X} from "@phosphor-icons/react";
 import {SimilarExpenses} from "../organisms/SimilarExpenses";
 import {LeanCategorySelection} from "../organisms/CategorySelection";
 import {useClickAway} from "react-use";
-import {useRef} from "react";
+import {useMemo, useRef} from "react";
 import {noop} from "lodash";
 
 export const ExpenseCategorySelectionModal = ({
@@ -14,6 +14,17 @@ export const ExpenseCategorySelectionModal = ({
                                                   onCategorySelect = noop,
                                               }) => {
     const ref = useRef(null);
+    const suggestedSubcategory = useMemo(() => {
+        const similarExpense = expenses.find(existingItem => {
+            if (!existingItem.subcategoryId) {
+                return false;
+            }
+
+            return existingItem.name.toLowerCase() === expense.name.toLowerCase();
+        });
+
+        return similarExpense?.subcategoryId;
+    }, [expenses]);
 
     useClickAway(ref, () => {
         onClose();
@@ -28,7 +39,7 @@ export const ExpenseCategorySelectionModal = ({
             className={classNames({
                 "backdrop-blur-md": true,
                 "backdrop-brightness-50": false,
-                "fixed m-auto z-30 inset-0": true,
+                "fixed m-auto z-40 inset-0": true,
                 "flex flex-col items-center justify-center": true,
             })}>
             <div className="mb-4 rounded-full bg-black p-8">
@@ -40,6 +51,9 @@ export const ExpenseCategorySelectionModal = ({
             })}>
                 <SimilarExpenses expense={expense} existingExpenses={expenses}/>
                 <LeanCategorySelection onCategorySelect={onCategorySelect}/>
+                <div>
+                    <h3 className="text-4xl">{suggestedSubcategory}</h3>
+                </div>
             </div>
         </div>
     );

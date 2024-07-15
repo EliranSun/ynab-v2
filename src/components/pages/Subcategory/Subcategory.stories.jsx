@@ -8,7 +8,7 @@ export default {
     decorators: [
         (Story) => (
             <ExpensesContext.Provider value={{
-                expensesArray: [
+                expenses: [
                     {id: 1, categoryId: 'cat1', amount: 100, timestamp: new Date()},
                     {id: 2, categoryId: 'cat1', amount: 150, timestamp: new Date()},
                 ],

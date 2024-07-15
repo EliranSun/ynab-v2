@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {CaretDown, EyeSlash, FloppyDisk, Trash} from "@phosphor-icons/react";
+import {Spinner, Check, EyeSlash, FloppyDisk, X, Trash} from "@phosphor-icons/react";
 import {noop} from "lodash";
 import {msg} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
@@ -7,6 +7,7 @@ import {InputTypes} from "../pages/ParseExpensesList/constants";
 import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
 import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
 import {Button} from "../../features/CategoriesEdit/Button";
+import {useState} from "react";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -33,15 +34,16 @@ export const ExpenseInputs = ({
                                   onInputChange = noop,
                                   onRemove = noop,
                                   onHide = noop,
+                                  onSave = noop,
                                   isSaveDisabled = false,
                               }) => {
     const {_} = useLingui();
+    const [isLoading, setIsLoading] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(null);
 
     if (!isVisible || !expense) {
         return null;
     }
-
-    console.log({isSaveDisabled});
 
     return (
         <div className={classNames("text-right w-full", {
@@ -60,7 +62,7 @@ export const ExpenseInputs = ({
                 <Input
                     type="date"
                     disabled={readonly}
-                    defaultValue={formatDate(new Date())}
+                    defaultValue={formatDate(new Date(expense.timestamp)) || formatDate(new Date())}
                     onChange={(event) => {
                         onInputChange(InputTypes.DATE, event.target.value);
                     }}
@@ -71,8 +73,8 @@ export const ExpenseInputs = ({
                     disabled={readonly}
                     defaultValue={expense.name}
                     placeholder={_(InputPlaceholder.name)}
-                    onChange={(event) => {
-                        onInputChange(InputTypes.NAME, event.target.value);
+                    onChange={(value) => {
+                        onInputChange(InputTypes.NAME, value);
                     }}/>
             </div>
             <div className="w-28 shrink-0">
@@ -90,8 +92,8 @@ export const ExpenseInputs = ({
                 placeholder={_(InputPlaceholder.note)}
                 defaultValue={expense.note}
                 disabled={readonly}
-                onChange={(event) => {
-                    onInputChange(InputTypes.NOTE, event.target.value);
+                onChange={(value) => {
+                    onInputChange(InputTypes.NOTE, value);
                 }}/>
             <Button
                 variation={Button.Variation.HIDE}
@@ -101,8 +103,25 @@ export const ExpenseInputs = ({
             </Button>
             <Button
                 isDisabled={isSaveDisabled}
-                variation={Button.Variation.SAVE}>
-                <FloppyDisk/>
+                variation={Button.Variation.SAVE}
+                onClick={async () => {
+                    setIsLoading(true);
+                    try {
+                        await onSave();
+                        setIsSuccess(true);
+                    } catch (e) {
+                        console.error("Failed to save expense", e);
+                        setIsSuccess(false);
+                    } finally {
+                        setTimeout(() => {
+                            setIsLoading(false);
+                        }, 1500);
+                    }
+                }}>
+                {isLoading === null ?
+                    <FloppyDisk/> : isLoading ?
+                        <Spinner className="animate-spin"/> : isSuccess ?
+                            <Check/> : <X/>}
             </Button>
             <Button
                 onClick={onRemove}

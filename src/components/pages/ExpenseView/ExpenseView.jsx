@@ -12,7 +12,7 @@ import {SortBy} from "./constants";
 
 const ExpenseView = ({onCategoryClick = noop}) => {
     const {
-        expensesArray: expenses = []
+        expenses = []
     } = useContext(ExpensesContext);
     const [sort, setSort] = useState(SortBy.DATE);
     const {

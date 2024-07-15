@@ -33,7 +33,7 @@ export const ExpenseCategorySelection = ({
                     "w-full border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
                     "cursor-pointer hover:bg-black hover:text-white": !readonly,
                     "p-4 font-mono flex items-center justify-between": true,
-                    " rounded": true,
+                    "rounded": true,
                 })}
                 onClick={() => {
                     if (readonly) {
@@ -42,7 +42,7 @@ export const ExpenseCategorySelection = ({
 
                     setIsCategoryMenuOpen(true);
                 }}>
-                <div className="w-fit">{subcategoryLabel.slice(0, 10)}</div>
+                <div className="w-fit">{subcategoryLabel}</div>
                 <CaretDown/>
             </button>
             <ExpenseCategorySelectionModal

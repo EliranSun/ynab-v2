@@ -7,6 +7,10 @@ import {orderBy} from "lodash";
 import {ExpensesContext} from "../context";
 import {useClickAway} from "react-use";
 
+import {createPortal} from 'react-dom';
+import classNames from "classnames";
+import {X} from "@phosphor-icons/react";
+
 export const Search = () => {
     const {_} = useLingui();
     const ref = useRef(null);
@@ -15,8 +19,7 @@ export const Search = () => {
     const [isSearchResultsOpen, setIsSearchResultsOpen] = useState(false);
 
     const searchResults = useMemo(() => {
-        if (searchValue === "") {
-            setIsSearchResultsOpen(false);
+        if (searchValue === "" || searchValue.length < 3) {
             return [];
         }
 
@@ -28,7 +31,9 @@ export const Search = () => {
             );
         });
 
-        setIsSearchResultsOpen(filtered.length > 0);
+        if (filtered.length > 0) {
+            setIsSearchResultsOpen(true);
+        }
 
         return orderBy(filtered, ['timestamp'], "asc");
     }, [expenses, searchValue]);
@@ -41,13 +46,31 @@ export const Search = () => {
         <>
             <SearchInput
                 placeholder={_(msg`Search`)}
+                value={searchValue}
+                onFocus={() => setIsSearchResultsOpen(true)}
                 onChange={setSearchValue}
             />
-            {isSearchResultsOpen ?
+            {createPortal((
                 <div
                     ref={ref}
-                    className="fixed backdrop-blur-lg w-screen h-screen top-0 flex items-center justify-center">
-                    <div className="w-1/2 bg-white rounded-2xl p-4">
+                    className={classNames({
+                        "hidden": !isSearchResultsOpen,
+                        "flex flex-col items-center justify-center": true,
+                        "fixed backdrop-brightness-50 w-screen h-screen z-40 top-0": true,
+                    })}>
+
+                    <div
+                        onClick={() => setIsSearchResultsOpen(false)}
+                        className="mb-4 rounded-full bg-black p-8">
+                        <X size={32} color="white"/>
+                    </div>
+                    <div className="w-1/2 bg-white shadow-2xl rounded-2xl p-4 h-1/2 overflow-y-auto">
+                        <SearchInput
+                            placeholder={_(msg`Search`)}
+                            value={searchValue}
+                            onFocus={() => setIsSearchResultsOpen(true)}
+                            onChange={setSearchValue}
+                        />
                         {searchResults.map((expense) => (
                             <Expense
                                 isListView
@@ -56,7 +79,8 @@ export const Search = () => {
                             />
                         ))}
                     </div>
-                </div> : null}
+                </div>
+            ), document.getElementById("modal-root") || document.body)}
         </>
     )
 }

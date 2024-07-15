@@ -56,7 +56,7 @@ export const ParseExpensesList = ({
 
             const newExpenses = data.map(expense => {
                 const similarExpense = expenses.find(existingItem => {
-                    return existingItem.name === expense.name;
+                    return existingItem.name.toLowerCase() === expense.name.toLowerCase();
                 });
 
                 if (similarExpense?.categoryId) {

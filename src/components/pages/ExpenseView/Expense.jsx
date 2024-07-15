@@ -1,29 +1,20 @@
-import {useContext, useEffect, useState} from "react";
-import {deleteExpense} from "../../../utils/db";
+import {useContext, useState} from "react";
+import {deleteExpense, updateExpense} from "../../../utils/db";
 import {ExpensesContext} from "../../../context";
-import {ExpenseInputs} from "../../molecules/ExpenseInputs";
-import {v4 as uuid} from "uuid";
-import {InputTypes} from "../ParseExpensesList/constants";
 import {isEqual, noop} from "lodash";
+import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 
 const Expense = ({
                      expense,
                      isListView = false,
                      onHide = noop,
                  }) => {
-    const [isUpdated, setIsUpdated] = useState(false);
     const {refetch} = useContext(ExpensesContext);
     // const category = useMemo(() => getExpenseCategoryName(expense.categoryId), [expense]);
-
     const [newExpense, setNewExpense] = useState(expense);
-
-    useEffect(() => {
-        if (isUpdated) {
-            setTimeout(() => {
-                setIsUpdated(false);
-            }, 3000);
-        }
-    }, [isUpdated]);
+    if (!isEqual(newExpense, expense)) {
+        console.log("Expense changed", newExpense, expense);
+    }
 
     return (
         <ExpenseInputs
@@ -32,6 +23,10 @@ const Expense = ({
             // subcategoryLabel={category.subcategoryName}
             isSaveDisabled={isEqual(newExpense, expense)}
             onHide={onHide}
+            onSave={async () => {
+                await updateExpense(newExpense);
+                return refetch();
+            }}
             onInputChange={(type, value) => {
                 setNewExpense((prev) => {
                     const newExpense = {...prev};
@@ -42,7 +37,6 @@ const Expense = ({
             onRemove={async () => {
                 if (window.confirm(`Are you sure you want to delete ${expense.name}?`)) {
                     await deleteExpense(expense.id);
-                    setIsUpdated(true);
                     refetch();
                 }
             }}/>

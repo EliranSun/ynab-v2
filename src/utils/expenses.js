@@ -87,6 +87,7 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
             return row.name && row.amount && row.timestamp;
         });
 };
+
 export const getExpensesSummary = async ({budget, timestamp}) => {
     let totalExpenses = 0;
     let totalIncome = 0;
@@ -141,7 +142,7 @@ export const getExpensesSummary = async ({budget, timestamp}) => {
     };
 };
 
-export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
+export const getAverageExpenseAmountPerCategoryPerMonth = (expenses = []) => {
     let expensesByMonthByCategory = {};
 
     expenses.forEach((expense) => {

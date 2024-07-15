@@ -118,14 +118,20 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                 <section
                     className={classNames({
                         "bg-neutral-50 p-2": true,
-                        "overflow-y-auto": true,
+                        // "overflow-y-auto": true,
                         "shadow-lg border-2 border-solid rounded-lg": true,
                     })}>
-                    <BottomLine
-                        totalSpent={totalSpent}
-                        timeframeName={TimeframeNames[timeframeName]}
-                        budgetForTimeframe={budgetForTimeframe}
-                        incomeAmountForTimeframe={incomeAmountForTimeframe}/>
+                    <ExpensesSummaryFilters
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        setTimeframeName={setTimeframeName}/>
+                    <div className="sticky top-0 z-10 bg-white">
+                        <BottomLine
+                            totalSpent={totalSpent}
+                            timeframeName={TimeframeNames[timeframeName]}
+                            budgetForTimeframe={budgetForTimeframe}
+                            incomeAmountForTimeframe={incomeAmountForTimeframe}/>
+                    </div>
 
                     <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
                         <div className="w-full h-fit">
@@ -140,7 +146,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                 onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
                                 Sorting by {sortBy}
                             </button>
-                            <div className="h-96 overflow-y-auto">
+                            <div className="h-fit overflow-y-auto">
                                 {lastItems.map(item => {
                                     return (
                                         <Expense
@@ -155,11 +161,6 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                             </div>
                         </div>
                     </div>
-
-                    <ExpensesSummaryFilters
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
                 </section>
             </div>
         )

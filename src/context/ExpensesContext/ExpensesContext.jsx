@@ -56,7 +56,6 @@ export const ExpensesContextProvider = ({children}) => {
     const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
-    // const [expensesArray, setExpensesArray] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
     const [budget] = useContext(BudgetContext);
     const {user} = useContext(UserContext);
@@ -145,7 +144,6 @@ export const ExpensesContextProvider = ({children}) => {
         const modeledExpenses = expenses.map(expense => new Expense(expense));
 
         setExpenses(modeledExpenses);
-        // setExpensesArray(Object.values(modeledExpenses));
         setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
 
         const newCategories = {};
@@ -221,7 +219,6 @@ export const ExpensesContextProvider = ({children}) => {
         <ExpensesContext.Provider
             value={{
                 expenses,
-                // expensesArray,
                 expensesPerMonthPerCategory,
                 categories,
                 categoriesByAmount,

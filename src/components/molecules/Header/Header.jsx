@@ -14,7 +14,7 @@ export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex sticky md:static top-0 w-screen">
+        <div className="flex sticky md:static top-0 z-40 w-screen">
             <header
                 className={classNames({
                     "bg-white text-xs md:text-base": true,

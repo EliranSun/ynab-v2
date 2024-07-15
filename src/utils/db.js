@@ -145,6 +145,7 @@ export const updateSubcategory = async ({id, name, icon}) => {
 };
 
 export const getExpenses = async () => {
+    console.info("Getting expenses...");
     const {data, error} = await supabase
         .from("expenses")
         .select("*");
@@ -209,6 +210,19 @@ export const deleteExpense = async (expenseId) => {
         .from("expenses")
         .delete()
         .eq("id", expenseId);
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
+
+export const updateExpense = async (expense) => {
+    const {data, error} = await supabase
+        .from("expenses")
+        .update(new Expense(expense))
+        .eq("id", expense.id);
 
     if (error) {
         throw error;

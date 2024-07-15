@@ -15,12 +15,14 @@ import {ManageBudget} from "./features/ManageBudget/ManageBudget";
 import {CategoriesProvider} from "./context/CategoriesContext";
 import {Routes} from "./constants/route";
 import {TooltipProvider} from "./context/TooltipContext";
+import React from "react";
 
 function App() {
     return (
         <LocaleProvider>
             <ToastProvider>
                 <TooltipProvider>
+                    <div id="modal-root"/>
                     <RouterProvider router={router}/>
                     <div className="fixed -z-10">
                         <img

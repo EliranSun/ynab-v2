@@ -59,14 +59,14 @@ export const CategoryBalance = ({
                                     setSelectedId
                                 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const {expensesArray} = useContext(ExpensesContext);
+    const {expenses} = useContext(ExpensesContext);
     const [budget] = useContext(BudgetContext);
     const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
 
     const subcategories = useMemo(() => {
         const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
             const subcategoryBudget = subcategoryBudgets[subcategory.id];
-            const expensesInCategory = expensesArray.filter((expense) => {
+            const expensesInCategory = expenses.filter((expense) => {
                 return expense.categoryId === subcategory.id;
             });
             const thisMonthExpenses = expensesInCategory.filter((expense) => {
@@ -101,7 +101,7 @@ export const CategoryBalance = ({
 
 
         return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
-    }, [budget, categoryId, currentTimestamp, expensesArray]);
+    }, [budget, categoryId, currentTimestamp, expenses]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 

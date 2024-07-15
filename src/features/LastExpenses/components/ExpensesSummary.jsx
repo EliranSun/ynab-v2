@@ -1,12 +1,5 @@
 import {useContext, useMemo, useState} from "react";
-import {
-    isAfter,
-    isBefore,
-    startOfMonth,
-    endOfMonth,
-    getYear,
-    getMonth
-} from "date-fns";
+import {endOfMonth, getMonth, getYear, isAfter, isBefore, startOfMonth} from "date-fns";
 import {formatCurrency} from "../../../utils";
 import ExpensesSummaryChart from "./ExpensesSummaryChart";
 import {ExpensesSummaryFilters} from "./ExpensesSummaryFilters";
@@ -17,36 +10,8 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 import Expense from "../../../components/pages/ExpenseView/Expense";
 import {Button} from "../../CategoriesEdit/Button";
 import {EyeSlash} from "@phosphor-icons/react";
-import {useLingui} from "@lingui/react";
-import {round} from "lodash";
-
-const Item = ({children}) => {
-    return (
-        <div className="flex flex-col md:items-start">
-            {children}
-        </div>
-    );
-};
-
-const Amount = ({children, withRounding = false, isDifference, size = Amount.Size.MEDIUM}) => {
-    const value = (children);
-    if (isNaN(value)) {
-        return value;
-    }
-
-    return (
-        <h2 className={classNames({
-            "font-mono": true,
-            "text-xs md:text-sm": size === Amount.Size.SMALL,
-            "text-3xl md:text-5xl": size === Amount.Size.MEDIUM,
-            "text-4xl md:text-8xl": size === Amount.Size.LARGE,
-            "text-green-500": isDifference && (value >= 0),
-            "text-red-500": isDifference && (value < 0),
-        })}>
-            {formatCurrency(round(value, withRounding ? -1 : 0), false, true)}
-        < /h2>
-    );
-};
+import {BottomLine} from "../../../components/molecules/BottomLine/BottomLine";
+import {Amount} from "../../../components/molecules/BottomLine/Amount";
 
 Amount.Size = {
     SMALL: "small",
@@ -54,58 +19,6 @@ Amount.Size = {
     LARGE: "large",
 }
 
-const BottomLine = ({
-                        totalSpent,
-                        timeframeName,
-                        budgetForTimeframe,
-                        incomeAmountForTimeframe,
-                    }) => {
-    const {_} = useLingui();
-    const differenceBudgetAmount = budgetForTimeframe - totalSpent;
-    const differenceAmount = incomeAmountForTimeframe - totalSpent;
-
-    return (
-        <div>
-            <h1>{_(timeframeName)}</h1>
-            <div className="flex items-center justify-evenly gap-2 my-4 m-auto">
-                <Item>
-                    <Amount size={Amount.Size.LARGE}>{-totalSpent}</Amount>
-                    <h1 className="text-sm">
-                        <Trans>Spent</Trans>
-                    </h1>
-                </Item>
-                <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-2 bg-white py-2 shadow rounded-2xl gap-8">
-                        <Item>
-                            <Amount withRounding>{budgetForTimeframe}</Amount>
-                            <h1 className="font-mono">
-                                <Trans>Budget</Trans>
-                            </h1>
-                        </Item>
-                        <Item>
-                            <Amount isDifference>{differenceBudgetAmount}</Amount>
-                            <h1 className="font-mono">
-                                <Trans>left</Trans>
-                            </h1>
-                        </Item>
-                    </div>
-                    <div className="grid grid-cols-2 bg-white p-2 shadow rounded-2xl gap-8">
-                        <Item>
-                            <Amount withRounding>{incomeAmountForTimeframe}</Amount>
-                            <h1 className="font-mono"><Trans>Income</Trans></h1>
-                        </Item>
-                        <Item>
-                            <Amount isDifference>{differenceAmount}</Amount>
-                            <h1 className="font-mono">
-                                <Trans>left</Trans>
-                            </h1>
-                        </Item>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
 export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const currentYear = getYear(new Date());
         const currentMonth = getMonth(new Date());

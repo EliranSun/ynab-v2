@@ -1,12 +1,24 @@
 import classNames from "classnames";
 import {CaretDown} from "@phosphor-icons/react";
-import {useContext, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import {CategoriesContext} from "../../context/CategoriesContext";
 import {noop} from "lodash";
 import {ExpenseCategorySelectionModal} from "../molecules/ExpenseCategorySelectionModal";
 import {ExpensesContext} from "../../context";
 import {useLingui} from "@lingui/react";
+import {msg} from "@lingui/macro";
 
+const getSimilarSubcategory = (expense, expenses = []) => {
+    const similarExpense = expenses.find(existingExpense => {
+        if (!existingExpense.subcategoryId) {
+            return false;
+        }
+
+        return existingExpense.name.toLowerCase().includes(expense.name.toLowerCase());
+    });
+
+    return similarExpense?.subcategory;
+}
 export const ExpenseCategorySelection = ({
                                              expense = {},
                                              onCategorySelect = noop,
@@ -23,16 +35,36 @@ export const ExpenseCategorySelection = ({
             .flat()
             .find(subcategory => subcategory.id === selectedSubcategoryId);
 
-        return subcategory ? `${subcategory.icon} ${subcategory.name}` : _("Subcategory");
-    }, [categories, selectedSubcategoryId]);
+        if (subcategory) {
+            return `${subcategory.icon} ${subcategory.name}`;
+        }
+
+        const similarSubcategory = getSimilarSubcategory(expense, expenses);
+        if (similarSubcategory) {
+            return `${similarSubcategory.icon} ${similarSubcategory.name}`;
+        }
+
+        return _(msg`Select Subcategory`);
+    }, [expense, expenses, categories, selectedSubcategoryId]);
+
+    useEffect(() => {
+        const similarSubcategory = getSimilarSubcategory(expense, expenses);
+
+        if (similarSubcategory && !selectedSubcategoryId) {
+            setSelectedSubcategoryId(similarSubcategory.id);
+            onCategorySelect(similarSubcategory.id);
+        }
+    }, [expense, expenses]);
 
     return (
         <>
             <button
                 className={classNames({
-                    "w-full border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
+                    "w-full border border-gray-300 text-black": !isCategoryMenuOpen,
                     "cursor-pointer hover:bg-black hover:text-white": !readonly,
                     "p-4 font-mono flex items-center justify-between": true,
+                    "bg-blue-100": Boolean(selectedSubcategoryId),
+                    "bg-white": !selectedSubcategoryId,
                     "rounded": true,
                 })}
                 onClick={() => {
@@ -42,7 +74,9 @@ export const ExpenseCategorySelection = ({
 
                     setIsCategoryMenuOpen(true);
                 }}>
-                <div className="w-fit">{subcategoryLabel}</div>
+                <div className="w-fit">
+                    {subcategoryLabel}
+                </div>
                 <CaretDown/>
             </button>
             <ExpenseCategorySelectionModal

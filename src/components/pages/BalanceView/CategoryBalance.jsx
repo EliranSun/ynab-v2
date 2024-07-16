@@ -119,7 +119,7 @@ export const CategoryBalance = ({
             "bg-gray-200": !isNsfw,
         })}>
             <div
-                className="cursor-pointer mb-4 flex md:flex-col items-start justify-between"
+                className="cursor-pointer mb-4 flex md:flex-col items-start justify-between bg-gray-100"
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <div className="font-black font-mono text-3xl">
                     {formatCurrency(round(totalExpensesSum, -1), false, false)}

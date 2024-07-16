@@ -1,10 +1,7 @@
 import {Expense} from "../models";
 import {isSameMonth, startOfMonth, subMonths} from "date-fns";
-import {getExpenses} from "./firebase";
-import {Categories} from "../constants";
 import {orderBy} from "lodash";
 import {getLastBudgetByCategory} from "./budget";
-import {formatCurrency} from "./currency";
 
 const RecurringExpenses = [
     "מרכז הספורט",
@@ -33,7 +30,7 @@ export const isExistingExpense = (newExpense, expenses) => {
 
         return (
             expense.name === newExpense.name &&
-            expense.timestamp === newExpense.timestamp &&
+            (expense.date === newExpense.date || expense.timestamp === newExpense.timestamp) &&
             newExpense.amount === expense.amount
         );
     });

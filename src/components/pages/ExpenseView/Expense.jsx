@@ -6,21 +6,16 @@ import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 
 const Expense = ({
                      expense,
-                     isListView = false,
+                     isListView: isVisible = false,
                      onHide = noop,
                  }) => {
     const {refetch} = useContext(ExpensesContext);
-    // const category = useMemo(() => getExpenseCategoryName(expense.categoryId), [expense]);
     const [newExpense, setNewExpense] = useState(expense);
-    if (!isEqual(newExpense, expense)) {
-        console.log("Expense changed", newExpense, expense);
-    }
 
     return (
         <ExpenseInputs
             expense={expense}
-            isVisible={isListView}
-            // subcategoryLabel={category.subcategoryName}
+            isVisible={isVisible}
             isSaveDisabled={isEqual(newExpense, expense)}
             onHide={onHide}
             onSave={async () => {

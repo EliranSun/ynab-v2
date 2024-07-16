@@ -1,12 +1,13 @@
-import { useState, useMemo } from "react";
-import { Title } from "../atoms";
-import { withExpensesContext } from "../../HOC/withExpensesContext";
-import { getExistingExpenses } from "../../utils/expenses";
-import { Check, X } from "@phosphor-icons/react";
-import { noop } from "lodash";
+import {useState, useMemo} from "react";
+import {Title} from "../atoms";
+import {withExpensesContext} from "../../HOC/withExpensesContext";
+import {getExistingExpenses} from "../../utils/expenses";
+import {Check, X} from "@phosphor-icons/react";
+import {noop} from "lodash";
 import Expense from "./ExpenseView/Expense";
+import {Trans} from "@lingui/macro";
 
-const DoubleExpenseItem = ({ expense, deleteExpense }) => {
+const DoubleExpenseItem = ({expense, deleteExpense}) => {
     const [optimisticIsDeleted, setOptimisticIsDeleted] = useState(false);
 
     if (optimisticIsDeleted) {
@@ -38,15 +39,15 @@ const DoubleExpenseItem = ({ expense, deleteExpense }) => {
     );
 };
 
-const SeeingDoublePage = ({
-    expenses = [],
-    deleteExpense = noop,
-    refetchExpenses = noop,
-    markExpensesAsOriginal = noop
-}) => {
+const TheResolver = ({
+                         expenses = [],
+                         deleteExpense = noop,
+                         refetchExpenses = noop,
+                         markExpensesAsOriginal = noop
+                     }) => {
     const forgottenExpenses = useMemo(() => {
         return expenses.filter(expense => {
-            return !expense.categoryId;
+            return !expense.subcategoryId;
         });
     }, [expenses]);
 
@@ -71,11 +72,18 @@ const SeeingDoublePage = ({
 
     return (
         <section className="">
-            <Title>Seeing Double</Title>
+            <Title><Trans>The Resolver</Trans></Title>
             <Title type={Title.Types.H2}>
                 {duplicateExpenses.length === 0
-                    ? "Yay, no duplicates! 🎉🎊🥳" :
-                    `${expenses.length} expenses, ${duplicateExpenses.length} duplicates`}
+                    ? <>
+                        <Trans>No duplicates</Trans>! 🎉🎊🥳
+                    </> : (
+                        <>
+                            {expenses.length} <Trans>expenses</Trans> {duplicateExpenses.length}{' '}
+                            <Trans>duplicates</Trans>
+                        </>
+                    )
+                }
             </Title>
             <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
                 {duplicateExpenses.map((expenses, index) => {
@@ -105,16 +113,20 @@ const SeeingDoublePage = ({
             </div>
             <Title type={Title.Types.H2}>
                 {forgottenExpenses.length === 0
-                    ? "No forgotten expenses! 🎉🎊🥳" :
-                    `${forgottenExpenses.length} forgotten`}
+                    ? <><Trans>No forgotten expenses</Trans>🎉🎊🥳</> :
+                    <>{forgottenExpenses.length} <Trans>forgotten</Trans></>}
             </Title>
             <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
                 {forgottenExpenses.map(expense => {
-                    return <Expense expense={expense}/>;
+                    return (
+                        <Expense
+                            key={expense.id}
+                            expense={expense} isListView/>
+                    );
                 })}
             </div>
         </section>
     )
 }
 
-export default withExpensesContext(SeeingDoublePage);
+export default withExpensesContext(TheResolver);

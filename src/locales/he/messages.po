@@ -71,7 +71,7 @@ msgstr "במציאות:"
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:56
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:54
 msgid "Add Expense"
 msgstr "הוספת תנועה"
 
@@ -87,7 +87,7 @@ msgstr "סכום"
 msgid "Are you sure you want to delete this category?"
 msgstr "האם אתה בטוח שאתה רוצה למחוק את הקטגוריה הזאת"
 
-#: src/features/CategoriesEdit/Subcategory.jsx:59
+#: src/features/CategoriesEdit/Subcategory.jsx:60
 msgid "Are you sure you want to delete this sub-category?"
 msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
 
@@ -95,7 +95,7 @@ msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגו
 msgid "Authoring"
 msgstr "כתיבה"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+#: src/components/pages/BalanceView/CategoryBalance.jsx:44
 msgid "average"
 msgstr "ממוצע"
 
@@ -131,7 +131,7 @@ msgstr "ברים"
 msgid "Books"
 msgstr "ספרים"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+#: src/components/pages/BalanceView/CategoryBalance.jsx:35
 msgid "budget"
 msgstr "תקציב"
 
@@ -231,7 +231,7 @@ msgid "delete"
 msgstr "מחיקה"
 
 #: src/features/CategoriesEdit/CategoryActions.jsx:72
-#: src/features/CategoriesEdit/Subcategory.jsx:64
+#: src/features/CategoriesEdit/Subcategory.jsx:65
 msgid "Deleted successfully"
 msgstr "מחיקה בוצעה בהצלחה"
 
@@ -263,6 +263,10 @@ msgstr "מסעדות"
 msgid "Donations"
 msgstr "תרומות"
 
+#: src/components/pages/TheResolver.jsx:83
+msgid "duplicates"
+msgstr "כפולים"
+
 #: src/constants/index.js:58
 #~ msgid "Edit Categories"
 #~ msgstr "עריכת קטגוריות"
@@ -286,6 +290,10 @@ msgstr "הוצאות קיימות"
 #: src/features/CategoriesEdit/CategoryIncomeButton.jsx:26
 msgid "expense"
 msgstr "הוצאה"
+
+#: src/components/pages/TheResolver.jsx:82
+msgid "expenses"
+msgstr "הוצאות"
 
 #: src/constants/index.js:48
 #: src/constants/index.js:76
@@ -324,6 +332,10 @@ msgstr "עמלות"
 #: src/features/LastExpenses/components/LastExpensesFilters.jsx:76
 msgid "Filters"
 msgstr "סננים"
+
+#: src/components/pages/TheResolver.jsx:117
+msgid "forgotten"
+msgstr "נשכחו"
 
 #: src/constants/categories.js:283
 msgid "Friends"
@@ -412,7 +424,7 @@ msgstr "אני בצרות."
 #~ msgid "Import"
 #~ msgstr "יבוא"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:36
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:50
 msgid "Import from file"
 msgstr "יבוא מקובץ"
 
@@ -469,7 +481,7 @@ msgstr "נשאר"
 #~ msgid "Left 😄"
 #~ msgstr "נשאר 😄"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:27
 msgid "left to spend"
 msgstr "נשאר להוציא"
 
@@ -535,6 +547,14 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
+#: src/components/pages/TheResolver.jsx:79
+msgid "No duplicates"
+msgstr "אין כפולים"
+
+#: src/components/pages/TheResolver.jsx:116
+msgid "No forgotten expenses"
+msgstr "אין נשכחים"
+
 #: src/features/CategoriesEdit/Subcategories.jsx:35
 msgid "No subcategories for this category"
 msgstr "אין תת קטגוריות"
@@ -568,7 +588,7 @@ msgstr "אחר"
 #~ msgid "Over 😢"
 #~ msgstr "חריגה 😢"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:27
 msgid "over budget"
 msgstr "חריגה מהתקציב"
 
@@ -576,7 +596,7 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:127
 #: src/constants/index.js:33
 #: src/constants/index.js:74
 msgid "Parse"
@@ -645,13 +665,22 @@ msgstr "שמירה"
 msgid "Save Budget"
 msgstr "שמור תקציב"
 
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:130
+msgid "saved"
+msgstr "נשמר"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
 
-#: src/features/Search.jsx:43
+#: src/features/Search.jsx:48
+#: src/features/Search.jsx:69
 msgid "Search"
 msgstr "חיפוש"
+
+#: src/components/organisms/ExpenseCategorySelection.jsx:47
+msgid "Select Subcategory"
+msgstr "בחר תת קטגוריה"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:158
 msgid "Sheet"
@@ -685,6 +714,10 @@ msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחו
 msgid "Summary"
 msgstr "תמונת מצב"
 
+#: src/components/pages/TheResolver.jsx:75
+msgid "The Resolver"
+msgstr "המיישב"
+
 #: src/constants/categories.js:201
 msgid "Therapist"
 msgstr "פסיכולוג"
@@ -717,7 +750,7 @@ msgstr "סך הוצאות מתוכננות"
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:84
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:129
 msgid "Transactions"
 msgstr "תנועות"
 

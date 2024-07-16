@@ -1,11 +1,11 @@
 import {createContext, useCallback, useContext, useEffect, useState} from "react";
 import {noop} from "lodash";
-import {addExpenses, deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
+import {deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
 import {Categories, getCategoryBySubcategoryId} from "../../constants";
 import {BudgetContext} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
-import {getAllExpensesWithPagination} from "../../utils/db";
+import {getAllExpensesWithPagination, addExpenses} from "../../utils/db";
 import {UserContext} from "../UserContext";
 
 export const ExpensesContext = createContext({
@@ -144,8 +144,7 @@ export const ExpensesContextProvider = ({children}) => {
         const modeledExpenses = expenses.map(expense => new Expense(expense));
 
         setExpenses(modeledExpenses);
-        const foo = getExpensesPerMonthPerCategory(Object.values(modeledExpenses));
-        setExpensesPerMonthPerCategory(foo);
+        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
 
         const newCategories = {};
         const expensesThisMonth = Object.values(modeledExpenses).filter(expense => {
@@ -239,7 +238,7 @@ export const ExpensesContextProvider = ({children}) => {
 
                     try {
                         await addExpenses(newExpenses);
-                        setExpenses(expensesObject);
+                        // setExpenses(expensesObject);
                     } catch (error) {
                         console.error(`Error adding expenses - ${error.message}`);
                     }

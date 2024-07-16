@@ -1,11 +1,9 @@
-import {Categories} from "../../../constants";
 import {noop} from "lodash"
-import {LeanCategorySelection} from "../../organisms/CategorySelection";
 import {Button, Spinner} from "../../atoms";
-import {useEffect, useMemo, useState} from "react";
-import {SimilarExpenses} from "../../organisms/SimilarExpenses";
+import {useContext, useEffect, useMemo, useState} from "react";
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import classNames from "classnames";
+import {CategoriesContext} from "../../../context/CategoriesContext";
 
 export const ExpensesList = ({
                                  expenses = [],
@@ -14,14 +12,14 @@ export const ExpensesList = ({
                                  submitExpenses = noop,
                                  deleteExpense = noop,
                              }) => {
-        const [isCategorySelectionVisible, setIsCategorySelectionVisible] = useState(true);
+        const {categories} = useContext(CategoriesContext);
         const [isLoading, setIsLoading] = useState(false);
         const expensesWithCategory = useMemo(() => expenses.filter((expense) => {
-            return !!expense.categoryId;
+            return !!expense.subcategoryId;
         }), [expenses]);
 
         const [activeId, setActiveId] = useState(expenses.find((expense) => {
-            return !expense.categoryId;
+            return !expense.subcategoryId;
         })?.id || null);
 
         useEffect(() => {
@@ -67,13 +65,6 @@ export const ExpensesList = ({
                 <div className="max-w-screen-xl border-2 border-gray-500 bg-white p-8 h-[90vh] overflow-y-auto">
                     <div className="flex justify-between bg-white">
                         <Button
-                            type={Button.Types.GHOST_BORDERED}
-                            onClick={() => {
-                                setIsCategorySelectionVisible(!isCategorySelectionVisible);
-                            }}>
-                            {isCategorySelectionVisible ? "Hide" : "Show"} category selection
-                        </Button>
-                        <Button
                             isDisabled={isLoading || expensesWithCategory.length === 0}
                             className="flex items-center gap-2"
                             onClick={async () => {
@@ -89,9 +80,9 @@ export const ExpensesList = ({
                     <div className="mb-4 snap-y overflow-y-auto xl:p-4">
                         {expenses.map((expense, index) => {
                             let subcategory;
-                            Categories.forEach((category) => {
-                                category.subCategories.forEach((sub) => {
-                                    if (sub.id === expense.categoryId) {
+                            categories.forEach((category) => {
+                                category.subcategories.forEach((sub) => {
+                                    if (sub.id === expense.subcategoryId) {
                                         subcategory = sub;
                                     }
                                 });
@@ -99,18 +90,13 @@ export const ExpensesList = ({
 
                             return (
                                 <div
-                                    key={expense.id}
-                                    className="snap-start"
                                     id={expense.id}
+                                    key={expense.id}
                                     onClick={() => setActiveId(expense.id)}>
                                     <ExpenseInputs
                                         index={index}
-                                        name={expense.name}
-                                        note={expense.note}
-                                        amount={expense.amount}
-                                        date={expense.date}
-                                        timestamp={expense.timestamp}
-                                        isVisible={isCategorySelectionVisible}
+                                        expense={expense}
+                                        isVisible
                                         subcategory={subcategory}
                                         onRemove={() => {
                                             setExpenses((prev) => {
@@ -129,20 +115,6 @@ export const ExpensesList = ({
                                             });
                                         }}
                                     />
-                                    {isCategorySelectionVisible && activeId === expense.id &&
-                                        <>
-                                            <SimilarExpenses
-                                                expense={expense}
-                                                existingExpenses={existingExpenses}/>
-                                            <LeanCategorySelection
-                                                onCategorySelect={(categoryId) => {
-                                                    setExpenses((prev) => {
-                                                        const newExpenses = [...prev];
-                                                        newExpenses[index].categoryId = categoryId;
-                                                        return newExpenses;
-                                                    });
-                                                }}/>
-                                        </>}
                                 </div>
                             )
                         })}

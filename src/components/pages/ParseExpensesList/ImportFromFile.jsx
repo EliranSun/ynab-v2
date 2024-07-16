@@ -43,8 +43,6 @@ export const ImportFromFile = () => {
     const [pendingExpenses, setPendingExpenses] = useState(storedPendingExpenses || []);
     const [mappedExpenses, setMappedExpenses] = useState(storedMappedExpenses || []);
 
-    console.log({mappedExpenses});
-
     return (
         <Box>
             <div>

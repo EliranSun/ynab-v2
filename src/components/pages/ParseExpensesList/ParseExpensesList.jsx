@@ -92,7 +92,7 @@ export const ParseExpensesList = ({
         localStorage.setItem("parsed-expenses", JSON.stringify(parsedExpenses));
     }, [parsedExpenses]);
 
-    const setNewExpenses = () => {
+    const parseExpensesFromText = () => {
         if (!textAreaRef.current) {
             return;
         }
@@ -144,7 +144,7 @@ export const ParseExpensesList = ({
                     <Button
                         size={Button.Sizes.FULL}
                         isDisabled={value.length === 0}
-                        onClick={setNewExpenses}
+                        onClick={parseExpensesFromText}
                         className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
                             "animate-pulse duration-500": isStatusAnimated,
                         })}>
@@ -197,8 +197,8 @@ export const ParseExpensesList = ({
             </section>
 
             <ExpensesList
-                expenses={parsedExpenses}
                 existingExpenses={expenses}
+                expenses={parsedExpenses}
                 setExpenses={setParsedExpenses}
                 deleteExpense={expense => {
                     const newExpenses = parsedExpenses.filter(item => item.id !== expense.id);
@@ -207,7 +207,7 @@ export const ParseExpensesList = ({
                 }}
                 submitExpenses={async expenses => {
                     await setExpenses(expenses);
-                    const newExpenses = parsedExpenses.filter(item => !item.categoryId);
+                    const newExpenses = parsedExpenses.filter(item => !item.subcategoryId);
                     setParsedExpenses(newExpenses);
                     localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
                 }}/>

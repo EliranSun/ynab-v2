@@ -77,16 +77,16 @@ export const ExpenseInputs = ({
                         onInputChange(InputTypes.NAME, value);
                     }}/>
             </div>
-            <div className="w-28 shrink-0">
-                <Input
-                    type="number"
-                    disabled={readonly}
-                    defaultValue={expense.amount}
-                    placeholder={_(InputPlaceholder.amount)}
-                    onChange={(event) => {
-                        onInputChange(InputTypes.AMOUNT, event.target.value);
-                    }}
-                />
+            <div className="w-28 shrink-0 flex items-center">
+                ₪<Input
+                type="number"
+                disabled={readonly}
+                defaultValue={expense.amount}
+                placeholder={_(InputPlaceholder.amount)}
+                onChange={(event) => {
+                    onInputChange(InputTypes.AMOUNT, event.target.value);
+                }}
+            />
             </div>
             <TextInput
                 placeholder={_(InputPlaceholder.note)}

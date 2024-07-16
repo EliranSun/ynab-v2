@@ -73,40 +73,37 @@ const BalanceView = () => {
                     <BalanceSummary timestamp={currentTimestamp}/>
                     <RealityVsExpectation categories={categories} budgetSummary={budgetSummary}/>
                 </div>
-                <div className="w-full flex flex-col md:flex-row gap-4">
-                    <div
-                        className={classNames({
-                            "overflow-auto md:thin-scrollbar": true,
-                            "w-full md:w-2/3 md:h-fit": true,
-                            "flex flex-col md:flex-row md:flex-wrap gap-4": false,
-                            "grid grid-cols-1 xl:grid-cols-2": true,
-                        })}>
-                        {categories.summary.map((category) => {
-                            return (
-                                <CategoryBalance
-                                    isNsfw={isNsfw}
-                                    key={category.id}
-                                    selectedId={selectedId}
-                                    setSelectedId={setSelectedId}
-                                    categoryId={category.id}
-                                    subcategoriesIds={category.subcategories.map((subcategory) => subcategory.id)}
-                                    categoryName={category.icon + " " + category.name}
-                                    categoryBudget={category.budget}
-                                    subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
-                                    currentTimestamp={currentTimestamp}
-                                    isSameDate={isSameDate}
-                                    isPreviousMonth={isPreviousMonth}/>
-                            );
-                        })}
-                    </div>
-                    <div className="md:w-1/3">
-                        <SubcategoryExpensesList
-                            timestamp={currentTimestamp}
-                            selectedSubcategoryId={selectedId || selectedSubcategory?.id}
-                            subcategory={selectedSubcategory}/>
-                    </div>
+                <div className="md:w-full">
+                    <SubcategoryExpensesList
+                        timestamp={currentTimestamp}
+                        selectedSubcategoryId={selectedId || selectedSubcategory?.id}
+                        subcategory={selectedSubcategory}/>
                 </div>
-
+                <div
+                    className={classNames({
+                        "overflow-auto md:thin-scrollbar": true,
+                        "w-full md:h-fit": true,
+                        "flex flex-col md:flex-row gap-4": true,
+                        "grid grid-cols-1 xl:grid-cols-2": false,
+                    })}>
+                    {categories.summary.map((category) => {
+                        return (
+                            <CategoryBalance
+                                isNsfw={isNsfw}
+                                key={category.id}
+                                selectedId={selectedId}
+                                setSelectedId={setSelectedId}
+                                categoryId={category.id}
+                                subcategoriesIds={category.subcategories.map((subcategory) => subcategory.id)}
+                                categoryName={category.icon + " " + category.name}
+                                categoryBudget={category.budget}
+                                subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
+                                currentTimestamp={currentTimestamp}
+                                isSameDate={isSameDate}
+                                isPreviousMonth={isPreviousMonth}/>
+                        );
+                    })}
+                </div>
             </section>
         );
     }

@@ -109,28 +109,32 @@ export const CategoryBalance = ({
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
+    if (totalExpensesSum === 0) {
+        return null;
+    }
+
     return (
         <div className={classNames({
-            "md:h-fit p-2 md:p-4 box-border relative min-w-[360px] flex-grow shadow": true,
+            "md:h-fit p-2 md:p-4 box-border relative flex-grow shadow": true,
             "bg-gray-200": !isNsfw,
         })}>
             <div
-                className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
+                className="cursor-pointer mb-4 flex md:flex-col items-start justify-between"
                 onClick={() => setIsExpanded(!isExpanded)}>
+                <div className="font-black font-mono text-3xl">
+                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                </div>
                 <Title type={Title.Types.H4}>
                     {categoryName}
                 </Title>
-                <div className="font-black font-mono text-4xl">
-                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
-                </div>
             </div>
-            <DataStrip
-                categoryId={categoryId}
-                categoryBudget={categoryBudget}
-                averages={averages}
-                diff={diff}/>
+            {/*<DataStrip*/}
+            {/*    categoryId={categoryId}*/}
+            {/*    categoryBudget={categoryBudget}*/}
+            {/*    averages={averages}*/}
+            {/*    diff={diff}/>*/}
             {isExpanded ?
-                <div className="flex flex-col gap-2 my-4 w-full md:h-fit overflow-x-hidden overflow-y-auto px-2">
+                <div className="flex flex-col gap-4 w-full md:h-fit overflow-x-hidden overflow-y-auto">
                     {subcategories.map((subcategory) => {
                         return (
                             <Subcategory

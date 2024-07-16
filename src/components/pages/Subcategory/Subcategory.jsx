@@ -44,7 +44,7 @@ const Subcategory = ({
 
     const averageAmount = getAverageSubcategoryAmount(String(id), expensesPerMonthPerCategory);
 
-    if (thisMonthAmount === formatCurrency(0)) {
+    if (thisMonthAmount === formatCurrency(0, false, false)) {
         return null;
     }
 
@@ -53,39 +53,41 @@ const Subcategory = ({
         : intThisMonthAmount.current > budgetAmount;
 
     return (
-        <div className="bg-white/80 p-3 md:min-w-60 flex justify-between">
-            <div
-                className="md:p-4 cursor-pointer flex flex-col justify-between items-start"
-                onClick={() => onSubcategoryClick(isSelected ? null : id)}>
+        <div
+            className={classNames({
+                "cursor-pointer flex flex-col justify-between items-start": true,
+                "bg-gray-200": isSelected,
+            })}
+            onClick={() => onSubcategoryClick(isSelected ? null : id)}>
+            <div className="flex flex-col items-start">
+                <div className={classNames({
+                    "font-black text-3xl font-mono": true,
+                    "text-red-500": isPositiveDiff,
+                    "text-green-400": !isPositiveDiff
+                })}>
+                    {thisMonthAmount}
+                </div>
                 <Title type={Title.Types.H4} className="truncate flex">
                     {icon.slice(0, 2)} {name}
                 </Title>
-                <div className="">
-                    <div className="flex gap-4 w-full justify-end">
-                        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <Faders/>
-                            {averageAmount}
-                        </div>
-                        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <ArrowBendDownLeft/>
-                            {totalInPreviousMonth}
-                        </div>
-                        <SubcategoryBudget
-                            categoryId={categoryId}
-                            subcategoryId={id}
-                            isMeetingBudget={!isPositiveDiff}
-                            budgetAmount={budgetAmount}/>
-                    </div>
-                </div>
             </div>
-
-            <div className={classNames({
-                "font-black text-3xl font-mono mb-2": true,
-                "text-red-500": isPositiveDiff,
-                "text-green-400": !isPositiveDiff
-            })}>
-                {thisMonthAmount}
-            </div>
+            {/*<div className="">*/}
+            {/*    <div className="flex gap-4 w-full justify-end">*/}
+            {/*        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">*/}
+            {/*            <Faders/>*/}
+            {/*            {averageAmount}*/}
+            {/*        </div>*/}
+            {/*        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">*/}
+            {/*            <ArrowBendDownLeft/>*/}
+            {/*            {totalInPreviousMonth}*/}
+            {/*        </div>*/}
+            {/*        <SubcategoryBudget*/}
+            {/*            categoryId={categoryId}*/}
+            {/*            subcategoryId={id}*/}
+            {/*            isMeetingBudget={!isPositiveDiff}*/}
+            {/*            budgetAmount={budgetAmount}/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 };

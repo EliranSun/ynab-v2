@@ -30,7 +30,7 @@ export const MenuPages = {
     },
     import: {
         name: 'import',
-        label: msg`Parse`,
+        label: msg`add`,
         icon: ArrowSquareIn,
     },
     budget: {
@@ -43,11 +43,11 @@ export const MenuPages = {
         label: msg`Balance`,
         icon: Scales,
     },
-    expenses: {
-        name: 'expenses',
-        label: msg`Expenses`,
-        icon: Receipt,
-    },
+    // expenses: {
+    //     name: 'expenses',
+    //     label: msg`Expenses`,
+    //     icon: Receipt,
+    // },
     categories: {
         name: 'categories',
         label: msg`Categories`,

@@ -58,6 +58,10 @@ msgstr "Actual"
 msgid "Actual:"
 msgstr "Actual:"
 
+#: src/constants/index.js:33
+msgid "add"
+msgstr "add"
+
 #: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "Add Category"
@@ -282,7 +286,6 @@ msgstr "expense"
 msgid "expenses"
 msgstr "expenses"
 
-#: src/constants/index.js:48
 #: src/constants/index.js:76
 msgid "Expenses"
 msgstr "Expenses"
@@ -588,7 +591,6 @@ msgid "over my budget"
 msgstr "over my budget"
 
 #: src/components/pages/ParseExpensesList/ImportFromFile.jsx:127
-#: src/constants/index.js:33
 #: src/constants/index.js:74
 msgid "Parse"
 msgstr "Parse"

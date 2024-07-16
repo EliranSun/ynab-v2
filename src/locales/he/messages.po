@@ -67,6 +67,10 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
+#: src/constants/index.js:33
+msgid "add"
+msgstr "הוספה"
+
 #: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
@@ -295,7 +299,6 @@ msgstr "הוצאה"
 msgid "expenses"
 msgstr "הוצאות"
 
-#: src/constants/index.js:48
 #: src/constants/index.js:76
 msgid "Expenses"
 msgstr "הוצאות"
@@ -597,7 +600,6 @@ msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
 #: src/components/pages/ParseExpensesList/ImportFromFile.jsx:127
-#: src/constants/index.js:33
 #: src/constants/index.js:74
 msgid "Parse"
 msgstr "פירסור"

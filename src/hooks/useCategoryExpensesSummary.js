@@ -3,7 +3,7 @@ import {isSameMonth} from "date-fns";
 import {ExpensesContext} from "../context";
 import {getAverageExpenseAmountPerCategoryPerMonth} from "../utils/expenses";
 
-export const useCategoryExpensesSummary = (categoryId, timestamp) => {
+export const useCategoryExpensesSummary = (subcategoriesIds, timestamp) => {
     const {expenses} = useContext(ExpensesContext);
 
     const averages = useMemo(() => getAverageExpenseAmountPerCategoryPerMonth(expenses), [expenses]);
@@ -13,7 +13,7 @@ export const useCategoryExpensesSummary = (categoryId, timestamp) => {
             const date = new Date(timestamp);
             const expenseDate = new Date(expense.timestamp);
 
-            if (expense.mainCategoryId !== categoryId) {
+            if (!subcategoriesIds.includes(expense.subcategoryId)) {
                 return false;
             }
 
@@ -30,5 +30,5 @@ export const useCategoryExpensesSummary = (categoryId, timestamp) => {
             }, 0)),
             averages
         }
-    }, [categoryId, timestamp, expenses]);
+    }, [subcategoriesIds, averages, timestamp, expenses]);
 }

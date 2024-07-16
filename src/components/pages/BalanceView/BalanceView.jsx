@@ -25,7 +25,7 @@ const BalanceView = () => {
                     return;
                 }
 
-                match = category.subCategories.find((subcategory) => {
+                match = category.subcategories.find((subcategory) => {
                     if (!selectedId) {
                         return index === 0;
                     }
@@ -71,7 +71,8 @@ const BalanceView = () => {
                                     selectedId={selectedId}
                                     setSelectedId={setSelectedId}
                                     categoryId={category.id}
-                                    categoryName={category.label}
+                                    subcategoriesIds={category.subcategories.map((subcategory) => subcategory.id)}
+                                    categoryName={category.icon + " " + category.name}
                                     categoryBudget={category.budget}
                                     subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
                                     currentTimestamp={currentTimestamp}

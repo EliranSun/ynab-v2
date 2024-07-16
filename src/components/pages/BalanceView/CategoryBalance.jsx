@@ -49,6 +49,7 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
 
 export const CategoryBalance = ({
                                     categoryId,
+                                    subcategoriesIds,
                                     categoryName,
                                     currentTimestamp,
                                     isSameDate,
@@ -61,7 +62,7 @@ export const CategoryBalance = ({
     const [isExpanded, setIsExpanded] = useState(false);
     const {expenses} = useContext(ExpensesContext);
     const [budget] = useContext(BudgetContext);
-    const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
+    const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategoriesIds, currentTimestamp);
 
     const subcategories = useMemo(() => {
         const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {

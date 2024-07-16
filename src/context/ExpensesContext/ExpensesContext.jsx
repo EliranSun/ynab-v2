@@ -5,7 +5,7 @@ import {Categories, getCategoryBySubcategoryId} from "../../constants";
 import {BudgetContext} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
-import {getExpenses} from "../../utils/db";
+import {getAllExpensesWithPagination} from "../../utils/db";
 import {UserContext} from "../UserContext";
 
 export const ExpensesContext = createContext({
@@ -18,7 +18,7 @@ export const ExpensesContext = createContext({
 const getExpensesPerMonthPerCategory = (expenses = []) => {
     const expensesPerMonthPerCategory = {};
     expenses.forEach((expense) => {
-        const {categoryId} = expense;
+        const {subcategoryId} = expense;
         // TODO: util
         const dateKey = new Date(expense.timestamp).toLocaleString("en-IL", {
             // day: "numeric",
@@ -26,24 +26,24 @@ const getExpensesPerMonthPerCategory = (expenses = []) => {
             year: "2-digit",
         });
 
-        if (!expensesPerMonthPerCategory[categoryId]) {
-            expensesPerMonthPerCategory[categoryId] = {
+        if (!expensesPerMonthPerCategory[subcategoryId]) {
+            expensesPerMonthPerCategory[subcategoryId] = {
                 [dateKey]: {
                     amount: expense.amount,
                     expenses: [expense],
                     timestamp: expense.timestamp,
                 },
             };
-        } else if (!expensesPerMonthPerCategory[categoryId][dateKey]) {
-            expensesPerMonthPerCategory[categoryId][dateKey] = {
+        } else if (!expensesPerMonthPerCategory[subcategoryId][dateKey]) {
+            expensesPerMonthPerCategory[subcategoryId][dateKey] = {
                 amount: expense.amount,
                 expenses: [expense],
                 timestamp: expense.timestamp,
             };
         } else {
-            expensesPerMonthPerCategory[categoryId][dateKey] = {
-                amount: expensesPerMonthPerCategory[categoryId][dateKey].amount + expense.amount,
-                expenses: [...expensesPerMonthPerCategory[categoryId][dateKey].expenses, expense],
+            expensesPerMonthPerCategory[subcategoryId][dateKey] = {
+                amount: expensesPerMonthPerCategory[subcategoryId][dateKey].amount + expense.amount,
+                expenses: [...expensesPerMonthPerCategory[subcategoryId][dateKey].expenses, expense],
                 timestamp: expense.timestamp,
             };
         }
@@ -140,11 +140,12 @@ export const ExpensesContextProvider = ({children}) => {
     };
 
     const fetchExpenses = useCallback(async () => {
-        const expenses = await getExpenses();
+        const expenses = await getAllExpensesWithPagination();
         const modeledExpenses = expenses.map(expense => new Expense(expense));
 
         setExpenses(modeledExpenses);
-        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
+        const foo = getExpensesPerMonthPerCategory(Object.values(modeledExpenses));
+        setExpensesPerMonthPerCategory(foo);
 
         const newCategories = {};
         const expensesThisMonth = Object.values(modeledExpenses).filter(expense => {

@@ -5,11 +5,10 @@ import {Login} from "./components/pages/Login";
 import {Root} from "./components/templates/Root";
 import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
-import Couch from "./assets/couch.png";
 import {CategoriesEdit} from "./features/CategoriesEdit/CategoriesEdit";
 import {ToastProvider} from "./context/ToastProvider";
 import ExpensesSummary from "./features/LastExpenses/components/ExpensesSummary";
-import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
+import {BalanceView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
 import {ManageBudget} from "./features/ManageBudget/ManageBudget";
 import {CategoriesProvider} from "./context/CategoriesContext";
@@ -22,14 +21,7 @@ function App() {
         <LocaleProvider>
             <ToastProvider>
                 <TooltipProvider>
-                    <div id="modal-root"/>
                     <RouterProvider router={router}/>
-                    <div className="fixed -z-10">
-                        <img
-                            src={Couch}
-                            className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
-                            alt="bg-couch"/>
-                    </div>
                 </TooltipProvider>
             </ToastProvider>
         </LocaleProvider>

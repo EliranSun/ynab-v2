@@ -144,17 +144,30 @@ export const updateSubcategory = async ({id, name, icon}) => {
     return data;
 };
 
-export const getExpenses = async () => {
-    console.info("Getting expenses...");
-    const {data, error} = await supabase
-        .from("expenses")
-        .select("*");
+export const getAllExpensesWithPagination = async (limit = 1000) => {
+    let allData = [];
+    let offset = 0;
 
-    if (error) {
-        throw error;
+    while (true) {
+        const {data, error} = await supabase
+            .from("expenses")
+            .select("*")
+            .range(offset, offset + limit - 1);
+
+        if (error) {
+            throw error;
+        }
+
+        allData = [...allData, ...data];
+        offset += limit;
+
+        if (data.length < limit) {
+            break;
+        }
     }
 
-    return data;
+    console.info("Got expenses...", allData.length);
+    return allData;
 };
 
 export const addExpense = async ({name, note, amount, subcategoryId, date}) => {

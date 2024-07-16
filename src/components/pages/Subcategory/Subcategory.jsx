@@ -10,7 +10,7 @@ import {getAverageSubcategoryAmount} from "../../../utils/expenses";
 
 const Subcategory = ({
                          icon,
-                         label,
+                         name,
                          id,
                          categoryId,
                          onSubcategoryClick = noop,
@@ -58,7 +58,7 @@ const Subcategory = ({
                 className="md:p-4 cursor-pointer flex flex-col justify-between items-start"
                 onClick={() => onSubcategoryClick(isSelected ? null : id)}>
                 <Title type={Title.Types.H4} className="truncate flex">
-                    {icon.slice(0, 2)} {label}
+                    {icon.slice(0, 2)} {name}
                 </Title>
                 <div className="">
                     <div className="flex gap-4 w-full justify-end">

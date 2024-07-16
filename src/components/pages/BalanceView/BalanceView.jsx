@@ -9,36 +9,52 @@ import {RealityVsExpectation} from "../../molecules/RealityVsExpectation";
 import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import {LocaleContext} from "../../../context/LocaleContext";
 import classNames from "classnames";
+import {useSearchParams} from "react-router-dom";
 
 const BalanceView = () => {
+        const [searchParams] = useSearchParams();
+        const {locale} = useContext(LocaleContext);
         const [budget] = useContext(BudgetContext);
         const {currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth} = useDate();
         const categories = useCategories(currentTimestamp);
         const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
         const [selectedId, setSelectedId] = useState(null);
-        const {locale} = useContext(LocaleContext);
+        const isNsfw = searchParams.get("nsfw");
 
         const selectedSubcategory = useMemo(() => {
             let match;
+
+            if (!selectedId && categories.summary.length > 0) {
+                const categoriesWithAmount = categories.summary.filter((category) => category.amount > 0);
+                const categoryWithAmount = categoriesWithAmount[Math.random() * categoriesWithAmount.length | 0];
+
+                if (!categoryWithAmount) {
+                    return null;
+                }
+
+                const subcategoriesWithAmount = categoryWithAmount.subcategories.filter((subcategory) => subcategory.amount > 0);
+                const subcategoryWithAmount = subcategoriesWithAmount[Math.random() * subcategoriesWithAmount.length | 0];
+                return subcategoryWithAmount;
+            }
+
             categories.summary.forEach((category, index) => {
                 if (match) {
                     return;
                 }
 
                 match = category.subcategories.find((subcategory) => {
-                    if (!selectedId) {
-                        return index === 0;
-                    }
-
                     return subcategory.id === selectedId;
                 });
             });
 
             return match;
-        }, [categories, budget, selectedId]);
+        }, [categories, selectedId]);
 
         return (
-            <section className="overflow-x-hidden border-10 border-black w-full p-2 md:mt-8">
+            <section className={classNames({
+                "overflow-x-hidden border-10 border-black w-full p-2 md:mt-8": true,
+                "max-w-screen-2xl m-auto": true,
+            })}>
                 <div
                     className={classNames({
                         "flex flex-col md:flex-row my-2 md:top-0 md:w-96 md:m-auto": true,
@@ -62,11 +78,13 @@ const BalanceView = () => {
                         className={classNames({
                             "overflow-auto md:thin-scrollbar": true,
                             "w-full md:w-2/3 md:h-fit": true,
-                            "flex flex-col md:flex-row md:flex-wrap gap-4 ": true,
+                            "flex flex-col md:flex-row md:flex-wrap gap-4": false,
+                            "grid grid-cols-1 xl:grid-cols-2": true,
                         })}>
                         {categories.summary.map((category) => {
                             return (
                                 <CategoryBalance
+                                    isNsfw={isNsfw}
                                     key={category.id}
                                     selectedId={selectedId}
                                     setSelectedId={setSelectedId}
@@ -84,6 +102,7 @@ const BalanceView = () => {
                     <div className="md:w-1/3">
                         <SubcategoryExpensesList
                             timestamp={currentTimestamp}
+                            selectedSubcategoryId={selectedId || selectedSubcategory?.id}
                             subcategory={selectedSubcategory}/>
                     </div>
                 </div>

@@ -23,16 +23,16 @@ const ListBox = ({children, ...rest}) => {
 const SubcategoryExpensesList = ({
                                      timestamp = null,
                                      subcategory = {},
+                                     selectedSubcategoryId,
                                      onSubcategoryClick = noop,
                                  }) => {
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const data = useMemo(() => {
-        const subcategoryId = subcategory.id;
-        if (!subcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)
+        if (!selectedSubcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)
             return [];
 
-        const categoryExpenses = expensesPerMonthPerCategory[subcategoryId];
-
+        const categoryExpenses = expensesPerMonthPerCategory[selectedSubcategoryId];
+        
         if (!categoryExpenses)
             return [];
 
@@ -47,7 +47,7 @@ const SubcategoryExpensesList = ({
                 return b.timestamp - a.timestamp;
             })
             .reverse();
-    }, [subcategory, expensesPerMonthPerCategory]);
+    }, [selectedSubcategoryId, expensesPerMonthPerCategory]);
 
     const sameMonthData = useMemo(() => {
         return data.filter(item => {

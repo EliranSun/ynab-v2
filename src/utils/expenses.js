@@ -88,14 +88,11 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
         });
 };
 
-export const getExpensesSummary = async ({budget, timestamp, categories = []}) => {
+export const getExpensesSummary = async ({budget, timestamp, categories = [], expenses = []}) => {
     let totalExpenses = 0;
     let totalIncome = 0;
-    const expenses = await getExpenses();
     const date = new Date(timestamp);
     const incomeCategoriesIds = categories.filter(category => category.isIncome).map(category => category.id);
-    // console.log({incomeCategoriesIds});
-
     const expensesThisMonth = Object.values(expenses).filter(expense => {
         const expenseDate = new Date(expense.timestamp);
 
@@ -105,17 +102,11 @@ export const getExpensesSummary = async ({budget, timestamp, categories = []}) =
         return isSameMonth(expenseDate, date);
     });
 
-
     const summary = categories.map(category => {
         const subcategoriesIds = category.subcategories.map(subcategory => subcategory.id);
         const expensesInCategory = expensesThisMonth.filter(expense => subcategoriesIds.includes(expense.subcategoryId));
         const totalAmountInCategory = expensesInCategory.reduce((acc, curr) => acc + curr.amount, 0);
         const isIncome = incomeCategoriesIds.includes(category.id);
-
-        // console.log({
-        //     subcategoriesIds,
-        //     expensesInCategory,
-        // });
 
         if (isIncome) {
             totalIncome += totalAmountInCategory;
@@ -125,8 +116,6 @@ export const getExpensesSummary = async ({budget, timestamp, categories = []}) =
 
         const subcategories = category.subcategories.map(subcategory => {
             const expensesInSubcategory = expensesInCategory.filter(expense => expense.subcategoryId === subcategory.id);
-
-            // console.log({expensesInSubcategory});
             const totalAmountInSubcategory = expensesInSubcategory.reduce((acc, curr) => acc + curr.amount, 0);
 
             return {
@@ -146,7 +135,7 @@ export const getExpensesSummary = async ({budget, timestamp, categories = []}) =
     });
 
     return {
-        summary: orderBy(summary, 'amount', 'desc'),
+        summary: orderBy(summary, ['amount'], 'desc'),
         totalExpenses,
         totalIncome,
     };

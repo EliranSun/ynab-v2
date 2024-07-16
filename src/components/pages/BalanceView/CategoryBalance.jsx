@@ -10,6 +10,7 @@ import {useCategoryExpensesSummary} from "../../../hooks/useCategoryExpensesSumm
 import classNames from "classnames";
 import {Title} from "../../atoms";
 import {Trans} from "@lingui/macro";
+import {CategoriesContext} from "../../../context/CategoriesContext";
 
 const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
     return (
@@ -48,6 +49,7 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
 };
 
 export const CategoryBalance = ({
+                                    isNsfw,
                                     categoryId,
                                     subcategoriesIds,
                                     categoryName,
@@ -59,17 +61,19 @@ export const CategoryBalance = ({
                                     selectedId,
                                     setSelectedId
                                 }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
     const {expenses} = useContext(ExpensesContext);
+    const {categories} = useContext(CategoriesContext);
     const [budget] = useContext(BudgetContext);
     const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategoriesIds, currentTimestamp);
 
     const subcategories = useMemo(() => {
-        const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
+        const sub = categories.find((c) => c.id === categoryId)?.subcategories.map((subcategory) => {
             const subcategoryBudget = subcategoryBudgets[subcategory.id];
             const expensesInCategory = expenses.filter((expense) => {
-                return expense.categoryId === subcategory.id;
+                return expense.subcategoryId === subcategory.id;
             });
+
             const thisMonthExpenses = expensesInCategory.filter((expense) => {
                     const date = new Date(currentTimestamp);
                     const expenseDate = new Date(expense.timestamp);
@@ -100,14 +104,16 @@ export const CategoryBalance = ({
         //     return (subcategory.budget - subcategory.amount) < 0;
         // });
 
-
-        return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
-    }, [budget, categoryId, currentTimestamp, expenses]);
+        return orderBy(sub, ['amount'], "desc");
+    }, [categoryId, currentTimestamp, expenses, subcategoryBudgets, categories]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
     return (
-        <div className="bg-gray-200 md:h-fit p-2 md:p-4 box-border relative min-w-[360px] flex-grow">
+        <div className={classNames({
+            "md:h-fit p-2 md:p-4 box-border relative min-w-[360px] flex-grow shadow": true,
+            "bg-gray-200": !isNsfw,
+        })}>
             <div
                 className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
                 onClick={() => setIsExpanded(!isExpanded)}>
@@ -130,8 +136,8 @@ export const CategoryBalance = ({
                             <Subcategory
                                 {...subcategory}
                                 key={subcategory.id}
-                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
                                 categoryId={categoryId}
+                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
                                 isSelected={selectedId === subcategory.id}
                                 onSubcategoryClick={setSelectedId}
                                 currentTimestamp={currentTimestamp}

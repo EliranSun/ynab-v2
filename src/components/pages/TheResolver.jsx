@@ -3,9 +3,19 @@ import {Title} from "../atoms";
 import {withExpensesContext} from "../../HOC/withExpensesContext";
 import {getExistingExpenses} from "../../utils/expenses";
 import {Check, X} from "@phosphor-icons/react";
-import {noop} from "lodash";
+import {noop, orderBy} from "lodash";
 import Expense from "./ExpenseView/Expense";
 import {Trans} from "@lingui/macro";
+import {ThirdParties} from "../../constants";
+
+const UniqueExpenseNames = [
+    ...ThirdParties,
+    "BIT",
+    "העב' לאחר-נייד",
+    "AMZN MKTP",
+    "העברה ב TIB בנה\"פ",
+    "העברה ב BIT בנה\"פ"
+];
 
 const DoubleExpenseItem = ({expense, deleteExpense}) => {
     const [optimisticIsDeleted, setOptimisticIsDeleted] = useState(false);
@@ -51,16 +61,24 @@ const TheResolver = ({
         });
 
         const aggregatedByName = forgotten.reduce((acc, expense) => {
+            if (UniqueExpenseNames.includes(expense.name)) {
+                return acc;
+            }
+
             if (!acc[expense.name]) {
                 acc[expense.name] = [];
             }
 
-            acc[expense.name] = expense;
+            acc[expense.name] = {
+                ...expense,
+                amount: acc[expense.name].amount ? Math.round(acc[expense.name].amount + expense.amount) : expense.amount,
+                count: acc[expense.name].count ? acc[expense.name].count + 1 : 1
+            };
 
             return acc;
         }, {});
 
-        return Object.values(aggregatedByName);
+        return orderBy(Object.values(aggregatedByName), ['count', 'name'], ['desc', 'asc']);
     }, [expenses]);
 
     const duplicateExpenses = useMemo(() => {
@@ -83,7 +101,7 @@ const TheResolver = ({
     }, [expenses]);
 
     return (
-        <section className="">
+        <section className="max-w-screen-2xl m-auto">
             <Title><Trans>The Resolver</Trans></Title>
             <Title type={Title.Types.H2}>
                 {duplicateExpenses.length === 0
@@ -131,9 +149,12 @@ const TheResolver = ({
             <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
                 {forgottenExpenses.map(expense => {
                     return (
-                        <Expense
-                            key={expense.id}
-                            expense={expense} isListView/>
+                        <div className="flex items-center">
+                            <h2 className="text-3xl w-20">x{expense.count}</h2>
+                            <Expense
+                                key={expense.id}
+                                expense={expense} isListView/>
+                        </div>
                     );
                 })}
             </div>

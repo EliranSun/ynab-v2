@@ -46,9 +46,21 @@ const TheResolver = ({
                          markExpensesAsOriginal = noop
                      }) => {
     const forgottenExpenses = useMemo(() => {
-        return expenses.filter(expense => {
+        const forgotten = expenses.filter(expense => {
             return !expense.subcategoryId;
         });
+
+        const aggregatedByName = forgotten.reduce((acc, expense) => {
+            if (!acc[expense.name]) {
+                acc[expense.name] = [];
+            }
+
+            acc[expense.name] = expense;
+
+            return acc;
+        }, {});
+
+        return Object.values(aggregatedByName);
     }, [expenses]);
 
     const duplicateExpenses = useMemo(() => {

@@ -75,7 +75,7 @@ const Subcategory = ({
             {/*    <div className="flex gap-4 w-full justify-end">*/}
             {/*        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">*/}
             {/*            <Faders/>*/}
-            {/*            {averageAmount}*/}
+            {/*            {averageAmount.amount}*/}
             {/*        </div>*/}
             {/*        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">*/}
             {/*            <ArrowBendDownLeft/>*/}

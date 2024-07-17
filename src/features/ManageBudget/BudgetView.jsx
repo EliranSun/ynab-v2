@@ -15,11 +15,10 @@ const cleanAmountValue = (value) => {
 }
 
 export const BudgetView = () => {
-    const [cutOffInMonths, setCutOffInMonths] = useState(3);
+    const [cutOffInMonths, setCutOffInMonths] = useState(6);
     const [budget, setBudget] = useContext(BudgetContext);
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const {categories} = useContext(CategoriesContext);
-    console.log({budget});
 
     const totalBudget = useMemo(() => {
         const totalBudget = {
@@ -76,7 +75,7 @@ export const BudgetView = () => {
                         <Trans>months</Trans>
                     </div>
                 </div>
-                <div className="flex gap-4 justify-center">
+                <div className="flex gap-4 w-full overflow-x-auto pb-8">
                     {categories.map(category => {
                         return (
                             <div key={category.id}

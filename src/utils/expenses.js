@@ -167,21 +167,29 @@ export const getAverageExpenseAmountPerCategoryPerMonth = (expenses = []) => {
 
 export const getAverageSubcategoryAmount = (subcategoryId, expenses = {}, cutoffInMonths = 3) => {
     const cutoffDate = subMonths(new Date(), cutoffInMonths);
+
     if (!expenses[String(subcategoryId)]) {
-        return 0;
+        return {
+            amount: 0,
+            expenses: []
+        };
     }
 
     let total = 0;
-    const months = Object
+    const expensesThisMonth = [];
+    const monthsExpenses = Object
         .values(expenses[String(subcategoryId)])
         .filter(expense => new Date(expense.timestamp) > cutoffDate);
 
-    for (const month of months) {
-        total += month.amount;
+    for (const monthExpense of monthsExpenses) {
+        total += monthExpense.amount;
+        expensesThisMonth.push(...monthExpense.expenses);
     }
 
-    const amount = total / months.length;
-    return Math.round(amount) || 0;
+    return {
+        amount: Math.round(total / monthsExpenses.length) || 0,
+        expenses: expensesThisMonth
+    };
 };
 
 export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {

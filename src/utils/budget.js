@@ -1,6 +1,5 @@
 import {Categories} from "../constants";
 
-const BALANCE_CATEGORY_ID = 8;
 
 export const getLastBudgetByCategory = (budget, categoryId) => {
     if (!budget || !budget[categoryId]) {
@@ -10,23 +9,19 @@ export const getLastBudgetByCategory = (budget, categoryId) => {
     return Object.values(budget[categoryId]).reduce((acc, curr) => acc + curr, 0);
 };
 
-export const getBudgetSummary = budget => {
-    if (!budget || !budget[BALANCE_CATEGORY_ID]) {
+export const getBudgetSummary = (budget = [], categories = []) => {
+    const incomeSubcategoriesIds = categories.filter(category => category.isIncome).flatMap(category => category.subcategories.map(subcategory => subcategory.id));
+
+    if (budget.length === 0) {
         return {totalExpenses: 0, totalIncome: 0};
     }
-    
-    const budgetIncome = Object.values(budget[BALANCE_CATEGORY_ID]);
-    const budgetExpenses = Object.entries(budget).filter(([categoryId]) => String(categoryId) !== String(BALANCE_CATEGORY_ID));
-    const categoricalExpenses = budgetExpenses.map(([categoryId, amounts]) => {
-        return {
-            categoryName: Categories[categoryId].name,
-            amount: Object.values(amounts).reduce((acc, curr) => acc + curr, 0),
-        }
-    });
+
+    const budgetIncome = budget.filter(({categoryId}) => incomeSubcategoriesIds.includes(categoryId));
+    const budgetExpenses = budget.filter(({categoryId}) => !incomeSubcategoriesIds.includes(categoryId));
 
     return {
-        totalIncome: budgetIncome.reduce((acc, curr) => acc + curr, 0),
-        totalExpenses: budgetExpenses.reduce((acc, [_, amounts]) => acc + Object.values(amounts).reduce((acc, curr) => acc + curr, 0), 0),
-        categoricalExpenses
+        totalIncome: budgetIncome.reduce((acc, curr) => acc + curr.amount, 0),
+        totalExpenses: budgetExpenses.reduce((acc, curr) => acc + curr.amount, 0),
+        categoricalExpenses: budgetExpenses
     }
 }

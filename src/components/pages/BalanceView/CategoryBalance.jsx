@@ -134,7 +134,7 @@ export const CategoryBalance = ({
             {/*    averages={averages}*/}
             {/*    diff={diff}/>*/}
             {isExpanded ?
-                <div className="flex flex-col gap-4 w-full md:h-fit overflow-x-hidden overflow-y-auto">
+                <div className="flex flex-col gap-4 w-full md:h-fit overflow-y-auto">
                     {subcategories.map((subcategory) => {
                         return (
                             <Subcategory

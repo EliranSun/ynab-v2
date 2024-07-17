@@ -12,14 +12,14 @@ import classNames from "classnames";
 import {useSearchParams} from "react-router-dom";
 
 const BalanceView = () => {
-        const [searchParams] = useSearchParams();
         const {locale} = useContext(LocaleContext);
         const [budget] = useContext(BudgetContext);
         const {currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth} = useDate();
         const categories = useCategories(currentTimestamp);
-        const budgetSummary = useMemo(() => getBudgetSummary(budget), [budget]);
+        const budgetSummary = useMemo(() => getBudgetSummary(budget, categories.summary), [budget, categories]);
         const [selectedId, setSelectedId] = useState(null);
-        const isNsfw = searchParams.get("nsfw");
+
+        console.log({categories, budgetSummary});
 
         const selectedSubcategory = useMemo(() => {
             let match;
@@ -52,7 +52,7 @@ const BalanceView = () => {
 
         return (
             <section className={classNames({
-                "overflow-x-hidden border-10 border-black w-full p-2 md:mt-8": true,
+                "border-10 border-black w-full p-2 md:mt-8": true,
                 "max-w-screen-2xl m-auto": true,
             })}>
                 <div
@@ -81,7 +81,7 @@ const BalanceView = () => {
                 </div>
                 <div
                     className={classNames({
-                        "overflow-auto md:thin-scrollbar": true,
+                        "md:thin-scrollbar": true,
                         "w-full md:h-fit": true,
                         "flex flex-col md:flex-row gap-4": true,
                         "grid grid-cols-1 xl:grid-cols-2": false,
@@ -89,7 +89,6 @@ const BalanceView = () => {
                     {categories.summary.map((category) => {
                         return (
                             <CategoryBalance
-                                isNsfw={isNsfw}
                                 key={category.id}
                                 selectedId={selectedId}
                                 setSelectedId={setSelectedId}

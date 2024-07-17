@@ -247,7 +247,42 @@ export const updateExpense = async (expense) => {
 export const getBudget = async () => {
     const {data, error} = await supabase
         .from("budget")
-        .select("*");
+        .select(`*, subcategory:subcategories (name, icon, category:categories (isIncome))`);
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
+
+export const updateBudget = async ({id, amount, subcategoryId}) => {
+    let data;
+    let error;
+
+    if (id) {
+        const response = await supabase
+            .from("budget")
+            .update({
+                id,
+                amount,
+                subcategoryId,
+            });
+
+        data = response.data;
+        error = response.error;
+    } else {
+        console.info("Inserting new budget item", {amount, subcategoryId});
+        const response = await supabase
+            .from("budget")
+            .insert({
+                amount,
+                subcategoryId,
+            });
+
+        data = response.data;
+        error = response.error;
+    }
 
     if (error) {
         throw error;

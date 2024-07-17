@@ -409,7 +409,7 @@ export const getCategoryBySubcategoryId = (subCategoryId) => {
 
 export const getCategoryName = (id) => {
     const category = Categories.find((category) => Number(category.id) === Number(id));
-    return category ? category.label : "Unknown";
+    return category ? category.label : <Trans>Unknown</Trans>;
 };
 
 export const getSubCategoryName = (id) => {
@@ -417,7 +417,7 @@ export const getSubCategoryName = (id) => {
         .flatMap((category) => category.subCategories)
         .find((subCategory) => Number(subCategory.id) === Number(id));
 
-    return subCategory ? subCategory.label : "Unknown";
+    return subCategory ? subCategory.label : <Trans>Unknown</Trans>
 }
 
 export const getSubCategoryIcon = (id) => {

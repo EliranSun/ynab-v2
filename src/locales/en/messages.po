@@ -66,7 +66,7 @@ msgstr "add"
 msgid "Add Category"
 msgstr "Add Category"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:54
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:53
 msgid "Add Expense"
 msgstr "Add Expense"
 
@@ -74,7 +74,7 @@ msgstr "Add Expense"
 msgid "Add Subcategory"
 msgstr "Add Subcategory"
 
-#: src/components/molecules/ExpenseInputs.jsx:14
+#: src/components/molecules/ExpenseInputs.jsx:15
 msgid "amount"
 msgstr "amount"
 
@@ -95,8 +95,8 @@ msgid "average"
 msgstr "average"
 
 #: src/features/ManageBudget/ManageBudget.jsx:79
-msgid "Average"
-msgstr "Average"
+#~ msgid "Average"
+#~ msgstr "Average"
 
 #: src/constants/index.js:43
 msgid "Balance"
@@ -125,7 +125,7 @@ msgstr "budget"
 #: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/ManageBudget/ManageBudget.jsx:117
+#: src/features/ManageBudget/BudgetView.jsx:45
 msgid "Budget"
 msgstr "Budget"
 
@@ -201,7 +201,7 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
-#: src/features/ManageBudget/ManageBudget.jsx:141
+#: src/features/ManageBudget/BudgetView.jsx:71
 msgid "Cutoff by"
 msgstr "Average by"
 
@@ -254,7 +254,7 @@ msgstr "Dining"
 msgid "Donations"
 msgstr "Donations"
 
-#: src/components/pages/TheResolver.jsx:83
+#: src/components/pages/TheResolver.jsx:113
 msgid "duplicates"
 msgstr "duplicates"
 
@@ -282,7 +282,7 @@ msgstr "Existing expenses"
 msgid "expense"
 msgstr "expense"
 
-#: src/components/pages/TheResolver.jsx:82
+#: src/components/pages/TheResolver.jsx:112
 msgid "expenses"
 msgstr "expenses"
 
@@ -323,7 +323,7 @@ msgstr "Fees"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/components/pages/TheResolver.jsx:117
+#: src/components/pages/TheResolver.jsx:147
 msgid "forgotten"
 msgstr "forgotten"
 
@@ -459,8 +459,8 @@ msgid "KIA"
 msgstr "KIA"
 
 #: src/features/ManageBudget/ManageBudget.jsx:83
-msgid "Last"
-msgstr "Last"
+#~ msgid "Last"
+#~ msgstr "Last"
 
 #: src/components/molecules/BottomLine/BottomLine.jsx:37
 #: src/components/molecules/BottomLine/BottomLine.jsx:49
@@ -517,7 +517,7 @@ msgstr "Manually"
 #~ msgid "Manually - TBD"
 #~ msgstr "Manually - TBD"
 
-#: src/features/ManageBudget/ManageBudget.jsx:147
+#: src/features/ManageBudget/BudgetView.jsx:77
 msgid "months"
 msgstr "last months"
 
@@ -529,7 +529,7 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
-#: src/components/molecules/ExpenseInputs.jsx:13
+#: src/components/molecules/ExpenseInputs.jsx:14
 msgid "name"
 msgstr "name"
 
@@ -541,11 +541,11 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/components/pages/TheResolver.jsx:79
+#: src/components/pages/TheResolver.jsx:109
 msgid "No duplicates"
 msgstr "No duplicates"
 
-#: src/components/pages/TheResolver.jsx:116
+#: src/components/pages/TheResolver.jsx:146
 msgid "No forgotten expenses"
 msgstr "No forgotten expenses"
 
@@ -553,7 +553,7 @@ msgstr "No forgotten expenses"
 msgid "No subcategories for this category"
 msgstr "No subcategories for this category"
 
-#: src/components/molecules/ExpenseInputs.jsx:15
+#: src/components/molecules/ExpenseInputs.jsx:16
 msgid "note"
 msgstr "note"
 
@@ -654,7 +654,7 @@ msgstr "Salary"
 msgid "save"
 msgstr "save"
 
-#: src/features/ManageBudget/ManageBudget.jsx:130
+#: src/features/ManageBudget/BudgetView.jsx:59
 msgid "Save Budget"
 msgstr "Save Budget"
 
@@ -671,7 +671,7 @@ msgstr "Saved this month!"
 msgid "Search"
 msgstr "Search"
 
-#: src/components/organisms/ExpenseCategorySelection.jsx:47
+#: src/components/organisms/ExpenseCategorySelection.jsx:51
 msgid "Select Subcategory"
 msgstr "Select Subcategory"
 
@@ -703,11 +703,11 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #~ msgid "Subcategory"
 #~ msgstr "Subcategory"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:116
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:126
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/pages/TheResolver.jsx:75
+#: src/components/pages/TheResolver.jsx:105
 msgid "The Resolver"
 msgstr "The Resolver"
 
@@ -735,15 +735,15 @@ msgstr "this year"
 #~ msgid "Total budgeted savings"
 #~ msgstr "Total budgeted savings"
 
-#: src/features/ManageBudget/ManageBudget.jsx:30
+#: src/features/ManageBudget/BudgetInfoCard.jsx:19
 msgid "Total budgeted savings:"
 msgstr "Total budgeted savings:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:28
+#: src/features/ManageBudget/BudgetInfoCard.jsx:17
 msgid "Total Expenses Budget:"
 msgstr "Total Expenses Budget:"
 
-#: src/features/ManageBudget/ManageBudget.jsx:26
+#: src/features/ManageBudget/BudgetInfoCard.jsx:15
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
@@ -754,6 +754,10 @@ msgstr "Transactions"
 #: src/constants/categories.js:315
 msgid "TV"
 msgstr "TV"
+
+#: src/constants/categories.js:420
+msgid "Unknown"
+msgstr "Unknown"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
 #~ msgid "Upload"

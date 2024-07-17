@@ -1,9 +1,8 @@
 import {createContext, useEffect, useState} from "react";
 import {getBudget} from "../../utils/db";
-import {InitBudget} from "../../constants/init-budget";
 
 export const BudgetContext = createContext({
-    budget: {},
+    budget: [],
     setBudget: ({amount, categoryId, subcategoryId, timestamp}) => void 0,
 });
 
@@ -14,7 +13,7 @@ export const getDateKey = (timestamp) => {
     });
 };
 export const BudgetContextProvider = ({children}) => {
-    const [budget, setBudget] = useState(InitBudget);
+    const [budget, setBudget] = useState([]);
 
     useEffect(() => {
         (async () => {

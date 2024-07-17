@@ -75,7 +75,7 @@ msgstr "הוספה"
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:54
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:53
 msgid "Add Expense"
 msgstr "הוספת תנועה"
 
@@ -83,7 +83,7 @@ msgstr "הוספת תנועה"
 msgid "Add Subcategory"
 msgstr "הוספת תת קטגוריה"
 
-#: src/components/molecules/ExpenseInputs.jsx:14
+#: src/components/molecules/ExpenseInputs.jsx:15
 msgid "amount"
 msgstr "סכום"
 
@@ -104,8 +104,8 @@ msgid "average"
 msgstr "ממוצע"
 
 #: src/features/ManageBudget/ManageBudget.jsx:79
-msgid "Average"
-msgstr "ממוצע"
+#~ msgid "Average"
+#~ msgstr "ממוצע"
 
 #: src/constants/index.js:43
 msgid "Balance"
@@ -142,7 +142,7 @@ msgstr "תקציב"
 #: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/ManageBudget/ManageBudget.jsx:117
+#: src/features/ManageBudget/BudgetView.jsx:45
 msgid "Budget"
 msgstr "תקציב"
 
@@ -214,7 +214,7 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
-#: src/features/ManageBudget/ManageBudget.jsx:141
+#: src/features/ManageBudget/BudgetView.jsx:71
 msgid "Cutoff by"
 msgstr "ממוצע לפי"
 
@@ -267,7 +267,7 @@ msgstr "מסעדות"
 msgid "Donations"
 msgstr "תרומות"
 
-#: src/components/pages/TheResolver.jsx:83
+#: src/components/pages/TheResolver.jsx:113
 msgid "duplicates"
 msgstr "כפולים"
 
@@ -295,7 +295,7 @@ msgstr "הוצאות קיימות"
 msgid "expense"
 msgstr "הוצאה"
 
-#: src/components/pages/TheResolver.jsx:82
+#: src/components/pages/TheResolver.jsx:112
 msgid "expenses"
 msgstr "הוצאות"
 
@@ -336,7 +336,7 @@ msgstr "עמלות"
 msgid "Filters"
 msgstr "סננים"
 
-#: src/components/pages/TheResolver.jsx:117
+#: src/components/pages/TheResolver.jsx:147
 msgid "forgotten"
 msgstr "נשכחו"
 
@@ -472,8 +472,8 @@ msgid "KIA"
 msgstr "רכב"
 
 #: src/features/ManageBudget/ManageBudget.jsx:83
-msgid "Last"
-msgstr "אחרון"
+#~ msgid "Last"
+#~ msgstr "אחרון"
 
 #: src/components/molecules/BottomLine/BottomLine.jsx:37
 #: src/components/molecules/BottomLine/BottomLine.jsx:49
@@ -526,7 +526,7 @@ msgstr "הוספת תנועות - ידנית"
 #~ msgid "Manually - TBD"
 #~ msgstr "ידנית - ייקבע בהמשך"
 
-#: src/features/ManageBudget/ManageBudget.jsx:147
+#: src/features/ManageBudget/BudgetView.jsx:77
 msgid "months"
 msgstr "חודשים אחרונים"
 
@@ -538,7 +538,7 @@ msgstr "התקציב שלי לא -קרוב- למציאות."
 msgid "my budget is spot on!"
 msgstr "התקציב שלי מדויק!"
 
-#: src/components/molecules/ExpenseInputs.jsx:13
+#: src/components/molecules/ExpenseInputs.jsx:14
 msgid "name"
 msgstr "שם"
 
@@ -550,11 +550,11 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/components/pages/TheResolver.jsx:79
+#: src/components/pages/TheResolver.jsx:109
 msgid "No duplicates"
 msgstr "אין כפולים"
 
-#: src/components/pages/TheResolver.jsx:116
+#: src/components/pages/TheResolver.jsx:146
 msgid "No forgotten expenses"
 msgstr "אין נשכחים"
 
@@ -562,7 +562,7 @@ msgstr "אין נשכחים"
 msgid "No subcategories for this category"
 msgstr "אין תת קטגוריות"
 
-#: src/components/molecules/ExpenseInputs.jsx:15
+#: src/components/molecules/ExpenseInputs.jsx:16
 msgid "note"
 msgstr "הערה"
 
@@ -663,7 +663,7 @@ msgstr "משכורת"
 msgid "save"
 msgstr "שמירה"
 
-#: src/features/ManageBudget/ManageBudget.jsx:130
+#: src/features/ManageBudget/BudgetView.jsx:59
 msgid "Save Budget"
 msgstr "שמור תקציב"
 
@@ -680,7 +680,7 @@ msgstr "נחסכו החודש!"
 msgid "Search"
 msgstr "חיפוש"
 
-#: src/components/organisms/ExpenseCategorySelection.jsx:47
+#: src/components/organisms/ExpenseCategorySelection.jsx:51
 msgid "Select Subcategory"
 msgstr "בחר תת קטגוריה"
 
@@ -712,11 +712,11 @@ msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחו
 #~ msgid "Subcategory"
 #~ msgstr "תת קטגוריות"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:116
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:126
 msgid "Summary"
 msgstr "תמונת מצב"
 
-#: src/components/pages/TheResolver.jsx:75
+#: src/components/pages/TheResolver.jsx:105
 msgid "The Resolver"
 msgstr "המיישב"
 
@@ -740,15 +740,15 @@ msgstr "השבוע"
 msgid "this year"
 msgstr "השנה"
 
-#: src/features/ManageBudget/ManageBudget.jsx:30
+#: src/features/ManageBudget/BudgetInfoCard.jsx:19
 msgid "Total budgeted savings:"
 msgstr "סך חיסכון"
 
-#: src/features/ManageBudget/ManageBudget.jsx:28
+#: src/features/ManageBudget/BudgetInfoCard.jsx:17
 msgid "Total Expenses Budget:"
 msgstr "סך הוצאות מתוכננות"
 
-#: src/features/ManageBudget/ManageBudget.jsx:26
+#: src/features/ManageBudget/BudgetInfoCard.jsx:15
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 
@@ -759,6 +759,10 @@ msgstr "תנועות"
 #: src/constants/categories.js:315
 msgid "TV"
 msgstr "טלוויזיה"
+
+#: src/constants/categories.js:420
+msgid "Unknown"
+msgstr "חסר"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
 #~ msgid "Upload"

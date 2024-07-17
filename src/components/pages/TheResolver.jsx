@@ -80,7 +80,7 @@ const TheResolver = ({
 
         return orderBy(Object.values(aggregatedByName), ['count', 'name'], ['desc', 'asc']);
     }, [expenses]);
-
+    
     const duplicateExpenses = useMemo(() => {
         const duplicates = [];
         const keys = [];

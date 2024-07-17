@@ -1,10 +1,9 @@
-import {Outlet, useSearchParams} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Couch from "../../assets/couch.png";
 import classNames from "classnames";
 
 export const Root = ({children, ...rest}) => {
-    const [searchParams] = useSearchParams();
-    const isNsfw = searchParams.get("nsfw");
+    const isNsfw = localStorage.getItem('nsfw') === 'true';
 
     return (
         <div className={classNames({

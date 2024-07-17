@@ -6,6 +6,7 @@ import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 
 const Expense = ({
                      expense,
+                     isIncome = false,
                      isListView: isVisible = false,
                      onHide = noop,
                  }) => {
@@ -16,6 +17,7 @@ const Expense = ({
         <ExpenseInputs
             expense={expense}
             isVisible={isVisible}
+            isIncome={isIncome}
             isSaveDisabled={isEqual(newExpense, expense)}
             onHide={onHide}
             onSave={async () => {

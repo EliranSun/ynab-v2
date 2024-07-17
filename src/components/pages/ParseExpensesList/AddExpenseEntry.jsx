@@ -5,10 +5,9 @@ import {addExpense} from "../../../utils/db";
 import {Expense} from "../../../models";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
+import {formatDate} from "../../../utils/date";
 
 export const AddExpenseEntry = ({
-                                    id = null,
-                                    expenses = [],
                                     isCategorySelectionVisible = true,
                                     readonly = false,
                                 }) => {
@@ -17,7 +16,7 @@ export const AddExpenseEntry = ({
         [InputTypes.NAME]: "",
         [InputTypes.NOTE]: "",
         [InputTypes.AMOUNT]: 0,
-        [InputTypes.DATE]: new Date(),
+        [InputTypes.DATE]: null,
         [InputTypes.SUBCATEGORY_ID]: null,
     });
 

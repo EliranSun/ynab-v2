@@ -4,7 +4,7 @@ import {Expense} from "../../../models";
 import {Button, Title} from "../../atoms";
 import {withExpensesContext} from "../../../HOC/withExpensesContext";
 import {SheetUpload} from "../../organisms/SheetUpload";
-import {ExpensesList} from "./ExpensesList";
+import {ExpensesListModal} from "./ExpensesListModal";
 import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
@@ -196,7 +196,7 @@ export const ParseExpensesList = ({
                 <ExportData/>
             </section>
 
-            <ExpensesList
+            <ExpensesListModal
                 existingExpenses={expenses}
                 expenses={parsedExpenses}
                 setExpenses={setParsedExpenses}

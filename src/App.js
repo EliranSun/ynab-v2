@@ -10,7 +10,7 @@ import {ToastProvider} from "./context/ToastProvider";
 import ExpensesSummary from "./features/LastExpenses/components/ExpensesSummary";
 import {BalanceView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
 import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
-import {ManageBudget} from "./features/ManageBudget/ManageBudget";
+import {BudgetView} from "./features/ManageBudget/BudgetView";
 import {CategoriesProvider} from "./context/CategoriesContext";
 import {Routes} from "./constants/route";
 import {TooltipProvider} from "./context/TooltipContext";
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             },
             {
                 path: Routes.BUDGET,
-                element: <ManageBudget/>,
+                element: <BudgetView/>,
             },
             {
                 path: Routes.ROOT,

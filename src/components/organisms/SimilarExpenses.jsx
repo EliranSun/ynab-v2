@@ -8,7 +8,7 @@ export const SimilarExpenses = ({expense, existingExpenses = []}) => {
         if (!expense.name) {
             return [];
         }
-        
+
         return existingExpenses.filter((existingExpense) => {
             const sameName = existingExpense.name === expense.name;
             const sameMonth = isSameMonth(new Date(existingExpense.timestamp), new Date(expense.timestamp));
@@ -38,7 +38,9 @@ export const SimilarExpenses = ({expense, existingExpenses = []}) => {
             <div className="flex overflow-x-auto w-full gap-2">
                 {similarExpenses.map(item => {
                     return (
-                        <div className="bg-blue-300 rounded p-1 text-xs flex flex-col min-w-fit">
+                        <div
+                            key={item.id}
+                            className="bg-blue-300 rounded p-1 text-xs flex flex-col min-w-fit">
                             <span>{item.name}</span>
                             <span><b>{item.amountCurrency}</b></span>
                             {/*<span>{item.date}</span>*/}

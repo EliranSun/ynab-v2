@@ -242,4 +242,16 @@ export const updateExpense = async (expense) => {
     }
 
     return data;
+};
+
+export const getBudget = async () => {
+    const {data, error} = await supabase
+        .from("budget")
+        .select("*");
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
 }

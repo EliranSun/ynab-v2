@@ -10,7 +10,6 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 import {CategoriesContext} from "../../../context/CategoriesContext";
 import Expense from "../../../components/pages/ExpenseView/Expense";
 import {BottomLine} from "../../../components/molecules/BottomLine/BottomLine";
-import {Amount} from "../../../components/molecules/BottomLine/Amount";
 
 export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const currentYear = getYear(new Date());
@@ -19,7 +18,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         const [endDate, setEndDate] = useState(new Date(currentYear, currentMonth + 1, 0));
         const [timeframeName, setTimeframeName] = useState(Timeframe.MONTH);
         const [sortBy, setSortBy] = useState("timestamp");
-        const [filteredItems, setFilteredItems] = useState([]);
+        const [itemsHiddenByUser, setItemsHiddenByUser] = useState([]);
         const {categories} = useContext(CategoriesContext);
         const incomeSubcategoriesIds = useMemo(() => {
             return categories.filter(category => category.isIncome).flatMap(category => category.subcategories.map(subcategory => subcategory.id));
@@ -60,8 +59,9 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 
             for (const item of expenses) {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
-                const itemIsFiltered = filteredItems.some(filteredItem => filteredItem.id === item.id);
-                if (incomeSubcategoriesIds.includes(item.subcategoryId) || itemIsFiltered || outOfRange) {
+                const itemIsFiltered = itemsHiddenByUser.some(filteredItem => filteredItem.id === item.id);
+
+                if (itemIsFiltered || outOfRange) {
                     continue;
                 }
 
@@ -73,7 +73,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
             }
 
             return Object.values(expensesFoo).sort((a, b) => b.amount - a.amount);
-        }, [expenses, startDate, endDate, sortBy, filteredItems]);
+        }, [expenses, startDate, endDate, sortBy, itemsHiddenByUser]);
 
         const incomeForTimeframe = useMemo(() => {
             return expenses
@@ -107,8 +107,18 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
             }
         }, [incomeForTimeframe, timeframeName]);
 
-        const totalSpent = useMemo(() => lastItems.reduce((acc, item) => acc + item.amount, 0), [lastItems]);
-        const removedAmounts = useMemo(() => formatCurrency(filteredItems.reduce((acc, item) => acc + item.amount, 0), false, false), [filteredItems]);
+        const totalSpent = useMemo(() => lastItems.reduce((acc, item) => {
+            if (incomeSubcategoriesIds.includes(item.subcategoryId)) {
+                return acc;
+            }
+            return acc + item.amount;
+        }, 0), [incomeSubcategoriesIds, lastItems]);
+
+        const hiddenItemsAmountSum = useMemo(() => {
+            return formatCurrency(itemsHiddenByUser.reduce((acc, item) => {
+                return acc + item.amount
+            }, 0), false, false)
+        }, [itemsHiddenByUser]);
 
         return (
             <div className="p-2 md:p-4 w-full max-w-screen-xl m-auto bg-white/90">
@@ -135,7 +145,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 
                     <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
                         <div className="w-full h-fit">
-                            <h3>{removedAmounts} filtered</h3>
+                            <h3>{hiddenItemsAmountSum} filtered</h3>
                             <ExpensesSummaryChart
                                 expenses={lastItems}
                                 budget={budgetForTimeframe}
@@ -153,8 +163,9 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                             key={item.id}
                                             expense={item}
                                             isListView
+                                            isIncome={incomeSubcategoriesIds.includes(item.subcategoryId)}
                                             onHide={() => {
-                                                setFilteredItems([item, ...filteredItems]);
+                                                setItemsHiddenByUser([item, ...itemsHiddenByUser]);
                                             }}/>
                                     )
                                 })}

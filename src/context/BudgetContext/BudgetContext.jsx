@@ -1,5 +1,5 @@
 import {createContext, useEffect, useState} from "react";
-import {getBudget, getBudgetKey} from "../../utils";
+import {getBudget} from "../../utils/db";
 import {InitBudget} from "../../constants/init-budget";
 
 export const BudgetContext = createContext({
@@ -19,13 +19,7 @@ export const BudgetContextProvider = ({children}) => {
     useEffect(() => {
         (async () => {
             const budget = await getBudget();
-            const key = getBudgetKey();
-
-            if (!budget[key]) {
-                return;
-            }
-
-            setBudget(budget[key]);
+            setBudget(budget);
         })();
     }, []);
 

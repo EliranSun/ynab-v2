@@ -29,6 +29,10 @@ export const ExpenseCategorySelection = ({
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(expense.subcategoryId);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
     const {categories} = useContext(CategoriesContext);
+    const categoryLabel = useMemo(() => {
+        const category = categories.find(category => category.subcategories.some(subcategory => subcategory.id === selectedSubcategoryId));
+        return category?.name || "";
+    }, [categories, selectedSubcategoryId]);
     const subcategoryLabel = useMemo(() => {
         const subcategory = categories
             .map(category => category.subcategories)
@@ -74,8 +78,8 @@ export const ExpenseCategorySelection = ({
 
                     setIsCategoryMenuOpen(true);
                 }}>
-                <div className="w-fit">
-                    {subcategoryLabel}
+                <div className="w-full text-right">
+                    {categoryLabel} > {subcategoryLabel}
                 </div>
                 <CaretDown/>
             </button>

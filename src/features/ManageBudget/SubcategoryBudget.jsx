@@ -54,13 +54,13 @@ export const SubcategoryBudget = ({
             <p>{subcategory.icon} {subcategory.name}</p>
             {isFocused ?
                 <div
-                    className="absolute shadow-xl z-20 bg-white right-full mr-4 p-8 border rounded-xl flex flex-col">
-                    <div className="flex gap-2 text-sm">
-                        <div className="flex flex-col items-center">
+                    className="absolute shadow-xl z-20 bg-white right-full mr-4 p-8 border rounded-xl flex flex-col gap-4">
+                    <div className="flex text-sm gap-2">
+                        <div className="flex flex-col items-center bg-gray-100 px-4">
                             <span>{formatCurrency(average.amount, false, false)}</span>
                             <Trans>Average</Trans>
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center bg-gray-100 px-4">
                             <span>{formatCurrency(last, false, false)}</span>
                             <Trans>Last</Trans>
                         </div>

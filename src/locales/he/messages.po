@@ -103,9 +103,9 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
-#: src/features/ManageBudget/ManageBudget.jsx:79
-#~ msgid "Average"
-#~ msgstr "ממוצע"
+#: src/features/ManageBudget/SubcategoryBudget.jsx:61
+msgid "Average"
+msgstr "ממוצע"
 
 #: src/constants/index.js:43
 msgid "Balance"
@@ -142,7 +142,7 @@ msgstr "תקציב"
 #: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/ManageBudget/BudgetView.jsx:45
+#: src/features/ManageBudget/BudgetView.jsx:43
 msgid "Budget"
 msgstr "תקציב"
 
@@ -214,7 +214,7 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
-#: src/features/ManageBudget/BudgetView.jsx:71
+#: src/features/ManageBudget/BudgetView.jsx:69
 msgid "Cutoff by"
 msgstr "ממוצע לפי"
 
@@ -439,7 +439,7 @@ msgstr "בשביל להשתמש באפליקציה, אתה צריך ליצור �
 msgid "income"
 msgstr "הכנסה"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:44
+#: src/components/molecules/BottomLine/BottomLine.jsx:45
 msgid "Income"
 msgstr "הכנסות"
 
@@ -471,12 +471,12 @@ msgstr "רק רצינו לומר, ברוך הבא!"
 msgid "KIA"
 msgstr "רכב"
 
-#: src/features/ManageBudget/ManageBudget.jsx:83
-#~ msgid "Last"
-#~ msgstr "אחרון"
+#: src/features/ManageBudget/SubcategoryBudget.jsx:65
+msgid "Last"
+msgstr "אחרון"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:37
-#: src/components/molecules/BottomLine/BottomLine.jsx:49
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+#: src/components/molecules/BottomLine/BottomLine.jsx:50
 msgid "left"
 msgstr "נשאר"
 
@@ -526,7 +526,7 @@ msgstr "הוספת תנועות - ידנית"
 #~ msgid "Manually - TBD"
 #~ msgstr "ידנית - ייקבע בהמשך"
 
-#: src/features/ManageBudget/BudgetView.jsx:77
+#: src/features/ManageBudget/BudgetView.jsx:75
 msgid "months"
 msgstr "חודשים אחרונים"
 
@@ -582,6 +582,10 @@ msgstr "אוקיי"
 #: src/constants/categories.js:389
 msgid "Other"
 msgstr "אחר"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+msgid "over"
+msgstr "חריגה"
 
 #: src/features/ExpensesSummary/components/ExpensesSummary.jsx:115
 #~ msgid "Over️"
@@ -664,8 +668,8 @@ msgid "save"
 msgstr "שמירה"
 
 #: src/features/ManageBudget/BudgetView.jsx:59
-msgid "Save Budget"
-msgstr "שמור תקציב"
+#~ msgid "Save Budget"
+#~ msgstr "שמור תקציב"
 
 #: src/components/pages/ParseExpensesList/ImportFromFile.jsx:130
 msgid "saved"
@@ -712,7 +716,7 @@ msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחו
 #~ msgid "Subcategory"
 #~ msgstr "תת קטגוריות"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:126
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:127
 msgid "Summary"
 msgstr "תמונת מצב"
 
@@ -760,6 +764,7 @@ msgstr "תנועות"
 msgid "TV"
 msgstr "טלוויזיה"
 
+#: src/constants/categories.js:412
 #: src/constants/categories.js:420
 msgid "Unknown"
 msgstr "חסר"

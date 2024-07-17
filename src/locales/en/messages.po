@@ -94,9 +94,9 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/ManageBudget.jsx:79
-#~ msgid "Average"
-#~ msgstr "Average"
+#: src/features/ManageBudget/SubcategoryBudget.jsx:61
+msgid "Average"
+msgstr "Average"
 
 #: src/constants/index.js:43
 msgid "Balance"
@@ -125,7 +125,7 @@ msgstr "budget"
 #: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/ManageBudget/BudgetView.jsx:45
+#: src/features/ManageBudget/BudgetView.jsx:43
 msgid "Budget"
 msgstr "Budget"
 
@@ -201,7 +201,7 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
-#: src/features/ManageBudget/BudgetView.jsx:71
+#: src/features/ManageBudget/BudgetView.jsx:69
 msgid "Cutoff by"
 msgstr "Average by"
 
@@ -426,7 +426,7 @@ msgstr "In order to use the app, you have got to set up categories."
 msgid "income"
 msgstr "income"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:44
+#: src/components/molecules/BottomLine/BottomLine.jsx:45
 msgid "Income"
 msgstr "Income"
 
@@ -458,12 +458,12 @@ msgstr "Just wanted to say, welcome!"
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/ManageBudget.jsx:83
-#~ msgid "Last"
-#~ msgstr "Last"
+#: src/features/ManageBudget/SubcategoryBudget.jsx:65
+msgid "Last"
+msgstr "Last"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:37
-#: src/components/molecules/BottomLine/BottomLine.jsx:49
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+#: src/components/molecules/BottomLine/BottomLine.jsx:50
 msgid "left"
 msgstr "left"
 
@@ -517,7 +517,7 @@ msgstr "Manually"
 #~ msgid "Manually - TBD"
 #~ msgstr "Manually - TBD"
 
-#: src/features/ManageBudget/BudgetView.jsx:77
+#: src/features/ManageBudget/BudgetView.jsx:75
 msgid "months"
 msgstr "last months"
 
@@ -573,6 +573,10 @@ msgstr "OK"
 #: src/constants/categories.js:389
 msgid "Other"
 msgstr "Other"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+msgid "over"
+msgstr "over"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:76
 #~ msgid "Over 😢"
@@ -655,8 +659,8 @@ msgid "save"
 msgstr "save"
 
 #: src/features/ManageBudget/BudgetView.jsx:59
-msgid "Save Budget"
-msgstr "Save Budget"
+#~ msgid "Save Budget"
+#~ msgstr "Save Budget"
 
 #: src/components/pages/ParseExpensesList/ImportFromFile.jsx:130
 msgid "saved"
@@ -703,7 +707,7 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #~ msgid "Subcategory"
 #~ msgstr "Subcategory"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:126
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:127
 msgid "Summary"
 msgstr "Summary"
 
@@ -755,6 +759,7 @@ msgstr "Transactions"
 msgid "TV"
 msgstr "TV"
 
+#: src/constants/categories.js:412
 #: src/constants/categories.js:420
 msgid "Unknown"
 msgstr "Unknown"

@@ -25,17 +25,18 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         }, [categories]);
 
         const budgetForTimeframe = useMemo(() => {
-            if (!budget || Object.keys(budget).length === 0) {
+            if (budget.length === 0) {
                 return 0;
             }
 
-            const relevantCategories = Object.entries(budget).filter(([key]) => {
-                return key !== INCOME_CATEGORY_ID;
+            console.log({budget});
+            const expensesBudget = budget.filter(({subcategoryId}) => {
+                return !incomeSubcategoriesIds.includes(subcategoryId);
             });
             let totalBudget = 0;
 
-            for (const [_, subcategoriesObject] of relevantCategories) {
-                totalBudget += Object.values(subcategoriesObject).reduce((acc, amount) => acc + amount, 0);
+            for (const expenseBudget of expensesBudget) {
+                totalBudget += expenseBudget.amount;
             }
 
             switch (timeframeName) {

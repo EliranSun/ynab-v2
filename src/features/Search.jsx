@@ -64,7 +64,7 @@ export const Search = () => {
                         className="mb-4 rounded-full bg-black p-8">
                         <X size={32} color="white"/>
                     </div>
-                    <div className="w-1/2 bg-white shadow-2xl rounded-2xl p-4 h-1/2 overflow-y-auto">
+                    <div className="max-w-screen-lg bg-white shadow-2xl rounded-2xl p-4 h-2/3 overflow-y-auto">
                         <SearchInput
                             placeholder={_(msg`Search`)}
                             value={searchValue}

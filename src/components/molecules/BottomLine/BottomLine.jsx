@@ -34,7 +34,8 @@ export const BottomLine = ({
                         <Item>
                             <Amount isDifference>{differenceBudgetAmount}</Amount>
                             <h1 className="font-mono">
-                                <Trans>left</Trans>
+                                {differenceBudgetAmount > 0 ?
+                                    <Trans>left</Trans> : <Trans>over</Trans>}
                             </h1>
                         </Item>
                     </div>
@@ -46,7 +47,8 @@ export const BottomLine = ({
                         <Item>
                             <Amount isDifference>{differenceAmount}</Amount>
                             <h1 className="font-mono">
-                                <Trans>left</Trans>
+                                {differenceAmount > 0 ?
+                                    <Trans>left</Trans> : <Trans>over</Trans>}
                             </h1>
                         </Item>
                     </div>

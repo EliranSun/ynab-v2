@@ -5,7 +5,7 @@ import ExpensesSummaryChart from "./ExpensesSummaryChart";
 import {ExpensesSummaryFilters} from "./ExpensesSummaryFilters";
 import classNames from "classnames";
 import {Trans} from "@lingui/macro";
-import {INCOME_CATEGORY_ID, Timeframe, TimeframeNames} from "../constants";
+import {Timeframe, TimeframeNames} from "../constants";
 import {BudgetContext, ExpensesContext} from "../../../context";
 import {CategoriesContext} from "../../../context/CategoriesContext";
 import Expense from "../../../components/pages/ExpenseView/Expense";
@@ -62,11 +62,14 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                 const outOfRange = isBefore(item.timestamp, startDate) || isAfter(item.timestamp, endDate);
                 const itemIsFiltered = itemsHiddenByUser.some(filteredItem => filteredItem.id === item.id);
 
-                if (itemIsFiltered || outOfRange) {
+                if (outOfRange) {
                     continue;
                 }
 
-                expensesFoo[item.id] = item;
+                expensesFoo[item.id] = {
+                    ...item,
+                    isHidden: itemIsFiltered,
+                };
             }
 
             if (sortBy === "timestamp") {
@@ -109,6 +112,10 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         }, [incomeForTimeframe, timeframeName]);
 
         const totalSpent = useMemo(() => lastItems.reduce((acc, item) => {
+            if (item.isHidden) {
+                return acc;
+            }
+
             if (incomeSubcategoriesIds.includes(item.subcategoryId)) {
                 return acc;
             }
@@ -122,7 +129,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         }, [itemsHiddenByUser]);
 
         console.log(lastItems[0]);
-        
+
         return (
             <div className="p-2 md:p-4 w-full max-w-screen-xl m-auto bg-white/90">
                 <h1 className="w-full m-auto text-8xl font-mono mb-8">
@@ -168,6 +175,12 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                             isListView
                                             isIncome={incomeSubcategoriesIds.includes(item.subcategoryId)}
                                             onHide={() => {
+                                                const isHidden = itemsHiddenByUser.some(({id}) => id === item.id);
+                                                if (isHidden) {
+                                                    setItemsHiddenByUser(itemsHiddenByUser.filter(({id}) => id !== item.id));
+                                                    return;
+                                                }
+                                                
                                                 setItemsHiddenByUser([item, ...itemsHiddenByUser]);
                                             }}/>
                                     )

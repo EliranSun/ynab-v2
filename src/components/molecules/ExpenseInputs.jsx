@@ -65,6 +65,7 @@ export const ExpenseInputs = ({
             "rounded-xl": true,
             "flex items-center": true,
             "bg-green-100": isIncome,
+            "grayscale opacity-50": expense.isHidden,
         })}>
             <div className="w-72 shrink-0">
                 <ExpenseCategorySelection
@@ -145,7 +146,11 @@ export const ExpenseInputs = ({
                 </Button> : null}
             {onRemove ?
                 <Button
-                    onClick={onRemove}
+                    onClick={() => {
+                        if (window.confirm(`Are you sure you want to remove ${expense.name}?`)) {
+                            onRemove();
+                        }
+                    }}
                     variation={Button.Variation.DELETE}>
                     <Trash/>
                 </Button> : null}

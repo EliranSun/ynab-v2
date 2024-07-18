@@ -32,10 +32,8 @@ const Expense = ({
                 });
             }}
             onRemove={async () => {
-                if (window.confirm(`Are you sure you want to delete ${expense.name}?`)) {
-                    await deleteExpense(expense.id);
-                    refetch();
-                }
+                await deleteExpense(expense.id);
+                refetch();
             }}/>
     );
 };

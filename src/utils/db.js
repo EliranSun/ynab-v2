@@ -1,9 +1,9 @@
 import {createClient} from "@supabase/supabase-js";
 
-export const supabase = createClient(
+export const supabase = process.env.REACT_APP_SUPABASE_URL ? createClient(
     process.env.REACT_APP_SUPABASE_URL,
     process.env.REACT_APP_SUPABASE_ANON_KEY
-);
+) : {};
 
 export const login = async () => {
     const {user, session, error} = await supabase.auth.signInWithOAuth({

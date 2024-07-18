@@ -201,3 +201,24 @@ export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {
     const lastMonth = Object.values(expenses[String(subcategoryId)]).pop();
     return Math.round(lastMonth?.amount) || 0;
 }
+export const computeNoSubcategoriesExpenses = (categories = [], expenses = []) => {
+    const subcategories = categories.map(category => category.subcategories).flat();
+
+    return expenses.reduce((acc, expense) => {
+        const hasMatchingSubcategory = subcategories.find(subcategory => subcategory.id === expense.subcategoryId);
+
+        if (!hasMatchingSubcategory) {
+            if (!expense.subcategory || !expense.subcategoryId) {
+                return acc;
+            }
+
+            acc[expense.subcategory.id] = {
+                currentId: expense.subcategory.id,
+                name: expense.subcategory.name,
+                icon: expense.subcategory.icon,
+            };
+        }
+
+        return acc;
+    }, {});
+}

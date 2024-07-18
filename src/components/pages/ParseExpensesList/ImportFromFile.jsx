@@ -1,10 +1,11 @@
 import {Button, Title} from "../../atoms";
 import {Trans} from "@lingui/macro";
 import {Box} from "../../atoms/Box";
-import {useContext, useState} from "react";
+import {useContext, useCallback, useState} from "react";
 import {CategoriesContext} from "../../../context/CategoriesContext";
 import {ExpenseCategorySelection} from "../../organisms/ExpenseCategorySelection";
 import {addExpenses} from "../../../utils/db";
+import {computeNoSubcategoriesExpenses} from "../../../utils/expenses";
 
 const getStoredPendingExpenses = () => {
     return JSON.parse(localStorage.getItem("importedExpenses")) || [];
@@ -15,33 +16,27 @@ const getStoredMappedExpenses = () => {
 
 }
 
-const computeNotFoundSubcategories = (categories, expenses) => {
-    const subcategories = categories.map(category => category.subcategories).flat();
-    return expenses.reduce((acc, expense) => {
-        if (!subcategories.find(subcategory => subcategory.id === expense.subcategoryId)) {
-            if (!expense.subcategory || !expense.subcategoryId) {
-                return acc;
-            }
-
-            acc[expense.subcategory.id] = {
-                currentId: expense.subcategory.id,
-                name: expense.subcategory.name,
-                icon: expense.subcategory.icon,
-            };
-        }
-        return acc;
-    }, {});
-}
-
-
 const storedPendingExpenses = getStoredPendingExpenses();
 const storedMappedExpenses = getStoredMappedExpenses();
 
 export const ImportFromFile = () => {
     const {categories} = useContext(CategoriesContext);
-    const [notFoundSubcategories, setNotFoundSubcategories] = useState(computeNotFoundSubcategories(categories, storedPendingExpenses));
+    const [notFoundSubcategories, setNotFoundSubcategories] = useState(computeNoSubcategoriesExpenses(categories, storedPendingExpenses));
     const [pendingExpenses, setPendingExpenses] = useState(storedPendingExpenses || []);
     const [mappedExpenses, setMappedExpenses] = useState(storedMappedExpenses || []);
+    const onReaderLoad = useCallback(event => {
+        const data = event.target.result;
+        const expenses = JSON.parse(data);
+
+        try {
+            setNotFoundSubcategories(computeNoSubcategoriesExpenses(categories, expenses));
+            setPendingExpenses(expenses);
+
+            localStorage.setItem("importedExpenses", JSON.stringify(expenses));
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
 
     return (
         <Box>
@@ -57,25 +52,12 @@ export const ImportFromFile = () => {
                         event.preventDefault();
                         if (event.target.files) {
                             const reader = new FileReader();
-                            reader.onload = async (e) => {
-                                const data = e.target.result;
-                                const expenses = JSON.parse(data);
-
-                                try {
-                                    setNotFoundSubcategories(computeNotFoundSubcategories(categories, expenses));
-                                    setPendingExpenses(expenses);
-
-                                    localStorage.setItem("importedExpenses", JSON.stringify(expenses));
-                                    // await addExpenses(expenses);
-                                } catch (error) {
-                                    console.error(error);
-                                }
-                            };
+                            reader.onload = onReaderLoad;
                             reader.readAsText(event.target.files[0]);
                         }
                     }}/>
                 <div className="max-h-96 overflow-y-auto flex flex-wrap mt-8 mb-4">
-                    {Object.keys(notFoundSubcategories).length > 0 ? Object.values(notFoundSubcategories).map(subcategory => {
+                    {Object.values(notFoundSubcategories).map(subcategory => {
                         return (
                             <div key={subcategory.currentId} className="flex gap-1 items-center px-4">
                                 <p className="w-28">
@@ -97,7 +79,7 @@ export const ImportFromFile = () => {
                                 </div>
                             </div>
                         )
-                    }) : null}
+                    })}
                 </div>
                 <Button
                     isDisabled={pendingExpenses.length === 0 && mappedExpenses.length === 0}

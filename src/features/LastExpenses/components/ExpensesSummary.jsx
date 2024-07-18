@@ -121,6 +121,8 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
             }, 0), false, false)
         }, [itemsHiddenByUser]);
 
+        console.log(lastItems[0]);
+        
         return (
             <div className="p-2 md:p-4 w-full max-w-screen-xl m-auto bg-white/90">
                 <h1 className="w-full m-auto text-8xl font-mono mb-8">

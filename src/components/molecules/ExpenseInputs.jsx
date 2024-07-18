@@ -8,7 +8,7 @@ import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
 import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
 import {Button} from "../../features/CategoriesEdit/Button";
 import {useState} from "react";
-import {formatDate} from "../../utils/date";
+import {formatDateObjectToInput} from "../../utils/date";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -16,14 +16,39 @@ const InputPlaceholder = {
     note: msg`note`,
 };
 
+const Months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
+const formatDateString = (date) => {
+    // i.e. July 16, 24 to 2024-07-16
+    try {
+        const [monthName, day, year] = date.split(" ");
+        const monthIndex = Months.indexOf(monthName);
+        const fullYearNumber = Number(`20${year}`);
+        const dayNumber = Number(day.replace(",", ""));
+
+        const dateObject = new Date(fullYearNumber, monthIndex, dayNumber);
+        console.log({
+            date,
+            dateObject,
+            monthIndex,
+            fullYearNumber,
+            dayNumber
+        })
+        return formatDateObjectToInput(dateObject);
+    } catch (error) {
+        return date;
+    }
+}
 export const ExpenseInputs = ({
                                   readonly,
                                   isVisible,
                                   expense,
                                   onInputChange = noop,
-                                  onRemove = noop,
-                                  onHide = noop,
-                                  onSave = noop,
+                                  onRemove,
+                                  onHide,
+                                  onSave,
                                   isIncome = false,
                                   isSaveDisabled = false,
                               }) => {
@@ -53,7 +78,9 @@ export const ExpenseInputs = ({
                 <Input
                     type="date"
                     disabled={readonly}
-                    defaultValue={formatDate(new Date(expense.timestamp)) || formatDate(new Date())}
+                    defaultValue={
+                        formatDateString(expense.date) ||
+                        formatDateObjectToInput(new Date())}
                     onChange={(event) => {
                         onInputChange(InputTypes.DATE, event.target.value);
                     }}
@@ -86,40 +113,42 @@ export const ExpenseInputs = ({
                 onChange={(value) => {
                     onInputChange(InputTypes.NOTE, value);
                 }}/>
-            <Button
-                variation={Button.Variation.HIDE}
-                className=""
-                onClick={onHide}>
-                <EyeSlash/>
-            </Button>
-            <Button
-                isDisabled={isSaveDisabled}
-                variation={Button.Variation.SAVE}
-                onClick={async () => {
-                    setIsLoading(true);
-                    try {
-                        await onSave();
-                        setIsSuccess(true);
-                    } catch (e) {
-                        console.error("Failed to save expense", e);
-                        setIsSuccess(false);
-                    } finally {
-                        setTimeout(() => {
-                            setIsLoading(false);
-                        }, 1500);
-                    }
-                }}>
-                {isLoading === null ?
-                    <FloppyDisk/> : isLoading ?
-                        <Spinner className="animate-spin"/> : isSuccess ?
-                            <Check/> : <X/>}
-            </Button>
-            <Button
-                onClick={onRemove}
-                variation={Button.Variation.DELETE}>
-                <Trash/>
-            </Button>
-
+            {onHide ?
+                <Button
+                    variation={Button.Variation.HIDE}
+                    className=""
+                    onClick={onHide}>
+                    <EyeSlash/>
+                </Button> : null}
+            {onSave ?
+                <Button
+                    isDisabled={isSaveDisabled}
+                    variation={Button.Variation.SAVE}
+                    onClick={async () => {
+                        setIsLoading(true);
+                        try {
+                            await onSave();
+                            setIsSuccess(true);
+                        } catch (e) {
+                            console.error("Failed to save expense", e);
+                            setIsSuccess(false);
+                        } finally {
+                            setTimeout(() => {
+                                setIsLoading(false);
+                            }, 1500);
+                        }
+                    }}>
+                    {isLoading === null ?
+                        <FloppyDisk/> : isLoading ?
+                            <Spinner className="animate-spin"/> : isSuccess ?
+                                <Check/> : <X/>}
+                </Button> : null}
+            {onRemove ?
+                <Button
+                    onClick={onRemove}
+                    variation={Button.Variation.DELETE}>
+                    <Trash/>
+                </Button> : null}
         </div>
     );
 };

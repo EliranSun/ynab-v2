@@ -5,7 +5,7 @@ import {addExpense} from "../../../utils/db";
 import {Expense} from "../../../models";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
-import {formatDate} from "../../../utils/date";
+import {formatDateObjectToInput} from "../../../utils/date";
 
 export const AddExpenseEntry = ({
                                     isCategorySelectionVisible = true,
@@ -16,7 +16,7 @@ export const AddExpenseEntry = ({
         [InputTypes.NAME]: "",
         [InputTypes.NOTE]: "",
         [InputTypes.AMOUNT]: 0,
-        [InputTypes.DATE]: null,
+        [InputTypes.DATE]: formatDateObjectToInput(new Date()),
         [InputTypes.SUBCATEGORY_ID]: null,
     });
 
@@ -26,21 +26,12 @@ export const AddExpenseEntry = ({
                 readonly={readonly}
                 expense={expense}
                 isVisible={isCategorySelectionVisible}
-                onInputChange={(type, value) => {
-                    setExpense((prev) => {
-                        const newExpense = {...prev};
-                        newExpense[type] = value;
-                        return newExpense;
-                    });
-                }}
-            />
-            <button
-                className="p-4 bg-blue-500 text-white cursor-pointer rounded-xl shadow-xl"
-                onClick={async () => {
+                onSave={async () => {
                     if (
-                        !expense.name ||
-                        !expense.amount ||
-                        !expense.subcategoryId
+                        !expense[InputTypes.NAME] ||
+                        !expense[InputTypes.AMOUNT] ||
+                        !expense[InputTypes.SUBCATEGORY_ID] ||
+                        !expense[InputTypes.DATE]
                     ) {
                         alert(JSON.stringify(expense));
                         return;
@@ -49,9 +40,33 @@ export const AddExpenseEntry = ({
                     const modeledExpense = new Expense(expense);
                     await addExpense(modeledExpense);
                     console.info("Success!", modeledExpense);
-                }}>
-                <Trans>Add Expense</Trans>
-            </button>
+                }}
+                onInputChange={(type, value) => {
+                    setExpense((prev) => {
+                        const newExpense = {...prev};
+                        newExpense[type] = value;
+                        return newExpense;
+                    });
+                }}
+            />
+            {/*<button*/}
+            {/*    className="p-4 bg-blue-500 text-white cursor-pointer rounded-xl shadow-xl"*/}
+            {/*    onClick={async () => {*/}
+            {/*        if (*/}
+            {/*            !expense.name ||*/}
+            {/*            !expense.amount ||*/}
+            {/*            !expense.subcategoryId*/}
+            {/*        ) {*/}
+            {/*            alert(JSON.stringify(expense));*/}
+            {/*            return;*/}
+            {/*        }*/}
+
+            {/*        const modeledExpense = new Expense(expense);*/}
+            {/*        await addExpense(modeledExpense);*/}
+            {/*        console.info("Success!", modeledExpense);*/}
+            {/*    }}>*/}
+            {/*    <Trans>Add Expense</Trans>*/}
+            {/*</button>*/}
         </div>
     )
 };

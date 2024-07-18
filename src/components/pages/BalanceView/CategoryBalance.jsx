@@ -51,25 +51,22 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
 export const CategoryBalance = ({
                                     isNsfw,
                                     categoryId,
-                                    subcategoriesIds,
+                                    subcategories,
                                     categoryName,
                                     currentTimestamp,
                                     isSameDate,
                                     isPreviousMonth,
                                     categoryBudget,
-                                    subcategoryBudgets,
                                     selectedId,
                                     setSelectedId
                                 }) => {
     const [isExpanded, setIsExpanded] = useState(true);
     const {expenses} = useContext(ExpensesContext);
     const {categories} = useContext(CategoriesContext);
-    const [budget] = useContext(BudgetContext);
-    const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategoriesIds, currentTimestamp);
+    const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategories, currentTimestamp);
 
-    const subcategories = useMemo(() => {
-        const sub = categories.find((c) => c.id === categoryId)?.subcategories.map((subcategory) => {
-            const subcategoryBudget = subcategoryBudgets[subcategory.id];
+    const subcategoriesSummary = useMemo(() => {
+        const sub = subcategories.map((subcategory) => {
             const expensesInCategory = expenses.filter((expense) => {
                 return expense.subcategoryId === subcategory.id;
             });
@@ -95,8 +92,7 @@ export const CategoryBalance = ({
             return {
                 ...subcategory,
                 amount,
-                budget: subcategoryBudget,
-                difference: subcategoryBudget - amount,
+                difference: subcategory.budget - amount,
                 thisMonthExpenses
             };
         })
@@ -105,7 +101,7 @@ export const CategoryBalance = ({
         // });
 
         return orderBy(sub, ['amount'], "desc");
-    }, [categoryId, currentTimestamp, expenses, subcategoryBudgets, categories]);
+    }, [currentTimestamp, expenses, subcategories]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
@@ -135,13 +131,12 @@ export const CategoryBalance = ({
             {/*    diff={diff}/>*/}
             {isExpanded ?
                 <div className="flex flex-col gap-4 w-full md:h-fit overflow-y-auto">
-                    {subcategories.map((subcategory) => {
+                    {subcategoriesSummary.map((subcategory) => {
                         return (
                             <Subcategory
                                 {...subcategory}
                                 key={subcategory.id}
-                                categoryId={categoryId}
-                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
+                                budget={subcategory.budget}
                                 isSelected={selectedId === subcategory.id}
                                 onSubcategoryClick={setSelectedId}
                                 currentTimestamp={currentTimestamp}

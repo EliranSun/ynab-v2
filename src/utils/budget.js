@@ -1,12 +1,9 @@
-import {Categories} from "../constants";
-
-
-export const getLastBudgetByCategory = (budget, categoryId) => {
-    if (!budget || !budget[categoryId]) {
+export const getLastBudgetByCategory = (budget, subcategoryId) => {
+    if (budget.length === 0) {
         return 0;
     }
 
-    return Object.values(budget[categoryId]).reduce((acc, curr) => acc + curr, 0);
+    return budget.filter(item => item.subcategoryId === subcategoryId).reduce((acc, curr) => acc + curr.amount, 0);
 };
 
 export const getBudgetSummary = (budget = [], categories = []) => {

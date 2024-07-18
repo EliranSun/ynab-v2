@@ -1,4 +1,4 @@
-export function formatDate(date) {
+export function formatDateObjectToInput(date) {
     if (!date || date.toString() === "Invalid Date") {
         return null;
     }

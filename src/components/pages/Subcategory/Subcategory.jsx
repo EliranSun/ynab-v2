@@ -12,16 +12,14 @@ const Subcategory = ({
                          icon,
                          name,
                          id,
-                         categoryId,
+                         budget,
                          onSubcategoryClick = noop,
                          isPreviousMonth = noop,
                          isSelected = false,
                          isIncome,
                          thisMonthExpenses,
-                         subcategoryBudget
                      }) => {
     const {expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
-    const [budgetAmount] = useState(Number(subcategoryBudget || 0));
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
         const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -49,8 +47,8 @@ const Subcategory = ({
     }
 
     const isPositiveDiff = isIncome
-        ? intThisMonthAmount.current < budgetAmount
-        : intThisMonthAmount.current > budgetAmount;
+        ? intThisMonthAmount.current < budget
+        : intThisMonthAmount.current > budget;
 
     return (
         <div
@@ -62,9 +60,9 @@ const Subcategory = ({
             onClick={() => onSubcategoryClick(isSelected ? null : id)}>
             <div className="flex flex-col items-start">
                 <div className={classNames({
-                    "font-black text-2xl font-mono": true,
+                    "text-2xl font-mono": true,
                     "text-red-500": isPositiveDiff,
-                    "text-green-400": !isPositiveDiff
+                    "text-green-600": !isPositiveDiff
                 })}>
                     {thisMonthAmount}
                 </div>
@@ -84,10 +82,8 @@ const Subcategory = ({
                             {totalInPreviousMonth}
                         </div>
                         <SubcategoryBudget
-                            categoryId={categoryId}
-                            subcategoryId={id}
                             isMeetingBudget={!isPositiveDiff}
-                            budgetAmount={budgetAmount}/>
+                            budgetAmount={budget}/>
                     </div>
                 </div> : null}
         </div>

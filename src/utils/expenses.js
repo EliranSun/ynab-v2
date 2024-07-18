@@ -114,20 +114,21 @@ export const getExpensesSummary = async ({budget, timestamp, categories = [], ex
         const subcategories = category.subcategories.map(subcategory => {
             const expensesInSubcategory = expensesInCategory.filter(expense => expense.subcategoryId === subcategory.id);
             const totalAmountInSubcategory = expensesInSubcategory.reduce((acc, curr) => acc + curr.amount, 0);
+            const budgetInCategory = getLastBudgetByCategory(budget, subcategory.id);
 
+            console.log({budgetInCategory});
             return {
                 ...subcategory,
                 amount: totalAmountInSubcategory,
+                budget: budgetInCategory,
             };
         });
 
-        const budgetInCategory = getLastBudgetByCategory(budget, category.id);
 
         return {
             ...category,
             amount: totalAmountInCategory,
             subcategories,
-            budget: budgetInCategory,
         };
     });
 

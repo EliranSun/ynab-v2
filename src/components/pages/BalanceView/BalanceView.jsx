@@ -19,8 +19,6 @@ const BalanceView = () => {
         const budgetSummary = useMemo(() => getBudgetSummary(budget, categories.summary), [budget, categories]);
         const [selectedId, setSelectedId] = useState(null);
 
-        console.log({categories, budgetSummary});
-
         const selectedSubcategory = useMemo(() => {
             let match;
 
@@ -87,16 +85,15 @@ const BalanceView = () => {
                         "grid grid-cols-1 xl:grid-cols-2": false,
                     })}>
                     {categories.summary.map((category) => {
+                        console.log({category});
                         return (
                             <CategoryBalance
                                 key={category.id}
+                                categoryId={category.id}
+                                subcategories={category.subcategories}
                                 selectedId={selectedId}
                                 setSelectedId={setSelectedId}
-                                categoryId={category.id}
-                                subcategoriesIds={category.subcategories.map((subcategory) => subcategory.id)}
                                 categoryName={category.icon + " " + category.name}
-                                categoryBudget={category.budget}
-                                subcategoryBudgets={budget[category.id] ? budget[category.id] : {}}
                                 currentTimestamp={currentTimestamp}
                                 isSameDate={isSameDate}
                                 isPreviousMonth={isPreviousMonth}/>

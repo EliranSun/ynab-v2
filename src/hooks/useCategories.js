@@ -5,9 +5,9 @@ import {CategoriesContext} from "../context/CategoriesContext";
 
 export const useCategories = (timestamp) => {
     const [budget] = useContext(BudgetContext);
-    const [categories, setCategories] = useState({summary: [], totalExpenses: 0, totalIncome: 0});
-    const {categories: fetchedCategories} = useContext(CategoriesContext);
     const {expenses} = useContext(ExpensesContext);
+    const {categories: fetchedCategories} = useContext(CategoriesContext);
+    const [categories, setCategories] = useState({summary: [], totalExpenses: 0, totalIncome: 0});
 
     useEffect(() => {
         if (!budget || !timestamp)

@@ -14,7 +14,12 @@ const Position = {
 
 const LoginWelcomeMessage = ({position}) => {
     const {AuthButton} = useContext(UserContext);
+    const isNsfw = localStorage.getItem('nsfw') === 'true';
 
+    if (isNsfw) {
+        return <AuthButton/>;
+    }
+    
     return (
         <div className={classNames({
             "flex flex-col items-center md:items-start justify-center gap-8": true,

@@ -21,16 +21,18 @@ const storedMappedExpenses = getStoredMappedExpenses();
 
 export const ImportFromFile = () => {
     const {categories} = useContext(CategoriesContext);
+    const [importedExpenses, setImportedExpenses] = useState(storedPendingExpenses || []);
     const [notFoundSubcategories, setNotFoundSubcategories] = useState(computeNoSubcategoriesExpenses(categories, storedPendingExpenses));
-    const [pendingExpenses, setPendingExpenses] = useState(storedPendingExpenses || []);
-    const [mappedExpenses, setMappedExpenses] = useState(storedMappedExpenses || []);
+    // const [notFoundSubcategories, setNotFoundSubcategories] = useState(storedPendingExpenses);
+    const [handledExpenses, setHandledExpenses] = useState(storedMappedExpenses || []);
+
     const onReaderLoad = useCallback(event => {
         const data = event.target.result;
         const expenses = JSON.parse(data);
 
         try {
+            setImportedExpenses(expenses);
             setNotFoundSubcategories(computeNoSubcategoriesExpenses(categories, expenses));
-            setPendingExpenses(expenses);
 
             localStorage.setItem("importedExpenses", JSON.stringify(expenses));
         } catch (error) {
@@ -64,6 +66,9 @@ export const ImportFromFile = () => {
                                     {subcategory.icon}
                                     {subcategory.name}
                                 </p>
+                                <p>
+                                    {subcategory.expenses.length} Expenses in subcategory
+                                </p>
                                 <div className="w-40">
                                     <ExpenseCategorySelection
                                         onCategorySelect={id => setNotFoundSubcategories(prevState => {
@@ -82,14 +87,9 @@ export const ImportFromFile = () => {
                     })}
                 </div>
                 <Button
-                    isDisabled={pendingExpenses.length === 0 && mappedExpenses.length === 0}
+                    isDisabled={importedExpenses.length === 0 && handledExpenses.length === 0}
                     onClick={async () => {
-                        if (mappedExpenses.length > 0) {
-                            await addExpenses(mappedExpenses);
-                            return;
-                        }
-
-                        const newMappedExpenses = pendingExpenses.map(expense => {
+                        const expensesWithCategoryId = importedExpenses.map(expense => {
                             const subcategory = notFoundSubcategories[expense.subcategoryId];
                             return {
                                 ...expense,
@@ -97,19 +97,34 @@ export const ImportFromFile = () => {
                             };
                         });
 
-                        const missing = newMappedExpenses.find(expense => !expense.subcategoryId);
+                        const missing = expensesWithCategoryId.find(expense => !expense.subcategoryId);
                         if (missing) {
                             console.info("Please map all subcategories before parsing", {missing});
                         }
 
-                        console.log({newMappedExpenses});
-                        localStorage.setItem("mappedExpenses", JSON.stringify(mappedExpenses));
-                        setMappedExpenses(newMappedExpenses);
+                        console.log({expensesWithCategoryId});
+                        localStorage.setItem("mappedExpenses", JSON.stringify(handledExpenses));
+                        setHandledExpenses(expensesWithCategoryId);
                     }}>
                     <Trans>Parse</Trans>{' '}
-                    {mappedExpenses.length || pendingExpenses.length}{' '}
+                    {handledExpenses.length}{' '}
                     <Trans>Transactions</Trans>{' '}
-                    {mappedExpenses.length > 0 ? <Trans>saved</Trans> : null}
+                </Button>
+                <Button onClick={async () => {
+                    if (handledExpenses.length === 0 || handledExpenses.length > importedExpenses.length) {
+                        // no handled expenses or still missing expenses
+                        return;
+                    }
+
+                    try {
+                        await addExpenses(handledExpenses);
+                        alert("SUCCESS");
+                    } catch (error) {
+                        console.error(error);
+                        alert("ERROR");
+                    }
+                }}>
+                    Save
                 </Button>
             </div>
         </Box>

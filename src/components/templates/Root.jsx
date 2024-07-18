@@ -10,8 +10,8 @@ export const Root = ({children, ...rest}) => {
             "m-auto bg-white/70": true,
             "grayscale": isNsfw
         })}>
-            <Outlet {...rest} isNsfw={isNsfw}/>
             <div id="modal-root"/>
+            <Outlet {...rest} isNsfw={isNsfw}/>
             <div className={classNames({
                 "fixed -z-10 top-0 left-0 w-screen h-[90vh]": true,
                 "hidden": isNsfw

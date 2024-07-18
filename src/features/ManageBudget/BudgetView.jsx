@@ -92,17 +92,18 @@ export const BudgetView = () => {
                                                 budget={subcategoryBudget}
                                                 cutoffInMonths={cutOffInMonths}
                                                 expenses={expensesPerMonthPerCategory || {}}
-                                                onChange={(id, value) => {
-                                                    setBudget((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            [category]: {
-                                                                ...prev[category],
-                                                                [id]: cleanAmountValue(value),
-                                                            },
-                                                        };
-                                                    });
-                                                }}/>
+                                                // onChange={(id, value) => {
+                                                //     setBudget((prev) => {
+                                                //         return {
+                                                //             ...prev,
+                                                //             [category]: {
+                                                //                 ...prev[category],
+                                                //                 [id]: cleanAmountValue(value),
+                                                //             },
+                                                //         };
+                                                //     });
+                                                // }}
+                                            />
                                         )
                                     })}
                                 </div>

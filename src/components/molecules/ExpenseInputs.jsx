@@ -29,13 +29,6 @@ const formatDateString = (date) => {
         const dayNumber = Number(day.replace(",", ""));
 
         const dateObject = new Date(fullYearNumber, monthIndex, dayNumber);
-        console.log({
-            date,
-            dateObject,
-            monthIndex,
-            fullYearNumber,
-            dayNumber
-        })
         return formatDateObjectToInput(dateObject);
     } catch (error) {
         return date;

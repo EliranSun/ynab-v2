@@ -244,6 +244,23 @@ export const updateExpense = async (expense) => {
     return data;
 };
 
+export const updateExpenses = async (expenses = []) => {
+    if (expenses.length === 0) {
+        return [];
+    }
+
+    const {data, error} = await supabase
+        .from("expenses")
+        .update(expenses.map(expense => new Expense(expense)));
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+
+}
+
 export const getBudget = async () => {
     const {data, error} = await supabase
         .from("budget")

@@ -1,12 +1,15 @@
-import {useState, useMemo} from "react";
+import {useState, useEffect, useMemo} from "react";
 import {Title} from "../atoms";
 import {withExpensesContext} from "../../HOC/withExpensesContext";
 import {getExistingExpenses} from "../../utils/expenses";
 import {Check, X} from "@phosphor-icons/react";
 import {noop, orderBy} from "lodash";
-import Expense from "./ExpenseView/Expense";
 import {Trans} from "@lingui/macro";
 import {ThirdParties} from "../../constants";
+import {ExpenseInputs} from "../molecules/ExpenseInputs";
+import {InputTypes} from "./ParseExpensesList/constants";
+import {Button} from "../../features/CategoriesEdit/Button";
+import {updateExpense, updateExpenses} from "../../utils/db";
 
 const UniqueExpenseNames = [
     ...ThirdParties,
@@ -55,6 +58,7 @@ const TheResolver = ({
                          refetchExpenses = noop,
                          markExpensesAsOriginal = noop
                      }) => {
+    const [handledExpenses, setHandledExpenses] = useState({});
     const forgottenExpenses = useMemo(() => {
         const forgotten = expenses.filter(expense => {
             return !expense.subcategoryId;
@@ -80,7 +84,7 @@ const TheResolver = ({
 
         return orderBy(Object.values(aggregatedByName), ['count', 'name'], ['desc', 'asc']);
     }, [expenses]);
-    
+
     const duplicateExpenses = useMemo(() => {
         const duplicates = [];
         const keys = [];
@@ -100,6 +104,12 @@ const TheResolver = ({
         });
     }, [expenses]);
 
+    useEffect(() => {
+        if (Object.keys(handledExpenses).length !== 0) {
+            console.log({handledExpenses});
+        }
+    }, [handledExpenses]);
+
     return (
         <section className="max-w-screen-2xl m-auto">
             <Title><Trans>The Resolver</Trans></Title>
@@ -115,6 +125,54 @@ const TheResolver = ({
                     )
                 }
             </Title>
+            <Title type={Title.Types.H2}>
+                {forgottenExpenses.length === 0
+                    ? <><Trans>No forgotten expenses</Trans>🎉🎊🥳</> :
+                    <>{forgottenExpenses.length} <Trans>forgotten</Trans></>}
+            </Title>
+            <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
+                {forgottenExpenses.map(expense => {
+                    return (
+                        <div className="flex items-center" key={expense.id}>
+                            <h2 className="text-3xl w-20">x{expense.count}</h2>
+                            <ExpenseInputs
+                                isVisible
+                                expense={expense}
+                                isSaveDisabled
+                                onInputChange={(type, value) => {
+                                    if (type === InputTypes.SUBCATEGORY_ID) {
+                                        const newExpenses = expenses.filter(item => {
+                                            return item.id && item.name === expense.name && !item.subcategoryId;
+                                        }).map(item => {
+                                            return {
+                                                ...item,
+                                                subcategoryId: value
+                                            };
+                                        });
+
+                                        setHandledExpenses(prev => ({
+                                            ...prev,
+                                            [expense.name]: newExpenses
+                                        }))
+                                    }
+                                }}/>
+                            {handledExpenses[expense.name]
+                                ? <Button
+                                    onClick={async () => {
+                                        try {
+                                            console.log(handledExpenses[expense.name]);
+                                            await updateExpenses(handledExpenses[expense.name]);
+                                            alert("Saved all");
+                                        } catch (error) {
+                                            alert(error.message);
+                                            console.error(error);
+                                        }
+                                    }}>SAVE ALL</Button> : null}
+                        </div>
+                    );
+                })}
+            </div>
+
             <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
                 {duplicateExpenses.map((expenses, index) => {
                     return (
@@ -139,23 +197,6 @@ const TheResolver = ({
                             })}
                         </div>
                     )
-                })}
-            </div>
-            <Title type={Title.Types.H2}>
-                {forgottenExpenses.length === 0
-                    ? <><Trans>No forgotten expenses</Trans>🎉🎊🥳</> :
-                    <>{forgottenExpenses.length} <Trans>forgotten</Trans></>}
-            </Title>
-            <div className="flex flex-wrap my-4 w-full items-stretch md:gap-4">
-                {forgottenExpenses.map(expense => {
-                    return (
-                        <div className="flex items-center">
-                            <h2 className="text-3xl w-20">x{expense.count}</h2>
-                            <Expense
-                                key={expense.id}
-                                expense={expense} isListView/>
-                        </div>
-                    );
                 })}
             </div>
         </section>

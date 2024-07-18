@@ -26,8 +26,6 @@ export const SubcategoryBudget = ({
         }
     }, [budget.amount]);
 
-    console.log({average});
-
     return (
         <div className="relative flex flex-col w-fit justify-center items-start text-right bg-white">
             <span className="flex items-center">                

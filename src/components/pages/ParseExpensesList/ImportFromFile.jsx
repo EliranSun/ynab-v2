@@ -58,18 +58,19 @@ export const ImportFromFile = () => {
                             reader.readAsText(event.target.files[0]);
                         }
                     }}/>
-                <div className="max-h-96 overflow-y-auto flex flex-wrap mt-8 mb-4">
+                <div className="w-full max-h-96 overflow-y-auto flex flex-col mt-8 mb-4">
                     {Object.values(notFoundSubcategories).map(subcategory => {
                         return (
-                            <div key={subcategory.currentId} className="flex gap-1 items-center px-4">
-                                <p className="w-28">
+                            <div key={subcategory.currentId} className="w-full flex justify-start items-center px-4">
+                                <p className="w-1/2">
                                     {subcategory.icon}
                                     {subcategory.name}
                                 </p>
                                 <p>
-                                    {subcategory.expenses.length} Expenses in subcategory
+                                    {subcategory.expenses.length}
+                                    <Trans>Expenses in subcategory</Trans>
                                 </p>
-                                <div className="w-40">
+                                <div className="w-1/2">
                                     <ExpenseCategorySelection
                                         onCategorySelect={id => setNotFoundSubcategories(prevState => {
                                             return {
@@ -86,7 +87,7 @@ export const ImportFromFile = () => {
                         )
                     })}
                 </div>
-                <Button
+                {handledExpenses.length === importedExpenses.length ? <Button
                     isDisabled={importedExpenses.length === 0 && handledExpenses.length === 0}
                     onClick={async () => {
                         const expensesWithCategoryId = importedExpenses.map(expense => {
@@ -105,27 +106,19 @@ export const ImportFromFile = () => {
                         console.log({expensesWithCategoryId});
                         localStorage.setItem("mappedExpenses", JSON.stringify(handledExpenses));
                         setHandledExpenses(expensesWithCategoryId);
+
+                        try {
+                            await addExpenses(expensesWithCategoryId);
+                            alert("SUCCESS");
+                        } catch (error) {
+                            console.error(error);
+                            alert("ERROR");
+                        }
                     }}>
                     <Trans>Parse</Trans>{' '}
                     {handledExpenses.length}{' '}
                     <Trans>Transactions</Trans>{' '}
-                </Button>
-                <Button onClick={async () => {
-                    if (handledExpenses.length === 0 || handledExpenses.length > importedExpenses.length) {
-                        // no handled expenses or still missing expenses
-                        return;
-                    }
-
-                    try {
-                        await addExpenses(handledExpenses);
-                        alert("SUCCESS");
-                    } catch (error) {
-                        console.error(error);
-                        alert("ERROR");
-                    }
-                }}>
-                    Save
-                </Button>
+                </Button> : null}
             </div>
         </Box>
     )

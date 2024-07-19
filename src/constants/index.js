@@ -29,7 +29,7 @@ export const MenuPages = {
         icon: House,
     },
     import: {
-        name: 'import',
+        name: 'add',
         label: msg`add`,
         icon: ArrowSquareIn,
     },

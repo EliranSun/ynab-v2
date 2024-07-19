@@ -17,7 +17,7 @@ export const ExpenseCategorySelectionModal = ({
     const ref = useRef(null);
     const suggestedSubcategory = useMemo(() => {
         const similarExpense = expenses.find(existingItem => {
-            if (!existingItem.subcategoryId) {
+            if (!existingItem.subcategoryId || !expense.name || !existingItem.name) {
                 return false;
             }
 
@@ -41,14 +41,15 @@ export const ExpenseCategorySelectionModal = ({
             className={classNames({
                 "backdrop-blur-md": true,
                 "backdrop-brightness-50": false,
-                "fixed m-auto z-40 inset-0 w-screen h-screen": true,
-                "flex flex-col items-center justify-center": true,
+                "fixed m-auto z-40 top-0 inset-x-0 w-screen h-screen": true,
+                "flex flex-col items-center justify-start": true,
             })}>
-            <div className="mb-4 rounded-full bg-black p-8">
+            <div className="my-8 rounded-full bg-black p-8">
                 <X size={32} color="white"/>
             </div>
             <div ref={ref} className={classNames({
-                "max-w-screen-lg h-5/6 w-11/12 overflow-y-auto p-4 bg-gray-100 rounded-xl": true,
+                "h-fit w-fit": true,
+                "overflow-y-auto p-4 bg-gray-100 rounded-xl": true,
                 "border-2 border-gray-500": true,
             })}>
                 <SimilarExpenses expense={expense} existingExpenses={expenses}/>

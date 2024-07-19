@@ -138,7 +138,6 @@ export const ParseExpensesList = ({
                         {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
                     </Button>
                 </Box>
-                <ImportFromFile/>
                 <ImportFromSheet
                     message={message}
                     expenses={expenses}

@@ -100,13 +100,15 @@ export const ExpenseInputs = ({
                 }}
             />
             </div>
-            <TextInput
-                placeholder={_(InputPlaceholder.note)}
-                defaultValue={expense.note}
-                disabled={readonly}
-                onChange={(value) => {
-                    onInputChange(InputTypes.NOTE, value);
-                }}/>
+            <div className="w-40 shrink-0">
+                <TextInput
+                    placeholder={_(InputPlaceholder.note)}
+                    defaultValue={expense.note}
+                    disabled={readonly}
+                    onChange={(value) => {
+                        onInputChange(InputTypes.NOTE, value);
+                    }}/>
+            </div>
             {onHide ?
                 <Button
                     variation={Button.Variation.HIDE}
@@ -129,7 +131,7 @@ export const ExpenseInputs = ({
                         } finally {
                             setTimeout(() => {
                                 setIsLoading(false);
-                            }, 1500);
+                            }, 300);
                         }
                     }}>
                     {isLoading === null ?
@@ -139,9 +141,13 @@ export const ExpenseInputs = ({
                 </Button> : null}
             {onRemove ?
                 <Button
-                    onClick={() => {
+                    onClick={async () => {
+                        setIsLoading(true);
                         if (window.confirm(`Are you sure you want to remove ${expense.name}?`)) {
-                            onRemove();
+                            await onRemove();
+                            setTimeout(() => {
+                                setIsLoading(false);
+                            }, 300);
                         }
                     }}
                     variation={Button.Variation.DELETE}>

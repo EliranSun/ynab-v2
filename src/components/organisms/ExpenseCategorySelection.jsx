@@ -14,6 +14,10 @@ const getSimilarSubcategory = (expense, expenses = []) => {
             return false;
         }
 
+        if (!expense.name || !existingExpense.name) {
+            return false;
+        }
+
         return existingExpense.name.toLowerCase().includes(expense.name.toLowerCase());
     });
 
@@ -29,10 +33,12 @@ export const ExpenseCategorySelection = ({
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(expense.subcategoryId);
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
     const {categories} = useContext(CategoriesContext);
+
     const categoryLabel = useMemo(() => {
         const category = categories.find(category => category.subcategories.some(subcategory => subcategory.id === selectedSubcategoryId));
         return category?.name || "";
     }, [categories, selectedSubcategoryId]);
+
     const subcategoryLabel = useMemo(() => {
         const subcategory = categories
             .map(category => category.subcategories)

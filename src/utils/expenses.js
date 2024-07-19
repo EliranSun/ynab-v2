@@ -204,11 +204,15 @@ export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {
 export const computeNoSubcategoriesExpenses = (categories = [], expenses = []) => {
     return expenses.reduce((acc, expense) => {
         if (!expense.subcategory || !expense.subcategoryId) {
-            acc.unknown = {
-                expenses: (acc.unknown?.expenses || []).concat(expense),
-                currentId: null,
-                name: "Unknown",
-                icon: "❓",
+            if (expense.name) {
+                acc.unknown = {
+                    expenses: (acc.unknown?.expenses || []).concat(expense),
+                    currentId: null,
+                    name: "Unknown",
+                    icon: "❓",
+                }
+            } else {
+                console.log("No name for expense", expense);
             }
         } else {
             acc[expense.subcategory.id] = {

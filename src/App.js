@@ -15,6 +15,7 @@ import {CategoriesProvider} from "./context/CategoriesContext";
 import {Routes} from "./constants/route";
 import {TooltipProvider} from "./context/TooltipContext";
 import React from "react";
+import {ImportFromFile} from "./components/pages/ParseExpensesList/ImportFromFile";
 
 function App() {
     return (
@@ -55,8 +56,12 @@ const router = createBrowserRouter([
             //     element: <CategoriesEdit/>,
             // },
             {
-                path: Routes.IMPORT,
+                path: Routes.ADD,
                 element: <ParseExpensesList/>,
+            },
+            {
+                path: Routes.IMPORT,
+                element: <ImportFromFile/>,
             },
             {
                 path: Routes.BALANCE,

@@ -14,11 +14,11 @@ export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex sticky md:static top-0 z-40 w-screen">
+        <div className="flex sticky top-0 z-40 w-screen">
             <header
                 className={classNames({
                     "bg-white text-xs md:text-base": true,
-                    " p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
+                    "p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
                     "flex justify-between items-center md:gap-8": true,
                     "rtl:flex-row-reverse": false,
                 })}>

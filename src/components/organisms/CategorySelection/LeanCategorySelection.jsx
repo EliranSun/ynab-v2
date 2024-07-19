@@ -12,10 +12,10 @@ const LeanCategorySelection = ({onCategorySelect = noop}) => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row w-full gap-1">
+        <div className="flex flex-col md:flex-row gap-1">
             {categories.map((category) => {
                 return (
-                    <div key={category.id} className="flex flex-col bg-gray-100 w-full">
+                    <div key={category.id} className="flex flex-col bg-gray-100">
                         <div className="p-4 bg-gray-500 text-white">
                             <b>{category.icon}</b> <b>{category.name}</b>
                         </div>
@@ -26,7 +26,7 @@ const LeanCategorySelection = ({onCategorySelect = noop}) => {
                                         key={sub.id}
                                         onClick={() => onCategorySelect(sub.id)}
                                         className={classNames({
-                                            "p-4 md:py-2 md:px-4": true,
+                                            "p-4 md:py-2 md:px-4 min-w-32": true,
                                             "flex gap-2 text-sm hover:bg-red-500": true,
                                             "hover:text-white cursor-pointer hover:border-black-300": true,
                                         })}>

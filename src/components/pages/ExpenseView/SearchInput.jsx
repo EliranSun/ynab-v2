@@ -23,7 +23,7 @@ export const SearchInput = ({
     );
     return (
         <input
-            className="relative w-full h-16 md:w-2/5 text-xl border-b border-black"
+            className="relative w-full h-16 md:w-2/5 text-xl border rounded-xl px-8"
             type="text"
             placeholder={placeholder}
             value={value}

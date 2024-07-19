@@ -12,7 +12,7 @@ const LeanCategorySelection = ({onCategorySelect = noop}) => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="flex flex-col flex-wrap md:flex-row gap-1">
             {categories.map((category) => {
                 return (
                     <div key={category.id} className="flex flex-col bg-gray-100">

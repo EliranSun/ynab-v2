@@ -192,7 +192,7 @@ export const addExpense = async ({name, note, amount, subcategoryId, date}) => {
     return data;
 };
 
-class Expense {
+export class Expense {
     constructor(expense) {
         this.name = expense.name;
         this.note = expense.note;

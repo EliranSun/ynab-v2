@@ -76,7 +76,7 @@ export const BudgetView = () => {
                     </div>
                 </div>
                 <div className="flex gap-4 w-full overflow-x-auto pb-8">
-                    {categories.map(category => {
+                    {categories.map((category, index) => {
                         return (
                             <div key={category.id}
                                  className="flex flex-col items-start p-2 bg-gray-50/50 flex-wrap border rounded-xl">
@@ -88,6 +88,7 @@ export const BudgetView = () => {
                                         return (
                                             <SubcategoryBudget
                                                 key={subcategory.id}
+                                                isLast={index === categories.length - 1}
                                                 subcategory={subcategory}
                                                 budget={subcategoryBudget}
                                                 cutoffInMonths={cutOffInMonths}

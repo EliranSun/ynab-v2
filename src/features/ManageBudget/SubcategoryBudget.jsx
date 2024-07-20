@@ -3,12 +3,14 @@ import {getAverageSubcategoryAmount, getLastSubcategoryAmount} from "../../utils
 import {updateBudget} from "../../utils/db";
 import {formatCurrency} from "../../utils";
 import {Trans} from "@lingui/macro";
+import classNames from "classnames";
 
 export const SubcategoryBudget = ({
                                       subcategory = {},
                                       budget = {},
                                       expenses = {},
                                       cutoffInMonths,
+                                      isLast,
                                   }) => {
     const [amount, setAmount] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
@@ -52,7 +54,12 @@ export const SubcategoryBudget = ({
             <p>{subcategory.icon} {subcategory.name}</p>
             {isFocused ?
                 <div
-                    className="absolute shadow-xl z-20 bg-white right-full mr-4 p-8 border rounded-xl flex flex-col gap-4">
+                    className={classNames({
+                        "shadow-xl bg-white mr-4 p-8 border rounded-xl flex flex-col gap-4 max-h-96 overflow-y-auto": true,
+                        "absolute z-20 top-0": true,
+                        "right-full": !isLast,
+                        "left-full": isLast,
+                    })}>
                     <div className="flex text-sm gap-2">
                         <div className="flex flex-col items-center bg-gray-100 px-4">
                             <span>{formatCurrency(average.amount, false, false)}</span>
@@ -63,7 +70,7 @@ export const SubcategoryBudget = ({
                             <Trans>Last</Trans>
                         </div>
                     </div>
-                    <ol className="text-xs">
+                    <ol className="text-sm">
                         {average.expenses?.map(expense => <li key={expense.name}>{expense.name}</li>)}
                     </ol>
                 </div> : null}

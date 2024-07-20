@@ -8,12 +8,12 @@ import {formatDateObjectToInput} from "../../../utils/date";
 import {noop} from "lodash";
 
 export const AddExpenseEntry = ({
-                                    expense: initExpense,
-                                    isCategorySelectionVisible = true,
-                                    readonly = false,
-                                    onSuccess = noop,
-                                    onRemove,
-                                }) => {
+    expense: initExpense = {},
+    isCategorySelectionVisible = true,
+    readonly = false,
+    onSuccess = noop,
+    onRemove,
+}) => {
     const [expense, setExpense] = useState({
         id: uuid(),
         [InputTypes.NAME]: initExpense.name || "",

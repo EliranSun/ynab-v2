@@ -5,11 +5,11 @@ import {isEqual, noop} from "lodash";
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 
 const Expense = ({
-                     expense,
-                     isIncome = false,
-                     isListView: isVisible = false,
-                     onHide = noop,
-                 }) => {
+    expense,
+    isIncome = false,
+    isListView: isVisible = false,
+    onHide = noop,
+}) => {
     const {refetch} = useContext(ExpensesContext);
     const [newExpense, setNewExpense] = useState(expense);
 

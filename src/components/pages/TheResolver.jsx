@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from "react";
+import {useState, useEffect, useMemo, useContext} from "react";
 import {Title} from "../atoms";
 import {withExpensesContext} from "../../HOC/withExpensesContext";
 import {getExistingExpenses} from "../../utils/expenses";
@@ -9,7 +9,8 @@ import {ThirdParties} from "../../constants";
 import {ExpenseInputs} from "../molecules/ExpenseInputs";
 import {InputTypes} from "./ParseExpensesList/constants";
 import {Button} from "../../features/CategoriesEdit/Button";
-import {updateExpense, updateExpenses} from "../../utils/db";
+import {updateExpenses} from "../../utils/db";
+import {ExpensesContext} from "../../context";
 
 const UniqueExpenseNames = [
     ...ThirdParties,
@@ -53,11 +54,12 @@ const DoubleExpenseItem = ({expense, deleteExpense}) => {
 };
 
 const TheResolver = ({
-                         expenses = [],
-                         deleteExpense = noop,
-                         refetchExpenses = noop,
-                         markExpensesAsOriginal = noop
-                     }) => {
+    expenses = [],
+    deleteExpense = noop,
+    refetchExpenses = noop,
+    markExpensesAsOriginal = noop
+}) => {
+    const {refetch} = useContext(ExpensesContext);
     const [handledExpenses, setHandledExpenses] = useState({});
     const forgottenExpenses = useMemo(() => {
         const forgotten = expenses.filter(expense => {
@@ -157,17 +159,18 @@ const TheResolver = ({
                                     }
                                 }}/>
                             {handledExpenses[expense.name]
-                                ? <Button
-                                    onClick={async () => {
-                                        try {
-                                            console.log(handledExpenses[expense.name]);
-                                            await updateExpenses(handledExpenses[expense.name]);
-                                            alert("Saved all");
-                                        } catch (error) {
-                                            alert(error.message);
-                                            console.error(error);
-                                        }
-                                    }}>SAVE ALL</Button> : null}
+                                ? <Button onClick={async () => {
+                                    try {
+                                        await updateExpenses(handledExpenses[expense.name]);
+                                        await refetch();
+                                        alert("Saved all");
+                                    } catch (error) {
+                                        alert(error.message);
+                                        console.error(error);
+                                    }
+                                }}>
+                                    SAVE ALL
+                                </Button> : null}
                         </div>
                     );
                 })}

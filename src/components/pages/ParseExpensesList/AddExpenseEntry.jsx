@@ -1,11 +1,12 @@
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {addExpense} from "../../../utils/db";
 import {Expense} from "../../../models";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
 import {formatDateObjectToInput} from "../../../utils/date";
 import {noop} from "lodash";
+import {ExpensesContext} from "../../../context";
 
 export const AddExpenseEntry = ({
     expense: initExpense = {},
@@ -14,6 +15,7 @@ export const AddExpenseEntry = ({
     onSuccess = noop,
     onRemove,
 }) => {
+    const {refetch} = useContext(ExpensesContext);
     const [expense, setExpense] = useState({
         id: uuid(),
         [InputTypes.NAME]: initExpense.name || "",
@@ -44,6 +46,7 @@ export const AddExpenseEntry = ({
                 await addExpense(modeledExpense);
                 console.info("Success!", modeledExpense);
                 onSuccess();
+                return refetch();
             }}
             onInputChange={(type, value) => {
                 setExpense((prev) => {

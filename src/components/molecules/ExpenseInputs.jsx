@@ -35,16 +35,16 @@ const formatDateString = (date) => {
     }
 }
 export const ExpenseInputs = ({
-                                  readonly,
-                                  isVisible,
-                                  expense,
-                                  onInputChange = noop,
-                                  onRemove,
-                                  onHide,
-                                  onSave,
-                                  isIncome = false,
-                                  isSaveDisabled = false,
-                              }) => {
+    readonly,
+    isVisible,
+    expense,
+    onInputChange = noop,
+    onRemove,
+    onHide,
+    onSave,
+    isIncome = false,
+    isSaveDisabled = false,
+}) => {
     const {_} = useLingui();
     const [isLoading, setIsLoading] = useState(null);
     const [isSuccess, setIsSuccess] = useState(null);

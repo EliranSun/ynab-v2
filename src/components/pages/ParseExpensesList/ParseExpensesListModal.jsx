@@ -5,14 +5,16 @@ import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import classNames from "classnames";
 import {CategoriesContext} from "../../../context/CategoriesContext";
 import {X} from "@phosphor-icons/react";
+import {ExpensesContext} from "../../../context";
 
-export const ExpensesListModal = ({
-                                      expenses = [],
-                                      existingExpenses = [],
-                                      setExpenses = noop,
-                                      submitExpenses = noop,
-                                      deleteExpense = noop,
-                                  }) => {
+export const ParseExpensesListModal = ({
+        expenses = [],
+        existingExpenses = [],
+        setExpenses = noop,
+        submitExpenses = noop,
+        deleteExpense = noop,
+    }) => {
+        const {refetch} = useContext(ExpensesContext);
         const {categories} = useContext(CategoriesContext);
         const [isOpen, setIsOpen] = useState(true);
         const [isLoading, setIsLoading] = useState(false);
@@ -117,6 +119,7 @@ export const ExpensesListModal = ({
                                             });
 
                                             deleteExpense(expense);
+                                            refetch();
                                         }}
                                         onInputChange={(type, value) => {
                                             setExpenses((prev) => {

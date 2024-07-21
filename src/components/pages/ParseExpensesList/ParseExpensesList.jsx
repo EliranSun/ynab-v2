@@ -3,7 +3,7 @@ import classNames from "classnames";
 import {Expense} from "../../../models";
 import {Button, Title} from "../../atoms";
 import {withExpensesContext} from "../../../HOC/withExpensesContext";
-import {ExpensesListModal} from "./ExpensesListModal";
+import {ParseExpensesListModal} from "./ParseExpensesListModal";
 import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
 import {Trans} from "@lingui/macro";
 import {ExportData} from "./ExportData";
@@ -16,10 +16,10 @@ const isMobile = window.innerWidth < 768;
 
 
 export const ParseExpensesList = ({
-                                      expenses,
-                                      setExpenses = () => {
-                                      }
-                                  }) => {
+    expenses,
+    setExpenses = () => {
+    }
+}) => {
     const textAreaRef = useRef(null);
     const [message, setMessage] = useState("");
     const [value, setValue] = useState("");
@@ -146,7 +146,7 @@ export const ParseExpensesList = ({
                 <ExportData/>
             </section>
 
-            <ExpensesListModal
+            <ParseExpensesListModal
                 existingExpenses={expenses}
                 expenses={parsedExpenses}
                 setExpenses={setParsedExpenses}

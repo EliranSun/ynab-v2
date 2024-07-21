@@ -1,6 +1,5 @@
 import {useEffect, useRef} from "react";
 import {Chart, registerables} from "chart.js";
-import zoomPlugin from 'chartjs-plugin-zoom';
 
 let singleton = null;
 
@@ -27,10 +26,7 @@ const useBasicChart = ({
             return;
         }
 
-        Chart.register({
-            ...registerables,
-            zoomPlugin
-        });
+        Chart.register(...registerables);
 
         const ctx = document.getElementById("myChart").getContext("2d");
         let myChart = new Chart(ctx, {

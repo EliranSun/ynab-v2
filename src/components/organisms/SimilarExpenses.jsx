@@ -35,7 +35,7 @@ export const SimilarExpenses = ({expense, existingExpenses = []}) => {
                 />
                 <Trans>Show same month only</Trans>
             </div>
-            <div className="flex overflow-x-auto w-full gap-2">
+            <div className="flex overflow-x-auto gap-2 w-[50vw] flex-wrap">
                 {similarExpenses.map(item => {
                     return (
                         <div

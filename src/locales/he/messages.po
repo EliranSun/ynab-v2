@@ -214,6 +214,10 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:70
+msgid "Current Balance"
+msgstr "יתרה נוכחית"
+
 #: src/features/ManageBudget/BudgetView.jsx:69
 msgid "Cutoff by"
 msgstr "ממוצע לפי"
@@ -641,7 +645,7 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:65
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:66
 #: src/constants/index.js:63
 #: src/constants/index.js:78
 msgid "Projection"

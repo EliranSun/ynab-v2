@@ -8,12 +8,12 @@ import {noop} from "lodash";
 import {createPortal} from "react-dom";
 
 export const ExpenseCategorySelectionModal = ({
-                                                  isOpen = false,
-                                                  onClose = noop,
-                                                  expense = {},
-                                                  expenses = [],
-                                                  onCategorySelect = noop,
-                                              }) => {
+    isOpen = false,
+    onClose = noop,
+    expense = {},
+    expenses = [],
+    onCategorySelect = noop,
+}) => {
     const ref = useRef(null);
     const suggestedSubcategory = useMemo(() => {
         const similarExpense = expenses.find(existingItem => {
@@ -52,8 +52,8 @@ export const ExpenseCategorySelectionModal = ({
                 "overflow-y-auto p-4 bg-gray-100 rounded-xl": true,
                 "border-2 border-gray-500": true,
             })}>
-                <SimilarExpenses expense={expense} existingExpenses={expenses}/>
                 <LeanCategorySelection onCategorySelect={onCategorySelect}/>
+                <SimilarExpenses expense={expense} existingExpenses={expenses}/>
                 <div>
                     <h3 className="text-4xl">{suggestedSubcategory}</h3>
                 </div>

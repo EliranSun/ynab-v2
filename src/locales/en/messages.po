@@ -201,6 +201,10 @@ msgstr "Control your future"
 #~ msgid "Control your future."
 #~ msgstr "Control your future."
 
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:70
+msgid "Current Balance"
+msgstr "Current Balance"
+
 #: src/features/ManageBudget/BudgetView.jsx:69
 msgid "Cutoff by"
 msgstr "Average by"
@@ -632,7 +636,7 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:65
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:66
 #: src/constants/index.js:63
 #: src/constants/index.js:78
 msgid "Projection"

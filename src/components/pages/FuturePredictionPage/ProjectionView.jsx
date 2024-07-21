@@ -13,7 +13,7 @@ const ProjectionView = ({
     lookaheadInMonths = 3,
 }) => {
     const canvasRef = useRef(null);
-    const [balance, setBalance] = useState(Number(localStorage.getItem("balance")));
+    const [balance, setBalance] = useState(0);
     const [debouncedBalance, setDebouncedBalance] = useState(balance);
     const {expenses} = useContext(ExpensesContext);
     const {categories} = useContext(CategoriesContext);
@@ -30,10 +30,11 @@ const ProjectionView = ({
         return calcExpenses({
             expenses: orderedExpenses,
             initAmount: 0,
+            balance: debouncedBalance,
             initDate: initDate,
             categories,
         });
-    }, [expenses, categories]);
+    }, [expenses, debouncedBalance, categories]);
 
     const startDate = useMemo(() => {
         if (!expensesData.length) {
@@ -50,7 +51,7 @@ const ProjectionView = ({
     useChart({
         expensesData,
         budget: 0,
-        balance: 0,
+        balance: debouncedBalance,
         initialAmount: 0,
         lookaheadInMonths,
         startDate,
@@ -64,20 +65,21 @@ const ProjectionView = ({
             <Title>
                 <Trans>Projection</Trans>
             </Title>
-            {/*<div className="text-4xl my-4">*/}
-            {/*    <label htmlFor="balance">Current Balance (graph is calculated backwards):</label>*/}
-            {/*    <input*/}
-            {/*        name="balance"*/}
-            {/*        type="number"*/}
-            {/*        placeholder="Current balance"*/}
-            {/*        value={balance}*/}
-            {/*        onChange={(e) => {*/}
-            {/*            setBalance(Number(e.target.value));*/}
-            {/*            localStorage.setItem("balance", e.target.value);*/}
-            {/*        }}*/}
-            {/*        className="border-b border-black ml-4"/>*/}
-
-            {/*</div>*/}
+            <div className="text-4xl my-4 flex flex-col items-start">
+                <label htmlFor="balance">
+                    <Trans>Current Balance</Trans>:
+                </label>
+                <input
+                    name="balance"
+                    type="number"
+                    placeholder="Current balance"
+                    value={balance}
+                    onChange={(e) => {
+                        setBalance(Number(e.target.value));
+                        localStorage.setItem("balance", e.target.value);
+                    }}
+                    className="border-b border-black ml-4"/>
+            </div>
             <TransactionsSection
                 selectedExpenseId={selectedExpenseId}
                 setSelectedExpenseId={setSelectedExpenseId}

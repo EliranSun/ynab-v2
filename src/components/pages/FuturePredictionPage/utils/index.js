@@ -3,6 +3,7 @@ import {Chart, registerables} from "chart.js";
 import {useEffect, useMemo} from "react";
 import {formatCurrency} from "../../../../utils";
 import zoomPlugin from 'chartjs-plugin-zoom';
+import {isAfter} from "date-fns";
 
 export const ONE_MONTH_MS = 1000 * 60 * 60 * 24 * 30;
 const ONE_DAY_MS = 1000 * 60 * 60 * 24;
@@ -174,8 +175,14 @@ export const createNewChart = ({
     return myChart;
 };
 
-export const calcExpenses = ({expenses = [], initAmount = 0, initDate = new Date(), categories}) => {
-    let tempAmount = initAmount;
+export const calcExpenses = ({
+    expenses = [],
+    balance = 0,
+    initAmount = 0,
+    initDate = new Date(),
+    categories
+}) => {
+    let tempAmount = initAmount + balance;
     console.log({expenses, initAmount, initDate})
     const data = [];
     // const recurringExpenses = expenses.filter((expense) => expense.isRecurring);
@@ -202,29 +209,63 @@ export const calcExpenses = ({expenses = [], initAmount = 0, initDate = new Date
     //     }
     // }
 
-    for (let i = 1; i <= expenses.length - 1; i++) {
-        const expense = expenses[i];
-        const isIncome = incomeIds.includes(expense.subcategoryId);
+    if (balance === 0) {
+        for (let i = 0; i <= expenses.length - 1; i++) {
+            if (isAfter(new Date(expenses[i].date), new Date())) {
+                continue;
+            }
 
-        const y = tempAmount;
-        tempAmount = isIncome
-            ? tempAmount + expense.amount
-            : tempAmount - expense.amount;
+            const expense = expenses[i];
+            const isIncome = incomeIds.includes(expense.subcategoryId);
 
-        const x = expense.timestamp;
-        const date = expense.timestamp;
+            const y = tempAmount;
+            tempAmount = isIncome
+                ? tempAmount + expense.amount
+                : tempAmount - expense.amount;
 
-        data.push({
-            balance: tempAmount,
-            ...expense,
-            x,
-            y,
-            date,
-            isIncome,
-        });
+            const x = expense.timestamp;
+            const date = expense.timestamp;
+
+            data.push({
+                balance: tempAmount,
+                ...expense,
+                x,
+                y,
+                date,
+                isIncome,
+            });
+        }
+
+        return data;
+    } else {
+        for (let i = expenses.length - 1; i > 0; i--) {
+            if (isAfter(new Date(expenses[i].date), new Date())) {
+                continue;
+            }
+
+            const expense = expenses[i];
+            const isIncome = incomeIds.includes(expense.subcategoryId);
+
+            const y = tempAmount;
+            tempAmount = isIncome
+                ? tempAmount - expense.amount
+                : tempAmount + expense.amount;
+
+            const x = expense.timestamp;
+            const date = expense.timestamp;
+
+            data.push({
+                balance: tempAmount,
+                ...expense,
+                x,
+                y,
+                date,
+                isIncome,
+            });
+        }
+
+        return data.reverse();
     }
-
-    return data;
 };
 export const calcProjection = (projectionData, lookAhead = 3, initBalance) => {
     // this calculates the projection of what if you keep pattern of current month

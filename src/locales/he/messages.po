@@ -103,7 +103,7 @@ msgstr "כתיבה"
 msgid "average"
 msgstr "ממוצע"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:59
+#: src/features/ManageBudget/SubcategoryBudget.jsx:66
 msgid "Average"
 msgstr "ממוצע"
 
@@ -303,7 +303,7 @@ msgstr "הוצאות"
 msgid "Expenses"
 msgstr "הוצאות"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:73
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:23
 msgid "Expenses in subcategory"
 msgstr "הוצאות בתת קטגוריה"
 
@@ -431,7 +431,7 @@ msgstr "אני בצרות."
 #~ msgid "Import"
 #~ msgstr "יבוא"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:47
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:41
 msgid "Import from file"
 msgstr "יבוא מקובץ"
 
@@ -475,7 +475,7 @@ msgstr "רק רצינו לומר, ברוך הבא!"
 msgid "KIA"
 msgstr "רכב"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:63
+#: src/features/ManageBudget/SubcategoryBudget.jsx:70
 msgid "Last"
 msgstr "אחרון"
 
@@ -608,7 +608,7 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:119
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:84
 #: src/constants/index.js:74
 msgid "Parse"
 msgstr "פירסור"
@@ -641,6 +641,7 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:65
 #: src/constants/index.js:63
 #: src/constants/index.js:78
 msgid "Projection"
@@ -689,7 +690,7 @@ msgstr "נחסכו החודש!"
 msgid "Search"
 msgstr "חיפוש"
 
-#: src/components/organisms/ExpenseCategorySelection.jsx:51
+#: src/components/organisms/ExpenseCategorySelection.jsx:57
 msgid "Select Subcategory"
 msgstr "בחר תת קטגוריה"
 
@@ -761,7 +762,7 @@ msgstr "סך הוצאות מתוכננות"
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:121
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
 msgid "Transactions"
 msgstr "תנועות"
 

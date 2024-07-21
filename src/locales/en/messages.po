@@ -94,7 +94,7 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:59
+#: src/features/ManageBudget/SubcategoryBudget.jsx:66
 msgid "Average"
 msgstr "Average"
 
@@ -290,7 +290,7 @@ msgstr "expenses"
 msgid "Expenses"
 msgstr "Expenses"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:73
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:23
 msgid "Expenses in subcategory"
 msgstr "Expenses in subcategory"
 
@@ -418,7 +418,7 @@ msgstr "I'm in trouble."
 #~ msgid "Import"
 #~ msgstr "Import"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:47
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:41
 msgid "Import from file"
 msgstr "Import from file"
 
@@ -462,7 +462,7 @@ msgstr "Just wanted to say, welcome!"
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:63
+#: src/features/ManageBudget/SubcategoryBudget.jsx:70
 msgid "Last"
 msgstr "Last"
 
@@ -599,7 +599,7 @@ msgstr "over budget"
 msgid "over my budget"
 msgstr "over my budget"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:119
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:84
 #: src/constants/index.js:74
 msgid "Parse"
 msgstr "Parse"
@@ -632,6 +632,7 @@ msgstr "Pets"
 msgid "Phone"
 msgstr "Phone"
 
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:65
 #: src/constants/index.js:63
 #: src/constants/index.js:78
 msgid "Projection"
@@ -680,7 +681,7 @@ msgstr "Saved this month!"
 msgid "Search"
 msgstr "Search"
 
-#: src/components/organisms/ExpenseCategorySelection.jsx:51
+#: src/components/organisms/ExpenseCategorySelection.jsx:57
 msgid "Select Subcategory"
 msgstr "Select Subcategory"
 
@@ -756,7 +757,7 @@ msgstr "Total Expenses Budget:"
 msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
-#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:121
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
 msgid "Transactions"
 msgstr "Transactions"
 

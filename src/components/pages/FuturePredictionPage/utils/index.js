@@ -3,6 +3,7 @@ import {Chart, registerables} from "chart.js";
 import {useEffect, useMemo} from "react";
 import {formatCurrency} from "../../../../utils";
 import zoomPlugin from 'chartjs-plugin-zoom';
+import chartTrendline from 'chartjs-plugin-trendline';
 import {isAfter} from "date-fns";
 
 export const ONE_MONTH_MS = 1000 * 60 * 60 * 24 * 30;
@@ -22,7 +23,7 @@ export const createNewChart = ({
         return singleton;
     }
 
-    Chart.register(...registerables, zoomPlugin);
+    Chart.register(...registerables, zoomPlugin, chartTrendline);
 
     const ctx = document.getElementById("myChart").getContext("2d");
 
@@ -93,6 +94,15 @@ export const createNewChart = ({
                 }
             },
             plugins: {
+                trendlineLinear: {
+                    colorMin: "red",
+                    colorMax: "green",
+                    lineStyle: "dotted",
+                    width: 2,
+                    xAxisKey: "x",
+                    yAxisKey: "y",
+                    projection: true
+                },
                 zoom: {
                     zoom: {
                         // pan: {

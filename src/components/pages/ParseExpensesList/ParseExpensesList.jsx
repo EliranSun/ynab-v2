@@ -100,50 +100,60 @@ export const ParseExpensesList = ({
     return (
         <>
             <section
-                className="flex flex-col justify-center gap-2 md:gap-16 items-center max-w-screen-xl m-auto px-4 md:px-8">
-                <div className="w-full">
-                    {parsedExpenses.length > 0 &&
+                className="flex flex-col justify-center gap-2 md:gap-8 max-w-screen-2xl m-auto px-4 md:px-8">
+                <Title type={Title.Types.H1} className="mt-8">
+                    <Trans>Add</Trans>
+                </Title>
+                {parsedExpenses.length > 0 &&
+                    <div className="w-full">
                         <Title type={isMobile ? Title.Types.H3 : Title.Types.H2}>
                             <Trans>Existing expenses</Trans>:
                             {expenses.length} •
                             <Trans>New expenses</Trans>: {parsedExpenses.length}
-                        </Title>}
+                        </Title>
+                    </div>}
+                <div className="grid grid-cols-3 m-auto gap-8 w-full">
+                    <Box>
+                        <Title type={Title.Types.H2} className="mb-8">
+                            <Trans>Manually</Trans>
+                        </Title>
+                        <AddExpenseEntry isVertical/>
+                    </Box>
+                    <Box>
+                        <Title type={Title.Types.H2} className="mb-8">
+                            <Trans>From Text</Trans>
+                        </Title>
+                        <textarea
+                            className="border border-dashed border-black p-4 outline-none w-full h-full"
+                            placeholder="Paste expenses here"
+                            rows={isMobile ? 5 : 15}
+                            ref={textAreaRef}
+                            value={value}
+                            onChange={event => {
+                                setValue(event.target.value);
+                            }}/>
+                        <Button
+                            size={Button.Sizes.FULL}
+                            isDisabled={value.length === 0}
+                            onClick={parseExpensesFromText}
+                            className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
+                                "animate-pulse duration-500": isStatusAnimated,
+                            })}>
+                            {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Title type={Title.Types.H2} className="mb-8">
+                            <Trans>Sheet</Trans>
+                        </Title>
+                        <ImportFromSheet
+                            message={message}
+                            expenses={expenses}
+                            setParsedExpenses={setParsedExpenses}
+                            isStatusAnimated={isStatusAnimated}/>
+                    </Box>
+                    {/*<ExportData/>*/}
                 </div>
-                <Box>
-                    <Title type={Title.Types.H1} className="mb-2">
-                        <Trans>Manually</Trans>
-                    </Title>
-                    <AddExpenseEntry/>
-                </Box>
-                <Box>
-                    <Title type={Title.Types.H1} className="mb-4">
-                        <Trans>From Text</Trans>
-                    </Title>
-                    <textarea
-                        className="border border-dashed border-black p-4 outline-none w-full h-full"
-                        placeholder="Paste expenses here"
-                        rows={isMobile ? 5 : 15}
-                        ref={textAreaRef}
-                        value={value}
-                        onChange={event => {
-                            setValue(event.target.value);
-                        }}/>
-                    <Button
-                        size={Button.Sizes.FULL}
-                        isDisabled={value.length === 0}
-                        onClick={parseExpensesFromText}
-                        className={classNames("my-4 w-72 mx-auto text-center bg-blue-400", {
-                            "animate-pulse duration-500": isStatusAnimated,
-                        })}>
-                        {isStatusAnimated ? message : <Trans>Parse Text</Trans>}
-                    </Button>
-                </Box>
-                <ImportFromSheet
-                    message={message}
-                    expenses={expenses}
-                    setParsedExpenses={setParsedExpenses}
-                    isStatusAnimated={isStatusAnimated}/>
-                <ExportData/>
             </section>
 
             <ParseExpensesListModal

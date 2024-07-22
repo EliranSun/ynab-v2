@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import {Check, EyeSlash, FloppyDisk, Spinner, Trash, X} from "@phosphor-icons/react";
 import {noop} from "lodash";
-import {msg} from "@lingui/macro";
+import {msg, Trans} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
 import {InputTypes} from "../pages/ParseExpensesList/constants";
 import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
@@ -44,10 +44,12 @@ export const ExpenseInputs = ({
     onSave,
     isIncome = false,
     isSaveDisabled = false,
+    isVertical = false,
 }) => {
     const {_} = useLingui();
     const [isLoading, setIsLoading] = useState(null);
     const [isSuccess, setIsSuccess] = useState(null);
+    const [recurCount, setRecurCount] = useState(1);
 
     if (!isVisible || !expense) {
         return null;
@@ -56,7 +58,9 @@ export const ExpenseInputs = ({
     return (
         <div className={classNames("text-right w-full", {
             "rounded-xl": true,
-            "flex items-center": true,
+            "flex": true,
+            "flex-col items-start gap-8": isVertical,
+            "flex-row items-center": !isVertical,
             "bg-green-100": isIncome,
             "grayscale opacity-50": expense.isHidden,
         })}>
@@ -109,6 +113,17 @@ export const ExpenseInputs = ({
                         onInputChange(InputTypes.NOTE, value);
                     }}/>
             </div>
+            <div className="flex items-center gap-2">
+                <label><Trans>Recurring Transaction Count</Trans></label>
+                <Input
+                    type="number"
+                    className="w-16"
+                    disabled={readonly}
+                    value={recurCount}
+                    onChange={(event) => {
+                        setRecurCount(event.target.value);
+                    }}/>
+            </div>
             {onHide ?
                 <Button
                     variation={Button.Variation.HIDE}
@@ -123,7 +138,7 @@ export const ExpenseInputs = ({
                     onClick={async () => {
                         setIsLoading(true);
                         try {
-                            await onSave();
+                            await onSave(recurCount);
                             setIsSuccess(true);
                         } catch (e) {
                             console.error("Failed to save expense", e);

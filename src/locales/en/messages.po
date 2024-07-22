@@ -62,6 +62,10 @@ msgstr "Actual:"
 msgid "add"
 msgstr "add"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:105
+msgid "Add"
+msgstr "Add"
+
 #: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "Add Category"
@@ -258,7 +262,7 @@ msgstr "Dining"
 msgid "Donations"
 msgstr "Donations"
 
-#: src/components/pages/TheResolver.jsx:123
+#: src/components/pages/TheResolver.jsx:125
 msgid "duplicates"
 msgstr "duplicates"
 
@@ -278,7 +282,7 @@ msgstr "Electricity"
 msgid "Electronics"
 msgstr "Electronics"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:107
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:110
 msgid "Existing expenses"
 msgstr "Existing expenses"
 
@@ -286,7 +290,7 @@ msgstr "Existing expenses"
 msgid "expense"
 msgstr "expense"
 
-#: src/components/pages/TheResolver.jsx:122
+#: src/components/pages/TheResolver.jsx:124
 msgid "expenses"
 msgstr "expenses"
 
@@ -331,7 +335,7 @@ msgstr "Fees"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/components/pages/TheResolver.jsx:131
+#: src/components/pages/TheResolver.jsx:133
 msgid "forgotten"
 msgstr "forgotten"
 
@@ -355,7 +359,7 @@ msgstr "Friends"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "From Sheet/XLS"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:124
 msgid "From Text"
 msgstr "From Text"
 
@@ -517,7 +521,7 @@ msgstr "Lost this month..."
 msgid "Maintenance"
 msgstr "Maintenance"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:114
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Manually"
 msgstr "Manually"
 
@@ -541,7 +545,7 @@ msgstr "my budget is spot on!"
 msgid "name"
 msgstr "name"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:109
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:112
 msgid "New expenses"
 msgstr "New expenses"
 
@@ -549,11 +553,11 @@ msgstr "New expenses"
 msgid "No budget set this month."
 msgstr "No budget set this month."
 
-#: src/components/pages/TheResolver.jsx:119
+#: src/components/pages/TheResolver.jsx:121
 msgid "No duplicates"
 msgstr "No duplicates"
 
-#: src/components/pages/TheResolver.jsx:130
+#: src/components/pages/TheResolver.jsx:132
 msgid "No forgotten expenses"
 msgstr "No forgotten expenses"
 
@@ -608,11 +612,11 @@ msgstr "over my budget"
 msgid "Parse"
 msgstr "Parse"
 
-#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:70
+#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:65
 msgid "Parse File"
 msgstr "Parse File"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:138
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:142
 msgid "Parse Text"
 msgstr "Parse Text"
 
@@ -649,6 +653,10 @@ msgstr "Put in mind though - the budget is for the current month only, so some m
 #: src/constants/categories.js:157
 msgid "Rates"
 msgstr "Rates"
+
+#: src/components/molecules/ExpenseInputs.jsx:117
+msgid "Recurring Transaction Count"
+msgstr "Recurring Transaction Count"
 
 #: src/constants/categories.js:133
 #: src/constants/categories.js:396
@@ -689,7 +697,7 @@ msgstr "Search"
 msgid "Select Subcategory"
 msgstr "Select Subcategory"
 
-#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:35
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
 msgid "Sheet"
 msgstr "Sheet"
 
@@ -721,7 +729,7 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/pages/TheResolver.jsx:115
+#: src/components/pages/TheResolver.jsx:117
 msgid "The Resolver"
 msgstr "The Resolver"
 

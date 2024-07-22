@@ -21,28 +21,23 @@ const getDateTimestamp = (date) => {
 };
 
 export const ImportFromSheet = ({
-                                    message = "",
-                                    isStatusAnimated,
-                                    expenses = [],
-                                    setParsedExpenses = noop,
-                                }) => {
+    message = "",
+    isStatusAnimated,
+    expenses = [],
+    setParsedExpenses = noop,
+}) => {
     const [parsedFile, setParsedFile] = useState([]);
 
     return (
-        <Box>
-            <div>
-                <Title type={Title.Types.H1} className="mb-4">
-                    <Trans>Sheet</Trans>
-                </Title>
-                <SheetUpload onSheetParse={data => {
-                    setParsedFile(data.map(row => ({
-                        name: row["Name"] || row['שם'] || row['על מה?'],
-                        timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
-                        amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
-                        categoryName: row["Category"] || row['קטגוריה'],
-                    })));
-                }}/>
-            </div>
+        <>
+            <SheetUpload onSheetParse={data => {
+                setParsedFile(data.map(row => ({
+                    name: row["Name"] || row['שם'] || row['על מה?'],
+                    timestamp: getDateTimestamp(row["Date"] || row['תאריך']),
+                    amount: formatAmount(row["Amount"] || row['סכום'] || "0"),
+                    categoryName: row["Category"] || row['קטגוריה'],
+                })));
+            }}/>
 
             <Button
                 size={Button.Sizes.FULL}
@@ -69,6 +64,6 @@ export const ImportFromSheet = ({
                 }}>
                 {isStatusAnimated ? message : <Trans>Parse File</Trans>}
             </Button>
-        </Box>
+        </>
     );
 };

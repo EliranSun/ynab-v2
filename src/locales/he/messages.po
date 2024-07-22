@@ -71,6 +71,10 @@ msgstr "במציאות:"
 msgid "add"
 msgstr "הוספה"
 
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:105
+msgid "Add"
+msgstr "הוספה"
+
 #: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
@@ -271,7 +275,7 @@ msgstr "מסעדות"
 msgid "Donations"
 msgstr "תרומות"
 
-#: src/components/pages/TheResolver.jsx:123
+#: src/components/pages/TheResolver.jsx:125
 msgid "duplicates"
 msgstr "כפולים"
 
@@ -291,7 +295,7 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:107
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:110
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
@@ -299,7 +303,7 @@ msgstr "הוצאות קיימות"
 msgid "expense"
 msgstr "הוצאה"
 
-#: src/components/pages/TheResolver.jsx:122
+#: src/components/pages/TheResolver.jsx:124
 msgid "expenses"
 msgstr "הוצאות"
 
@@ -344,7 +348,7 @@ msgstr "עמלות"
 msgid "Filters"
 msgstr "סננים"
 
-#: src/components/pages/TheResolver.jsx:131
+#: src/components/pages/TheResolver.jsx:133
 msgid "forgotten"
 msgstr "נשכחו"
 
@@ -368,9 +372,9 @@ msgstr "חברים"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "הוספת תנועות מגיליון/אקסל"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:120
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:124
 msgid "From Text"
-msgstr "הוספת תנועות - טקסט"
+msgstr "הדבק טקסט"
 
 #: src/constants/categories.js:345
 msgid "Fun"
@@ -526,9 +530,9 @@ msgstr "אבדו בחודש זה..."
 msgid "Maintenance"
 msgstr "תחזוקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:114
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Manually"
-msgstr "הוספת תנועות - ידנית"
+msgstr "הוסף ידנית"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
 #~ msgid "Manually - TBD"
@@ -550,7 +554,7 @@ msgstr "התקציב שלי מדויק!"
 msgid "name"
 msgstr "שם"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:109
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:112
 msgid "New expenses"
 msgstr "הוצאות חדשות"
 
@@ -558,11 +562,11 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/components/pages/TheResolver.jsx:119
+#: src/components/pages/TheResolver.jsx:121
 msgid "No duplicates"
 msgstr "אין כפולים"
 
-#: src/components/pages/TheResolver.jsx:130
+#: src/components/pages/TheResolver.jsx:132
 msgid "No forgotten expenses"
 msgstr "אין נשכחים"
 
@@ -617,11 +621,11 @@ msgstr "מעבר לתקציב שלי"
 msgid "Parse"
 msgstr "פירסור"
 
-#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:70
+#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:65
 msgid "Parse File"
 msgstr "עבד קובץ"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:138
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:142
 msgid "Parse Text"
 msgstr "עבד טקסט"
 
@@ -658,6 +662,10 @@ msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), 
 #: src/constants/categories.js:157
 msgid "Rates"
 msgstr "מיסים"
+
+#: src/components/molecules/ExpenseInputs.jsx:117
+msgid "Recurring Transaction Count"
+msgstr "תנועה חוזרת - מספר תשלומים"
 
 #: src/constants/categories.js:133
 #: src/constants/categories.js:396
@@ -698,9 +706,9 @@ msgstr "חיפוש"
 msgid "Select Subcategory"
 msgstr "בחר תת קטגוריה"
 
-#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:35
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
 msgid "Sheet"
-msgstr "גיליון"
+msgstr "העלה גיליון"
 
 #: src/components/organisms/SimilarExpenses.jsx:36
 msgid "Show same month only"
@@ -730,7 +738,7 @@ msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחו
 msgid "Summary"
 msgstr "תמונת מצב"
 
-#: src/components/pages/TheResolver.jsx:115
+#: src/components/pages/TheResolver.jsx:117
 msgid "The Resolver"
 msgstr "המיישב"
 

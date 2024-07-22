@@ -84,6 +84,7 @@ export const ParseExpensesListModal = ({
                                 setIsLoading(true);
                                 console.info({expensesWithCategory});
                                 await submitExpenses(expensesWithCategory);
+                                await refetch();
                                 setIsLoading(false);
                             }}>
                             <Spinner className={isLoading ? "animate-spin" : ''}/>

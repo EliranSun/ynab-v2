@@ -14,6 +14,7 @@ export const AddExpenseEntry = ({
     readonly = false,
     onSuccess = noop,
     onRemove,
+    isVertical = false,
 }) => {
     const {refetch} = useContext(ExpensesContext);
     const [expense, setExpense] = useState({
@@ -31,7 +32,8 @@ export const AddExpenseEntry = ({
             expense={expense}
             isVisible={isCategorySelectionVisible}
             onRemove={onRemove}
-            onSave={async () => {
+            isVertical={isVertical}
+            onSave={async (recurCount = 1) => {
                 if (
                     !expense[InputTypes.NAME] ||
                     !expense[InputTypes.AMOUNT] ||

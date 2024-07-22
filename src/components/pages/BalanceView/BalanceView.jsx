@@ -13,7 +13,7 @@ import {useSearchParams} from "react-router-dom";
 
 const BalanceView = () => {
         const {locale} = useContext(LocaleContext);
-        const [budget] = useContext(BudgetContext);
+        const {budget} = useContext(BudgetContext);
         const {currentTimestamp, NextButton, PreviousButton, isSameDate, isPreviousMonth} = useDate();
         const categories = useCategories(currentTimestamp);
         const budgetSummary = useMemo(() => getBudgetSummary(budget, categories.summary), [budget, categories]);
@@ -85,7 +85,6 @@ const BalanceView = () => {
                         "grid grid-cols-1 xl:grid-cols-2": false,
                     })}>
                     {categories.summary.map((category) => {
-                        console.log({category});
                         return (
                             <CategoryBalance
                                 key={category.id}

@@ -9,16 +9,16 @@ import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 import {getAverageSubcategoryAmount} from "../../../utils/expenses";
 
 const Subcategory = ({
-                         icon,
-                         name,
-                         id,
-                         budget,
-                         onSubcategoryClick = noop,
-                         isPreviousMonth = noop,
-                         isSelected = false,
-                         isIncome,
-                         thisMonthExpenses,
-                     }) => {
+    icon,
+    name,
+    id,
+    budget,
+    onSubcategoryClick = noop,
+    isPreviousMonth = noop,
+    isSelected = false,
+    isIncome,
+    thisMonthExpenses,
+}) => {
     const {expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
@@ -42,9 +42,9 @@ const Subcategory = ({
 
     const averageAmount = getAverageSubcategoryAmount(String(id), expensesPerMonthPerCategory);
 
-    if (thisMonthAmount === formatCurrency(0, false, false)) {
-        return null;
-    }
+    // if (thisMonthAmount === formatCurrency(0, false, false)) {
+    //     return null;
+    // }
 
     const isPositiveDiff = isIncome
         ? intThisMonthAmount.current < budget

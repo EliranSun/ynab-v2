@@ -278,13 +278,14 @@ export const updateBudget = async ({id, amount, subcategoryId}) => {
     let error;
 
     if (id) {
+        console.info("Updating budget item", {id, amount, subcategoryId});
         const response = await supabase
             .from("budget")
             .update({
-                id,
                 amount,
                 subcategoryId,
-            });
+            })
+            .eq("id", id);
 
         data = response.data;
         error = response.error;

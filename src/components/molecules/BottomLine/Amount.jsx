@@ -3,12 +3,12 @@ import {formatCurrency} from "../../../utils";
 import {round} from "lodash";
 
 const Amount = ({
-                    children,
-                    isExpense = false,
-                    withRounding = false,
-                    isDifference,
-                    size = Amount.Size.MEDIUM
-                }) => {
+    children,
+    isExpense = false,
+    withRounding = false,
+    isDifference,
+    size = Amount.Size.MEDIUM
+}) => {
     const value = (children);
     if (isNaN(value)) {
         return value;
@@ -17,13 +17,13 @@ const Amount = ({
     return (
         <h2 className={classNames({
             "font-mono": true,
-            "text-xs md:text-sm": size === Amount.Size.SMALL,
+            "text-xs md:text-4xl": size === Amount.Size.SMALL,
             "text-3xl md:text-5xl": size === Amount.Size.MEDIUM,
             "text-4xl md:text-9xl": size === Amount.Size.LARGE,
             "text-green-500": isDifference && (value >= 0),
             "text-red-500": isDifference && (value < 0) || isExpense,
         })}>
-            {formatCurrency(round(value, withRounding ? -1 : 0), false, true)}
+            {formatCurrency(round(value, withRounding ? -1 : 0), false, false)}
         < /h2>
     );
 };

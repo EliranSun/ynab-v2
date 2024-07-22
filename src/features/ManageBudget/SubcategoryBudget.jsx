@@ -1,17 +1,21 @@
-import {useState, useEffect, useMemo} from "react";
+import {useState, useEffect, useMemo, useContext} from "react";
 import {getAverageSubcategoryAmount, getLastSubcategoryAmount} from "../../utils/expenses";
 import {updateBudget} from "../../utils/db";
 import {formatCurrency} from "../../utils";
 import {Trans} from "@lingui/macro";
 import classNames from "classnames";
+import {Spinner} from "@phosphor-icons/react";
+import {BudgetContext, ExpensesContext} from "../../context";
 
 export const SubcategoryBudget = ({
-                                      subcategory = {},
-                                      budget = {},
-                                      expenses = {},
-                                      cutoffInMonths,
-                                      isLast,
-                                  }) => {
+    subcategory = {},
+    budget = {},
+    expenses = {},
+    cutoffInMonths,
+    isLast,
+}) => {
+    const {fetchBudget} = useContext(BudgetContext);
+    const [isLoading, setIsLoading] = useState(false);
     const [amount, setAmount] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
     const average = useMemo(() => {
@@ -28,6 +32,14 @@ export const SubcategoryBudget = ({
         }
     }, [budget.amount]);
 
+    if (isLoading) {
+        return (
+            <div className="w-44 h-12 bg-white flex items-center justify-center">
+                <Spinner className="animate-spin"/>
+            </div>
+        );
+    }
+
     return (
         <div className="relative flex flex-col w-fit justify-center items-start text-right bg-white">
             <span className="flex items-center">                
@@ -40,15 +52,18 @@ export const SubcategoryBudget = ({
                 onChange={event => setAmount(Number(event.target.value))}
                 onBlur={async () => {
                     setIsFocused(false);
-                    if (amount === budget.amount) {
+                    if (amount === 0 || amount === budget.amount) {
                         return;
                     }
 
+                    setIsLoading(true);
                     await updateBudget({
                         amount,
                         id: budget.id,
                         subcategoryId: subcategory.id,
                     });
+                    await fetchBudget();
+                    setIsLoading(false);
                 }}/>
                 </span>
             <p>{subcategory.icon} {subcategory.name}</p>
@@ -71,7 +86,8 @@ export const SubcategoryBudget = ({
                         </div>
                     </div>
                     <ol className="text-sm">
-                        {average.expenses?.map(expense => <li key={expense.name}>{expense.name}</li>)}
+                        {average.expenses?.map(expense =>
+                            <li key={expense.id}>{expense.name}</li>)}
                     </ol>
                 </div> : null}
         </div>

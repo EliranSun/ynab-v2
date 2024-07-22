@@ -20,6 +20,7 @@ const Months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December",
 ];
+
 const formatDateString = (date) => {
     // i.e. July 16, 24 to 2024-07-16
     try {
@@ -36,7 +37,7 @@ const formatDateString = (date) => {
 }
 export const ExpenseInputs = ({
     readonly,
-    isVisible,
+    isListView,
     expense,
     onInputChange = noop,
     onRemove,
@@ -51,7 +52,7 @@ export const ExpenseInputs = ({
     const [isSuccess, setIsSuccess] = useState(null);
     const [recurCount, setRecurCount] = useState(1);
 
-    if (!isVisible || !expense) {
+    if (!expense) {
         return null;
     }
 
@@ -113,17 +114,18 @@ export const ExpenseInputs = ({
                         onInputChange(InputTypes.NOTE, value);
                     }}/>
             </div>
-            <div className="flex items-center gap-2">
-                <label><Trans>Recurring Transaction Count</Trans></label>
-                <Input
-                    type="number"
-                    className="w-16"
-                    disabled={readonly}
-                    value={recurCount}
-                    onChange={(event) => {
-                        setRecurCount(event.target.value);
-                    }}/>
-            </div>
+            {isListView ? null :
+                <div className="flex items-center gap-2">
+                    <label><Trans>Recurring Transaction Count</Trans></label>
+                    <Input
+                        type="number"
+                        className="w-16"
+                        disabled={readonly}
+                        value={recurCount}
+                        onChange={(event) => {
+                            setRecurCount(Number(event.target.value));
+                        }}/>
+                </div>}
             {onHide ?
                 <Button
                     variation={Button.Variation.HIDE}
@@ -166,7 +168,10 @@ export const ExpenseInputs = ({
                         }
                     }}
                     variation={Button.Variation.DELETE}>
-                    <Trash/>
+                    {isLoading === null ?
+                        <Trash/> : isLoading ?
+                            <Spinner className="animate-spin"/> : isSuccess ?
+                                <Check/> : <X/>}
                 </Button> : null}
         </div>
     );

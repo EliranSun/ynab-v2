@@ -7,7 +7,7 @@ import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 const Expense = ({
     expense,
     isIncome = false,
-    isListView: isVisible = false,
+    isListView = false,
     onHide = noop,
 }) => {
     const {refetch} = useContext(ExpensesContext);
@@ -16,7 +16,7 @@ const Expense = ({
     return (
         <ExpenseInputs
             expense={expense}
-            isVisible={isVisible}
+            isListView={isListView}
             isIncome={isIncome}
             isSaveDisabled={isEqual(newExpense, expense)}
             onHide={onHide}

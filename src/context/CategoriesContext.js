@@ -47,7 +47,7 @@ export const CategoriesProvider = ({children}) => {
         fetch();
     }, [user]);
 
-    if (walkthroughViewStep > 0 && currentRoute !== Routes.CATEGORIES_EDIT) {
+    if (walkthroughViewStep > 0 && currentRoute !== Routes.CATEGORIES) {
         return (
             <div
                 className={classNames({
@@ -73,7 +73,7 @@ export const CategoriesProvider = ({children}) => {
                             <Trans>You will associate these with each entry you add</Trans>.<br/>
                         </> : null}
                 </p>
-                <Button onClick={() => navigate(Routes.CATEGORIES_EDIT)}>
+                <Button onClick={() => navigate(Routes.CATEGORIES)}>
                     <Trans>OK</Trans>
                 </Button>
             </div>

@@ -1,11 +1,12 @@
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import {useContext, useState} from "react";
-import {addExpense} from "../../../utils/db";
-import {Expense} from "../../../models";
+import {addExpense, addExpenses} from "../../../utils/db";
+import {Expense} from "../../../utils/db";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
 import {formatDateObjectToInput} from "../../../utils/date";
 import {noop} from "lodash";
+import {addMonths} from "date-fns";
 import {ExpensesContext} from "../../../context";
 
 export const AddExpenseEntry = ({
@@ -44,9 +45,25 @@ export const AddExpenseEntry = ({
                     return;
                 }
 
-                const modeledExpense = new Expense(expense);
-                await addExpense(modeledExpense);
-                console.info("Success!", modeledExpense);
+                if (recurCount > 1) {
+                    const expenses = new Array(Number(recurCount))
+                        .fill(expense)
+                        .map((item, index) => {
+                            return new Expense({
+                                ...item,
+                                date: addMonths(new Date(expense.date), index),
+                                note: `${item.note} - ${index + 1}/${recurCount}`,
+                            });
+                        });
+
+                    await addExpenses(expenses);
+                    console.info("Success!", expenses);
+                } else {
+                    const modeledExpense = new Expense(expense);
+                    await addExpense(modeledExpense);
+                    console.info("Success!", modeledExpense);
+                }
+
                 onSuccess();
                 return refetch();
             }}

@@ -133,7 +133,7 @@ export const getExpensesSummary = async ({budget, timestamp, categories = [], ex
     });
 
     return {
-        summary: orderBy(summary, ['amount'], 'desc'),
+        summary: orderBy(summary, ['isIncome'], 'desc'),
         totalExpenses,
         totalIncome,
     };

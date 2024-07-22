@@ -1,6 +1,6 @@
 export const Item = ({children}) => {
     return (
-        <div className="flex flex-col md:items-start">
+        <div className="flex flex-col">
             {children}
         </div>
     );

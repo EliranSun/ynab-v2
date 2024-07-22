@@ -1,11 +1,7 @@
-import {CategoriesIds} from "../../constants";
-import {InitBudget} from "../../constants/init-budget";
-import {updateBudget} from "../../utils";
 import {Trans} from "@lingui/macro";
 import {useContext, useMemo, useState} from "react";
 import {BudgetContext, ExpensesContext} from "../../context";
-import {isEqual, toNumber} from "lodash";
-import {Button} from "../../components";
+import {toNumber} from "lodash";
 import {CategoriesContext} from "../../context/CategoriesContext";
 import {BudgetInfoCard, BudgetInfoType} from "./BudgetInfoCard";
 import {SubcategoryBudget} from "./SubcategoryBudget";
@@ -16,9 +12,22 @@ const cleanAmountValue = (value) => {
 
 export const BudgetView = () => {
     const [cutOffInMonths, setCutOffInMonths] = useState(6);
-    const [budget, setBudget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const {categories} = useContext(CategoriesContext);
+    const sortedCategories = useMemo(() => {
+        return categories.sort((a, b) => {
+            if (a.isIncome) {
+                return -1;
+            }
+
+            if (b.isIncome) {
+                return 1;
+            }
+
+            return 0;
+        });
+    }, [categories]);
 
     const totalBudget = useMemo(() => {
         const totalBudget = {
@@ -76,7 +85,7 @@ export const BudgetView = () => {
                     </div>
                 </div>
                 <div className="flex gap-4 w-full overflow-x-auto pb-8">
-                    {categories.map((category, index) => {
+                    {sortedCategories.map((category, index) => {
                         return (
                             <div key={category.id}
                                  className="flex flex-col items-start p-2 bg-gray-50/50 flex-wrap border rounded-xl">

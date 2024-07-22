@@ -4,7 +4,7 @@ import {getExpensesSummary} from "../utils/expenses";
 import {CategoriesContext} from "../context/CategoriesContext";
 
 export const useCategories = (timestamp) => {
-    const [budget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
     const {expenses} = useContext(ExpensesContext);
     const {categories: fetchedCategories} = useContext(CategoriesContext);
     const [categories, setCategories] = useState({summary: [], totalExpenses: 0, totalIncome: 0});

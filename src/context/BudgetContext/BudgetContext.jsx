@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useCallback, useEffect, useState} from "react";
 import {getBudget} from "../../utils/db";
 
 export const BudgetContext = createContext({
@@ -14,21 +14,22 @@ export const getDateKey = (timestamp) => {
 };
 export const BudgetContextProvider = ({children}) => {
     const [budget, setBudget] = useState([]);
+    const fetchBudget = useCallback(async () => {
+        const budget = await getBudget();
+        setBudget(budget);
+    }, []);
 
     useEffect(() => {
-        (async () => {
-            const budget = await getBudget();
-            setBudget(budget);
-        })();
+        fetchBudget();
     }, []);
 
     return (
         <BudgetContext.Provider
-            value={[
+            value={{
                 budget,
                 setBudget,
-            ]}
-        >
+                fetchBudget,
+            }}>
             {children}
         </BudgetContext.Provider>
     );

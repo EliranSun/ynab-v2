@@ -2,7 +2,7 @@ import {useContext, useMemo} from "react";
 import {BudgetContext, getDateKey} from "../context";
 
 export const useBudget = (timestamp) => {
-    const [budget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
 
     return useMemo(() => {
         if (!budget) {

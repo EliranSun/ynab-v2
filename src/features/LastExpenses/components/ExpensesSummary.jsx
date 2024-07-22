@@ -180,7 +180,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                                     setItemsHiddenByUser(itemsHiddenByUser.filter(({id}) => id !== item.id));
                                                     return;
                                                 }
-                                                
+
                                                 setItemsHiddenByUser([item, ...itemsHiddenByUser]);
                                             }}/>
                                     )
@@ -195,7 +195,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
 ;
 
 const ProvidedLastExpenses = () => {
-    const [budget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
     const {expenses} = useContext(ExpensesContext);
 
     return <ExpensesSummary budget={budget} expenses={expenses}/>

@@ -51,10 +51,6 @@ const router = createBrowserRouter([
                 path: Routes.HOME,
                 element: <ExpensesSummary/>,
             },
-            // {
-            //     path: Routes.CATEGORIES_EDIT,
-            //     element: <CategoriesEdit/>,
-            // },
             {
                 path: Routes.ADD,
                 element: <ParseExpensesList/>,

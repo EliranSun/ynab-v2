@@ -49,17 +49,17 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
 };
 
 export const CategoryBalance = ({
-                                    isNsfw,
-                                    categoryId,
-                                    subcategories,
-                                    categoryName,
-                                    currentTimestamp,
-                                    isSameDate,
-                                    isPreviousMonth,
-                                    categoryBudget,
-                                    selectedId,
-                                    setSelectedId
-                                }) => {
+    isNsfw,
+    categoryId,
+    subcategories,
+    categoryName,
+    currentTimestamp,
+    isSameDate,
+    isPreviousMonth,
+    categoryBudget,
+    selectedId,
+    setSelectedId
+}) => {
     const [isExpanded, setIsExpanded] = useState(true);
     const {expenses} = useContext(ExpensesContext);
     const {categories} = useContext(CategoriesContext);
@@ -100,14 +100,14 @@ export const CategoryBalance = ({
         //     return (subcategory.budget - subcategory.amount) < 0;
         // });
 
-        return orderBy(sub, ['amount'], "desc");
+        return sub;
     }, [currentTimestamp, expenses, subcategories]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
-    if (totalExpensesSum === 0) {
-        return null;
-    }
+    // if (totalExpensesSum === 0) {
+    //     return null;
+    // }
 
     return (
         <div className={classNames({

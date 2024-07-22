@@ -7,7 +7,7 @@ import {Box} from "../../atoms/Box";
 
 export const ExportData = () => {
     const {expenses} = useContext(ExpensesContext);
-    const [budget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
 
     return (
         <section className="w-full flex flex-col gap-16">

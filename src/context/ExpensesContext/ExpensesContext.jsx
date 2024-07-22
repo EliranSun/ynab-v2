@@ -57,7 +57,7 @@ export const ExpensesContextProvider = ({children}) => {
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
-    const [budget] = useContext(BudgetContext);
+    const {budget} = useContext(BudgetContext);
     const {user} = useContext(UserContext);
 
     const setExpenseAsRecurring = (expenseId, recurring) => {

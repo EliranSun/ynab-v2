@@ -47,7 +47,7 @@ export const BudgetView = () => {
     }, [budget]);
 
     return (
-        <section className="max-w-screen-xl m-auto relative">
+        <section className="max-w-screen-2xl m-auto relative">
             <h1 className="text-6xl my-8">
                 <Trans>Budget</Trans>
             </h1>

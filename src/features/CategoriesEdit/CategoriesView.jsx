@@ -7,13 +7,13 @@ import {Title} from "../../components";
 import {CategoriesContext} from "../../context/CategoriesContext";
 import {TooltipContext} from "../../context/TooltipContext";
 
-export const CategoriesEdit = () => {
+export const CategoriesView = () => {
     const {categories, fetch} = useContext(CategoriesContext);
     const [setTooltipMessage] = useContext(TooltipContext);
     const [isAddCategoryView, setIsAddCategoryView] = useState(false);
 
     return (
-        <div className="flex flex-col rounded-3xl max-w-screen-xl m-auto relative">
+        <div className="flex flex-col rounded-3xl max-w-screen-2xl m-auto relative">
             <Title><Trans>Categories Edit</Trans></Title>
             <div
                 className="absolute -bottom-10 left-0"

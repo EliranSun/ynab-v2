@@ -100,7 +100,7 @@ export const ParseExpensesList = ({
     return (
         <>
             <section
-                className="flex flex-col justify-center gap-2 md:gap-8 max-w-screen-2xl m-auto px-4 md:px-8">
+                className="flex flex-col justify-center gap-2 md:gap-8 max-w-screen-2xl m-auto">
                 <Title type={Title.Types.H1} className="mt-8">
                     <Trans>Add</Trans>
                 </Title>

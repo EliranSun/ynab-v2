@@ -131,8 +131,8 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         console.log(lastItems[0]);
 
         return (
-            <div className="p-2 md:p-4 w-full max-w-screen-xl m-auto bg-white/90">
-                <h1 className="w-full m-auto text-8xl font-mono mb-8">
+            <div className="w-full max-w-screen-2xl m-auto bg-white/90">
+                <h1 className="w-full m-auto text-8xl font-mono my-8">
                     <Trans>Summary</Trans>
                 </h1>
                 <section
@@ -145,7 +145,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
-                    <div className="sticky top-0 z-10 bg-white">
+                    <div className="sticky top-20 p-4 z-10 bg-white">
                         <BottomLine
                             totalSpent={totalSpent}
                             timeframeName={TimeframeNames[timeframeName]}

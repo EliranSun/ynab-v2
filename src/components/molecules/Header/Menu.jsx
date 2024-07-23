@@ -28,7 +28,7 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
             "w-2/3 h-screen md:h-fit p-8 md:p-4 md:text-sm": true,
             "flex flex-col md:flex-row gap-6 md:gap-4 justify-between md:justify-end": true,
             "border-r md:border-none shadow-xl md:shadow-none md:static": true,
-            "fixed z-30 top-0 rtl:left-0 ltr:right-0 bg-white": true,
+            "fixed z-30 top-0 rtl:left-0 ltr:right-0": false,
         })}>
             <div className="flex flex-col md:flex-row gap-6 md:gap-4">
                 {Object.values(MenuPages).map((item) => (

@@ -14,15 +14,16 @@ export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex sticky top-0 z-40 w-screen">
+        <div className="flex sticky top-0 py-3 z-40 bg-white w-screen border-b">
             <header
                 className={classNames({
+                    "max-w-screen-2xl m-auto": true,
                     "bg-white text-xs md:text-base": true,
-                    "p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
+                    "md:h-16 w-full bg-white z-10": true,
                     "flex justify-between items-center md:gap-8": true,
                     "rtl:flex-row-reverse": false,
                 })}>
-                <span className="hidden lg:inline">
+                <span className="hidden lg:inline w-40">
                     <WelcomeMessage userName={user.translatedUsername}/>
                 </span>
                 <Search/>

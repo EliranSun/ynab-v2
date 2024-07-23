@@ -5,7 +5,7 @@ import {Login} from "./components/pages/Login";
 import {Root} from "./components/templates/Root";
 import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
-import {CategoriesEdit} from "./features/CategoriesEdit/CategoriesEdit";
+import {CategoriesView} from "./features/CategoriesEdit/CategoriesView";
 import {ToastProvider} from "./context/ToastProvider";
 import ExpensesSummary from "./features/LastExpenses/components/ExpensesSummary";
 import {BalanceView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             },
             {
                 path: Routes.CATEGORIES,
-                element: <CategoriesEdit/>,
+                element: <CategoriesView/>,
             },
             {
                 path: Routes.PROJECTION,

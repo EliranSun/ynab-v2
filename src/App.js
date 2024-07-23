@@ -3,33 +3,28 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {BudgetContextProvider, ExpensesContextProvider, UserProvider} from "./context";
 import {Login} from "./components/pages/Login";
 import {Root} from "./components/templates/Root";
-import {PageRouter} from "./components/templates/PageRouter";
 import {Header} from "./components/molecules/Header/Header";
 import {LocaleProvider} from "./context/LocaleContext";
-import Couch from "./assets/couch.png";
 import {CategoriesEdit} from "./features/CategoriesEdit/CategoriesEdit";
 import {ToastProvider} from "./context/ToastProvider";
-import {ExpensesSummary} from "./features/LastExpenses/components/ExpensesSummary";
-import {BalanceView, CategoryView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
-import FuturePredictionPage from "./components/pages/FuturePredictionPage/FuturePredictionPage";
-import {ManageBudget} from "./features/ManageBudget/ManageBudget";
+import ExpensesSummary from "./features/LastExpenses/components/ExpensesSummary";
+import {BalanceView, ExpenseView, ParseExpensesList, SeeingDoublePage} from "./components";
+import ProjectionView from "./components/pages/FuturePredictionPage/ProjectionView";
+import {BudgetView} from "./features/ManageBudget/BudgetView";
+import {CategoriesProvider} from "./context/CategoriesContext";
+import {Routes} from "./constants/route";
+import {TooltipProvider} from "./context/TooltipContext";
+import React from "react";
+import {ImportFromFile} from "./components/pages/ParseExpensesList/ImportFromFile";
 
 function App() {
     return (
         <LocaleProvider>
-            <BudgetContextProvider>
-                <ExpensesContextProvider>
-                    <ToastProvider>
-                        <RouterProvider router={router}/>
-                        <div className="fixed -z-10">
-                            <img
-                                src={Couch}
-                                className="fixed bottom-20 left-20 w-2/3 md:w-1/4 h-auto"
-                                alt="bg-couch"/>
-                        </div>
-                    </ToastProvider>
-                </ExpensesContextProvider>
-            </BudgetContextProvider>
+            <ToastProvider>
+                <TooltipProvider>
+                    <RouterProvider router={router}/>
+                </TooltipProvider>
+            </ToastProvider>
         </LocaleProvider>
     );
 }
@@ -39,51 +34,57 @@ const router = createBrowserRouter([
         path: "/",
         element: (
             <UserProvider>
-                <Header/>
-                <Login>
-                    <Root/>
-                </Login>
+                <BudgetContextProvider>
+                    <ExpensesContextProvider>
+                        <CategoriesProvider>
+                            <Header/>
+                            <Login>
+                                <Root/>
+                            </Login>
+                        </CategoriesProvider>
+                    </ExpensesContextProvider>
+                </BudgetContextProvider>
             </UserProvider>
         ),
         children: [
             {
-                path: "/home",
+                path: Routes.HOME,
                 element: <ExpensesSummary/>,
             },
             {
-                path: "/categories-edit",
-                element: <CategoriesEdit/>,
-            },
-            {
-                path: "/import",
+                path: Routes.ADD,
                 element: <ParseExpensesList/>,
             },
             {
-                path: "/balance",
+                path: Routes.IMPORT,
+                element: <ImportFromFile/>,
+            },
+            {
+                path: Routes.BALANCE,
                 element: <BalanceView/>,
             },
             {
-                path: "/expenses",
+                path: Routes.EXPENSES,
                 element: <ExpenseView/>,
             },
             {
-                path: "/categories",
-                element: <CategoryView/>,
+                path: Routes.CATEGORIES,
+                element: <CategoriesEdit/>,
             },
             {
-                path: "/projection",
-                element: <FuturePredictionPage/>,
+                path: Routes.PROJECTION,
+                element: <ProjectionView/>,
             },
             {
-                path: "/resolver",
+                path: Routes.RESOLVER,
                 element: <SeeingDoublePage/>,
             },
             {
-                path: "/budget",
-                element: <ManageBudget/>,
+                path: Routes.BUDGET,
+                element: <BudgetView/>,
             },
             {
-                path: "/",
+                path: Routes.ROOT,
                 element: <Navigate to="/home" replace/>,
             }
         ]

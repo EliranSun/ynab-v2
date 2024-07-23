@@ -11,6 +11,8 @@
     "@testing-library/user-event": "^14.4.3",
     "chart.js": "^4.3.3",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-trendline": "^2.1.2",
+    "chartjs-plugin-zoom": "^2.0.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "deep-object-diff": "^1.1.9",
@@ -28,7 +30,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "cross-env PORT=3006 GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "cross-env PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

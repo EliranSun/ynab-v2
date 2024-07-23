@@ -10,6 +10,7 @@ import {useCategoryExpensesSummary} from "../../../hooks/useCategoryExpensesSumm
 import classNames from "classnames";
 import {Title} from "../../atoms";
 import {Trans} from "@lingui/macro";
+import {CategoriesContext} from "../../../context/CategoriesContext";
 
 const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
     return (
@@ -48,27 +49,28 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
 };
 
 export const CategoryBalance = ({
-                                    categoryId,
-                                    categoryName,
-                                    currentTimestamp,
-                                    isSameDate,
-                                    isPreviousMonth,
-                                    categoryBudget,
-                                    subcategoryBudgets,
-                                    selectedId,
-                                    setSelectedId
-                                }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const {expensesArray} = useContext(ExpensesContext);
-    const [budget] = useContext(BudgetContext);
-    const {totalExpensesSum, averages} = useCategoryExpensesSummary(categoryId, currentTimestamp);
+    isNsfw,
+    categoryId,
+    subcategories,
+    categoryName,
+    currentTimestamp,
+    isSameDate,
+    isPreviousMonth,
+    categoryBudget,
+    selectedId,
+    setSelectedId
+}) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+    const {expenses} = useContext(ExpensesContext);
+    const {categories} = useContext(CategoriesContext);
+    const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategories, currentTimestamp);
 
-    const subcategories = useMemo(() => {
-        const sub = Categories.find((c) => c.id === categoryId)?.subCategories.map((subcategory) => {
-            const subcategoryBudget = subcategoryBudgets[subcategory.id];
-            const expensesInCategory = expensesArray.filter((expense) => {
-                return expense.categoryId === subcategory.id;
+    const subcategoriesSummary = useMemo(() => {
+        const sub = subcategories.map((subcategory) => {
+            const expensesInCategory = expenses.filter((expense) => {
+                return expense.subcategoryId === subcategory.id;
             });
+
             const thisMonthExpenses = expensesInCategory.filter((expense) => {
                     const date = new Date(currentTimestamp);
                     const expenseDate = new Date(expense.timestamp);
@@ -90,8 +92,7 @@ export const CategoryBalance = ({
             return {
                 ...subcategory,
                 amount,
-                budget: subcategoryBudget,
-                difference: subcategoryBudget - amount,
+                difference: subcategory.budget - amount,
                 thisMonthExpenses
             };
         })
@@ -99,38 +100,43 @@ export const CategoryBalance = ({
         //     return (subcategory.budget - subcategory.amount) < 0;
         // });
 
-
-        return orderBy(sub, (subcategory) => subcategory.budget - subcategory.amount, "asc");
-    }, [budget, categoryId, currentTimestamp, expensesArray]);
+        return sub;
+    }, [currentTimestamp, expenses, subcategories]);
 
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
+    // if (totalExpensesSum === 0) {
+    //     return null;
+    // }
+
     return (
-        <div className="bg-gray-200 md:h-fit p-2 md:p-4 box-border relative min-w-[360px] flex-grow">
+        <div className={classNames({
+            "md:h-fit p-2 md:p-4 box-border relative flex-grow shadow": true,
+            "bg-gray-200": !isNsfw,
+        })}>
             <div
-                className="text-sm md:text-5xl cursor-pointer mb-4 flex md:flex-col items-center justify-between"
+                className="cursor-pointer mb-4 flex md:flex-col items-start justify-between bg-gray-100"
                 onClick={() => setIsExpanded(!isExpanded)}>
+                <div className="font-black font-mono text-3xl">
+                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                </div>
                 <Title type={Title.Types.H4}>
                     {categoryName}
                 </Title>
-                <div className="font-black font-mono text-4xl">
-                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
-                </div>
             </div>
-            <DataStrip
-                categoryId={categoryId}
-                categoryBudget={categoryBudget}
-                averages={averages}
-                diff={diff}/>
+            {/*<DataStrip*/}
+            {/*    categoryId={categoryId}*/}
+            {/*    categoryBudget={categoryBudget}*/}
+            {/*    averages={averages}*/}
+            {/*    diff={diff}/>*/}
             {isExpanded ?
-                <div className="flex flex-col gap-2 my-4 w-full md:h-fit overflow-x-hidden overflow-y-auto px-2">
-                    {subcategories.map((subcategory) => {
+                <div className="flex flex-col gap-4 w-full md:h-fit overflow-y-auto">
+                    {subcategoriesSummary.map((subcategory) => {
                         return (
                             <Subcategory
                                 {...subcategory}
                                 key={subcategory.id}
-                                subcategoryBudget={subcategoryBudgets ? subcategoryBudgets[subcategory.id] : 0}
-                                categoryId={categoryId}
+                                budget={subcategory.budget}
                                 isSelected={selectedId === subcategory.id}
                                 onSubcategoryClick={setSelectedId}
                                 currentTimestamp={currentTimestamp}

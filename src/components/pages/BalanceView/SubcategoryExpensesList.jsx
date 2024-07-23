@@ -15,7 +15,7 @@ const ListBox = ({children, ...rest}) => {
     return (
         <div
             {...rest}
-            className="w-full bg-white p-4 border-l h-full">
+            className="w-full bg-white p-4 h-full">
             {children}
         </div>
     );
@@ -23,15 +23,15 @@ const ListBox = ({children, ...rest}) => {
 const SubcategoryExpensesList = ({
                                      timestamp = null,
                                      subcategory = {},
+                                     selectedSubcategoryId,
                                      onSubcategoryClick = noop,
                                  }) => {
     const {expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const data = useMemo(() => {
-        const subcategoryId = subcategory.id;
-        if (!subcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)
+        if (!selectedSubcategoryId || Object.keys(expensesPerMonthPerCategory).length === 0)
             return [];
 
-        const categoryExpenses = expensesPerMonthPerCategory[subcategoryId];
+        const categoryExpenses = expensesPerMonthPerCategory[selectedSubcategoryId];
 
         if (!categoryExpenses)
             return [];
@@ -47,7 +47,7 @@ const SubcategoryExpensesList = ({
                 return b.timestamp - a.timestamp;
             })
             .reverse();
-    }, [subcategory, expensesPerMonthPerCategory]);
+    }, [selectedSubcategoryId, expensesPerMonthPerCategory]);
 
     const sameMonthData = useMemo(() => {
         return data.filter(item => {
@@ -81,15 +81,15 @@ const SubcategoryExpensesList = ({
     return (
         <ListBox onClick={() => !isMobile && onSubcategoryClick(null)}>
             <ExpensesChart data={data}/>
-            <button
-                className="float-right"
-                onClick={() => onSubcategoryClick(null)}>
-                <X size={BUTTON_SIZE}/>
-            </button>
-            <Title>
-                {subcategory.icon} {subcategory.name} - {amountCurrency}
-            </Title>
-            <div className="overflow-y-auto max-h-[700px]">
+            <div className="overflow-y-auto h-60 shadow-lg p-8 rounded-xl">
+                <button
+                    className="float-right"
+                    onClick={() => onSubcategoryClick(null)}>
+                    <X size={BUTTON_SIZE}/>
+                </button>
+                <Title>
+                    {subcategory.icon} {subcategory.name} - {amountCurrency}
+                </Title>
                 {sameMonthData
                     ? orderBy(sameMonthData.expenses, ['amount', 'timestamp'], ['desc'])
                         .map((expense) => {

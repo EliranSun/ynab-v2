@@ -15,7 +15,7 @@ const IncomeSubcategoryIds = [80, 81, 82, 83];
 
 export const BalanceSummary = ({timestamp}) => {
     const [isOpen, setIsOpen] = useState(isMobile());
-    const {expensesArray: expenses = []} = useContext(ExpensesContext);
+    const {expenses = []} = useContext(ExpensesContext);
     const {income: incomeBudget, outcome: expensesBudget} = useBudget(timestamp);
     const {totalIncomeThisMonth, totalExpensesThisMonth} = useExpensesSummary(timestamp);
 

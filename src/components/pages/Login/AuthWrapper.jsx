@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {UserContext} from "../../../context";
 import {LoginWelcomeMessage} from "../../atoms/LoginWelcomeMessage";
 
-const Login = ({children}) => {
+const AuthWrapper = ({children}) => {
     const {user} = useContext(UserContext);
 
     if (user === false) {
@@ -14,11 +14,11 @@ const Login = ({children}) => {
         );
     }
 
-    if (user && user.uid) {
+    if (user && user.id) {
         return children;
     }
 
     return <LoginWelcomeMessage/>;
 };
 
-export default Login;
+export default AuthWrapper;

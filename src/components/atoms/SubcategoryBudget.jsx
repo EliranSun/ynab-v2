@@ -5,10 +5,9 @@ import {useState, useRef, useContext} from "react";
 import {useClickAway} from "react-use";
 import {BudgetContext} from "../../context";
 
-export const SubcategoryBudget = ({categoryId, subcategoryId, isMeetingBudget = false, budgetAmount = 0}) => {
+export const SubcategoryBudget = ({isMeetingBudget = false, budgetAmount = 0}) => {
     // eslint-disable-next-line no-undef
     const [isSettingBudget, setIsSettingBudget] = useState(false);
-    const [newBudgetAmount, setNewBudgetAmount] = useState(budgetAmount);
     const ref = useRef(null);
 
     useClickAway(ref, () => {
@@ -31,18 +30,9 @@ export const SubcategoryBudget = ({categoryId, subcategoryId, isMeetingBudget = 
             {isSettingBudget ?
                 <input
                     type="number"
-                    value={newBudgetAmount}
-                    className="flex w-fit max-w-[40px] text-center"
-                    onChange={(event) => {
-                        // setNewBudgetAmount(Number(event.target.value));
-
-                        // setBudget({
-                        //     amount: Number(event.target.value),
-                        //     categoryId,
-                        //     subcategoryId,
-                        // });
-                    }}/> :
-                formatCurrency(newBudgetAmount, false, false)}
+                    value={budgetAmount}
+                    className="flex w-fit max-w-[40px] text-center"/> :
+                formatCurrency(budgetAmount, false, false)}
         </div>
     );
 };

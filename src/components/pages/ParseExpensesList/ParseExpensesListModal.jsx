@@ -1,27 +1,29 @@
-import {Categories} from "../../../constants";
 import {noop} from "lodash"
-import {LeanCategorySelection} from "../../organisms/CategorySelection";
 import {Button, Spinner} from "../../atoms";
-import {useEffect, useMemo, useState} from "react";
-import {SimilarExpenses} from "../../organisms/SimilarExpenses";
+import {useContext, useEffect, useMemo, useState} from "react";
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
 import classNames from "classnames";
+import {CategoriesContext} from "../../../context/CategoriesContext";
+import {X} from "@phosphor-icons/react";
+import {ExpensesContext} from "../../../context";
 
-export const ExpensesList = ({
-                                 expenses = [],
-                                 existingExpenses = [],
-                                 setExpenses = noop,
-                                 submitExpenses = noop,
-                                 deleteExpense = noop,
-                             }) => {
-        const [isCategorySelectionVisible, setIsCategorySelectionVisible] = useState(true);
+export const ParseExpensesListModal = ({
+        expenses = [],
+        existingExpenses = [],
+        setExpenses = noop,
+        submitExpenses = noop,
+        deleteExpense = noop,
+    }) => {
+        const {refetch} = useContext(ExpensesContext);
+        const {categories} = useContext(CategoriesContext);
+        const [isOpen, setIsOpen] = useState(true);
         const [isLoading, setIsLoading] = useState(false);
         const expensesWithCategory = useMemo(() => expenses.filter((expense) => {
-            return !!expense.categoryId;
+            return !!expense.subcategoryId;
         }), [expenses]);
 
         const [activeId, setActiveId] = useState(expenses.find((expense) => {
-            return !expense.categoryId;
+            return !expense.subcategoryId;
         })?.id || null);
 
         useEffect(() => {
@@ -54,8 +56,12 @@ export const ExpensesList = ({
             // we do not want to update based on activeId
         }, [expenses]); // eslint-disable-line react-hooks/exhaustive-deps
 
-        if (expenses.length === 0) {
-            return null;
+        if (expenses.length === 0 || !isOpen) {
+            return (
+                <div className="fixed top-20 left-20 z-30 shadow-xl" onClick={() => setIsOpen(true)}>
+                    <Button>OPEN</Button>
+                </div>
+            );
         }
 
         return (
@@ -64,15 +70,13 @@ export const ExpensesList = ({
                     "fixed inset-0 z-30 flex flex-col items-center justify-center": true,
                     "size-screen border-none backdrop-brightness-50": true,
                 })}>
+                <div className="mb-4 rounded-full bg-white p-8" onClick={() => {
+                    setIsOpen(false);
+                }}>
+                    <X size={32} color="black"/>
+                </div>
                 <div className="max-w-screen-xl border-2 border-gray-500 bg-white p-8 h-[90vh] overflow-y-auto">
                     <div className="flex justify-between bg-white">
-                        <Button
-                            type={Button.Types.GHOST_BORDERED}
-                            onClick={() => {
-                                setIsCategorySelectionVisible(!isCategorySelectionVisible);
-                            }}>
-                            {isCategorySelectionVisible ? "Hide" : "Show"} category selection
-                        </Button>
                         <Button
                             isDisabled={isLoading || expensesWithCategory.length === 0}
                             className="flex items-center gap-2"
@@ -80,6 +84,7 @@ export const ExpensesList = ({
                                 setIsLoading(true);
                                 console.info({expensesWithCategory});
                                 await submitExpenses(expensesWithCategory);
+                                await refetch();
                                 setIsLoading(false);
                             }}>
                             <Spinner className={isLoading ? "animate-spin" : ''}/>
@@ -89,9 +94,9 @@ export const ExpensesList = ({
                     <div className="mb-4 snap-y overflow-y-auto xl:p-4">
                         {expenses.map((expense, index) => {
                             let subcategory;
-                            Categories.forEach((category) => {
-                                category.subCategories.forEach((sub) => {
-                                    if (sub.id === expense.categoryId) {
+                            categories.forEach((category) => {
+                                category.subcategories.forEach((sub) => {
+                                    if (sub.id === expense.subcategoryId) {
                                         subcategory = sub;
                                     }
                                 });
@@ -99,18 +104,13 @@ export const ExpensesList = ({
 
                             return (
                                 <div
-                                    key={expense.id}
-                                    className="snap-start"
                                     id={expense.id}
+                                    key={expense.id}
                                     onClick={() => setActiveId(expense.id)}>
                                     <ExpenseInputs
                                         index={index}
-                                        name={expense.name}
-                                        note={expense.note}
-                                        amount={expense.amount}
-                                        date={expense.date}
-                                        timestamp={expense.timestamp}
-                                        isVisible={isCategorySelectionVisible}
+                                        expense={expense}
+                                        isVisible
                                         subcategory={subcategory}
                                         onRemove={() => {
                                             setExpenses((prev) => {
@@ -120,6 +120,7 @@ export const ExpensesList = ({
                                             });
 
                                             deleteExpense(expense);
+                                            refetch();
                                         }}
                                         onInputChange={(type, value) => {
                                             setExpenses((prev) => {
@@ -129,20 +130,6 @@ export const ExpensesList = ({
                                             });
                                         }}
                                     />
-                                    {isCategorySelectionVisible && activeId === expense.id &&
-                                        <>
-                                            <SimilarExpenses
-                                                expense={expense}
-                                                existingExpenses={existingExpenses}/>
-                                            <LeanCategorySelection
-                                                onCategorySelect={(categoryId) => {
-                                                    setExpenses((prev) => {
-                                                        const newExpenses = [...prev];
-                                                        newExpenses[index].categoryId = categoryId;
-                                                        return newExpenses;
-                                                    });
-                                                }}/>
-                                        </>}
                                 </div>
                             )
                         })}

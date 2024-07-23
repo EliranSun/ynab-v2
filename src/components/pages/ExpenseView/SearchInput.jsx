@@ -1,12 +1,19 @@
-import { noop } from "lodash";
-import { useState } from "react";
-import { useDebounce } from "react-use";
+import {noop} from "lodash";
+import {useEffect, useState} from "react";
+import {useDebounce} from "react-use";
 
 export const SearchInput = ({
-    placeholder = "Search through expenses",
-    onChange = noop
-}) => {
-    const [value, setValue] = useState("");
+                                placeholder = "Search through expenses",
+                                onChange = noop,
+                                onFocus = noop,
+                                value: initValue = ""
+                            }) => {
+    const [value, setValue] = useState(initValue);
+
+    useEffect(() => {
+        setValue(initValue);
+    }, [initValue]);
+
     useDebounce(
         () => {
             onChange(value);
@@ -16,9 +23,15 @@ export const SearchInput = ({
     );
     return (
         <input
-            className="w-full h-16 md:w-2/5 text-xl border-b border-black"
+            className="relative w-full h-16 md:w-2/5 text-xl border rounded-xl px-8"
             type="text"
             placeholder={placeholder}
+            value={value}
+            onFocus={() => {
+                if (value && value.length >= 3) {
+                    onFocus();
+                }
+            }}
             onChange={(event) => {
                 setValue(event.target.value);
             }}

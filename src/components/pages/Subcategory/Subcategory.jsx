@@ -9,19 +9,17 @@ import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
 import {getAverageSubcategoryAmount} from "../../../utils/expenses";
 
 const Subcategory = ({
-                         icon,
-                         label,
-                         id,
-                         categoryId,
-                         onSubcategoryClick = noop,
-                         isPreviousMonth = noop,
-                         isSelected = false,
-                         isIncome,
-                         thisMonthExpenses,
-                         subcategoryBudget
-                     }) => {
-    const {expensesArray: expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
-    const [budgetAmount] = useState(Number(subcategoryBudget || 0));
+    icon,
+    name,
+    id,
+    budget,
+    onSubcategoryClick = noop,
+    isPreviousMonth = noop,
+    isSelected = false,
+    isIncome,
+    thisMonthExpenses,
+}) => {
+    const {expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
         const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -44,48 +42,50 @@ const Subcategory = ({
 
     const averageAmount = getAverageSubcategoryAmount(String(id), expensesPerMonthPerCategory);
 
-    if (thisMonthAmount === formatCurrency(0)) {
-        return null;
-    }
+    // if (thisMonthAmount === formatCurrency(0, false, false)) {
+    //     return null;
+    // }
 
     const isPositiveDiff = isIncome
-        ? intThisMonthAmount.current < budgetAmount
-        : intThisMonthAmount.current > budgetAmount;
+        ? intThisMonthAmount.current < budget
+        : intThisMonthAmount.current > budget;
 
     return (
-        <div className="bg-white/80 p-3 md:min-w-60 flex justify-between">
-            <div
-                className="md:p-4 cursor-pointer flex flex-col justify-between items-start"
-                onClick={() => onSubcategoryClick(isSelected ? null : id)}>
+        <div
+            className={classNames({
+                "relative": false,
+                "cursor-pointer flex flex-col justify-between items-start": true,
+                "bg-gray-200": isSelected,
+            })}
+            onClick={() => onSubcategoryClick(isSelected ? null : id)}>
+            <div className="flex flex-col items-start">
+                <div className={classNames({
+                    "text-2xl font-mono": true,
+                    "text-red-500": isPositiveDiff,
+                    "text-green-600": !isPositiveDiff
+                })}>
+                    {thisMonthAmount}
+                </div>
                 <Title type={Title.Types.H4} className="truncate flex">
-                    {icon.slice(0, 2)} {label}
+                    {icon.slice(0, 2)} {name}
                 </Title>
-                <div className="">
+            </div>
+            {isSelected ?
+                <div className="absolute z-30 bg-white left-full p-4 shadow-lg border rounded-xl">
                     <div className="flex gap-4 w-full justify-end">
                         <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
                             <Faders/>
-                            {averageAmount}
+                            {averageAmount.amount}
                         </div>
                         <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
                             <ArrowBendDownLeft/>
                             {totalInPreviousMonth}
                         </div>
                         <SubcategoryBudget
-                            categoryId={categoryId}
-                            subcategoryId={id}
                             isMeetingBudget={!isPositiveDiff}
-                            budgetAmount={budgetAmount}/>
+                            budgetAmount={budget}/>
                     </div>
-                </div>
-            </div>
-
-            <div className={classNames({
-                "font-black text-3xl font-mono mb-2": true,
-                "text-red-500": isPositiveDiff,
-                "text-green-400": !isPositiveDiff
-            })}>
-                {thisMonthAmount}
-            </div>
+                </div> : null}
         </div>
     );
 };

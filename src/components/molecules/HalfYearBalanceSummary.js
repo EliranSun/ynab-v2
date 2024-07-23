@@ -20,7 +20,7 @@ const getIncomeInMonth = (expenses, timestamp) => {
     }, 0);
 };
 export const HalfYearBalanceSummary = ({currentTimestamp}) => {
-    const {expensesArray} = useContext(ExpensesContext);
+    const {expenses} = useContext(ExpensesContext);
 
     const summary = useMemo(() => {
         const incomes = [];
@@ -28,8 +28,8 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
         const bottomLine = [];
 
         for (let i = 5; i >= 0; i--) {
-            const expensesInMonth = getExpensesInMonth(expensesArray, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
-            const incomeInMonth = getIncomeInMonth(expensesArray, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
+            const expensesInMonth = getExpensesInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
+            const incomeInMonth = getIncomeInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             expenses.push({
                 amount: parseInt(expensesInMonth),
                 date: new Date(currentTimestamp - ONE_MONTH_TIMESTAMP * i)
@@ -52,7 +52,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
             bottomLine,
             total
         };
-    }, [currentTimestamp, expensesArray]);
+    }, [currentTimestamp, expenses]);
 
     return (
         <div>

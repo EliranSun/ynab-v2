@@ -1,9 +1,8 @@
-import {createContext, useEffect, useState} from "react";
-import {getBudget, getBudgetKey} from "../../utils";
-import {InitBudget} from "../../constants/init-budget";
+import {createContext, useCallback, useEffect, useState} from "react";
+import {getBudget} from "../../utils/db";
 
 export const BudgetContext = createContext({
-    budget: {},
+    budget: [],
     setBudget: ({amount, categoryId, subcategoryId, timestamp}) => void 0,
 });
 
@@ -14,28 +13,23 @@ export const getDateKey = (timestamp) => {
     });
 };
 export const BudgetContextProvider = ({children}) => {
-    const [budget, setBudget] = useState(InitBudget);
+    const [budget, setBudget] = useState([]);
+    const fetchBudget = useCallback(async () => {
+        const budget = await getBudget();
+        setBudget(budget);
+    }, []);
 
     useEffect(() => {
-        (async () => {
-            const budget = await getBudget();
-            const key = getBudgetKey();
-
-            if (!budget[key]) {
-                return;
-            }
-
-            setBudget(budget[key]);
-        })();
+        fetchBudget();
     }, []);
 
     return (
         <BudgetContext.Provider
-            value={[
+            value={{
                 budget,
                 setBudget,
-            ]}
-        >
+                fetchBudget,
+            }}>
             {children}
         </BudgetContext.Provider>
     );

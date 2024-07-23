@@ -39,7 +39,7 @@ const CategoryButton = ({children, isSelected, onClick, name = "", isEditable = 
 
 const CategoryView = () => {
         const [categoryId, setCategoryId] = useState(Categories[0].id);
-        const {expensesArray: expenses = []} = useContext(ExpensesContext);
+        const {expenses = []} = useContext(ExpensesContext);
         const [selectedMonths, setSelectedMonths] = useState([]);
         const {
             category,

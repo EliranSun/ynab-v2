@@ -54,6 +54,11 @@ msgstr "🚌 נסיעות"
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ מינויים"
 
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:22
+#: src/features/CategoriesEdit/CategoryEntry.jsx:27
+msgid "A category is an group of subcategories,"
+msgstr "קטגוריה היא קבוצה של קטגוריות,"
+
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:15
 msgid "Actual"
 msgstr "במציאות"
@@ -62,43 +67,51 @@ msgstr "במציאות"
 msgid "Actual:"
 msgstr "במציאות:"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:53
+#: src/constants/index.js:33
+msgid "add"
+msgstr "הוספה"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:105
+msgid "Add"
+msgstr "הוספה"
+
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:30
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
-#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:95
-msgid "Add Expense"
-msgstr "הוספת תנועה"
+#: src/components/pages/ParseExpensesList/AddExpenseEntry.jsx:53
+#~ msgid "Add Expense"
+#~ msgstr "הוספת תנועה"
 
-#: src/features/CategoriesEdit/Category.jsx:105
-#~ msgid "Add Subcategory"
-#~ msgstr "הוספת תת קטגוריה"
+#: src/features/CategoriesEdit/CategoryActions.jsx:26
+msgid "Add Subcategory"
+msgstr "הוספת תת קטגוריה"
 
-#: src/components/molecules/ExpenseInputs.jsx:10
+#: src/components/molecules/ExpenseInputs.jsx:15
 msgid "amount"
 msgstr "סכום"
 
-#: src/features/CategoriesEdit/Category.jsx:118
+#: src/features/CategoriesEdit/CategoryActions.jsx:67
 msgid "Are you sure you want to delete this category?"
 msgstr "האם אתה בטוח שאתה רוצה למחוק את הקטגוריה הזאת"
 
-#: src/features/CategoriesEdit/Subcategory.jsx:47
-#~ msgid "Are you sure you want to delete this sub-category?"
-#~ msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
+#: src/features/CategoriesEdit/Subcategory.jsx:60
+msgid "Are you sure you want to delete this sub-category?"
+msgstr "האם אתה בטוח שאתה רוצה למחוק את תת הקטגוריה הזאת"
 
 #: src/constants/categories.js:321
 msgid "Authoring"
 msgstr "כתיבה"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:43
+#: src/components/pages/BalanceView/CategoryBalance.jsx:44
 msgid "average"
 msgstr "ממוצע"
 
-#: src/features/ManageBudget/ManageBudget.jsx:79
+#: src/features/ManageBudget/SubcategoryBudget.jsx:66
 msgid "Average"
 msgstr "ממוצע"
 
-#: src/constants/index.js:29
+#: src/constants/index.js:43
 msgid "Balance"
 msgstr "תנועות"
 
@@ -110,7 +123,7 @@ msgstr "תנועות"
 #~ msgid "Balance: Where'd my money go?"
 #~ msgstr "Balance: Where'd my money go?"
 
-#: src/constants/index.js:50
+#: src/constants/index.js:75
 msgid "Balance: Where's my fucking money?"
 msgstr "מאזן: איפה הכסף?!"
 
@@ -126,14 +139,14 @@ msgstr "ברים"
 msgid "Books"
 msgstr "ספרים"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:34
+#: src/components/pages/BalanceView/CategoryBalance.jsx:35
 msgid "budget"
 msgstr "תקציב"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/constants/index.js:25
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:176
-#: src/features/ManageBudget/ManageBudget.jsx:117
+#: src/constants/index.js:38
+#: src/features/ManageBudget/BudgetView.jsx:43
 msgid "Budget"
 msgstr "תקציב"
 
@@ -154,24 +167,34 @@ msgid "but it's negligible!"
 msgstr "אבל זה זניח!"
 
 #: src/components/pages/CategoryView/CategoryView.jsx:94
-#: src/constants/index.js:37
-#: src/constants/index.js:52
+#: src/constants/index.js:53
+#: src/constants/index.js:77
 msgid "Categories"
 msgstr "קטגוריות"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:28
+#: src/context/CategoriesContext.js:64
+msgid "Categories are your way to make order, out of the chaos."
+msgstr "קטגוריות הן הדרך שלך לייצר סדר מתוך הכאוס"
+
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:17
 msgid "Categories Edit"
 msgstr "קטגוריות - עריכה"
 
-#: src/features/CategoriesEdit/Category.jsx:35
-msgid "Category"
-msgstr "קטגוריה"
+#: src/features/CategoriesEdit/Category.jsx:37
+#~ msgid "Category"
+#~ msgstr "קטגוריה"
 
-#: src/features/CategoriesEdit/Category.jsx:95
+#: src/features/CategoriesEdit/CategoryActions.jsx:41
+#: src/features/CategoriesEdit/Subcategory.jsx:35
 msgid "Category added successfully"
 msgstr "קטגוריה התווספה בהצלחה"
 
-#: src/features/CategoriesEdit/Category.jsx:101
+#: src/features/CategoriesEdit/Category.jsx:53
+#~ msgid "Category Name"
+#~ msgstr "שם קטגוריה"
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:48
+#: src/features/CategoriesEdit/Subcategory.jsx:41
 msgid "Category updated successfully"
 msgstr "קטגוריה עודכנה בהצלחה"
 
@@ -179,7 +202,7 @@ msgstr "קטגוריה עודכנה בהצלחה"
 msgid "Clothes"
 msgstr "ביגוד"
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:32
+#: src/components/atoms/LoginWelcomeMessage.jsx:40
 msgid "Control your financial situation"
 msgstr "השולט במצבו הכלכלי"
 
@@ -187,7 +210,7 @@ msgstr "השולט במצבו הכלכלי"
 #~ msgid "Control your financial situation."
 #~ msgstr "השולט במצבו הכלכלי"
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:34
+#: src/components/atoms/LoginWelcomeMessage.jsx:42
 msgid "Control your future"
 msgstr "שולט הוא כך, במציאות"
 
@@ -195,7 +218,11 @@ msgstr "שולט הוא כך, במציאות"
 #~ msgid "Control your future."
 #~ msgstr "שולט במציאות כן הוא"
 
-#: src/features/ManageBudget/ManageBudget.jsx:141
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:70
+msgid "Current Balance"
+msgstr "יתרה נוכחית"
+
+#: src/features/ManageBudget/BudgetView.jsx:69
 msgid "Cutoff by"
 msgstr "ממוצע לפי"
 
@@ -211,7 +238,12 @@ msgstr "דייטים"
 msgid "Decor"
 msgstr "עיצוב פנים"
 
-#: src/features/CategoriesEdit/Category.jsx:123
+#: src/features/CategoriesEdit/CategoryActions.jsx:80
+msgid "delete"
+msgstr "מחיקה"
+
+#: src/features/CategoriesEdit/CategoryActions.jsx:72
+#: src/features/CategoriesEdit/Subcategory.jsx:65
 msgid "Deleted successfully"
 msgstr "מחיקה בוצעה בהצלחה"
 
@@ -227,9 +259,9 @@ msgstr "עיצוב"
 msgid "Dev"
 msgstr "פיתוח"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:200
-msgid "diff"
-msgstr "הפרש"
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:88
+#~ msgid "diff"
+#~ msgstr "הפרש"
 
 #: src/components/molecules/PastTwelveMonthsBalance/BalanceSummary.jsx:89
 msgid "Diffs:"
@@ -243,6 +275,14 @@ msgstr "מסעדות"
 msgid "Donations"
 msgstr "תרומות"
 
+#: src/components/pages/TheResolver.jsx:125
+msgid "duplicates"
+msgstr "כפולים"
+
+#: src/constants/index.js:58
+#~ msgid "Edit Categories"
+#~ msgstr "עריכת קטגוריות"
+
 #: src/constants/categories.js:249
 msgid "Education"
 msgstr "לימודים"
@@ -255,32 +295,43 @@ msgstr "חשמל"
 msgid "Electronics"
 msgstr "אלקטרוניקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:119
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:110
 msgid "Existing expenses"
 msgstr "הוצאות קיימות"
 
-#: src/constants/index.js:33
-#: src/constants/index.js:51
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:26
+msgid "expense"
+msgstr "הוצאה"
+
+#: src/components/pages/TheResolver.jsx:124
+msgid "expenses"
+msgstr "הוצאות"
+
+#: src/constants/index.js:76
 msgid "Expenses"
 msgstr "הוצאות"
+
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:23
+msgid "Expenses in subcategory"
+msgstr "הוצאות בתת קטגוריה"
 
 #: src/components/pages/ParseExpensesList/ExportData.jsx:16
 #~ msgid "Export"
 #~ msgstr "יצוא"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:44
+#: src/components/pages/ParseExpensesList/ExportData.jsx:43
 msgid "Export Budget"
 msgstr "יצוא תקציב"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:63
+#: src/components/pages/ParseExpensesList/ExportData.jsx:62
 msgid "Export budget to file"
 msgstr "יצוא תקציב לקובץ"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:17
+#: src/components/pages/ParseExpensesList/ExportData.jsx:16
 msgid "Export Expenses"
 msgstr "יצוא תנועות"
 
-#: src/components/pages/ParseExpensesList/ExportData.jsx:39
+#: src/components/pages/ParseExpensesList/ExportData.jsx:38
 msgid "Export expenses to file"
 msgstr "יצוא הוצאות לקובץ"
 
@@ -297,6 +348,10 @@ msgstr "עמלות"
 msgid "Filters"
 msgstr "סננים"
 
+#: src/components/pages/TheResolver.jsx:133
+msgid "forgotten"
+msgstr "נשכחו"
+
 #: src/constants/categories.js:283
 msgid "Friends"
 msgstr "חברים"
@@ -306,8 +361,8 @@ msgstr "חברים"
 #~ msgstr "הוספת תנועות מקובץ מיוצא"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:157
-msgid "From File"
-msgstr "קובץ מיוצא"
+#~ msgid "From File"
+#~ msgstr "קובץ מיוצא"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:161
 #~ msgid "From JSON (use export ↗)"
@@ -317,9 +372,9 @@ msgstr "קובץ מיוצא"
 #~ msgid "From Sheet/XLS"
 #~ msgstr "הוספת תנועות מגיליון/אקסל"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:132
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:124
 msgid "From Text"
-msgstr "הוספת תנועות - טקסט"
+msgstr "הדבק טקסט"
 
 #: src/constants/categories.js:345
 msgid "Fun"
@@ -329,15 +384,15 @@ msgstr "כייף"
 msgid "Games"
 msgstr "משחקים"
 
-#: src/constants/index.js:59
+#: src/constants/index.js:85
 msgid "Good afternoon!"
 msgstr "צהריים טובים!"
 
-#: src/constants/index.js:60
+#: src/constants/index.js:86
 msgid "Good evening!"
 msgstr "ערב טוב!"
 
-#: src/constants/index.js:58
+#: src/constants/index.js:84
 msgid "Good morning!"
 msgstr "בוקר טוב!"
 
@@ -359,6 +414,8 @@ msgstr "טיפוח"
 
 #: src/components/molecules/Header/WelcomeMessage.jsx:25
 #: src/components/molecules/Header/WelcomeMessage.jsx:32
+#: src/context/CategoriesContext.js:61
+#: src/context/CategoriesContext.js:69
 msgid "Hey"
 msgstr "היי"
 
@@ -366,7 +423,7 @@ msgstr "היי"
 msgid "Hobbies"
 msgstr "תחביבים"
 
-#: src/constants/index.js:17
+#: src/constants/index.js:28
 msgid "Home"
 msgstr "בית"
 
@@ -382,9 +439,25 @@ msgstr "אני בצרות."
 #~ msgid "Import"
 #~ msgstr "יבוא"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:195
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:41
+msgid "Import from file"
+msgstr "יבוא מקובץ"
+
+#: src/context/CategoriesContext.js:63
+msgid "In order to use the app, you have got to set up categories."
+msgstr "בשביל להשתמש באפליקציה, אתה צריך ליצור קטגוריות"
+
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:26
+msgid "income"
+msgstr "הכנסה"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:45
 msgid "Income"
 msgstr "הכנסות"
+
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:20
+msgid "Income is defined per category level,"
+msgstr "הכנסה מוגדרת ברמת הקטגוריה,"
 
 #: src/constants/categories.js:169
 msgid "Internet"
@@ -394,23 +467,36 @@ msgstr "אינטרנט"
 msgid "iOS"
 msgstr "אפליקציות"
 
+#: src/context/CategoriesContext.js:70
+msgid "It is us again"
+msgstr "אנחנו, שוב"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
 msgstr "אלוקים אדירים אבינו שבשמיים."
+
+#: src/context/CategoriesContext.js:62
+msgid "Just wanted to say, welcome!"
+msgstr "רק רצינו לומר, ברוך הבא!"
 
 #: src/constants/categories.js:119
 msgid "KIA"
 msgstr "רכב"
 
-#: src/features/ManageBudget/ManageBudget.jsx:83
+#: src/features/ManageBudget/SubcategoryBudget.jsx:70
 msgid "Last"
 msgstr "אחרון"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:183
-msgid "Left 😄"
-msgstr "נשאר 😄"
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+#: src/components/molecules/BottomLine/BottomLine.jsx:51
+msgid "left"
+msgstr "נשאר"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:75
+#~ msgid "Left 😄"
+#~ msgstr "נשאר 😄"
+
+#: src/components/pages/BalanceView/CategoryBalance.jsx:27
 msgid "left to spend"
 msgstr "נשאר להוציא"
 
@@ -418,15 +504,21 @@ msgstr "נשאר להוציא"
 msgid "less than my budget"
 msgstr "פחות מהתקציב שלי"
 
+#: src/context/CategoriesContext.js:65
+msgid "Let us take you there"
+msgstr "בוא ניקח אותך לשם"
+
 #: src/constants/categories.js:107
 msgid "Lime"
 msgstr "קורקינט חשמלי"
 
-#: src/components/pages/Login/AuthButton.jsx:26
+#: src/components/pages/Login/AuthButton.jsx:29
+#: src/context/UserContext/UserContext.jsx:56
 msgid "Login"
 msgstr "התחבר"
 
-#: src/components/pages/Login/AuthButton.jsx:22
+#: src/components/pages/Login/AuthButton.jsx:25
+#: src/context/UserContext/UserContext.jsx:48
 msgid "Logout"
 msgstr "התנתק"
 
@@ -438,15 +530,15 @@ msgstr "אבדו בחודש זה..."
 msgid "Maintenance"
 msgstr "תחזוקה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:126
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:118
 msgid "Manually"
-msgstr "הוספת תנועות - ידנית"
+msgstr "הוסף ידנית"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:188
 #~ msgid "Manually - TBD"
 #~ msgstr "ידנית - ייקבע בהמשך"
 
-#: src/features/ManageBudget/ManageBudget.jsx:147
+#: src/features/ManageBudget/BudgetView.jsx:75
 msgid "months"
 msgstr "חודשים אחרונים"
 
@@ -458,11 +550,11 @@ msgstr "התקציב שלי לא -קרוב- למציאות."
 msgid "my budget is spot on!"
 msgstr "התקציב שלי מדויק!"
 
-#: src/components/molecules/ExpenseInputs.jsx:9
+#: src/components/molecules/ExpenseInputs.jsx:14
 msgid "name"
 msgstr "שם"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:121
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:112
 msgid "New expenses"
 msgstr "הוצאות חדשות"
 
@@ -470,32 +562,53 @@ msgstr "הוצאות חדשות"
 msgid "No budget set this month."
 msgstr "החודש הנוכחי לא תוקצב."
 
-#: src/features/CategoriesEdit/Category.jsx:70
+#: src/components/pages/TheResolver.jsx:121
+msgid "No duplicates"
+msgstr "אין כפולים"
+
+#: src/components/pages/TheResolver.jsx:132
+msgid "No forgotten expenses"
+msgstr "אין נשכחים"
+
+#: src/features/CategoriesEdit/Subcategories.jsx:35
 msgid "No subcategories for this category"
 msgstr "אין תת קטגוריות"
 
-#: src/components/molecules/ExpenseInputs.jsx:11
+#: src/components/molecules/ExpenseInputs.jsx:16
 msgid "note"
 msgstr "הערה"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:103
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:91
 msgid "Nothing new"
 msgstr "אין חדש"
+
+#: src/context/CategoriesContext.js:72
+msgid "Now you must add subcategories"
+msgstr "עכשיו אתה צריך להוסיף תת קטגוריות"
+
+#: src/context/CategoriesContext.js:77
+msgid "OK"
+msgstr "אוקיי"
 
 #: src/constants/categories.js:269
 #: src/constants/categories.js:389
 msgid "Other"
 msgstr "אחר"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:38
+#: src/components/molecules/BottomLine/BottomLine.jsx:51
+msgid "over"
+msgstr "חריגה"
+
 #: src/features/ExpensesSummary/components/ExpensesSummary.jsx:115
 #~ msgid "Over️"
 #~ msgstr "Over️"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:184
-msgid "Over 😢"
-msgstr "חריגה 😢"
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:76
+#~ msgid "Over 😢"
+#~ msgstr "חריגה 😢"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:26
+#: src/components/pages/BalanceView/CategoryBalance.jsx:27
 msgid "over budget"
 msgstr "חריגה מהתקציב"
 
@@ -503,16 +616,16 @@ msgstr "חריגה מהתקציב"
 msgid "over my budget"
 msgstr "מעבר לתקציב שלי"
 
-#: src/constants/index.js:21
-#: src/constants/index.js:49
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:84
+#: src/constants/index.js:74
 msgid "Parse"
 msgstr "פירסור"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:220
+#: src/components/pages/ParseExpensesList/ImportFromSheet.jsx:65
 msgid "Parse File"
 msgstr "עבד קובץ"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:150
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:142
 msgid "Parse Text"
 msgstr "עבד טקסט"
 
@@ -536,8 +649,9 @@ msgstr "חיות"
 msgid "Phone"
 msgstr "טלפון"
 
-#: src/constants/index.js:41
-#: src/constants/index.js:53
+#: src/components/pages/FuturePredictionPage/ProjectionView.jsx:66
+#: src/constants/index.js:63
+#: src/constants/index.js:78
 msgid "Projection"
 msgstr "חיזוי"
 
@@ -549,13 +663,17 @@ msgstr "התקציב הוא לחודש הנוכחי בלבד (מוכפל ב12), 
 msgid "Rates"
 msgstr "מיסים"
 
+#: src/components/molecules/ExpenseInputs.jsx:117
+msgid "Recurring Transaction Count"
+msgstr "תנועה חוזרת - מספר תשלומים"
+
 #: src/constants/categories.js:133
 #: src/constants/categories.js:396
 msgid "Rent"
 msgstr "שכר דירה"
 
-#: src/constants/index.js:45
-#: src/constants/index.js:54
+#: src/constants/index.js:68
+#: src/constants/index.js:79
 msgid "Resolver"
 msgstr "המיישב"
 
@@ -563,24 +681,44 @@ msgstr "המיישב"
 msgid "Salary"
 msgstr "משכורת"
 
-#: src/features/ManageBudget/ManageBudget.jsx:130
-msgid "Save Budget"
-msgstr ""
+#: src/features/CategoriesEdit/CategoryActions.jsx:55
+msgid "save"
+msgstr "שמירה"
+
+#: src/features/ManageBudget/BudgetView.jsx:59
+#~ msgid "Save Budget"
+#~ msgstr "שמור תקציב"
+
+#: src/components/pages/ParseExpensesList/ImportFromFile.jsx:130
+#~ msgid "saved"
+#~ msgstr "נשמר"
 
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:49
 msgid "Saved this month!"
 msgstr "נחסכו החודש!"
 
-#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:184
-msgid "Sheet"
-msgstr "גיליון"
+#: src/features/Search.jsx:54
+#: src/features/Search.jsx:76
+msgid "Search"
+msgstr "חיפוש"
 
-#: src/components/organisms/SimilarExpenses.jsx:32
+#: src/components/organisms/ExpenseCategorySelection.jsx:57
+msgid "Select Subcategory"
+msgstr "בחר תת קטגוריה"
+
+#: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
+msgid "Sheet"
+msgstr "העלה גיליון"
+
+#: src/components/organisms/SimilarExpenses.jsx:36
 msgid "Show same month only"
 msgstr "הצג הוצאות דומות רק בחודש זה"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:171
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:191
+#: src/features/CategoriesEdit/CategoryIncomeButton.jsx:21
+msgid "So all of the subcategories in this category will be defined as income"
+msgstr "כך שכל תת הקטגוריות בקטגוריה זו יהיו מוגדות כהכנסות"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:23
 msgid "Spent"
 msgstr "בוזבז"
 
@@ -588,33 +726,66 @@ msgstr "בוזבז"
 msgid "Subcategories"
 msgstr "תת קטגוריות"
 
-#: src/features/CategoriesEdit/Category.jsx:58
-msgid "Subcategory"
-msgstr "תת קטגוריות"
+#: src/features/CategoriesEdit/Subcategories.jsx:21
+msgid "Subcategories are how expenses are grouped and calculated"
+msgstr "תת קטגוריות הן איך שרשומות מחולקות ומחושבות"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:152
+#: src/features/CategoriesEdit/Category.jsx:61
+#~ msgid "Subcategory"
+#~ msgstr "תת קטגוריות"
+
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:136
 msgid "Summary"
 msgstr "תמונת מצב"
+
+#: src/components/pages/TheResolver.jsx:117
+msgid "The Resolver"
+msgstr "המיישב"
 
 #: src/constants/categories.js:201
 msgid "Therapist"
 msgstr "פסיכולוג"
 
-#: src/features/ManageBudget/ManageBudget.jsx:30
+#: src/features/LastExpenses/constants.js:12
+msgid "this month"
+msgstr "החודש"
+
+#: src/features/LastExpenses/constants.js:13
+msgid "this quarter"
+msgstr "הרבעון"
+
+#: src/features/LastExpenses/constants.js:11
+msgid "this week"
+msgstr "השבוע"
+
+#: src/features/LastExpenses/constants.js:14
+msgid "this year"
+msgstr "השנה"
+
+#: src/features/ManageBudget/BudgetInfoCard.jsx:19
 msgid "Total budgeted savings:"
 msgstr "סך חיסכון"
 
-#: src/features/ManageBudget/ManageBudget.jsx:28
+#: src/features/ManageBudget/BudgetInfoCard.jsx:17
 msgid "Total Expenses Budget:"
 msgstr "סך הוצאות מתוכננות"
 
-#: src/features/ManageBudget/ManageBudget.jsx:26
+#: src/features/ManageBudget/BudgetInfoCard.jsx:15
 msgid "Total Income Budget:"
 msgstr "סך הכנסות מתוכננות"
+
+#: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
+msgid "Transactions"
+msgstr "תנועות"
 
 #: src/constants/categories.js:315
 msgid "TV"
 msgstr "טלוויזיה"
+
+#: src/constants/categories.js:412
+#: src/constants/categories.js:420
+msgid "Unknown"
+msgstr "חסר"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:205
 #~ msgid "Upload"
@@ -628,7 +799,7 @@ msgstr "חופשה"
 msgid "Water"
 msgstr "מים"
 
-#: src/constants/index.js:57
+#: src/constants/index.js:83
 msgid "Welcome"
 msgstr "ברוך הבא!"
 
@@ -640,6 +811,19 @@ msgstr "ברוך הבא!"
 msgid "which is good, but I should understand why my budget is off."
 msgstr "שזה טוב, אבל כדאי שעדיין אבין מאיפה ההפרש מגיע."
 
-#: src/components/atoms/LoginWelcomeMessage.jsx:28
+#: src/features/CategoriesEdit/CategoriesEdit.jsx:23
+#: src/features/CategoriesEdit/CategoryEntry.jsx:28
+msgid "You can call it cosmetic - it is there solely to organize subcategories"
+msgstr "אפשר לקרוא לקטגוריות דבר קוסמטי - הן כאן רק בשביל לארגן תת קטגוריות"
+
+#: src/context/CategoriesContext.js:71
+msgid "You have completed entering categories"
+msgstr "סיימת להוסיף קטגוריות"
+
+#: src/components/atoms/LoginWelcomeMessage.jsx:36
 msgid "You Need Balance"
 msgstr "תשמע, אתה צריך איזון"
+
+#: src/context/CategoriesContext.js:73
+msgid "You will associate these with each entry you add"
+msgstr "בהמשך, כל רשומה שתוסיף תשוייך לתת קטגוריה"

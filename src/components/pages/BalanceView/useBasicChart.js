@@ -9,12 +9,12 @@ export const ChartType = {
 }
 
 const useBasicChart = ({
-                           data = [],
-                           incomeData = [],
-                           budgetData = [],
-                           isZeroBaseline = true,
-                           type = ChartType.LINE
-                       }) => {
+    data = [],
+    incomeData = [],
+    budgetData = [],
+    isZeroBaseline = true,
+    type = ChartType.LINE
+}) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {

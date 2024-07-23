@@ -5,29 +5,32 @@ import {WelcomeMessage} from "./WelcomeMessage";
 import {HamburgerMenu} from "./HamburgerMenu";
 import {MobileMenuBackdrop} from "./MobileMenuBackdrop";
 import {Menu} from "./Menu";
-
+import {Search} from "../../../features/Search";
+import {useLingui} from "@lingui/react";
 
 export const Header = () => {
+    const {_} = useLingui();
     const {user} = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex sticky md:static top-0">
+        <div className="flex sticky top-0 z-40 w-screen">
             <header
                 className={classNames({
                     "bg-white text-xs md:text-base": true,
-                    " p-2 md:p-4 md:h-16 w-screen bg-white z-10": true,
+                    "p-2 md:p-4 md:h-16 w-full bg-white z-10": true,
                     "flex justify-between items-center md:gap-8": true,
-                    "rtl:flex-row-reverse": true,
+                    "rtl:flex-row-reverse": false,
                 })}>
-                <div className="hidden lg:inline">
-                    <WelcomeMessage userName={user.displayName}/>
-                </div>
+                <span className="hidden lg:inline">
+                    <WelcomeMessage userName={user.translatedUsername}/>
+                </span>
+                <Search/>
                 <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>
+                <Menu
+                    isOpen={isMenuOpen}
+                    onMenuItemClick={() => setIsMenuOpen(false)}/>
             </header>
-            <Menu
-                isOpen={isMenuOpen}
-                onMenuItemClick={() => setIsMenuOpen(false)}/>
             <MobileMenuBackdrop isOpen={isMenuOpen}/>
         </div>
     )

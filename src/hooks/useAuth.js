@@ -5,9 +5,9 @@ import {auth} from "../utils";
 import {setUserDoc} from "../utils";
 import translate from "translate";
 import {ExpensesContext} from "../context";
-import {supabaseSignInWithOtp} from "../utils/db";
 
 let singleton = false;
+// TODO: Deprecated, delete
 const useAuthState = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -26,7 +26,6 @@ const useAuthState = () => {
                     await setUserDoc(user);
                     !singleton && fetchExpenses();
                     params.page === '/' && navigate('/home');
-                    // supabaseSignInWithOtp(user.email);
                     singleton = true;
                 }
             } catch (e) {

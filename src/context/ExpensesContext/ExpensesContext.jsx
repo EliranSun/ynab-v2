@@ -1,20 +1,24 @@
-import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
+import {createContext, useCallback, useContext, useEffect, useState} from "react";
 import {noop} from "lodash";
-import {addExpenses, deleteExpense, getExpenses, markExpensesAsOriginal, updateExpense} from "../../utils";
-import {Categories, getCategoryBySubcategoryId, getCategoryName} from "../../constants";
-import {BudgetContext, getDateKey} from "../BudgetContext";
+import {deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
+import {Categories, getCategoryBySubcategoryId} from "../../constants";
+import {BudgetContext} from "../BudgetContext";
 import {isSameMonth} from "date-fns";
 import {Expense} from "../../models";
+import {getAllExpensesWithPagination, addExpenses} from "../../utils/db";
+import {UserContext} from "../UserContext";
 
 export const ExpensesContext = createContext({
-    expenses: {},
+    expenses: [],
     changeExpenseCategoryByName: noop,
+    refetch: noop,
+    setExpenses: noop,
 });
 
 const getExpensesPerMonthPerCategory = (expenses = []) => {
     const expensesPerMonthPerCategory = {};
     expenses.forEach((expense) => {
-        const {categoryId} = expense;
+        const {subcategoryId} = expense;
         // TODO: util
         const dateKey = new Date(expense.timestamp).toLocaleString("en-IL", {
             // day: "numeric",
@@ -22,24 +26,24 @@ const getExpensesPerMonthPerCategory = (expenses = []) => {
             year: "2-digit",
         });
 
-        if (!expensesPerMonthPerCategory[categoryId]) {
-            expensesPerMonthPerCategory[categoryId] = {
+        if (!expensesPerMonthPerCategory[subcategoryId]) {
+            expensesPerMonthPerCategory[subcategoryId] = {
                 [dateKey]: {
                     amount: expense.amount,
                     expenses: [expense],
                     timestamp: expense.timestamp,
                 },
             };
-        } else if (!expensesPerMonthPerCategory[categoryId][dateKey]) {
-            expensesPerMonthPerCategory[categoryId][dateKey] = {
+        } else if (!expensesPerMonthPerCategory[subcategoryId][dateKey]) {
+            expensesPerMonthPerCategory[subcategoryId][dateKey] = {
                 amount: expense.amount,
                 expenses: [expense],
                 timestamp: expense.timestamp,
             };
         } else {
-            expensesPerMonthPerCategory[categoryId][dateKey] = {
-                amount: expensesPerMonthPerCategory[categoryId][dateKey].amount + expense.amount,
-                expenses: [...expensesPerMonthPerCategory[categoryId][dateKey].expenses, expense],
+            expensesPerMonthPerCategory[subcategoryId][dateKey] = {
+                amount: expensesPerMonthPerCategory[subcategoryId][dateKey].amount + expense.amount,
+                expenses: [...expensesPerMonthPerCategory[subcategoryId][dateKey].expenses, expense],
                 timestamp: expense.timestamp,
             };
         }
@@ -49,14 +53,12 @@ const getExpensesPerMonthPerCategory = (expenses = []) => {
 }
 
 export const ExpensesContextProvider = ({children}) => {
-    const [expenses, setExpenses] = useState({});
+    const [expenses, setExpenses] = useState([]);
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
-    const [expensesArray, setExpensesArray] = useState([]);
     const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
-    const [budget] = useContext(BudgetContext);
-
-    console.log({budget});
+    const {budget} = useContext(BudgetContext);
+    const {user} = useContext(UserContext);
 
     const setExpenseAsRecurring = (expenseId, recurring) => {
         new Array(Number(recurring)).fill(0).forEach((_, index) => {
@@ -109,7 +111,7 @@ export const ExpensesContextProvider = ({children}) => {
 
     const changeExpenseCategory = async (expenseId, categoryId, note = "") => {
         const expense = expenses[expenseId];
-        const allExpensesWithTheSameName = expensesArray.filter(
+        const allExpensesWithTheSameName = expenses.filter(
             ({name}) => name === expense.name
         );
         if (!expense.isThirdParty) {
@@ -137,16 +139,15 @@ export const ExpensesContextProvider = ({children}) => {
         });
     };
 
-    const foo = useCallback(async () => {
-        const expenses = await getExpenses();
+    const fetchExpenses = useCallback(async () => {
+        const expenses = await getAllExpensesWithPagination();
+        const modeledExpenses = expenses.map(expense => new Expense(expense));
 
-        setExpenses(expenses);
-        setExpensesArray(Object.values(expenses));
-        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(expenses)));
+        setExpenses(modeledExpenses);
+        setExpensesPerMonthPerCategory(getExpensesPerMonthPerCategory(Object.values(modeledExpenses)));
 
         const newCategories = {};
-        const budgetKey = getDateKey(new Date().getTime());
-        const expensesThisMonth = Object.values(expenses).filter(expense => {
+        const expensesThisMonth = Object.values(modeledExpenses).filter(expense => {
             const date = new Date();
             const expenseDate = new Date(expense.timestamp);
 
@@ -163,16 +164,15 @@ export const ExpensesContextProvider = ({children}) => {
             if (!newCategories[expense.mainCategoryId]) {
                 const category = getCategoryBySubcategoryId(expense.subcategoryId)
                 const subcategory = category?.subCategories.find(subcategory => subcategory.id === expense.subcategoryId);
-
-                const categoryBudget = budget?.[category.id];
-                console.log({budget, categoryBudget})
-                const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
-                    return acc + subcategory;
-                }, 0);
+                // const categoryBudget = budget?.[category.id];
+                // const categoryBudgetValue = categoryBudget && Object.values(categoryBudget).reduce((acc, subcategory) => {
+                //     return acc + subcategory;
+                // }, 0);
 
                 newCategories[expense.mainCategoryId] = {
                     ...category,
-                    budget: categoryBudgetValue,
+                    // budget: categoryBudgetValue,
+                    budget: 0,
                     amount: expense.amount,
                     subcategories: {
                         [expense.subcategoryId]: {
@@ -207,11 +207,18 @@ export const ExpensesContextProvider = ({children}) => {
         setCategoriesByAmount(ordered);
     }, []);
 
+    useEffect(() => {
+        if (!user || !user.id) {
+            return;
+        }
+
+        fetchExpenses();
+    }, [user]);
+
     return (
         <ExpensesContext.Provider
             value={{
                 expenses,
-                expensesArray,
                 expensesPerMonthPerCategory,
                 categories,
                 categoriesByAmount,
@@ -221,7 +228,8 @@ export const ExpensesContextProvider = ({children}) => {
                 deleteExpense,
                 setExpenseNote,
                 markExpensesAsOriginal,
-                fetchExpenses: foo,
+                fetchExpenses,
+                refetch: fetchExpenses,
                 setExpenses: async (newExpenses = []) => {
                     const expensesObject = {};
                     newExpenses.forEach((expense) => {
@@ -230,14 +238,10 @@ export const ExpensesContextProvider = ({children}) => {
 
                     try {
                         await addExpenses(newExpenses);
-                        setExpenses(expensesObject);
+                        // setExpenses(expensesObject);
                     } catch (error) {
                         console.error(`Error adding expenses - ${error.message}`);
                     }
-                },
-                refetch: async () => {
-                    const expenses = await getExpenses();
-                    setExpenses(expenses);
                 },
             }}
         >

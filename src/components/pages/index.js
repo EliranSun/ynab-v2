@@ -1,1 +1,1 @@
-export { default as SeeingDoublePage } from './SeeingDoublePage';
+export {default as SeeingDoublePage} from './TheResolver';

@@ -1,10 +1,7 @@
 import {Expense} from "../models";
 import {isSameMonth, startOfMonth, subMonths} from "date-fns";
-import {getExpenses} from "./firebase";
-import {Categories} from "../constants";
 import {orderBy} from "lodash";
 import {getLastBudgetByCategory} from "./budget";
-import {formatCurrency} from "./currency";
 
 const RecurringExpenses = [
     "מרכז הספורט",
@@ -33,7 +30,7 @@ export const isExistingExpense = (newExpense, expenses) => {
 
         return (
             expense.name === newExpense.name &&
-            expense.timestamp === newExpense.timestamp &&
+            (expense.date === newExpense.date || expense.timestamp === newExpense.timestamp) &&
             newExpense.amount === expense.amount
         );
     });
@@ -87,12 +84,12 @@ export const parseNewExpenses = (text = '', existingExpenses = []) => {
             return row.name && row.amount && row.timestamp;
         });
 };
-export const getExpensesSummary = async ({budget, timestamp}) => {
+
+export const getExpensesSummary = async ({budget, timestamp, categories = [], expenses = []}) => {
     let totalExpenses = 0;
     let totalIncome = 0;
-    const expenses = await getExpenses();
     const date = new Date(timestamp);
-
+    const incomeCategoriesIds = categories.filter(category => category.isIncome).map(category => category.id);
     const expensesThisMonth = Object.values(expenses).filter(expense => {
         const expenseDate = new Date(expense.timestamp);
 
@@ -102,11 +99,11 @@ export const getExpensesSummary = async ({budget, timestamp}) => {
         return isSameMonth(expenseDate, date);
     });
 
-
-    const summary = Categories.map(category => {
-        const expensesInCategory = expensesThisMonth.filter(expense => expense.mainCategoryId === category.id);
+    const summary = categories.map(category => {
+        const subcategoriesIds = category.subcategories.map(subcategory => subcategory.id);
+        const expensesInCategory = expensesThisMonth.filter(expense => subcategoriesIds.includes(expense.subcategoryId));
         const totalAmountInCategory = expensesInCategory.reduce((acc, curr) => acc + curr.amount, 0);
-        const isIncome = category.id === 8;
+        const isIncome = incomeCategoriesIds.includes(category.id);
 
         if (isIncome) {
             totalIncome += totalAmountInCategory;
@@ -114,34 +111,35 @@ export const getExpensesSummary = async ({budget, timestamp}) => {
             totalExpenses += totalAmountInCategory;
         }
 
-        const subcategories = category.subCategories.map(subcategory => {
+        const subcategories = category.subcategories.map(subcategory => {
             const expensesInSubcategory = expensesInCategory.filter(expense => expense.subcategoryId === subcategory.id);
             const totalAmountInSubcategory = expensesInSubcategory.reduce((acc, curr) => acc + curr.amount, 0);
+            const budgetInCategory = getLastBudgetByCategory(budget, subcategory.id);
 
+            console.log({budgetInCategory});
             return {
                 ...subcategory,
                 amount: totalAmountInSubcategory,
+                budget: budgetInCategory,
             };
         });
 
-        const budgetInCategory = getLastBudgetByCategory(budget, category.id);
 
         return {
             ...category,
             amount: totalAmountInCategory,
             subcategories,
-            budget: budgetInCategory,
         };
     });
 
     return {
-        summary: orderBy(summary, 'amount', 'desc'),
+        summary: orderBy(summary, ['isIncome'], 'desc'),
         totalExpenses,
         totalIncome,
     };
 };
 
-export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
+export const getAverageExpenseAmountPerCategoryPerMonth = (expenses = []) => {
     let expensesByMonthByCategory = {};
 
     expenses.forEach((expense) => {
@@ -170,21 +168,29 @@ export const getAverageExpenseAmountPerCategoryPerMonth = (expenses) => {
 
 export const getAverageSubcategoryAmount = (subcategoryId, expenses = {}, cutoffInMonths = 3) => {
     const cutoffDate = subMonths(new Date(), cutoffInMonths);
+
     if (!expenses[String(subcategoryId)]) {
-        return 0;
+        return {
+            amount: 0,
+            expenses: []
+        };
     }
 
     let total = 0;
-    const months = Object
+    const expensesThisMonth = [];
+    const monthsExpenses = Object
         .values(expenses[String(subcategoryId)])
         .filter(expense => new Date(expense.timestamp) > cutoffDate);
 
-    for (const month of months) {
-        total += month.amount;
+    for (const monthExpense of monthsExpenses) {
+        total += monthExpense.amount;
+        expensesThisMonth.push(...monthExpense.expenses);
     }
 
-    const amount = total / months.length;
-    return Math.round(amount) || 0;
+    return {
+        amount: Math.round(total / monthsExpenses.length) || 0,
+        expenses: expensesThisMonth
+    };
 };
 
 export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {
@@ -194,4 +200,29 @@ export const getLastSubcategoryAmount = (subcategoryId, expenses = {}) => {
 
     const lastMonth = Object.values(expenses[String(subcategoryId)]).pop();
     return Math.round(lastMonth?.amount) || 0;
+}
+export const computeNoSubcategoriesExpenses = (categories = [], expenses = []) => {
+    return expenses.reduce((acc, expense) => {
+        if (!expense.subcategory || !expense.subcategoryId) {
+            if (expense.name) {
+                acc.unknown = {
+                    expenses: (acc.unknown?.expenses || []).concat(expense),
+                    currentId: null,
+                    name: "Unknown",
+                    icon: "❓",
+                }
+            } else {
+                console.log("No name for expense", expense);
+            }
+        } else {
+            acc[expense.subcategory.id] = {
+                expenses: (acc[expense.subcategory.id]?.expenses || []).concat(expense),
+                currentId: expense.subcategory.id,
+                name: expense.subcategory.name,
+                icon: expense.subcategory.icon,
+            };
+        }
+
+        return acc;
+    }, {});
 }

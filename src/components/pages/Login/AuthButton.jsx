@@ -5,6 +5,9 @@ import {SignIn, SignOut} from "@phosphor-icons/react";
 import {BUTTON_SIZE} from "../../../constants";
 import {Trans} from "@lingui/macro";
 
+
+// TODO: Deprecated, delete
+
 export const AuthButton = ({withLabel = false}) => {
     const {isLoggedIn, loading} = useAuthState();
 

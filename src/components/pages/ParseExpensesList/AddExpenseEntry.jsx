@@ -1,137 +1,79 @@
 import {ExpenseInputs} from "../../molecules/ExpenseInputs";
-import {SimilarExpenses} from "../../organisms/SimilarExpenses";
-import {LeanCategorySelection} from "../../organisms/CategorySelection";
-import {useMemo, useState, useRef} from "react";
-import {format} from "date-fns";
-import {Categories} from "../../../constants";
-import {X} from "@phosphor-icons/react";
-import classNames from "classnames";
-import {useClickAway} from "react-use";
-import {Trans} from "@lingui/macro";
-import {addExpenses} from "../../../utils";
-import {Expense} from "../../../models";
+import {useContext, useState} from "react";
+import {addExpense, addExpenses} from "../../../utils/db";
+import {Expense} from "../../../utils/db";
 import {InputTypes} from "./constants";
 import {v4 as uuid} from 'uuid';
+import {formatDateObjectToInput} from "../../../utils/date";
+import {noop} from "lodash";
+import {addMonths} from "date-fns";
+import {ExpensesContext} from "../../../context";
 
 export const AddExpenseEntry = ({
-                                    id = null,
-                                    expenses = [],
-                                    activeId = null,
-                                    isCategorySelectionVisible = true
-                                }) => {
-    // eslint-disable-next-line no-undef
-    const ref = useRef(null);
-    const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
-    const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(11);
-    const subcategory = useMemo(() => {
-        let subcategoryFoo;
-        Categories.forEach((category) => {
-            category.subCategories.forEach((sub) => {
-                if (sub.id === selectedSubcategoryId) {
-                    subcategoryFoo = sub;
-                }
-            });
-        });
-
-        return subcategoryFoo;
-    }, [selectedSubcategoryId]);
-
+    expense: initExpense = {},
+    isCategorySelectionVisible = true,
+    readonly = false,
+    onSuccess = noop,
+    onRemove,
+    isVertical = false,
+}) => {
+    const {refetch} = useContext(ExpensesContext);
     const [expense, setExpense] = useState({
         id: uuid(),
-        [InputTypes.NAME]: "",
-        [InputTypes.NOTE]: "",
-        [InputTypes.AMOUNT]: null,
-        // eslint-disable-next-line no-undef
-        [InputTypes.DATE]: format(new Date(), "yyyy-MM-dd"),
-        subcategoryId: 11,
-    });
-
-    useClickAway(ref, () => {
-        setIsCategoryMenuOpen(false);
+        [InputTypes.NAME]: initExpense.name || "",
+        [InputTypes.NOTE]: initExpense.note || "",
+        [InputTypes.AMOUNT]: initExpense.amount || "",
+        [InputTypes.DATE]: initExpense.date || formatDateObjectToInput(new Date()),
+        [InputTypes.SUBCATEGORY_ID]: null,
     });
 
     return (
-        <div
-            className="snap-start w-full flex flex-col gap-4"
-            id={id}
-            // onClick={() => setActiveId(expense.id)}
-        >
-            <ExpenseInputs
-                // index={index}
-                name={expense.name}
-                note={expense.note}
-                amount={expense.amountCurrency}
-                date={expense.date}
-                isVisible={isCategorySelectionVisible}
-                onCategoryMenuClick={() => setIsCategoryMenuOpen((prev) => !prev)}
-                isCategoryMenuOpen={isCategoryMenuOpen}
-                // setExpenses={setExpenses}
-                subcategory={subcategory}
-                onInputChange={(type, value) => {
-                    setExpense((prev) => {
-                        const newExpense = {...prev};
-                        newExpense[type] = value;
-                        return newExpense;
-                    });
-                }}
-            />
+        <ExpenseInputs
+            readonly={readonly}
+            expense={expense}
+            isVisible={isCategorySelectionVisible}
+            onRemove={onRemove}
+            isVertical={isVertical}
+            onSave={async (recurCount = 1) => {
+                if (
+                    !expense[InputTypes.NAME] ||
+                    !expense[InputTypes.AMOUNT] ||
+                    !expense[InputTypes.SUBCATEGORY_ID] ||
+                    !expense[InputTypes.DATE]
+                ) {
+                    alert(JSON.stringify(expense));
+                    return;
+                }
 
-            <button
-                className="p-4 bg-blue-500 text-white cursor-pointer rounded-xl shadow-xl"
-                onClick={async () => {
-                    if (
-                        !expense.name ||
-                        !expense.amount ||
-                        !expense.subcategoryId
-                    ) {
-                        alert(JSON.stringify(expense));
-                        return;
-                    }
+                if (recurCount > 1) {
+                    const expenses = new Array(Number(recurCount))
+                        .fill(expense)
+                        .map((item, index) => {
+                            return new Expense({
+                                ...item,
+                                date: addMonths(new Date(expense.date), index),
+                                note: `${item.note} - ${index + 1}/${recurCount}`,
+                            });
+                        });
 
+                    await addExpenses(expenses);
+                    console.info("Success!", expenses);
+                } else {
                     const modeledExpense = new Expense(expense);
-                    await addExpenses([modeledExpense]);
+                    await addExpense(modeledExpense);
                     console.info("Success!", modeledExpense);
-                }}>
-                <Trans>Add Expense</Trans>
-            </button>
+                }
 
-            {/*{isCategorySelectionVisible && activeId === expense.id &&*/}
-            {isCategoryMenuOpen &&
-                <div
-                    className={classNames({
-                        "backdrop-blur-md": true,
-                        "backdrop-brightness-50": false,
-                        "absolute m-auto z-30 inset-0": true,
-                        "flex flex-col items-center justify-center": true,
-                    })}>
-                    <div className="mb-4 rounded-full bg-black p-8">
-                        <X size={32} color="white"/>
-                    </div>
-                    <div ref={ref} className={classNames({
-                        "max-w-screen-lg h-5/6 w-11/12 overflow-y-auto p-4 bg-gray-100 rounded-xl": true,
-                        "border-2 border-gray-500": true,
-                    })}>
-                        <SimilarExpenses
-                            expense={expense}
-                            existingExpenses={expenses}/>
-                        <LeanCategorySelection
-                            onCategorySelect={(id) => {
-                                setIsCategoryMenuOpen(false);
-                                setSelectedSubcategoryId(id);
-                                setExpense((prev) => {
-                                    const newExpense = {...prev};
-                                    newExpense.subcategoryId = id;
-                                    return newExpense;
-                                });
-
-                                // setExpenses((prev) => {
-                                //     const newExpenses = [...prev];
-                                //     newExpenses[index].categoryId = categoryId;
-                                //     return newExpenses;
-                                // });
-                            }}/>
-                    </div>
-                </div>}
-        </div>
+                onSuccess();
+                return refetch();
+            }}
+            onInputChange={(type, value) => {
+                setExpense((prev) => {
+                    const newExpense = {...prev};
+                    newExpense[type] = value;
+                    return newExpense;
+                });
+            }}
+        />
     )
 };

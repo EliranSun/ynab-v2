@@ -1,9 +1,14 @@
 import classNames from "classnames";
-import {CaretDown, X} from "@phosphor-icons/react";
+import {Check, EyeSlash, FloppyDisk, Spinner, Trash, X} from "@phosphor-icons/react";
 import {noop} from "lodash";
-import {msg} from "@lingui/macro";
+import {msg, Trans} from "@lingui/macro";
 import {useLingui} from "@lingui/react";
 import {InputTypes} from "../pages/ParseExpensesList/constants";
+import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
+import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
+import {Button} from "../../features/CategoriesEdit/Button";
+import {useState} from "react";
+import {formatDateObjectToInput} from "../../utils/date";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -11,102 +16,163 @@ const InputPlaceholder = {
     note: msg`note`,
 };
 
-const formatTimestamp = (timestamp) => {
-    // timestamp to 2021-06-30
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
-};
+const Months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
 
+const formatDateString = (date) => {
+    // i.e. July 16, 24 to 2024-07-16
+    try {
+        const [monthName, day, year] = date.split(" ");
+        const monthIndex = Months.indexOf(monthName);
+        const fullYearNumber = Number(`20${year}`);
+        const dayNumber = Number(day.replace(",", ""));
+
+        const dateObject = new Date(fullYearNumber, monthIndex, dayNumber);
+        return formatDateObjectToInput(dateObject);
+    } catch (error) {
+        return date;
+    }
+}
 export const ExpenseInputs = ({
-                                  index,
-                                  name,
-                                  note,
-                                  amount,
-                                  date,
-                                  timestamp,
-                                  isVisible,
-                                  // setExpenses = noop,
-                                  subcategory,
-                                  onCategoryMenuClick = noop,
-                                  isCategoryMenuOpen,
-                                  onInputChange = noop,
-                                  onRemove = noop,
-                              }) => {
+    readonly,
+    isListView,
+    expense,
+    onInputChange = noop,
+    onRemove,
+    onHide,
+    onSave,
+    isIncome = false,
+    isSaveDisabled = false,
+    isVertical = false,
+}) => {
     const {_} = useLingui();
-    console.log({amount, name});
+    const [isLoading, setIsLoading] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(null);
+    const [recurCount, setRecurCount] = useState(1);
+
+    if (!expense) {
+        return null;
+    }
 
     return (
         <div className={classNames("text-right w-full", {
-            "rounded-xl p-4 md:p-2": true,
-            "flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4": true,
-            "bg-gray-200 border-gray-500": index % 2 === 0 || isVisible,
+            "rounded-xl": true,
+            "flex": true,
+            "flex-col items-start gap-8": isVertical,
+            "flex-row items-center": !isVertical,
+            "bg-green-100": isIncome,
+            "grayscale opacity-50": expense.isHidden,
         })}>
-            <span className="cursor-pointer" onClick={onRemove}>
-                <X color="red" size={42}/>
-            </span>
-            <input
-                type="date"
-                className="w-44 p-4 border border-gray-300 rounded"
-                // date="June 30, 24"
-                // defaultValue="2021-06-30"
-                defaultValue={formatTimestamp(timestamp)}
-                onChange={(event) => {
-                    onInputChange(InputTypes.DATE, event.target.value);
-                }}
-            />
-            <div className="flex gap-2">
-                <input
-                    type="text"
-                    defaultValue={name}
-                    placeholder={_(InputPlaceholder.name)}
-                    className="w-2/3 md:w-40 p-4 border border-gray-300 rounded"
-                    onChange={(event) => {
-                        onInputChange(InputTypes.NAME, event.target.value);
+            <div className="w-72 shrink-0">
+                <ExpenseCategorySelection
+                    expense={expense}
+                    readonly={readonly}
+                    onCategorySelect={value => {
+                        onInputChange(InputTypes.SUBCATEGORY_ID, value);
                     }}/>
-                <input
-                    type="number"
-                    defaultValue={amount}
-                    placeholder={_(InputPlaceholder.amount)}
-                    className="w-1/3 md:w-40 p-4 border border-gray-300 rounded"
+            </div>
+            <div className="w-32 shrink-0">
+                <Input
+                    type="date"
+                    disabled={readonly}
+                    defaultValue={
+                        formatDateString(expense.date) ||
+                        formatDateObjectToInput(new Date())}
                     onChange={(event) => {
-                        onInputChange(InputTypes.AMOUNT, event.target.value);
+                        onInputChange(InputTypes.DATE, event.target.value);
                     }}
                 />
             </div>
-            <button
-                className={classNames({
-                    "border border-gray-300 bg-white text-black": !isCategoryMenuOpen,
-                    "hover:bg-black hover:text-white": true,
-                    "p-4 font-mono flex items-center justify-between": true,
-                    "cursor-pointer rounded md:w-32": true,
-                })}
-                onClick={() => {
-                    onCategoryMenuClick();
-                    // setExpenses((prev) => {
-                    //     const newExpenses = [...prev];
-                    //     newExpenses[index].categoryId = null;
-                    //     return newExpenses;
-                    // });
-                }}>
-                <span>{subcategory?.icon} {subcategory?.label}</span>
-                <CaretDown/>
-            </button>
-            <input
-                type="text"
-                placeholder={_(InputPlaceholder.note)}
-                defaultValue={note}
-                className="border border-gray-300 rounded p-4 h-20 md:h-auto"
+            <div className="w-60 shrink-0">
+                <TextInput
+                    disabled={readonly}
+                    defaultValue={expense.name}
+                    placeholder={_(InputPlaceholder.name)}
+                    onChange={(value) => {
+                        onInputChange(InputTypes.NAME, value);
+                    }}/>
+            </div>
+            <div className="w-28 shrink-0 flex items-center">
+                ₪<Input
+                type="number"
+                disabled={readonly}
+                defaultValue={expense.amount}
+                placeholder={_(InputPlaceholder.amount)}
                 onChange={(event) => {
-                    onInputChange(InputTypes.NOTE, event.target.value);
-                    // setExpenses((prev) => {
-                    //     const newExpenses = [...prev];
-                    //     newExpenses[index].note = event.target.value;
-                    //     return newExpenses;
-                    // });
-                }}/>
+                    onInputChange(InputTypes.AMOUNT, event.target.value);
+                }}
+            />
+            </div>
+            <div className="w-40 shrink-0">
+                <TextInput
+                    placeholder={_(InputPlaceholder.note)}
+                    defaultValue={expense.note}
+                    disabled={readonly}
+                    onChange={(value) => {
+                        onInputChange(InputTypes.NOTE, value);
+                    }}/>
+            </div>
+            {isListView ? null :
+                <div className="flex items-center gap-2">
+                    <label><Trans>Recurring Transaction Count</Trans></label>
+                    <Input
+                        type="number"
+                        className="w-16"
+                        disabled={readonly}
+                        value={recurCount}
+                        onChange={(event) => {
+                            setRecurCount(Number(event.target.value));
+                        }}/>
+                </div>}
+            {onHide ?
+                <Button
+                    variation={Button.Variation.HIDE}
+                    className=""
+                    onClick={onHide}>
+                    <EyeSlash/>
+                </Button> : null}
+            {onSave ?
+                <Button
+                    isDisabled={isSaveDisabled}
+                    variation={Button.Variation.SAVE}
+                    onClick={async () => {
+                        setIsLoading(true);
+                        try {
+                            await onSave(recurCount);
+                            setIsSuccess(true);
+                        } catch (e) {
+                            console.error("Failed to save expense", e);
+                            setIsSuccess(false);
+                        } finally {
+                            setTimeout(() => {
+                                setIsLoading(false);
+                            }, 300);
+                        }
+                    }}>
+                    {isLoading === null ?
+                        <FloppyDisk/> : isLoading ?
+                            <Spinner className="animate-spin"/> : isSuccess ?
+                                <Check/> : <X/>}
+                </Button> : null}
+            {onRemove ?
+                <Button
+                    onClick={async () => {
+                        setIsLoading(true);
+                        if (window.confirm(`Are you sure you want to remove ${expense.name}?`)) {
+                            await onRemove();
+                            setTimeout(() => {
+                                setIsLoading(false);
+                            }, 300);
+                        }
+                    }}
+                    variation={Button.Variation.DELETE}>
+                    {isLoading === null ?
+                        <Trash/> : isLoading ?
+                            <Spinner className="animate-spin"/> : isSuccess ?
+                                <Check/> : <X/>}
+                </Button> : null}
         </div>
     );
 };

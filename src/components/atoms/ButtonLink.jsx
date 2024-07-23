@@ -1,33 +1,9 @@
 import {noop} from "lodash";
-import {
-    ArrowSquareIn,
-    ChartLineUp,
-    Coffee,
-    House,
-    MagicWand, PiggyBank,
-    Receipt,
-    Scales,
-    SquaresFour,
-} from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import {BUTTON_SIZE} from "../../constants";
-import {useMemo} from "react";
 import {isDesktop} from "../../utils/device";
 import classNames from "classnames";
 
-const Icons = {
-    home: House,
-    import: ArrowSquareIn,
-    balance: Scales,
-    expenses: Receipt,
-    categories: SquaresFour,
-    projection: ChartLineUp,
-    resolver: MagicWand,
-    coffee: Coffee,
-    budget: PiggyBank,
-    // patreon: PatreonLogo,
-    // home: House,
-};
 
 // let link = `/${name}`;
 // if (name === "coffee") {
@@ -39,11 +15,7 @@ const Icons = {
 // }
 
 
-export const ButtonLink = ({name, label, onClick = noop, href, isDisabled, isSelected}) => {
-    const Icon = useMemo(() => {
-        return Icons[name];
-    }, [name]);
-
+export const ButtonLink = ({icon: Icon, label, onClick = noop, href, isDisabled, isSelected}) => {
     return (
         <Link to={href} onClick={onClick} className={classNames({
             "p-1": true,

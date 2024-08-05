@@ -18,7 +18,7 @@ export const Filter = ({
         <button
             className={classNames({
                 "p-2 border border-gray-200 rounded": true,
-                "bg-black text-white": isSelected,
+                "bg-amber-500 text-white": isSelected,
                 "shadow bg-white": !isSelected,
                 "text-xs md:text-sm": true,
             })}

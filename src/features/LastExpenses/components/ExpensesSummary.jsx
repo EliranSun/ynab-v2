@@ -10,8 +10,26 @@ import {BudgetContext, ExpensesContext} from "../../../context";
 import {CategoriesContext} from "../../../context/CategoriesContext";
 import Expense from "../../../components/pages/ExpenseView/Expense";
 import {BottomLine} from "../../../components/molecules/BottomLine/BottomLine";
+import {useLingui} from "@lingui/react";
+import Title from "../../../components/atoms/Title";
+import {Banner} from "../../../components/atoms/Banner";
+
+const SortButton = ({children, onClick, isSelected}) => {
+    return (
+        <button
+            onClick={onClick}
+            className={classNames({
+                "border rounded p-2": true,
+                "bg-gray-100 shadow-none": isSelected,
+                "bg-white shadow-md": !isSelected,
+            })}>
+            {children}
+        </button>
+    );
+};
 
 export const ExpensesSummary = ({budget = {}, expenses = []}) => {
+        const {_} = useLingui();
         const currentYear = getYear(new Date());
         const currentMonth = getMonth(new Date());
         const [startDate, setStartDate] = useState(new Date(currentYear, currentMonth, 1));
@@ -29,7 +47,6 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                 return 0;
             }
 
-            console.log({budget});
             const expensesBudget = budget.filter(({subcategoryId}) => {
                 return !incomeSubcategoriesIds.includes(subcategoryId);
             });
@@ -128,67 +145,80 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
             }, 0), false, false)
         }, [itemsHiddenByUser]);
 
-        console.log(lastItems[0]);
-
         return (
-            <div className="w-full max-w-screen-2xl m-auto bg-white/90">
-                <h1 className="w-full m-auto text-8xl font-mono my-8">
-                    <Trans>Summary</Trans>
-                </h1>
-                <section
-                    className={classNames({
-                        "bg-neutral-50 p-2": true,
-                        // "overflow-y-auto": true,
-                        "shadow-lg border-2 border-solid rounded-lg": true,
-                    })}>
+            <div className="w-full max-w-screen-2xl m-auto p-4 flex gap-4">
+                {/*<h1 className="w-full m-auto text-8xl font-mono my-8">*/}
+                {/*    <Trans>Summary</Trans>*/}
+                {/*</h1>*/}
+
+                <div className="w-1/4 bg-gray-100 h-[calc(100vh-120px)] shadow-md rounded-md p-4">
                     <ExpensesSummaryFilters
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
-                    <div className="sticky top-20 p-4 z-10 bg-white">
+                </div>
+                <div className="w-3/4">
+                    <Title className="mb-4">☕ {_(TimeframeNames[timeframeName])}</Title>
+                    <div className="sticky top-20 z-10">
                         <BottomLine
                             totalSpent={totalSpent}
-                            timeframeName={TimeframeNames[timeframeName]}
                             budgetForTimeframe={budgetForTimeframe}
                             incomeAmountForTimeframe={incomeAmountForTimeframe}/>
                     </div>
 
-                    <div className="flex flex-col md:flex-row overflow-hidden mt-4 gap-4">
-                        <div className="w-full h-fit">
-                            <h3>{hiddenItemsAmountSum} filtered</h3>
-                            <ExpensesSummaryChart
-                                expenses={lastItems}
-                                budget={budgetForTimeframe}
-                                income={incomeForTimeframe}
-                                timeframeName={timeframeName}/>
-                            <button
-                                className="border rounded p-2 shadow-md sticky top-0 bg-white"
-                                onClick={() => setSortBy(sortBy === "timestamp" ? "amount" : "timestamp")}>
-                                Sorting by {sortBy}
-                            </button>
-                            <div className="h-fit overflow-y-auto">
-                                {lastItems.map(item => {
-                                    return (
-                                        <Expense
-                                            key={item.id}
-                                            expense={item}
-                                            isListView
-                                            isIncome={incomeSubcategoriesIds.includes(item.subcategoryId)}
-                                            onHide={() => {
-                                                const isHidden = itemsHiddenByUser.some(({id}) => id === item.id);
-                                                if (isHidden) {
-                                                    setItemsHiddenByUser(itemsHiddenByUser.filter(({id}) => id !== item.id));
-                                                    return;
-                                                }
+                    <div className="flex flex-col md:flex-row mt-4 gap-4">
+                        <div className="flex w-full">
+                            {/*<h3>{hiddenItemsAmountSum} filtered</h3>*/}
 
-                                                setItemsHiddenByUser([item, ...itemsHiddenByUser]);
-                                            }}/>
-                                    )
-                                })}
+                            <Banner className="w-2/3 h-fit">
+                                <div className="flex">
+                                    <h1 className="text-2xl"><Trans>Transactions</Trans></h1>
+                                    <div className="flex gap-2 mb-2 justify-end w-full">
+                                        <SortButton
+                                            isSelected={sortBy === "timestamp"}
+                                            onClick={() => setSortBy("timestamp")}>
+                                            <Trans>Sort by timestamp</Trans>
+                                        </SortButton>
+                                        <SortButton
+                                            isSelected={sortBy === "amount"}
+                                            onClick={() => setSortBy("amount")}>
+                                            <Trans>Sort by amount</Trans>
+                                        </SortButton>
+                                    </div>
+                                </div>
+                                <div className="h-96 overflow-y-auto">
+                                    {lastItems.map(item => {
+                                        return (
+                                            <div key={item.id} className="border-b py-2 flex items-center">
+                                                <Expense
+                                                    expense={item}
+                                                    isListView
+                                                    isLean
+                                                    isIncome={incomeSubcategoriesIds.includes(item.subcategoryId)}
+                                                    onHide={() => {
+                                                        const isHidden = itemsHiddenByUser.some(({id}) => id === item.id);
+                                                        if (isHidden) {
+                                                            setItemsHiddenByUser(itemsHiddenByUser.filter(({id}) => id !== item.id));
+                                                            return;
+                                                        }
+
+                                                        setItemsHiddenByUser([item, ...itemsHiddenByUser]);
+                                                    }}/>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </Banner>
+                            <div className="w-1/3 h-2/3 px-4">
+                                <ExpensesSummaryChart
+                                    expenses={lastItems}
+                                    budget={budgetForTimeframe}
+                                    income={incomeForTimeframe}
+                                    timeframeName={timeframeName}/>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         )
     }

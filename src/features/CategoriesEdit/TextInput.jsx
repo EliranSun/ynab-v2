@@ -6,8 +6,8 @@ export const Input = ({isSecondary, ...rest}) => {
             className={classNames({
                 "shadow": false,
                 "w-10": isSecondary,
-                "w-full": !isSecondary,
-                "px-2 rounded-lg bg-transparent text-right": true,
+                "w-full ": !isSecondary,
+                "rounded-lg bg-transparent text-right": true,
             })}
             {...rest}
         />

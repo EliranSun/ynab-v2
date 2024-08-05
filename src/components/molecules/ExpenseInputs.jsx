@@ -46,6 +46,7 @@ export const ExpenseInputs = ({
     isIncome = false,
     isSaveDisabled = false,
     isVertical = false,
+    isLean = false,
 }) => {
     const {_} = useLingui();
     const [isLoading, setIsLoading] = useState(null);
@@ -59,120 +60,127 @@ export const ExpenseInputs = ({
     return (
         <div className={classNames("text-right w-full", {
             "rounded-xl": true,
-            "flex": true,
+            "flex justify-between text-sm": true,
             "flex-col items-start gap-8": isVertical,
-            "flex-row items-center": !isVertical,
-            "bg-green-100": isIncome,
+            "flex-row gap-2 items-center": !isVertical,
+            "text-green-500": isIncome,
             "grayscale opacity-50": expense.isHidden,
         })}>
-            <div className="w-72 shrink-0">
-                <ExpenseCategorySelection
-                    expense={expense}
-                    readonly={readonly}
-                    onCategorySelect={value => {
-                        onInputChange(InputTypes.SUBCATEGORY_ID, value);
-                    }}/>
-            </div>
-            <div className="w-32 shrink-0">
-                <Input
-                    type="date"
+            <div className="flex items-center gap-2">
+                {onHide ?
+                    <Button
+                        variation={Button.Variation.HIDE}
+                        className=""
+                        onClick={onHide}>
+                        <EyeSlash/>
+                    </Button> : null}
+                {isLean ? null :
+                    <div className="w-60 shrink-0">
+                        <ExpenseCategorySelection
+                            expense={expense}
+                            isLean={isLean}
+                            readonly={readonly}
+                            onCategorySelect={value => {
+                                onInputChange(InputTypes.SUBCATEGORY_ID, value);
+                            }}/>
+                    </div>}
+                <div className="max-w-32 shrink-0">
+                    <Input
+                        type="date"
+                        disabled={readonly}
+                        defaultValue={
+                            formatDateString(expense.date) ||
+                            formatDateObjectToInput(new Date())}
+                        onChange={(event) => {
+                            onInputChange(InputTypes.DATE, event.target.value);
+                        }}
+                    />
+                </div>
+                <div className="max-w-60">
+                    <TextInput
+                        disabled={readonly}
+                        defaultValue={expense.name}
+                        placeholder={_(InputPlaceholder.name)}
+                        onChange={(value) => {
+                            onInputChange(InputTypes.NAME, value);
+                        }}/>
+                </div>
+                <div className="max-w-28 flex items-center gap-0">
+                    ₪<Input
+                    type="number"
                     disabled={readonly}
-                    defaultValue={
-                        formatDateString(expense.date) ||
-                        formatDateObjectToInput(new Date())}
+                    defaultValue={expense.amount}
+                    placeholder={_(InputPlaceholder.amount)}
                     onChange={(event) => {
-                        onInputChange(InputTypes.DATE, event.target.value);
+                        onInputChange(InputTypes.AMOUNT, event.target.value);
                     }}
                 />
+                </div>
+                {isLean ? null :
+                    <div className="max-w-40">
+                        <TextInput
+                            placeholder={_(InputPlaceholder.note)}
+                            defaultValue={expense.note}
+                            disabled={readonly}
+                            onChange={(value) => {
+                                onInputChange(InputTypes.NOTE, value);
+                            }}/>
+                    </div>}
+                {isListView ? null :
+                    <div className="flex items-center gap-2">
+                        <label><Trans>Recurring Transaction Count</Trans></label>
+                        <Input
+                            type="number"
+                            className="w-16"
+                            disabled={readonly}
+                            value={recurCount}
+                            onChange={(event) => {
+                                setRecurCount(Number(event.target.value));
+                            }}/>
+                    </div>}
             </div>
-            <div className="w-60 shrink-0">
-                <TextInput
-                    disabled={readonly}
-                    defaultValue={expense.name}
-                    placeholder={_(InputPlaceholder.name)}
-                    onChange={(value) => {
-                        onInputChange(InputTypes.NAME, value);
-                    }}/>
+            <div className="flex items-center">
+                {onSave ?
+                    <Button
+                        isDisabled={isSaveDisabled}
+                        variation={Button.Variation.SAVE}
+                        onClick={async () => {
+                            setIsLoading(true);
+                            try {
+                                await onSave(recurCount);
+                                setIsSuccess(true);
+                            } catch (e) {
+                                console.error("Failed to save expense", e);
+                                setIsSuccess(false);
+                            } finally {
+                                setTimeout(() => {
+                                    setIsLoading(false);
+                                }, 300);
+                            }
+                        }}>
+                        {isLoading === null ?
+                            <FloppyDisk/> : isLoading ?
+                                <Spinner className="animate-spin"/> : isSuccess ?
+                                    <Check/> : <X/>}
+                    </Button> : null}
+                {onRemove ?
+                    <Button
+                        onClick={async () => {
+                            setIsLoading(true);
+                            if (window.confirm(`Are you sure you want to remove ${expense.name}?`)) {
+                                await onRemove();
+                                setTimeout(() => {
+                                    setIsLoading(false);
+                                }, 300);
+                            }
+                        }}
+                        variation={Button.Variation.DELETE}>
+                        {isLoading === null ?
+                            <Trash/> : isLoading ?
+                                <Spinner className="animate-spin"/> : isSuccess ?
+                                    <Check/> : <X/>}
+                    </Button> : null}
             </div>
-            <div className="w-28 shrink-0 flex items-center">
-                ₪<Input
-                type="number"
-                disabled={readonly}
-                defaultValue={expense.amount}
-                placeholder={_(InputPlaceholder.amount)}
-                onChange={(event) => {
-                    onInputChange(InputTypes.AMOUNT, event.target.value);
-                }}
-            />
-            </div>
-            <div className="w-40 shrink-0">
-                <TextInput
-                    placeholder={_(InputPlaceholder.note)}
-                    defaultValue={expense.note}
-                    disabled={readonly}
-                    onChange={(value) => {
-                        onInputChange(InputTypes.NOTE, value);
-                    }}/>
-            </div>
-            {isListView ? null :
-                <div className="flex items-center gap-2">
-                    <label><Trans>Recurring Transaction Count</Trans></label>
-                    <Input
-                        type="number"
-                        className="w-16"
-                        disabled={readonly}
-                        value={recurCount}
-                        onChange={(event) => {
-                            setRecurCount(Number(event.target.value));
-                        }}/>
-                </div>}
-            {onHide ?
-                <Button
-                    variation={Button.Variation.HIDE}
-                    className=""
-                    onClick={onHide}>
-                    <EyeSlash/>
-                </Button> : null}
-            {onSave ?
-                <Button
-                    isDisabled={isSaveDisabled}
-                    variation={Button.Variation.SAVE}
-                    onClick={async () => {
-                        setIsLoading(true);
-                        try {
-                            await onSave(recurCount);
-                            setIsSuccess(true);
-                        } catch (e) {
-                            console.error("Failed to save expense", e);
-                            setIsSuccess(false);
-                        } finally {
-                            setTimeout(() => {
-                                setIsLoading(false);
-                            }, 300);
-                        }
-                    }}>
-                    {isLoading === null ?
-                        <FloppyDisk/> : isLoading ?
-                            <Spinner className="animate-spin"/> : isSuccess ?
-                                <Check/> : <X/>}
-                </Button> : null}
-            {onRemove ?
-                <Button
-                    onClick={async () => {
-                        setIsLoading(true);
-                        if (window.confirm(`Are you sure you want to remove ${expense.name}?`)) {
-                            await onRemove();
-                            setTimeout(() => {
-                                setIsLoading(false);
-                            }, 300);
-                        }
-                    }}
-                    variation={Button.Variation.DELETE}>
-                    {isLoading === null ?
-                        <Trash/> : isLoading ?
-                            <Spinner className="animate-spin"/> : isSuccess ?
-                                <Check/> : <X/>}
-                </Button> : null}
         </div>
     );
 };

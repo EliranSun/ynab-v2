@@ -2,6 +2,8 @@ import {useLingui} from "@lingui/react";
 import {Trans} from "@lingui/macro";
 import {Item} from "./Item";
 import {Amount} from "./Amount";
+import classNames from "classnames";
+import {Banner} from "../../atoms/Banner";
 
 export const BottomLine = ({
     totalSpent,
@@ -9,52 +11,50 @@ export const BottomLine = ({
     budgetForTimeframe,
     incomeAmountForTimeframe,
 }) => {
-    const {_} = useLingui();
     const differenceBudgetAmount = budgetForTimeframe - totalSpent;
     const differenceAmount = incomeAmountForTimeframe - totalSpent;
 
     return (
-        <div>
-            <h1>{_(timeframeName)}</h1>
-            <div className="flex items-center justify-evenly gap-2 my-4 m-auto">
+        <Banner>
+            <div className="flex items-center justify-evenly gap-2 m-auto max-w-screen-lg">
                 <Item>
-                    <Amount size={Amount.Size.LARGE} isExpense>{-totalSpent}</Amount>
-                    <h1 className="font-mono">
-                        <Trans>Spent</Trans>
-                    </h1>
-                    <div className="grid grid-cols-2 py-2 px-8 gap-8">
-                        <Item>
-                            <Amount size={Amount.Size.SMALL} withRounding>{budgetForTimeframe}</Amount>
-                            <h1 className="font-mono">
-                                <Trans>Budget</Trans>
-                            </h1>
-                        </Item>
-                        <Item>
-                            <Amount size={Amount.Size.SMALL} isDifference>{differenceBudgetAmount}</Amount>
-                            <h1 className="font-mono">
-                                {differenceBudgetAmount > 0 ?
-                                    <Trans>left</Trans> : <Trans>over</Trans>}
-                            </h1>
-                        </Item>
-                    </div>
+                    <h1 className="font-mono text-green-600"><Trans>Income</Trans></h1>
+                    <Amount withRounding>{incomeAmountForTimeframe}</Amount>
                 </Item>
-
-                <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-2 bg-gray-100 px-8 p-2 shadow rounded-2xl gap-8">
-                        <Item>
-                            <Amount withRounding>{incomeAmountForTimeframe}</Amount>
-                            <h1 className="font-mono"><Trans>Income</Trans></h1>
-                        </Item>
-                        <Item>
-                            <Amount isDifference>{differenceAmount}</Amount>
-                            <h1 className="font-mono">
-                                {differenceAmount > 0 ?
-                                    <Trans>left</Trans> : <Trans>over</Trans>}
-                            </h1>
-                        </Item>
-                    </div>
-                </div>
+                <Item>
+                    <h1 className="font-mono text-red-600">
+                        <Trans>Expenses</Trans>
+                    </h1>
+                    <Amount size={Amount.Size.MEDIUM} isExpense>{-totalSpent}</Amount>
+                    {/*<div className="grid grid-cols-2 py-2 px-8 gap-8">*/}
+                    {/*    <Item>*/}
+                    {/*        <Amount size={Amount.Size.SMALL} withRounding>{budgetForTimeframe}</Amount>*/}
+                    {/*        <h1 className="font-mono">*/}
+                    {/*            <Trans>Budget</Trans>*/}
+                    {/*        </h1>*/}
+                    {/*    </Item>*/}
+                    {/*    <Item>*/}
+                    {/*        <Amount size={Amount.Size.SMALL} isDifference>{differenceBudgetAmount}</Amount>*/}
+                    {/*        <h1 className="font-mono">*/}
+                    {/*            {differenceBudgetAmount > 0 ?*/}
+                    {/*                <Trans>left</Trans> : <Trans>over</Trans>}*/}
+                    {/*        </h1>*/}
+                    {/*    </Item>*/}
+                    {/*</div>*/}
+                </Item>
+                <Item>
+                    <h1 className="font-mono">
+                        <Trans>Bottom line</Trans> -{' '}
+                        <span className={classNames({
+                            "text-green-600": differenceAmount >= 0,
+                            "text-red-600": differenceAmount < 0,
+                        })}>
+                        {differenceAmount >= 0 ? <Trans>left</Trans> : <Trans>over</Trans>}
+                        </span>
+                    </h1>
+                    <Amount isDifference>{differenceAmount}</Amount>
+                </Item>
             </div>
-        </div>
+        </Banner>
     )
 }

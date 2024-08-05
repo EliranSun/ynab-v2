@@ -17,15 +17,16 @@ import classNames from "classnames";
 
 export const ButtonLink = ({icon: Icon, label, onClick = noop, href, isDisabled, isSelected}) => {
     return (
-        <Link to={href} onClick={onClick} className={classNames({
-            "p-1": true,
+        <li className={classNames({
+            "p-2 flex items-center justify-center gap-2 h-full": true,
             "pointer-events-none": isDisabled,
-            "bg-black text-white": isSelected,
+            "bg-amber-500 text-black": isSelected,
+            // "border-2 border-amber-400 text-black": !isSelected,
         })}>
-            <li className="flex items-center gap-2 h-12 md:flex-col">
-                <Icon size={isDesktop() ? BUTTON_SIZE * 2 : BUTTON_SIZE}/>
+            <Link to={href} onClick={onClick} className="flex gap-2">
+                <Icon size={isDesktop() ? BUTTON_SIZE / 2 : BUTTON_SIZE}/>
                 <span className="md:text-xs">{label.toUpperCase()}</span>
-            </li>
-        </Link>
+            </Link>
+        </li>
     )
 };

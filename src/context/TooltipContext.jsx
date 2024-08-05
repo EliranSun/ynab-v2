@@ -7,8 +7,8 @@ const Tooltip = ({children}) => {
     return (
         <div
             className={classNames({
-                "ltr:left-10 rtl:right-10": true,
-                "fixed bottom-10 bg-black text-white p-4 rounded shadow-xl flex items-center justify-center": true,
+                "ltr:right-5 rtl:left-5": true,
+                "fixed bottom-5 bg-black text-white p-4 rounded shadow-xl flex items-center justify-center": true,
                 "transition-all ease-in-out duration-500": true,
                 "w-10 h-10": !children,
                 "w-96 h-24": children,

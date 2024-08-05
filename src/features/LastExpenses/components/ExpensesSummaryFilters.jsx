@@ -1,7 +1,7 @@
 import {endOfWeek, getYear, startOfWeek, subDays, getMonth} from "date-fns";
 import {useState} from "react";
 import {FilterName, MonthNames, Timeframe} from "../constants";
-import {Trans} from "@lingui/macro";
+import {msg, Trans} from "@lingui/macro";
 import {Filters} from "./Filters";
 import {FilterGroup} from "./FilterGroup";
 import {Filter} from "./Filter";
@@ -14,7 +14,7 @@ export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeNa
     return (
         <div className="">
             <h1 className="text-2xl font-bold mb-2">
-                <Trans>Filters</Trans>
+                <Trans>Period</Trans>
             </h1>
             <Filters>
                 <FilterGroup>
@@ -60,53 +60,53 @@ export const ExpensesSummaryFilters = ({setStartDate, setEndDate, setTimeframeNa
                         );
                     }).reverse()}
                 </FilterGroup>
-                <FilterGroup>
-                    <Filter
-                        isSelected={selectedLabel === "May 2024"}
-                        onClick={setSelectedLabel}
-                        label="May 2024"
-                        startDate={new Date("2024-05-01")}
-                        endDate={new Date("2024-05-31")}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Filter
-                        isSelected={selectedLabel === "April 2024"}
-                        onClick={setSelectedLabel}
-                        label="April 2024"
-                        startDate={new Date("2024-04-01")}
-                        endDate={new Date("2024-04-30")}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Filter
-                        isSelected={selectedLabel === "February 2024"}
-                        onClick={setSelectedLabel}
-                        label="February 2024"
-                        startDate={new Date("2024-02-01")}
-                        endDate={new Date("2024-02-28")}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                    <Filter
-                        label="February 2023"
-                        isSelected={selectedLabel === "February 2023"}
-                        onClick={setSelectedLabel}
-                        startDate={new Date("2023-02-01")}
-                        endDate={new Date("2023-02-28")}
-                        timeframe={Timeframe.MONTH}
-                        setStartDate={setStartDate}
-                        setEndDate={setEndDate}
-                        setTimeframeName={setTimeframeName}/>
-                </FilterGroup>
+                {/*<FilterGroup>*/}
+                {/*    <Filter*/}
+                {/*        isSelected={selectedLabel === "May 2024"}*/}
+                {/*        onClick={setSelectedLabel}*/}
+                {/*        label="May 2024"*/}
+                {/*        startDate={new Date("2024-05-01")}*/}
+                {/*        endDate={new Date("2024-05-31")}*/}
+                {/*        timeframe={Timeframe.MONTH}*/}
+                {/*        setStartDate={setStartDate}*/}
+                {/*        setEndDate={setEndDate}*/}
+                {/*        setTimeframeName={setTimeframeName}/>*/}
+                {/*    <Filter*/}
+                {/*        isSelected={selectedLabel === "April 2024"}*/}
+                {/*        onClick={setSelectedLabel}*/}
+                {/*        label="April 2024"*/}
+                {/*        startDate={new Date("2024-04-01")}*/}
+                {/*        endDate={new Date("2024-04-30")}*/}
+                {/*        timeframe={Timeframe.MONTH}*/}
+                {/*        setStartDate={setStartDate}*/}
+                {/*        setEndDate={setEndDate}*/}
+                {/*        setTimeframeName={setTimeframeName}/>*/}
+                {/*    <Filter*/}
+                {/*        isSelected={selectedLabel === "February 2024"}*/}
+                {/*        onClick={setSelectedLabel}*/}
+                {/*        label="February 2024"*/}
+                {/*        startDate={new Date("2024-02-01")}*/}
+                {/*        endDate={new Date("2024-02-28")}*/}
+                {/*        timeframe={Timeframe.MONTH}*/}
+                {/*        setStartDate={setStartDate}*/}
+                {/*        setEndDate={setEndDate}*/}
+                {/*        setTimeframeName={setTimeframeName}/>*/}
+                {/*    <Filter*/}
+                {/*        label="February 2023"*/}
+                {/*        isSelected={selectedLabel === "February 2023"}*/}
+                {/*        onClick={setSelectedLabel}*/}
+                {/*        startDate={new Date("2023-02-01")}*/}
+                {/*        endDate={new Date("2023-02-28")}*/}
+                {/*        timeframe={Timeframe.MONTH}*/}
+                {/*        setStartDate={setStartDate}*/}
+                {/*        setEndDate={setEndDate}*/}
+                {/*        setTimeframeName={setTimeframeName}/>*/}
+                {/*</FilterGroup>*/}
                 <FilterGroup>
                     <Filter
                         isSelected={selectedLabel === "Last quarter"}
                         onClick={setSelectedLabel}
-                        label="Last quarter"
+                        label={msg`Last quarter`}
                         startDate={subDays(new Date(), 120)}
                         endDate={subDays(new Date(), 30)}
                         timeframe={Timeframe.QUARTER}

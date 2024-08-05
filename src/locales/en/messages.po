@@ -45,7 +45,7 @@ msgstr "🚌 Travel"
 msgid "🛎️ Apps Sub"
 msgstr "🛎️ Apps Sub"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:22
+#: src/features/CategoriesEdit/CategoriesView.jsx:22
 #: src/features/CategoriesEdit/CategoryEntry.jsx:27
 msgid "A category is an group of subcategories,"
 msgstr "A category is an group of subcategories,"
@@ -66,7 +66,7 @@ msgstr "add"
 msgid "Add"
 msgstr "Add"
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:30
+#: src/features/CategoriesEdit/CategoriesView.jsx:30
 msgid "Add Category"
 msgstr "Add Category"
 
@@ -82,6 +82,10 @@ msgstr "Add Subcategory"
 msgid "amount"
 msgstr "amount"
 
+#: src/features/LastExpenses/constants.js:28
+msgid "April"
+msgstr "April"
+
 #: src/features/CategoriesEdit/CategoryActions.jsx:67
 msgid "Are you sure you want to delete this category?"
 msgstr "Are you sure you want to delete this category?"
@@ -89,6 +93,10 @@ msgstr "Are you sure you want to delete this category?"
 #: src/features/CategoriesEdit/Subcategory.jsx:60
 msgid "Are you sure you want to delete this sub-category?"
 msgstr "Are you sure you want to delete this sub-category?"
+
+#: src/features/LastExpenses/constants.js:32
+msgid "August"
+msgstr "August"
 
 #: src/constants/categories.js:321
 msgid "Authoring"
@@ -98,7 +106,7 @@ msgstr "Authoring"
 msgid "average"
 msgstr "average"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:66
+#: src/features/ManageBudget/SubcategoryBudget.jsx:81
 msgid "Average"
 msgstr "Average"
 
@@ -122,14 +130,17 @@ msgstr "Bars"
 msgid "Books"
 msgstr "Books"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:47
+msgid "Bottom line"
+msgstr "Bottom line"
+
 #: src/components/pages/BalanceView/CategoryBalance.jsx:35
 msgid "budget"
 msgstr "budget"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:31
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
-#: src/features/ManageBudget/BudgetView.jsx:43
+#: src/features/ManageBudget/BudgetView.jsx:52
 msgid "Budget"
 msgstr "Budget"
 
@@ -163,7 +174,7 @@ msgstr "Categories"
 msgid "Categories are your way to make order, out of the chaos."
 msgstr "Categories are your way to make order, out of the chaos."
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:17
+#: src/features/CategoriesEdit/CategoriesView.jsx:17
 msgid "Categories Edit"
 msgstr "Categories Edit"
 
@@ -209,7 +220,7 @@ msgstr "Control your future"
 msgid "Current Balance"
 msgstr "Current Balance"
 
-#: src/features/ManageBudget/BudgetView.jsx:69
+#: src/features/ManageBudget/BudgetView.jsx:78
 msgid "Cutoff by"
 msgstr "Average by"
 
@@ -220,6 +231,10 @@ msgstr "Average by"
 #: src/constants/categories.js:295
 msgid "Dates"
 msgstr "Dates"
+
+#: src/features/LastExpenses/constants.js:36
+msgid "December"
+msgstr "December"
 
 #: src/constants/categories.js:181
 msgid "Decor"
@@ -294,6 +309,7 @@ msgstr "expense"
 msgid "expenses"
 msgstr "expenses"
 
+#: src/components/molecules/BottomLine/BottomLine.jsx:26
 #: src/constants/index.js:76
 msgid "Expenses"
 msgstr "Expenses"
@@ -326,11 +342,14 @@ msgstr "Export expenses to file"
 msgid "Family"
 msgstr "Family"
 
+#: src/features/LastExpenses/constants.js:26
+msgid "February"
+msgstr "February"
+
 #: src/constants/categories.js:365
 msgid "Fees"
 msgstr "Fees"
 
-#: src/features/LastExpenses/components/ExpensesSummaryFilters.jsx:17
 #: src/features/LastExpenses/components/LastExpensesFilters.jsx:76
 msgid "Filters"
 msgstr "Filters"
@@ -438,7 +457,7 @@ msgstr "In order to use the app, you have got to set up categories."
 msgid "income"
 msgstr "income"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:45
+#: src/components/molecules/BottomLine/BottomLine.jsx:21
 msgid "Income"
 msgstr "Income"
 
@@ -458,9 +477,21 @@ msgstr "iOS"
 msgid "It is us again"
 msgstr "It is us again"
 
+#: src/features/LastExpenses/constants.js:25
+msgid "January"
+msgstr "January"
+
 #: src/components/atoms/BalanceDiffMessage/BalanceDiffMessage.jsx:23
 msgid "Jesus fucking christ man."
 msgstr "Jesus fucking christ man."
+
+#: src/features/LastExpenses/constants.js:31
+msgid "July"
+msgstr "July"
+
+#: src/features/LastExpenses/constants.js:30
+msgid "June"
+msgstr "June"
 
 #: src/context/CategoriesContext.js:62
 msgid "Just wanted to say, welcome!"
@@ -470,12 +501,19 @@ msgstr "Just wanted to say, welcome!"
 msgid "KIA"
 msgstr "KIA"
 
-#: src/features/ManageBudget/SubcategoryBudget.jsx:70
+#: src/features/ManageBudget/SubcategoryBudget.jsx:85
 msgid "Last"
 msgstr "Last"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:38
-#: src/components/molecules/BottomLine/BottomLine.jsx:51
+#: src/features/LastExpenses/components/ExpensesSummaryFilters.jsx:109
+msgid "Last quarter"
+msgstr "Last quarter"
+
+#: src/features/LastExpenses/constants.js:21
+msgid "Last week"
+msgstr "Last week"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:52
 msgid "left"
 msgstr "left"
 
@@ -529,7 +567,15 @@ msgstr "Manually"
 #~ msgid "Manually - TBD"
 #~ msgstr "Manually - TBD"
 
-#: src/features/ManageBudget/BudgetView.jsx:75
+#: src/features/LastExpenses/constants.js:27
+msgid "March"
+msgstr "March"
+
+#: src/features/LastExpenses/constants.js:29
+msgid "May"
+msgstr "May"
+
+#: src/features/ManageBudget/BudgetView.jsx:84
 msgid "months"
 msgstr "last months"
 
@@ -573,9 +619,17 @@ msgstr "note"
 msgid "Nothing new"
 msgstr "Nothing new"
 
+#: src/features/LastExpenses/constants.js:35
+msgid "November"
+msgstr "November"
+
 #: src/context/CategoriesContext.js:72
 msgid "Now you must add subcategories"
 msgstr "Now you must add subcategories"
+
+#: src/features/LastExpenses/constants.js:34
+msgid "October"
+msgstr "October"
 
 #: src/context/CategoriesContext.js:77
 msgid "OK"
@@ -586,8 +640,7 @@ msgstr "OK"
 msgid "Other"
 msgstr "Other"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:38
-#: src/components/molecules/BottomLine/BottomLine.jsx:51
+#: src/components/molecules/BottomLine/BottomLine.jsx:52
 msgid "over"
 msgstr "over"
 
@@ -632,6 +685,10 @@ msgstr "Past 12 months"
 msgid "perhaps a one-off, but I should understand why if this keeps going."
 msgstr "perhaps a one-off, but I should understand why if this keeps going."
 
+#: src/features/LastExpenses/components/ExpensesSummaryFilters.jsx:17
+msgid "Period"
+msgstr "Period"
+
 #: src/constants/categories.js:163
 msgid "Pets"
 msgstr "Pets"
@@ -654,7 +711,7 @@ msgstr "Put in mind though - the budget is for the current month only, so some m
 msgid "Rates"
 msgstr "Rates"
 
-#: src/components/molecules/ExpenseInputs.jsx:117
+#: src/components/molecules/ExpenseInputs.jsx:131
 msgid "Recurring Transaction Count"
 msgstr "Recurring Transaction Count"
 
@@ -689,13 +746,17 @@ msgid "Saved this month!"
 msgstr "Saved this month!"
 
 #: src/features/Search.jsx:54
-#: src/features/Search.jsx:76
+#: src/features/Search.jsx:75
 msgid "Search"
 msgstr "Search"
 
-#: src/components/organisms/ExpenseCategorySelection.jsx:57
+#: src/components/organisms/ExpenseCategorySelection.jsx:58
 msgid "Select Subcategory"
 msgstr "Select Subcategory"
+
+#: src/features/LastExpenses/constants.js:33
+msgid "September"
+msgstr "September"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:147
 msgid "Sheet"
@@ -709,9 +770,17 @@ msgstr "Show same month only"
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "So all of the subcategories in this category will be defined as income"
 
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:185
+msgid "Sort by amount"
+msgstr "Sort by amount"
+
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:180
+msgid "Sort by timestamp"
+msgstr "Sort by timestamp"
+
 #: src/components/molecules/BottomLine/BottomLine.jsx:23
-msgid "Spent"
-msgstr "Spent"
+#~ msgid "Spent"
+#~ msgstr "Spent"
 
 #: src/components/pages/CategoryView/CategoryView.jsx:110
 msgid "Subcategories"
@@ -726,8 +795,8 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #~ msgstr "Subcategory"
 
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:136
-msgid "Summary"
-msgstr "Summary"
+#~ msgid "Summary"
+#~ msgstr "Summary"
 
 #: src/components/pages/TheResolver.jsx:117
 msgid "The Resolver"
@@ -741,6 +810,10 @@ msgstr "Therapist"
 msgid "this month"
 msgstr "this month"
 
+#: src/features/LastExpenses/constants.js:22
+msgid "This month"
+msgstr "This month"
+
 #: src/features/LastExpenses/constants.js:13
 msgid "this quarter"
 msgstr "this quarter"
@@ -748,6 +821,10 @@ msgstr "this quarter"
 #: src/features/LastExpenses/constants.js:11
 msgid "this week"
 msgstr "this week"
+
+#: src/features/LastExpenses/constants.js:20
+msgid "This week"
+msgstr "This week"
 
 #: src/features/LastExpenses/constants.js:14
 msgid "this year"
@@ -770,6 +847,7 @@ msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
 #: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:175
 msgid "Transactions"
 msgstr "Transactions"
 
@@ -806,7 +884,7 @@ msgstr "Welcome"
 msgid "which is good, but I should understand why my budget is off."
 msgstr "which is good, but I should understand why my budget is off."
 
-#: src/features/CategoriesEdit/CategoriesEdit.jsx:23
+#: src/features/CategoriesEdit/CategoriesView.jsx:23
 #: src/features/CategoriesEdit/CategoryEntry.jsx:28
 msgid "You can call it cosmetic - it is there solely to organize subcategories"
 msgstr "You can call it cosmetic - it is there solely to organize subcategories"

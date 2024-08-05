@@ -9,6 +9,7 @@ const Expense = ({
     isIncome = false,
     isListView = false,
     onHide = noop,
+    isLean = false,
 }) => {
     const {refetch} = useContext(ExpensesContext);
     const [newExpense, setNewExpense] = useState(expense);
@@ -16,6 +17,7 @@ const Expense = ({
     return (
         <ExpenseInputs
             expense={expense}
+            isLean={isLean}
             isListView={isListView}
             isIncome={isIncome}
             isSaveDisabled={isEqual(newExpense, expense)}

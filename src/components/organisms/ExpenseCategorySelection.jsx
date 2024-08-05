@@ -24,10 +24,11 @@ const getSimilarSubcategory = (expense, expenses = []) => {
     return similarExpense?.subcategory;
 }
 export const ExpenseCategorySelection = ({
-                                             expense = {},
-                                             onCategorySelect = noop,
-                                             readonly = false,
-                                         }) => {
+    expense = {},
+    onCategorySelect = noop,
+    readonly = false,
+    isLean = false,
+}) => {
     const {_} = useLingui();
     const {expenses} = useContext(ExpensesContext);
     const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(expense.subcategoryId);
@@ -70,10 +71,10 @@ export const ExpenseCategorySelection = ({
         <>
             <button
                 className={classNames({
-                    "w-full border border-gray-300 text-black": !isCategoryMenuOpen,
+                    "w-full border border-gray-300": !isCategoryMenuOpen && !isLean,
                     "cursor-pointer hover:bg-black hover:text-white": !readonly,
                     "p-4 font-mono flex items-center justify-between": true,
-                    "bg-blue-100": Boolean(selectedSubcategoryId),
+                    // "bg-gray-100": Boolean(selectedSubcategoryId),
                     "bg-white": !selectedSubcategoryId,
                     "rounded": true,
                 })}

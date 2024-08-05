@@ -20,8 +20,8 @@ const Amount = ({
             "text-xs md:text-4xl": size === Amount.Size.SMALL,
             "text-3xl md:text-5xl": size === Amount.Size.MEDIUM,
             "text-4xl md:text-9xl": size === Amount.Size.LARGE,
-            "text-green-500": isDifference && (value >= 0),
-            "text-red-500": isDifference && (value < 0) || isExpense,
+            "text-green-500": (isDifference && (value >= 0)) || !isExpense,
+            "text-red-500": (isDifference && (value < 0)) || isExpense,
         })}>
             {formatCurrency(round(value, withRounding ? -1 : 0), false, false)}
         < /h2>

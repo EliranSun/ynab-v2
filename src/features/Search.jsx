@@ -64,13 +64,12 @@ export const Search = () => {
                         "flex flex-col items-center justify-center": true,
                         "fixed backdrop-brightness-50 w-screen h-screen z-40 top-0": true,
                     })}>
-
                     <div
                         onClick={() => setIsSearchResultsOpen(false)}
                         className="mb-4 rounded-full bg-black p-8">
                         <X size={32} color="white"/>
                     </div>
-                    <div className="max-w-screen-xl bg-white shadow-2xl rounded-2xl p-8 h-2/3 flex flex-col gap-4">
+                    <div className="max-w-screen-xl bg-white shadow-2xl rounded-2xl p-4 flex flex-col gap-4">
                         <div>
                             <SearchInput
                                 placeholder={_(msg`Search`)}

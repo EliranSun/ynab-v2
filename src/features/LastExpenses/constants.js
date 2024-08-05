@@ -17,11 +17,21 @@ export const TimeframeNames = {
 export const INCOME_CATEGORY_ID = '8';
 
 export const FilterName = {
-    THIS_WEEK: "This week",
-    LAST_WEEK: "Last week",
-    THIS_MONTH: "This month",
+    THIS_WEEK: msg`This week`,
+    LAST_WEEK: msg`Last week`,
+    THIS_MONTH: msg`This month`,
 }
 export const MonthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    msg`January`,
+    msg`February`,
+    msg`March`,
+    msg`April`,
+    msg`May`,
+    msg`June`,
+    msg`July`,
+    msg`August`,
+    msg`September`,
+    msg`October`,
+    msg`November`,
+    msg`December`,
 ];

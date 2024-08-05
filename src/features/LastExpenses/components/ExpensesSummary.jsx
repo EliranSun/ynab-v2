@@ -151,7 +151,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                 {/*    <Trans>Summary</Trans>*/}
                 {/*</h1>*/}
 
-                <div className="w-1/4 bg-gray-100 h-[calc(100vh-120px)] shadow-md rounded-md p-4">
+                <div className="w-1/4 bg-gray-100 h-[calc(100vh-120px)] shadow-md rounded-md p-4 border">
                     <ExpensesSummaryFilters
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}

@@ -167,10 +167,8 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                     </div>
 
                     <div className="flex flex-col md:flex-row mt-4 gap-4">
-                        <div className="flex w-full">
-                            {/*<h3>{hiddenItemsAmountSum} filtered</h3>*/}
-
-                            <Banner className="w-2/3 h-fit">
+                        <div className="flex flex-col w-full">
+                            <Banner className="w-full h-fit">
                                 <div className="flex">
                                     <h1 className="text-2xl"><Trans>Transactions</Trans></h1>
                                     <div className="flex gap-2 mb-2 justify-end w-full">
@@ -209,7 +207,7 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
                                     })}
                                 </div>
                             </Banner>
-                            <div className="w-1/3 h-2/3 px-4">
+                            <div className="w-full h-2/3 px-4">
                                 <ExpensesSummaryChart
                                     expenses={lastItems}
                                     budget={budgetForTimeframe}

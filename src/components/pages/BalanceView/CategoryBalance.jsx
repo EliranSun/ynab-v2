@@ -57,7 +57,6 @@ export const CategoryBalance = ({
     currentTimestamp,
     isSameDate,
     isPreviousMonth,
-    categoryBudget,
     selectedId,
     setSelectedId
 }) => {
@@ -104,11 +103,20 @@ export const CategoryBalance = ({
         return sub;
     }, [currentTimestamp, expenses, subcategories]);
 
+
+    const categoryBudget = useMemo(() => {
+        return subcategories.reduce((acc, subcategory) => {
+            return acc + subcategory.budget;
+        }, 0);
+    }, [subcategories]);
+
     const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
     // if (totalExpensesSum === 0) {
     //     return null;
     // }
+
+    console.log({ subcategories });
 
     return (
         <div className={classNames({
@@ -123,7 +131,11 @@ export const CategoryBalance = ({
                     "mb-2 pb-2 border-b": isExpanded
                 })}
                 onClick={() => setIsExpanded(!isExpanded)}>
-                <div className="font-semibold text-xl font-mono">
+                <div className={classNames({
+                    "font-semibold text-xl font-mono": true,
+                    "text-red-500": diff < 0,
+                    "text-green-600": diff >= 0
+                })}>
                     {formatCurrency(round(totalExpensesSum, -1), false, false)}
                 </div>
                 <Title type={Title.Types.H4} className="">

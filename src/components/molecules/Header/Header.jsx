@@ -31,7 +31,7 @@ export const Header = () => {
                 {/*    <WelcomeMessage userName={user.translatedUsername}/>*/}
                 {/*</span>*/}
                 {/*<HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)}/>*/}
-                <div className="w-full md:w-1/3 h-full">
+                <div className="w-full mx-2 md:w-1/3 h-full">
                     <Search />
                 </div>
                 <div className="fixed left-0 z-10 h-20 bottom-0 md:relative w-full md:w-2/3 md:h-full">

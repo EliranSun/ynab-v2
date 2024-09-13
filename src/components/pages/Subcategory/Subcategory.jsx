@@ -1,12 +1,13 @@
 import { Title } from "../../atoms";
-import { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useMemo, useRef } from "react";
 import { noop } from "lodash";
 import { ExpensesContext } from "../../../context";
 import { formatCurrency } from "../../../utils";
 import classNames from "classnames";
-import { ArrowBendDownLeft, Faders } from "@phosphor-icons/react";
 import { SubcategoryBudget } from "../../atoms/SubcategoryBudget";
 import { getAverageSubcategoryAmount } from "../../../utils/expenses";
+import { useLingui } from "@lingui/react";
+import { msg } from "@lingui/macro";
 
 const Subcategory = ({
     icon,
@@ -19,6 +20,7 @@ const Subcategory = ({
     isIncome,
     thisMonthExpenses,
 }) => {
+    const { _ } = useLingui();
     const { expenses, expensesPerMonthPerCategory } = useContext(ExpensesContext);
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
@@ -32,7 +34,8 @@ const Subcategory = ({
 
     const totalInPreviousMonth = useMemo(() => {
         const amount = expenses.reduce((total, expense) => {
-            if (id === expense.categoryId && isPreviousMonth(expense.timestamp)) {
+            debugger;
+            if (id === expense.subcategoryId && isPreviousMonth(expense.timestamp)) {
                 return total + expense.amount;
             }
             return total;
@@ -55,7 +58,7 @@ const Subcategory = ({
             className={classNames({
                 "relative": false,
                 "cursor-pointer flex flex-col md:justify-between items-start": true,
-                "bg-gray-200": isSelected,
+                // "border border-gray-100": isSelected,
             })}
             onClick={() => onSubcategoryClick(isSelected ? null : id)}>
             <div className="flex flex-row-reverse md:flex-col items-start justify-between w-full">
@@ -66,20 +69,27 @@ const Subcategory = ({
                 })}>
                     {thisMonthAmount}
                 </div>
-                <Title type={Title.Types.H5} className="truncate flex">
+                <Title type={Title.Types.H5} className={classNames({
+                    "truncate flex": true,
+                    "font-bold": isSelected,
+                    "text-gray-900": isSelected,
+                    "font-normal": !isSelected,
+                    "text-gray-700": !isSelected
+                })}>
                     {icon.slice(0, 2)} {name}
                 </Title>
             </div>
             {isSelected ?
-                <div className="absolute z-30 bg-white left-full p-4 shadow-lg border rounded-xl">
-                    <div className="flex gap-4 w-full justify-end">
-                        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <Faders />
-                            {averageAmount.amount}
+                <div className="w-full md:w-auto md:absolute z-30 bg-white md:left-full p-4 md:shadow-lg border rounded-xl">
+                    <div className="flex justify-evenly gap-4 w-full">
+                        <div className="flex flex-col text-sm items-center font-mono">
+                            <span className="leading-3">{formatCurrency(averageAmount.amount, false, false)}</span>
+                            <span className="text-[10px] leading-3">{_(msg`Average`)}</span>
+
                         </div>
-                        <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <ArrowBendDownLeft />
-                            {totalInPreviousMonth}
+                        <div className="flex flex-col text-sm items-center font-mono">
+                            <span className="leading-3">{totalInPreviousMonth}</span>
+                            <span className="text-[10px] leading-3">{_(msg`Last`)}</span>
                         </div>
                         <SubcategoryBudget
                             isMeetingBudget={!isPositiveDiff}

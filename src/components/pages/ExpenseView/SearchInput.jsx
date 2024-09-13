@@ -1,6 +1,6 @@
-import {noop} from "lodash";
-import {useEffect, useState} from "react";
-import {useDebounce} from "react-use";
+import { noop } from "lodash";
+import { useEffect, useState } from "react";
+import { useDebounce } from "react-use";
 
 export const SearchInput = ({
     placeholder = "Search through expenses",

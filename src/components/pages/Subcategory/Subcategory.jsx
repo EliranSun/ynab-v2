@@ -34,7 +34,6 @@ const Subcategory = ({
 
     const totalInPreviousMonth = useMemo(() => {
         const amount = expenses.reduce((total, expense) => {
-            debugger;
             if (id === expense.subcategoryId && isPreviousMonth(expense.timestamp)) {
                 return total + expense.amount;
             }

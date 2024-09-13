@@ -1,7 +1,6 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLingui } from "@lingui/react";
 import classNames from "classnames";
-import { isDesktop } from "../../../utils/device";
 import { MenuPages } from "../../../constants";
 import { ButtonLink } from "../../atoms/ButtonLink";
 import { useClickAway } from "react-use";
@@ -23,7 +22,6 @@ export const Menu = ({ isOpen, onMenuItemClick }) => {
 
     return (
         <ul ref={ref} className={classNames({
-            "hidden": isDesktop() && !isOpen,
             "h-full md:text-sm bg-gray-100": true,
             "flex flex-col items-center md:flex-row gap-6 md:gap-4 justify-evenly": false,
             "grid grid-cols-7 gap-1": true,

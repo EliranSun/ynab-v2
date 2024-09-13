@@ -136,8 +136,8 @@ export const CategoryBalance = ({
                     "text-red-500": diff < 0,
                     "text-green-600": diff >= 0
                 })}>
-                    {formatCurrency(round(totalExpensesSum, -1), false, false)}/
-                    {categoryBudget}
+                    <span className="text-base">{formatCurrency(categoryBudget)}</span>/
+                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
                 </div>
                 <Title type={Title.Types.H4} className="">
                     {categoryName}

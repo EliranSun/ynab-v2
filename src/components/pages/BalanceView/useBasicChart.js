@@ -66,6 +66,11 @@ const useBasicChart = ({
                 interaction: {
                     intersect: false
                 },
+                elements: {
+                    line: {
+                        tension: 0.3,
+                    },
+                },
                 scales: {
                     y: {
                         grid: {

@@ -68,6 +68,7 @@ const Subcategory = ({
                     "text-red-500": isPositiveDiff,
                     "text-green-600": !isPositiveDiff
                 })}>
+                    {budget}/
                     {thisMonthAmount}
                 </div>
                 <Title type={Title.Types.H5} className={classNames({

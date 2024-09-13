@@ -1,5 +1,5 @@
-import {useEffect, useRef} from "react";
-import {Chart, registerables} from "chart.js";
+import { useEffect, useRef } from "react";
+import { Chart, registerables } from "chart.js";
 
 let singleton = null;
 
@@ -13,7 +13,8 @@ const useBasicChart = ({
     incomeData = [],
     budgetData = [],
     isZeroBaseline = true,
-    type = ChartType.LINE
+    type = ChartType.LINE,
+    isLean,
 }) => {
     const canvasRef = useRef(null);
 
@@ -29,14 +30,16 @@ const useBasicChart = ({
         Chart.register(...registerables);
 
         const ctx = document.getElementById("myChart").getContext("2d");
+        const cutoutData = isLean ? data.slice(-5) : data;
+
         let myChart = new Chart(ctx, {
             type,
             data: {
-                labels: data.map(item => item.x),
+                labels: cutoutData.map(item => item.x),
                 datasets: [
                     {
                         label: "Expenses",
-                        data: data,
+                        data: cutoutData,
                         backgroundColor: ["rgba(235,54,54,0.2)",],
                         borderColor: ["rgb(235,54,54)",],
                         spanGaps: true,
@@ -58,16 +61,29 @@ const useBasicChart = ({
                 ]
             },
             options: {
-                fill: true,
+                fill: !isLean,
                 maintainAspectRatio: false,
                 interaction: {
                     intersect: false
                 },
                 scales: {
                     y: {
+                        grid: {
+                            drawOnChartArea: !isLean,
+                        },
                         beginAtZero: isZeroBaseline,
                     },
+                    x: {
+                        grid: {
+                            drawOnChartArea: !isLean,
+                        }
+                    }
                 },
+                plugins: {
+                    legend: {
+                        display: !isLean,
+                    }
+                }
             }
         });
 

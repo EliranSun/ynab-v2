@@ -1,13 +1,13 @@
 import classNames from "classnames";
 
-export const Input = ({ isSecondary, ...rest }) => {
+export const Input = ({ isSecondary, isLean, ...rest }) => {
     return (
         <input
             className={classNames({
-                "shadow": false,
-                "w-10": isSecondary,
-                "w-full ": !isSecondary,
-                "text-xs md:text-base": true,
+                "shadow w-full": false,
+                "leading-3": isLean,
+                "text-gray-400 text-[10px]": isSecondary,
+                "text-xs md:text-base": !isSecondary,
                 "rounded-lg bg-transparent text-right": true,
             })}
             {...rest}

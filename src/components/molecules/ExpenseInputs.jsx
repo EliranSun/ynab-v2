@@ -59,14 +59,15 @@ export const ExpenseInputs = ({
 
     return (
         <div className={classNames("text-right w-full", {
-            "rounded-xl": true,
-            "flex justify-between text-sm": true,
-            "flex-col items-start gap-8": isVertical,
-            "flex-row gap-2 items-center": !isVertical,
+            "rounded-xl": false,
+            "flex justify-between text-sm items-start": true,
+            "flex-col gap-8": isVertical,
+            "flex-row gap-2": !isVertical,
             "text-green-500": isIncome,
             "grayscale opacity-50": expense.isHidden,
+            " py-1": isLean, // border-b last-of-type:border-none
         })}>
-            <div className="flex items-center gap-2">
+            <div className="flex gap-2">
                 <div className="hidden md:block">
                     {onHide ?
                         <Button
@@ -98,36 +99,36 @@ export const ExpenseInputs = ({
                         }}
                     />
                 </div>
-                <div className="max-w-60">
+                <div className="w-full flex flex-col">
                     <TextInput
                         disabled={readonly}
+                        isLean={isLean}
                         defaultValue={expense.name}
                         placeholder={_(InputPlaceholder.name)}
                         onChange={(value) => {
                             onInputChange(InputTypes.NAME, value);
                         }} />
+                    <TextInput
+                        isLean={isLean}
+                        placeholder={_(InputPlaceholder.note)}
+                        defaultValue={expense.note}
+                        disabled={readonly}
+                        isSecondary
+                        onChange={(value) => {
+                            onInputChange(InputTypes.NOTE, value);
+                        }} />
                 </div>
-                <div className="max-w-28 flex items-center gap-0">
+                <div className="max-w-28 flex items-start gap-0">
                     ₪<Input
                         type="number"
                         disabled={readonly}
-                        defaultValue={expense.amount}
+                        defaultValue={isLean ? Math.round(expense.amount) : expense.amount}
                         placeholder={_(InputPlaceholder.amount)}
                         onChange={(event) => {
                             onInputChange(InputTypes.AMOUNT, event.target.value);
                         }}
                     />
                 </div>
-                {isLean ? null :
-                    <div className="max-w-40">
-                        <TextInput
-                            placeholder={_(InputPlaceholder.note)}
-                            defaultValue={expense.note}
-                            disabled={readonly}
-                            onChange={(value) => {
-                                onInputChange(InputTypes.NOTE, value);
-                            }} />
-                    </div>}
                 {isListView ? null :
                     <div className="flex items-center gap-2">
                         <label><Trans>Recurring Transaction Count</Trans></label>

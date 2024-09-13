@@ -115,12 +115,12 @@ const BalanceView = () => {
                 <BalanceSummary timestamp={currentTimestamp} />
                 <RealityVsExpectation categories={categories} budgetSummary={budgetSummary} />
             </div>
-            <div className="hidden md:block md:w-full">
+            {/* <div className="hidden md:block md:w-full">
                 <SubcategoryExpensesList
                     timestamp={currentTimestamp}
                     selectedSubcategoryId={selectedId || selectedSubcategory?.id}
                     subcategory={selectedSubcategory} />
-            </div>
+            </div> */}
         </section>
     );
 }

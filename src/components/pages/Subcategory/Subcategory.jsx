@@ -8,12 +8,14 @@ import { SubcategoryBudget } from "../../atoms/SubcategoryBudget";
 import { getAverageSubcategoryAmount } from "../../../utils/expenses";
 import { useLingui } from "@lingui/react";
 import { msg } from "@lingui/macro";
+import SubcategoryExpensesList from "../BalanceView/SubcategoryExpensesList";
 
 const Subcategory = ({
     icon,
     name,
     id,
     budget,
+    currentTimestamp,
     onSubcategoryClick = noop,
     isPreviousMonth = noop,
     isSelected = false,
@@ -80,7 +82,10 @@ const Subcategory = ({
             </div>
             {isSelected ?
                 <div className="w-full md:w-auto md:absolute z-30 bg-white md:left-full p-4 md:shadow-lg border rounded-xl">
-                    <div className="flex justify-evenly gap-4 w-full">
+                    <div className={classNames({
+                        "flex justify-evenly gap-4 w-full": true,
+                        "mb-3 pb-2 border-b": thisMonthExpenses.length > 0
+                    })}>
                         <div className="flex flex-col text-sm items-center font-mono">
                             <span className="leading-3">{formatCurrency(averageAmount.amount, false, false)}</span>
                             <span className="text-[10px] leading-3">{_(msg`Average`)}</span>
@@ -94,6 +99,11 @@ const Subcategory = ({
                             isMeetingBudget={!isPositiveDiff}
                             budgetAmount={budget} />
                     </div>
+                    <SubcategoryExpensesList
+                        isLean
+                        timestamp={currentTimestamp}
+                        selectedSubcategoryId={id}
+                        subcategory={{ name, icon }} />
                 </div> : null}
         </div>
     );

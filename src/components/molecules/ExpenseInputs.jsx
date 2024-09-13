@@ -1,14 +1,14 @@
 import classNames from "classnames";
-import {Check, EyeSlash, FloppyDisk, Spinner, Trash, X} from "@phosphor-icons/react";
-import {noop} from "lodash";
-import {msg, Trans} from "@lingui/macro";
-import {useLingui} from "@lingui/react";
-import {InputTypes} from "../pages/ParseExpensesList/constants";
-import {ExpenseCategorySelection} from "../organisms/ExpenseCategorySelection";
-import {Input, TextInput} from "../../features/CategoriesEdit/TextInput";
-import {Button} from "../../features/CategoriesEdit/Button";
-import {useState} from "react";
-import {formatDateObjectToInput} from "../../utils/date";
+import { Check, EyeSlash, FloppyDisk, Spinner, Trash, X } from "@phosphor-icons/react";
+import { noop } from "lodash";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
+import { InputTypes } from "../pages/ParseExpensesList/constants";
+import { ExpenseCategorySelection } from "../organisms/ExpenseCategorySelection";
+import { Input, TextInput } from "../../features/CategoriesEdit/TextInput";
+import { Button } from "../../features/CategoriesEdit/Button";
+import { useState } from "react";
+import { formatDateObjectToInput } from "../../utils/date";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -48,7 +48,7 @@ export const ExpenseInputs = ({
     isVertical = false,
     isLean = false,
 }) => {
-    const {_} = useLingui();
+    const { _ } = useLingui();
     const [isLoading, setIsLoading] = useState(null);
     const [isSuccess, setIsSuccess] = useState(null);
     const [recurCount, setRecurCount] = useState(1);
@@ -67,13 +67,15 @@ export const ExpenseInputs = ({
             "grayscale opacity-50": expense.isHidden,
         })}>
             <div className="flex items-center gap-2">
-                {onHide ?
-                    <Button
-                        variation={Button.Variation.HIDE}
-                        className=""
-                        onClick={onHide}>
-                        <EyeSlash/>
-                    </Button> : null}
+                <div className="hidden md:block">
+                    {onHide ?
+                        <Button
+                            variation={Button.Variation.HIDE}
+                            className=""
+                            onClick={onHide}>
+                            <EyeSlash />
+                        </Button> : null}
+                </div>
                 {isLean ? null :
                     <div className="w-60 shrink-0">
                         <ExpenseCategorySelection
@@ -82,7 +84,7 @@ export const ExpenseInputs = ({
                             readonly={readonly}
                             onCategorySelect={value => {
                                 onInputChange(InputTypes.SUBCATEGORY_ID, value);
-                            }}/>
+                            }} />
                     </div>}
                 <div className="max-w-32 shrink-0">
                     <Input
@@ -103,18 +105,18 @@ export const ExpenseInputs = ({
                         placeholder={_(InputPlaceholder.name)}
                         onChange={(value) => {
                             onInputChange(InputTypes.NAME, value);
-                        }}/>
+                        }} />
                 </div>
                 <div className="max-w-28 flex items-center gap-0">
                     ₪<Input
-                    type="number"
-                    disabled={readonly}
-                    defaultValue={expense.amount}
-                    placeholder={_(InputPlaceholder.amount)}
-                    onChange={(event) => {
-                        onInputChange(InputTypes.AMOUNT, event.target.value);
-                    }}
-                />
+                        type="number"
+                        disabled={readonly}
+                        defaultValue={expense.amount}
+                        placeholder={_(InputPlaceholder.amount)}
+                        onChange={(event) => {
+                            onInputChange(InputTypes.AMOUNT, event.target.value);
+                        }}
+                    />
                 </div>
                 {isLean ? null :
                     <div className="max-w-40">
@@ -124,7 +126,7 @@ export const ExpenseInputs = ({
                             disabled={readonly}
                             onChange={(value) => {
                                 onInputChange(InputTypes.NOTE, value);
-                            }}/>
+                            }} />
                     </div>}
                 {isListView ? null :
                     <div className="flex items-center gap-2">
@@ -136,10 +138,10 @@ export const ExpenseInputs = ({
                             value={recurCount}
                             onChange={(event) => {
                                 setRecurCount(Number(event.target.value));
-                            }}/>
+                            }} />
                     </div>}
             </div>
-            <div className="flex items-center">
+            <div className="hidden md:flex items-center">
                 {onSave ?
                     <Button
                         isDisabled={isSaveDisabled}
@@ -159,9 +161,9 @@ export const ExpenseInputs = ({
                             }
                         }}>
                         {isLoading === null ?
-                            <FloppyDisk/> : isLoading ?
-                                <Spinner className="animate-spin"/> : isSuccess ?
-                                    <Check/> : <X/>}
+                            <FloppyDisk /> : isLoading ?
+                                <Spinner className="animate-spin" /> : isSuccess ?
+                                    <Check /> : <X />}
                     </Button> : null}
                 {onRemove ?
                     <Button
@@ -176,9 +178,9 @@ export const ExpenseInputs = ({
                         }}
                         variation={Button.Variation.DELETE}>
                         {isLoading === null ?
-                            <Trash/> : isLoading ?
-                                <Spinner className="animate-spin"/> : isSuccess ?
-                                    <Check/> : <X/>}
+                            <Trash /> : isLoading ?
+                                <Spinner className="animate-spin" /> : isSuccess ?
+                                    <Check /> : <X />}
                     </Button> : null}
             </div>
         </div>

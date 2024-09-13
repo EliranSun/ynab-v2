@@ -1,14 +1,13 @@
-import {useContext, useRef, useState} from "react";
-import {UserContext} from "../../../context";
-import {useLingui} from "@lingui/react";
+import { useContext, useRef, useState } from "react";
+import { useLingui } from "@lingui/react";
 import classNames from "classnames";
-import {isMobile} from "../../../utils/device";
-import {MenuPages} from "../../../constants";
-import {ButtonLink} from "../../atoms/ButtonLink";
-import {useClickAway} from "react-use";
+import { isDesktop } from "../../../utils/device";
+import { MenuPages } from "../../../constants";
+import { ButtonLink } from "../../atoms/ButtonLink";
+import { useClickAway } from "react-use";
 
-export const Menu = ({isOpen, onMenuItemClick}) => {
-    const {_} = useLingui();
+export const Menu = ({ isOpen, onMenuItemClick }) => {
+    const { _ } = useLingui();
     const pathnames = window.location.pathname.split("/");
     const [selectedPage, setSelectedPage] = useState(pathnames[pathnames.length - 1]);
     const ref = useRef(null);
@@ -20,12 +19,12 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
         }
     });
 
-    console.log({pathnames});
+    console.log({ pathnames });
 
     return (
         <ul ref={ref} className={classNames({
-            "hidden": isMobile() && !isOpen,
-            "h-full md:text-sm": true,
+            "hidden": isDesktop() && !isOpen,
+            "h-full md:text-sm bg-gray-100": true,
             "flex flex-col items-center md:flex-row gap-6 md:gap-4 justify-evenly": false,
             "grid grid-cols-7 gap-1": true,
             "border-r md:border-none shadow-xl md:shadow-none md:static": true,
@@ -41,7 +40,7 @@ export const Menu = ({isOpen, onMenuItemClick}) => {
                     onClick={() => {
                         onMenuItemClick();
                         setSelectedPage(item.name);
-                    }}/>
+                    }} />
             ))}
         </ul>
     );

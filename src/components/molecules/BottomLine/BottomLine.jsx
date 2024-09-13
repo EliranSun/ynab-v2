@@ -16,7 +16,13 @@ export const BottomLine = ({
 
     return (
         <Banner>
-            <div className="flex items-center justify-evenly gap-2 m-auto max-w-screen-lg">
+            <div className={classNames({
+                "flex flex-col md:flex-row": true,
+                "items-start md:items-center justify-evenly": true,
+                "gap-2": true,
+                "px-4 md:px-0": true,
+                "m-auto max-w-screen-lg": true
+            })}>
                 <Item>
                     <h1 className="font-mono text-green-600"><Trans>Income</Trans></h1>
                     <Amount withRounding>{incomeAmountForTimeframe}</Amount>

@@ -146,20 +146,20 @@ export const ExpensesSummary = ({budget = {}, expenses = []}) => {
         }, [itemsHiddenByUser]);
 
         return (
-            <div className="w-full max-w-screen-2xl m-auto p-4 flex gap-4">
+            <div className="w-full max-w-screen-2xl m-auto p-4 flex flex-col md:flex-row gap-4">
                 {/*<h1 className="w-full m-auto text-8xl font-mono my-8">*/}
                 {/*    <Trans>Summary</Trans>*/}
                 {/*</h1>*/}
 
-                <div className="w-1/4 bg-gray-100 h-[calc(100vh-120px)] shadow-md rounded-md p-4 border">
+                <div className="w-full md:w-1/4 bg-gray-100 h-[calc(100vh-120px)] shadow-md rounded-md p-4 border order-2 md:order-1">
                     <ExpensesSummaryFilters
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         setTimeframeName={setTimeframeName}/>
                 </div>
-                <div className="w-3/4">
+                <div className="w-full md:w-3/4">
                     <Title className="mb-4">☕ {_(TimeframeNames[timeframeName])}</Title>
-                    <div className="sticky top-20 z-10">
+                    <div className="static md:sticky top-20 z-10">
                         <BottomLine
                             totalSpent={totalSpent}
                             budgetForTimeframe={budgetForTimeframe}

@@ -1,4 +1,4 @@
-import {msg} from "@lingui/macro";
+import { msg } from "@lingui/macro";
 import {
     ArrowSquareIn,
     ChartLineUp,
@@ -11,10 +11,10 @@ import {
 } from "@phosphor-icons/react";
 
 export * from "./categories";
-export {default as Pages} from "./Pages";
+export { default as Pages } from "./Pages";
 export * from "./Expenses";
 
-export const BUTTON_SIZE = 32;
+export const BUTTON_SIZE = 24;
 export const MOBILE_BUTTON_SIZE = 18;
 const Messages = [
     <span>Spend less than <b>120₪</b> today on food</span>,

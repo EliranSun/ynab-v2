@@ -77,16 +77,6 @@ const BalanceView = () => {
                 </h1>
                 <NextButton />
             </div>
-            <div className="hidden md:block overflow-hidden w-full">
-                <BalanceSummary timestamp={currentTimestamp} />
-                <RealityVsExpectation categories={categories} budgetSummary={budgetSummary} />
-            </div>
-            <div className="hidden md:block md:w-full">
-                <SubcategoryExpensesList
-                    timestamp={currentTimestamp}
-                    selectedSubcategoryId={selectedId || selectedSubcategory?.id}
-                    subcategory={selectedSubcategory} />
-            </div>
             <div
                 className={classNames({
                     "md:thin-scrollbar": true,
@@ -120,6 +110,17 @@ const BalanceView = () => {
             })}>
                 {formatCurrency(total, false, true)}
             </h1>
+
+            <div className="hidden md:block overflow-hidden w-full">
+                <BalanceSummary timestamp={currentTimestamp} />
+                <RealityVsExpectation categories={categories} budgetSummary={budgetSummary} />
+            </div>
+            <div className="hidden md:block md:w-full">
+                <SubcategoryExpensesList
+                    timestamp={currentTimestamp}
+                    selectedSubcategoryId={selectedId || selectedSubcategory?.id}
+                    subcategory={selectedSubcategory} />
+            </div>
         </section>
     );
 }

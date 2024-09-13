@@ -1,18 +1,19 @@
-import {useContext, useMemo, useState} from "react";
-import {orderBy, round} from "lodash";
-import {isSameMonth} from "date-fns";
-import {Exclude, Faders, PiggyBank} from "@phosphor-icons/react";
-import {Categories} from "../../../constants";
-import {formatCurrency} from "../../../utils";
+import { useContext, useMemo, useState } from "react";
+import { orderBy, round } from "lodash";
+import { isSameMonth } from "date-fns";
+import { Exclude, Faders, PiggyBank } from "@phosphor-icons/react";
+import { Categories } from "../../../constants";
+import { formatCurrency } from "../../../utils";
 import Subcategory from "../Subcategory/Subcategory";
-import {BudgetContext, ExpensesContext, getDateKey} from "../../../context";
-import {useCategoryExpensesSummary} from "../../../hooks/useCategoryExpensesSummary";
+import { ExpensesContext } from "../../../context";
+import { useCategoryExpensesSummary } from "../../../hooks/useCategoryExpensesSummary";
 import classNames from "classnames";
-import {Title} from "../../atoms";
-import {Trans} from "@lingui/macro";
-import {CategoriesContext} from "../../../context/CategoriesContext";
+import { Title } from "../../atoms";
+import { Trans } from "@lingui/macro";
+import { CategoriesContext } from "../../../context/CategoriesContext";
+import { isDesktop, isMobile } from "../../../utils/device";
 
-const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
+const DataStrip = ({ categoryId, categoryBudget, averages, diff }) => {
     return (
         <div className="flex justify-between">
             <div className="flex flex-col items-center">
@@ -24,7 +25,7 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
                     {formatCurrency(diff)}
                 </div>
                 <div className="flex gap-1 items-center text-xs">
-                    <Exclude/> {diff > 0 ? <Trans>left to spend</Trans> : <Trans>over budget</Trans>}
+                    <Exclude /> {diff > 0 ? <Trans>left to spend</Trans> : <Trans>over budget</Trans>}
                 </div>
             </div>
             <div className="flex flex-col items-center">
@@ -32,7 +33,7 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
                     {formatCurrency(categoryBudget, false, false)}
                 </div>
                 <div className="flex gap-1 items-center text-xs">
-                    <PiggyBank/> <Trans>budget</Trans>
+                    <PiggyBank /> <Trans>budget</Trans>
                 </div>
             </div>
             <div className="flex flex-col items-center">
@@ -40,7 +41,7 @@ const DataStrip = ({categoryId, categoryBudget, averages, diff}) => {
                     {formatCurrency(averages[categoryId], false, false)}
                 </div>
                 <div className="flex gap-1 items-center text-xs">
-                    <Faders/>
+                    <Faders />
                     <Trans>average</Trans>
                 </div>
             </div>
@@ -60,10 +61,10 @@ export const CategoryBalance = ({
     selectedId,
     setSelectedId
 }) => {
-    const [isExpanded, setIsExpanded] = useState(true);
-    const {expenses} = useContext(ExpensesContext);
-    const {categories} = useContext(CategoriesContext);
-    const {totalExpensesSum, averages} = useCategoryExpensesSummary(subcategories, currentTimestamp);
+    const [isExpanded, setIsExpanded] = useState(isDesktop());
+    const { expenses } = useContext(ExpensesContext);
+    const { categories } = useContext(CategoriesContext);
+    const { totalExpensesSum, averages } = useCategoryExpensesSummary(subcategories, currentTimestamp);
 
     const subcategoriesSummary = useMemo(() => {
         const sub = subcategories.map((subcategory) => {
@@ -72,17 +73,17 @@ export const CategoryBalance = ({
             });
 
             const thisMonthExpenses = expensesInCategory.filter((expense) => {
-                    const date = new Date(currentTimestamp);
-                    const expenseDate = new Date(expense.timestamp);
+                const date = new Date(currentTimestamp);
+                const expenseDate = new Date(expense.timestamp);
 
-                    if (expense.isRecurring) {
-                        return (
-                            expenseDate.getFullYear() === date.getFullYear()
-                        );
-                    }
-
-                    return isSameMonth(expenseDate, date);
+                if (expense.isRecurring) {
+                    return (
+                        expenseDate.getFullYear() === date.getFullYear()
+                    );
                 }
+
+                return isSameMonth(expenseDate, date);
+            }
             );
 
             const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -112,25 +113,30 @@ export const CategoryBalance = ({
     return (
         <div className={classNames({
             "md:h-fit p-2 md:p-4 box-border relative flex-grow shadow": true,
-            "bg-gray-200": !isNsfw,
+            "bg-gray-50": !isNsfw,
+            'rounded-lg': isMobile()
         })}>
             <div
-                className="cursor-pointer mb-4 flex md:flex-col items-start justify-between bg-gray-100"
+                className={classNames({
+                    "cursor-pointer flex flex-row-reverse md:flex-col items-center md:items-start justify-between": true,
+                    "md:mb-4": !isExpanded,
+                    "mb-2 pb-2 border-b": isExpanded
+                })}
                 onClick={() => setIsExpanded(!isExpanded)}>
-                <div className="font-black font-mono text-3xl">
+                <div className="font-semibold text-xl font-mono">
                     {formatCurrency(round(totalExpensesSum, -1), false, false)}
                 </div>
-                <Title type={Title.Types.H4}>
+                <Title type={Title.Types.H4} className="">
                     {categoryName}
                 </Title>
             </div>
-            {/*<DataStrip*/}
-            {/*    categoryId={categoryId}*/}
-            {/*    categoryBudget={categoryBudget}*/}
-            {/*    averages={averages}*/}
-            {/*    diff={diff}/>*/}
+            {/* <DataStrip
+                categoryId={categoryId}
+                categoryBudget={categoryBudget}
+                averages={averages}
+                diff={diff} /> */}
             {isExpanded ?
-                <div className="flex flex-col gap-4 w-full md:h-fit overflow-y-auto">
+                <div className="flex flex-col gap-1 md:gap-4 w-full md:h-fit overflow-y-auto">
                     {subcategoriesSummary.map((subcategory) => {
                         return (
                             <Subcategory

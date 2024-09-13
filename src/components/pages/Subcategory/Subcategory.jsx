@@ -1,12 +1,12 @@
-import {Title} from "../../atoms";
-import {useContext, useMemo, useRef, useState} from "react";
-import {noop} from "lodash";
-import {ExpensesContext} from "../../../context";
-import {formatCurrency} from "../../../utils";
+import { Title } from "../../atoms";
+import { useContext, useMemo, useRef, useState } from "react";
+import { noop } from "lodash";
+import { ExpensesContext } from "../../../context";
+import { formatCurrency } from "../../../utils";
 import classNames from "classnames";
-import {ArrowBendDownLeft, Faders} from "@phosphor-icons/react";
-import {SubcategoryBudget} from "../../atoms/SubcategoryBudget";
-import {getAverageSubcategoryAmount} from "../../../utils/expenses";
+import { ArrowBendDownLeft, Faders } from "@phosphor-icons/react";
+import { SubcategoryBudget } from "../../atoms/SubcategoryBudget";
+import { getAverageSubcategoryAmount } from "../../../utils/expenses";
 
 const Subcategory = ({
     icon,
@@ -19,7 +19,7 @@ const Subcategory = ({
     isIncome,
     thisMonthExpenses,
 }) => {
-    const {expenses, expensesPerMonthPerCategory} = useContext(ExpensesContext);
+    const { expenses, expensesPerMonthPerCategory } = useContext(ExpensesContext);
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
         const amount = thisMonthExpenses.reduce((acc, expense) => {
@@ -54,19 +54,19 @@ const Subcategory = ({
         <div
             className={classNames({
                 "relative": false,
-                "cursor-pointer flex flex-col justify-between items-start": true,
+                "cursor-pointer flex flex-col md:justify-between items-start": true,
                 "bg-gray-200": isSelected,
             })}
             onClick={() => onSubcategoryClick(isSelected ? null : id)}>
-            <div className="flex flex-col items-start">
+            <div className="flex flex-row-reverse md:flex-col items-start justify-between w-full">
                 <div className={classNames({
-                    "text-2xl font-mono": true,
+                    "text-lg font-mono": true,
                     "text-red-500": isPositiveDiff,
                     "text-green-600": !isPositiveDiff
                 })}>
                     {thisMonthAmount}
                 </div>
-                <Title type={Title.Types.H4} className="truncate flex">
+                <Title type={Title.Types.H5} className="truncate flex">
                     {icon.slice(0, 2)} {name}
                 </Title>
             </div>
@@ -74,16 +74,16 @@ const Subcategory = ({
                 <div className="absolute z-30 bg-white left-full p-4 shadow-lg border rounded-xl">
                     <div className="flex gap-4 w-full justify-end">
                         <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <Faders/>
+                            <Faders />
                             {averageAmount.amount}
                         </div>
                         <div className="flex md:flex-col gap-1 text-sm items-center font-mono">
-                            <ArrowBendDownLeft/>
+                            <ArrowBendDownLeft />
                             {totalInPreviousMonth}
                         </div>
                         <SubcategoryBudget
                             isMeetingBudget={!isPositiveDiff}
-                            budgetAmount={budget}/>
+                            budgetAmount={budget} />
                     </div>
                 </div> : null}
         </div>

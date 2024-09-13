@@ -132,11 +132,12 @@ export const CategoryBalance = ({
                 })}
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <div className={classNames({
-                    "font-semibold text-xl font-mono": true,
+                    "font-semibold text-lg font-mono": true,
                     "text-red-500": diff < 0,
                     "text-green-600": diff >= 0
                 })}>
-                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                    {formatCurrency(round(totalExpensesSum, -1), false, false)}/
+                    {categoryBudget}
                 </div>
                 <Title type={Title.Types.H4} className="">
                     {categoryName}

@@ -136,9 +136,10 @@ export const CategoryBalance = ({
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <div className={classNames({
                     "text-lg font-mono relative": true,
-                    "border-red-500": diff < 0,
-                    "border-green-600": diff >= 0,
-                    "border-2 border-dashed px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
+                    // "border-red-500": diff < 0,
+                    // "border-green-600": diff >= 0,
+                    "border border-gray-300": true,
+                    "px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
                     <span className={classNames({
                         "absolute  h-full top-0 right-0": true,

@@ -54,6 +54,7 @@ const Subcategory = ({
         ? intThisMonthAmount.current < budget
         : intThisMonthAmount.current > budget;
 
+
     return (
         <div
             className={classNames({
@@ -64,14 +65,22 @@ const Subcategory = ({
             onClick={() => onSubcategoryClick(isSelected ? null : id)}>
             <div className="flex flex-row-reverse md:flex-col items-start justify-between w-full">
                 <div className={classNames({
-                    "text-lg font-mono": true,
-                    "text-red-500": isPositiveDiff,
-                    "text-green-600": !isPositiveDiff
+                    "text-sm font-mono relative": true,
+                    // "text-red-500": isPositiveDiff,
+                    // "text-green-600": !isPositiveDiff,
+                    "border-2 border-dashed px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
-                    <span className="text-sm text-gray-700">
-                    {formatCurrency(budget, false, false)}/
+                    {/* <span className="text-sm text-gray-700">
+                        {formatCurrency(budget, false, false)}
+                    </span> */}
+                    <span className={classNames({
+                        "absolute  h-full top-0 right-0": true,
+                        "bg-green-400": intThisMonthAmount.current <= budget,
+                        "bg-red-500": intThisMonthAmount.current > budget,
+                    })} style={{ width: intThisMonthAmount.current / budget * 160 }} />
+                    <span className={classNames({ "text-gray-900 relative z-10": true })}>
+                        {thisMonthAmount}
                     </span>
-                    {thisMonthAmount}
                 </div>
                 <Title type={Title.Types.H5} className={classNames({
                     "truncate flex": true,

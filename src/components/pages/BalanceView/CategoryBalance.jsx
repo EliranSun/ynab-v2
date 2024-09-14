@@ -142,7 +142,7 @@ export const CategoryBalance = ({
                     "border border-gray-300": false,
                     "px-2 py-1 w-40 md:w-full overflow-hidden": true,
                 })}>
-                    <div className="flex items-center justify-between">
+                    <div className="w-full flex items-end justify-between">
                     <span className={classNames({
                         "font-semibold relative z-10": true,
                         "text-gray-800": true,

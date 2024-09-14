@@ -12,6 +12,8 @@ import { Title } from "../../atoms";
 import { Trans } from "@lingui/macro";
 import { CategoriesContext } from "../../../context/CategoriesContext";
 import { isDesktop, isMobile } from "../../../utils/device";
+import { useLingui } from "@lingui/react";
+import { msg } from "@lingui/macro";
 
 const DataStrip = ({ categoryId, categoryBudget, averages, diff }) => {
     return (
@@ -60,6 +62,7 @@ export const CategoryBalance = ({
     selectedId,
     setSelectedId
 }) => {
+    const { _ } = useLingui();
     const [isExpanded, setIsExpanded] = useState(isDesktop());
     const { expenses } = useContext(ExpensesContext);
     const { categories } = useContext(CategoriesContext);
@@ -132,12 +135,26 @@ export const CategoryBalance = ({
                 })}
                 onClick={() => setIsExpanded(!isExpanded)}>
                 <div className={classNames({
-                    "font-semibold text-lg font-mono": true,
-                    "text-red-500": diff < 0,
-                    "text-green-600": diff >= 0
+                    "text-lg font-mono relative": true,
+                    "border-red-500": diff < 0,
+                    "border-green-600": diff >= 0,
+                    "border-2 border-dashed px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
-                    <span className="text-xs text-gray-700">{formatCurrency(categoryBudget, false, false)}/</span>
-                    {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                    <span className={classNames({
+                        "absolute  h-full top-0 right-0": true,
+                        "bg-green-400": diff >= 0,
+                        "bg-red-500": diff < 0,
+                    })} style={{ width: totalExpensesSum / categoryBudget * 160 }} />
+                    <span className={classNames({
+                        "font-semibold relative z-10": true,
+                        "text-gray-800": true,
+                        // "text-red-500": diff < 0,
+                        // "text-green-600": diff >= 0
+                    })}>
+                        {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                    </span>
+                    {/* {' '}<span className="text-[8px]">{_(msg`out of`)}</span>{' '} */}
+                    {/* <span className="text-xs text-gray-700">{formatCurrency(categoryBudget, false, false)}</span> */}
                 </div>
                 <Title type={Title.Types.H4} className="">
                     {categoryName}

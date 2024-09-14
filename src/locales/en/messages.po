@@ -102,10 +102,11 @@ msgstr "August"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:44
+#: src/components/pages/BalanceView/CategoryBalance.jsx:47
 msgid "average"
 msgstr "average"
 
+#: src/components/pages/Subcategory/Subcategory.jsx:94
 #: src/features/ManageBudget/SubcategoryBudget.jsx:81
 msgid "Average"
 msgstr "Average"
@@ -130,14 +131,15 @@ msgstr "Bars"
 msgid "Books"
 msgstr "Books"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:47
+#: src/components/molecules/BottomLine/BottomLine.jsx:53
 msgid "Bottom line"
 msgstr "Bottom line"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:35
+#: src/components/pages/BalanceView/CategoryBalance.jsx:38
 msgid "budget"
 msgstr "budget"
 
+#: src/components/atoms/SubcategoryBudget.jsx:38
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
 #: src/constants/index.js:38
 #: src/features/ManageBudget/BudgetView.jsx:52
@@ -309,7 +311,7 @@ msgstr "expense"
 msgid "expenses"
 msgstr "expenses"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:26
+#: src/components/molecules/BottomLine/BottomLine.jsx:32
 #: src/constants/index.js:76
 msgid "Expenses"
 msgstr "Expenses"
@@ -457,7 +459,7 @@ msgstr "In order to use the app, you have got to set up categories."
 msgid "income"
 msgstr "income"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:21
+#: src/components/molecules/BottomLine/BottomLine.jsx:27
 msgid "Income"
 msgstr "Income"
 
@@ -501,6 +503,7 @@ msgstr "Just wanted to say, welcome!"
 msgid "KIA"
 msgstr "KIA"
 
+#: src/components/pages/Subcategory/Subcategory.jsx:99
 #: src/features/ManageBudget/SubcategoryBudget.jsx:85
 msgid "Last"
 msgstr "Last"
@@ -513,7 +516,7 @@ msgstr "Last quarter"
 msgid "Last week"
 msgstr "Last week"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:52
+#: src/components/molecules/BottomLine/BottomLine.jsx:58
 msgid "left"
 msgstr "left"
 
@@ -521,7 +524,7 @@ msgstr "left"
 #~ msgid "Left 😄"
 #~ msgstr "Left 😄"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:27
+#: src/components/pages/BalanceView/CategoryBalance.jsx:30
 msgid "left to spend"
 msgstr "left to spend"
 
@@ -640,7 +643,11 @@ msgstr "OK"
 msgid "Other"
 msgstr "Other"
 
-#: src/components/molecules/BottomLine/BottomLine.jsx:52
+#: src/components/pages/BalanceView/CategoryBalance.jsx:141
+msgid "out of"
+msgstr "out of"
+
+#: src/components/molecules/BottomLine/BottomLine.jsx:58
 msgid "over"
 msgstr "over"
 
@@ -648,7 +655,7 @@ msgstr "over"
 #~ msgid "Over 😢"
 #~ msgstr "Over 😢"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:27
+#: src/components/pages/BalanceView/CategoryBalance.jsx:30
 msgid "over budget"
 msgstr "over budget"
 
@@ -711,7 +718,7 @@ msgstr "Put in mind though - the budget is for the current month only, so some m
 msgid "Rates"
 msgstr "Rates"
 
-#: src/components/molecules/ExpenseInputs.jsx:131
+#: src/components/molecules/ExpenseInputs.jsx:134
 msgid "Recurring Transaction Count"
 msgstr "Recurring Transaction Count"
 
@@ -770,11 +777,11 @@ msgstr "Show same month only"
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "So all of the subcategories in this category will be defined as income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:185
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:183
 msgid "Sort by amount"
 msgstr "Sort by amount"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:180
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:178
 msgid "Sort by timestamp"
 msgstr "Sort by timestamp"
 
@@ -847,7 +854,7 @@ msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
 #: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:175
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:173
 msgid "Transactions"
 msgstr "Transactions"
 

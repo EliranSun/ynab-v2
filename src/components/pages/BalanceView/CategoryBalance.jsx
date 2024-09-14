@@ -140,10 +140,10 @@ export const CategoryBalance = ({
                     // "border-green-600": diff >= 0,
 "flex items-center justify-between": true,
                     "border border-gray-300": false,
-                    "px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
+                    "px-2 py-1 w-40 md:w-full overflow-hidden": true,
                 })}>
                     <span className={classNames({
-                        "absolute h-1 bottom-0 right-0": true,
+                        "absolute h-1 rounded border bottom-0 right-0": true,
                         "bg-green-400": diff >= 0,
                         "bg-red-500": diff < 0,
                     })} style={{ width: totalExpensesSum / categoryBudget * 160 }} />

@@ -138,6 +138,7 @@ export const CategoryBalance = ({
                     "text-lg font-mono relative": true,
                     // "border-red-500": diff < 0,
                     // "border-green-600": diff >= 0,
+"flex items-center justify-between": true,
                     "border border-gray-300": true,
                     "px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
@@ -154,8 +155,9 @@ export const CategoryBalance = ({
                     })}>
                         {formatCurrency(round(totalExpensesSum, -1), false, false)}
                     </span>
-                    {/* {' '}<span className="text-[8px]">{_(msg`out of`)}</span>{' '} */}
-                    {/* <span className="text-xs text-gray-700">{formatCurrency(categoryBudget, false, false)}</span> */}
+                    <span className="text-xs relative z-10 text-gray-700">
+                        {formatCurrency(categoryBudget, false, false)}
+                    </span>
                 </div>
                 <Title type={Title.Types.H4} className="">
                     {categoryName}

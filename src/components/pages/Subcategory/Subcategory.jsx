@@ -68,9 +68,9 @@ const Subcategory = ({
                     "text-red-500": isPositiveDiff,
                     "text-green-600": !isPositiveDiff
                 })}>
-                    <span className="text-sm">
-                    {formatCurrency(budget, false, false)}
-                    </span>/
+                    <span className="text-sm text-gray-700">
+                    {formatCurrency(budget, false, false)}/
+                    </span>
                     {thisMonthAmount}
                 </div>
                 <Title type={Title.Types.H5} className={classNames({

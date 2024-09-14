@@ -139,7 +139,7 @@ export const CategoryBalance = ({
                     // "border-red-500": diff < 0,
                     // "border-green-600": diff >= 0,
 "flex items-center justify-between": true,
-                    "border border-gray-300": true,
+                    "border border-gray-300": false,
                     "px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
                     <span className={classNames({

@@ -79,7 +79,7 @@ const Subcategory = ({
                     <span className={classNames({ "text-gray-900 relative z-10": true })}>
                         {thisMonthAmount}
                     </span>
-                    <span className="text-[8px] text-gray-800">
+                    <span className="text-[8px] relative z-10 text-gray-800">
                         {formatCurrency(budget, false, false)}
                         </span>
                 </div>

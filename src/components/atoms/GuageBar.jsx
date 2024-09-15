@@ -2,7 +2,9 @@ import classNames from 'classnames';
 
 export const GuageBar = ({ amount, max, width = 160 }) => {
     return (
-        <span className="relative w-full h-1.5 bg-gray-200">
+        <span 
+            style={{ width }}
+            className="relative h-1.5 bg-gray-200">
             <span
                 style={{ width: amount / (max + 1) * width }}
                 className={classNames({

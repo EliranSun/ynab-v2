@@ -152,9 +152,6 @@ export const CategoryBalance = ({
                         })}>
                             {formatCurrency(round(totalExpensesSum, -1), false, false)}
                         </span>
-                        <span className="text-[10px] relative z-10 text-gray-700">
-                            {formatCurrency(categoryBudget, false, false)}
-                        </span>
                     </div>
                     <GuageBar amount={totalExpensesSum} max={categoryBudget} />
                 </div>

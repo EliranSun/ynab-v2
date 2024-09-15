@@ -1,8 +1,8 @@
-import {useContext, useState} from "react";
-import {deleteExpense, updateExpense} from "../../../utils/db";
-import {ExpensesContext} from "../../../context";
-import {isEqual, noop} from "lodash";
-import {ExpenseInputs} from "../../molecules/ExpenseInputs";
+import { useContext, useState } from "react";
+import { deleteExpense, updateExpense } from "../../../utils/db";
+import { ExpensesContext } from "../../../context";
+import { isEqual, noop } from "lodash";
+import { ExpenseInputs } from "../../molecules/ExpenseInputs";
 
 const Expense = ({
     expense,
@@ -10,14 +10,16 @@ const Expense = ({
     isListView = false,
     onHide = noop,
     isLean = false,
+    budget = 0,
 }) => {
-    const {refetch} = useContext(ExpensesContext);
+    const { refetch } = useContext(ExpensesContext);
     const [newExpense, setNewExpense] = useState(expense);
 
     return (
         <ExpenseInputs
             expense={expense}
             isLean={isLean}
+            budget={budget}
             isListView={isListView}
             isIncome={isIncome}
             isSaveDisabled={isEqual(newExpense, expense)}
@@ -28,7 +30,7 @@ const Expense = ({
             }}
             onInputChange={(type, value) => {
                 setNewExpense((prev) => {
-                    const newExpense = {...prev};
+                    const newExpense = { ...prev };
                     newExpense[type] = value;
                     return newExpense;
                 });
@@ -36,7 +38,7 @@ const Expense = ({
             onRemove={async () => {
                 await deleteExpense(expense.id);
                 refetch();
-            }}/>
+            }} />
     );
 };
 

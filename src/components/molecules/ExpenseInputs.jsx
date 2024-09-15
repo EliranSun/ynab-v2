@@ -48,6 +48,7 @@ export const ExpenseInputs = ({
     isSaveDisabled = false,
     isVertical = false,
     isLean = false,
+    budget = 0,
 }) => {
     const { _ } = useLingui();
     const [isLoading, setIsLoading] = useState(null);
@@ -131,7 +132,7 @@ export const ExpenseInputs = ({
                             }}
                         />
                     </span>
-                    <GuageBar amount={1} max={10} width={40} />
+                    <GuageBar amount={expense.amount} max={budget} width={90} />
                 </div>
                 {isListView ? null :
                     <div className="flex items-center gap-2">

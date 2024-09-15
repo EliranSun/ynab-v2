@@ -9,6 +9,7 @@ import { getAverageSubcategoryAmount } from "../../../utils/expenses";
 import { useLingui } from "@lingui/react";
 import { msg } from "@lingui/macro";
 import SubcategoryExpensesList from "../BalanceView/SubcategoryExpensesList";
+import { GuageBar } from "../../atoms/GuageBar";
 
 const Subcategory = ({
     icon,
@@ -65,23 +66,26 @@ const Subcategory = ({
             onClick={() => onSubcategoryClick(isSelected ? null : id)}>
             <div className="flex flex-row-reverse md:flex-col items-start justify-between w-full">
                 <div className={classNames({
-                    "text-sm font-mono relative": true,
-                    "flex justify-between items-center": true,
-                    "border-2 border-dashed px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
+                    "text-sm font-mono relative w-full": true,
+                    "flex flex-col justify-between items-center": true,
+                    "px-2 py-1 w-40 md:w-full rounded overflow-hidden": true,
                 })}>
-                    <span className={classNames({
+                    {/* <span className={classNames({
                         "absolute  h-full top-0 right-0": true,
                         "bg-green-400": intThisMonthAmount.current <= budget,
                         "bg-red-500": intThisMonthAmount.current > budget,
                     })} style={{ 
                         width: intThisMonthAmount.current / budget * 160 
-                    }} />
-                    <span className={classNames({ "text-gray-900 relative z-10": true })}>
-                        {thisMonthAmount}
-                    </span>
-                    <span className="text-[8px] relative z-10 text-gray-800">
-                        {formatCurrency(budget, false, false)}
+                    }} /> */}
+                    <div className="w-full flex justify-between items-end">
+                        <span className={classNames({ "text-gray-900 relative z-10": true })}>
+                            {thisMonthAmount}
                         </span>
+                        <span className="text-[8px] relative z-10 text-gray-800">
+                            {formatCurrency(budget, false, false)}
+                        </span>
+                    </div>
+                    <GuageBar amount={intThisMonthAmount.current} max={budget} />
                 </div>
                 <Title type={Title.Types.H5} className={classNames({
                     "truncate flex": true,

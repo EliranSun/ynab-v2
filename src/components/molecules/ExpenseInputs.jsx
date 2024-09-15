@@ -9,6 +9,7 @@ import { Input, TextInput } from "../../features/CategoriesEdit/TextInput";
 import { Button } from "../../features/CategoriesEdit/Button";
 import { useState } from "react";
 import { formatDateObjectToInput } from "../../utils/date";
+import { GuageBar } from "../atoms/GuageBar";
 
 const InputPlaceholder = {
     name: msg`name`,
@@ -118,16 +119,19 @@ export const ExpenseInputs = ({
                             onInputChange(InputTypes.NOTE, value);
                         }} />
                 </div>
-                <div className="max-w-28 flex items-start gap-0">
-                    ₪<Input
-                        type="number"
-                        disabled={readonly}
-                        defaultValue={isLean ? Math.round(expense.amount) : expense.amount}
-                        placeholder={_(InputPlaceholder.amount)}
-                        onChange={(event) => {
-                            onInputChange(InputTypes.AMOUNT, event.target.value);
-                        }}
-                    />
+                <div className="w-full relative flex flex-col items-start gap-0">
+                    <span className="flex">
+                        ₪<Input
+                            type="number"
+                            disabled={readonly}
+                            defaultValue={isLean ? Math.round(expense.amount) : expense.amount}
+                            placeholder={_(InputPlaceholder.amount)}
+                            onChange={(event) => {
+                                onInputChange(InputTypes.AMOUNT, event.target.value);
+                            }}
+                        />
+                    </span>
+                    <GuageBar amount={1} max={10} width={40} />
                 </div>
                 {isListView ? null :
                     <div className="flex items-center gap-2">

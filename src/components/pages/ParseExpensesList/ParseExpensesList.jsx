@@ -1,16 +1,16 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import {Expense} from "../../../models";
-import {Button, Title} from "../../atoms";
-import {withExpensesContext} from "../../../HOC/withExpensesContext";
-import {ParseExpensesListModal} from "./ParseExpensesListModal";
-import {isExistingExpense, parseNewExpenses} from "../../../utils/expenses";
-import {Trans} from "@lingui/macro";
-import {ExportData} from "./ExportData";
-import {AddExpenseEntry} from "./AddExpenseEntry";
-import {Box} from "../../atoms/Box";
-import {ImportFromFile} from "./ImportFromFile";
-import {ImportFromSheet} from "./ImportFromSheet";
+import { Expense } from "../../../models";
+import { Button, Title } from "../../atoms";
+import { withExpensesContext } from "../../../HOC/withExpensesContext";
+import { ParseExpensesListModal } from "./ParseExpensesListModal";
+import { isExistingExpense, parseNewExpenses } from "../../../utils/expenses";
+import { Trans } from "@lingui/macro";
+import { ExportData } from "./ExportData";
+import { AddExpenseEntry } from "./AddExpenseEntry";
+import { Box } from "../../atoms/Box";
+import { ImportFromFile } from "./ImportFromFile";
+import { ImportFromSheet } from "./ImportFromSheet";
 
 const isMobile = window.innerWidth < 768;
 
@@ -112,12 +112,12 @@ export const ParseExpensesList = ({
                             <Trans>New expenses</Trans>: {parsedExpenses.length}
                         </Title>
                     </div>}
-                <div className="grid grid-cols-3 m-auto gap-8 w-full">
+                <div className="grid grid-cols-1 m-auto gap-8 w-full">
                     <Box>
                         <Title type={Title.Types.H2} className="mb-8">
                             <Trans>Manually</Trans>
                         </Title>
-                        <AddExpenseEntry isVertical/>
+                        <AddExpenseEntry isVertical />
                     </Box>
                     <Box>
                         <Title type={Title.Types.H2} className="mb-8">
@@ -131,7 +131,7 @@ export const ParseExpensesList = ({
                             value={value}
                             onChange={event => {
                                 setValue(event.target.value);
-                            }}/>
+                            }} />
                         <Button
                             size={Button.Sizes.FULL}
                             isDisabled={value.length === 0}
@@ -150,7 +150,7 @@ export const ParseExpensesList = ({
                             message={message}
                             expenses={expenses}
                             setParsedExpenses={setParsedExpenses}
-                            isStatusAnimated={isStatusAnimated}/>
+                            isStatusAnimated={isStatusAnimated} />
                     </Box>
                     {/*<ExportData/>*/}
                 </div>
@@ -170,7 +170,7 @@ export const ParseExpensesList = ({
                     const newExpenses = parsedExpenses.filter(item => !item.subcategoryId);
                     setParsedExpenses(newExpenses);
                     localStorage.setItem("parsed-expenses", JSON.stringify(newExpenses));
-                }}/>
+                }} />
         </>
     );
 };

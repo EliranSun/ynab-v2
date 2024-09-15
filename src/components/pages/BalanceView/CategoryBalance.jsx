@@ -14,6 +14,7 @@ import { CategoriesContext } from "../../../context/CategoriesContext";
 import { isDesktop, isMobile } from "../../../utils/device";
 import { useLingui } from "@lingui/react";
 import { msg } from "@lingui/macro";
+import { GuageBar } from "../../atoms/GuageBar";
 
 const DataStrip = ({ categoryId, categoryBudget, averages, diff }) => {
     return (
@@ -138,30 +139,24 @@ export const CategoryBalance = ({
                     "text-lg font-mono relative": true,
                     // "border-red-500": diff < 0,
                     // "border-green-600": diff >= 0,
-"flex flex-col items-center justify-between": true,
+                    "flex flex-col items-center justify-between": true,
                     "border border-gray-300": false,
                     "px-2 py-1 w-40 md:w-full overflow-hidden": true,
                 })}>
                     <div className="w-full flex items-end justify-between">
-                    <span className={classNames({
-                        "font-semibold relative z-10": true,
-                        "text-gray-800": true,
-                        // "text-red-500": diff < 0,
-                        // "text-green-600": diff >= 0
-                    })}>
-                        {formatCurrency(round(totalExpensesSum, -1), false, false)}
-                    </span>
-                    <span className="text-[10px] relative z-10 text-gray-700">
-                        {formatCurrency(categoryBudget, false, false)}
-                    </span>
+                        <span className={classNames({
+                            "font-semibold relative z-10": true,
+                            "text-gray-800": true,
+                            // "text-red-500": diff < 0,
+                            // "text-green-600": diff >= 0
+                        })}>
+                            {formatCurrency(round(totalExpensesSum, -1), false, false)}
+                        </span>
+                        <span className="text-[10px] relative z-10 text-gray-700">
+                            {formatCurrency(categoryBudget, false, false)}
+                        </span>
                     </div>
-                    <span className="relative w-full h-1.5 bg-gray-200">
-                    <span className={classNames({
-                        "absolute h-1 rounded bottom-0 right-0": true,
-                        "bg-green-400": diff >= 0,
-                        "bg-red-500": diff < 0,
-                    })} style={{ width: totalExpensesSum / categoryBudget * 160 }} />
-                    </span>
+                    <GuageBar amount={totalExpensesSum} max={categoryBudget} />
                 </div>
                 <Title type={Title.Types.H4} className="">
                     {categoryName}

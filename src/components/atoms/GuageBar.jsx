@@ -1,19 +1,26 @@
 import classNames from 'classnames';
 import { formatCurrency } from '../../utils';
 
-export const GuageBar = ({ amount, max, width = 160 }) => {
+export const GuageBar = ({ amount, secondaryAmount, max, width = 160 }) => {
     return (
-        <span
+        <span 
             style={{ width }}
-            className="relative h-1.5 bg-gray-200 rounded">
-            <span className='absolute top-1 left-0 text-[8px] -translate-y-full'>{formatCurrency(max, false, false)}</span>
+            className="relative h-1.5 bg-gray-200">
             <span
-                style={{ width: Math.min(amount / (max + 1) * width, width) }}
+                style={{ width: amount / (max + 1) * width }}
                 className={classNames({
-                    "absolute h-full bottom-0 right-0 rounded": true,
+                    "absolute z-20 h-1 rounded bottom-0 right-0": true,
                     "bg-green-400": amount <= max,
                     "bg-red-500": amount > max
                 })} />
+                {secondaryAmount ? 
+                <span
+                style={{ width: secondaryAmount / (max + 1) * width }}
+                className={classNames({
+                    "absolute h-1 rounded bottom-0 right-0": true,
+                    "bg-green-500": secondaryAmount <= max,
+                    "bg-red-600": secondaryAmount > max
+                })} /> : null }
         </span>
     )
 }

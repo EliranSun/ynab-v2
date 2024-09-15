@@ -17,6 +17,7 @@ import { Button } from "../../features/CategoriesEdit/Button";
 import { useState } from "react";
 import { formatDateObjectToInput } from "../../utils/date";
 import { GuageBar } from "../atoms/GuageBar";
+import { isMobile } from "../../utils/device";
 
 const InputPlaceholder = {
 	name: msg`name`,
@@ -88,7 +89,7 @@ export const ExpenseInputs = ({
 				"grayscale opacity-50": expense.isHidden,
 				" py-1": isLean, // border-b last-of-type:border-none
 			})}>
-			<div className="flex gap-2">
+			<div className="flex gap-2 md:gap- md:w-full">
 				<div className="hidden md:block">
 					{onHide ? (
 						<Button
@@ -124,48 +125,50 @@ export const ExpenseInputs = ({
 						}}
 					/>
 				</div>
-				<div className="w-full flex flex-col">
-					<TextInput
-						disabled={readonly}
-						isLean={isLean}
-						defaultValue={expense.name}
-						placeholder={_(InputPlaceholder.name)}
-						onChange={(value) => {
-							onInputChange(InputTypes.NAME, value);
-						}}
-					/>
-					<TextInput
-						isLean={isLean}
-						placeholder={_(InputPlaceholder.note)}
-						defaultValue={expense.note}
-						disabled={readonly}
-						isSecondary
-						onChange={(value) => {
-							onInputChange(InputTypes.NOTE, value);
-						}}
-					/>
-				</div>
-				<div className="w-full relative flex flex-col items-start gap-0">
-					<span className="flex">
-						₪
-						<Input
-							type="number"
+				<div className="flex flex-col gap-1 md:gap-4 md:flex-row">
+					<div className="flex flex-col">
+						<TextInput
 							disabled={readonly}
-							defaultValue={
-								isLean ? Math.round(expense.amount) : expense.amount
-							}
-							placeholder={_(InputPlaceholder.amount)}
-							onChange={(event) => {
-								onInputChange(InputTypes.AMOUNT, event.target.value);
+							isLean={isLean}
+							defaultValue={expense.name}
+							placeholder={_(InputPlaceholder.name)}
+							onChange={(value) => {
+								onInputChange(InputTypes.NAME, value);
 							}}
 						/>
-					</span>
-					<GuageBar
-						secondaryAmount={budgetAmount}
-						amount={expense.amount}
-						max={budget}
-						width={90}
-					/>
+						<TextInput
+							isLean={isLean}
+							placeholder={_(InputPlaceholder.note)}
+							defaultValue={expense.note}
+							disabled={readonly}
+							isSecondary
+							onChange={(value) => {
+								onInputChange(InputTypes.NOTE, value);
+							}}
+						/>
+					</div>
+					<div className="w-full relative flex flex-col items-start gap-0">
+						<span className="flex">
+							₪
+							<Input
+								type="number"
+								disabled={readonly}
+								defaultValue={
+									isLean ? Math.round(expense.amount) : expense.amount
+								}
+								placeholder={_(InputPlaceholder.amount)}
+								onChange={(event) => {
+									onInputChange(InputTypes.AMOUNT, event.target.value);
+								}}
+							/>
+						</span>
+						<GuageBar
+							secondaryAmount={budgetAmount}
+							amount={expense.amount}
+							max={budget}
+							width={isMobile() ? window.innerWidth - 180 : 250}
+						/>
+					</div>
 				</div>
 				{isListView ? null : (
 					<div className="flex items-center gap-2">

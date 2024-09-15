@@ -147,6 +147,15 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
             return acc + item.amount
         }, 0), false, false)
     }, [itemsHiddenByUser]);
+    
+    const lastItemsBudgets = useMemo(() => {
+        const foo = {};
+        lastItems.forEach(item => {
+            foo[item.subcategoryId] = (foo[item.subcategoryId] || 0) + item.amount;
+        });
+        
+        return foo;
+    }, [lastItems]);
 
     return (
         <div className="w-full max-w-screen-2xl m-auto p-4 flex flex-col md:flex-row gap-4">
@@ -193,6 +202,7 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
                                         <div key={item.id} className="border-b py-2 flex items-center">
                                             <Expense
                                                 expense={item}
+                                                budgetAmount={lastItemsBudgets[item.subcategoryId]}
                                                 isListView
                                                 isLean
                                                 budget={budget.find(b => b.subcategoryId === item.subcategoryId)?.amount}

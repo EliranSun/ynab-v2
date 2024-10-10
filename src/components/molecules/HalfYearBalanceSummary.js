@@ -5,19 +5,19 @@ import {CategoriesContext} from "../../context/CategoriesContext";
 
 const ONE_MONTH_TIMESTAMP = 1000 * 60 * 60 * 24 * 30;
 
-const getExpensesInMonth = (expenses, timestamp) => {
+const getExpensesInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
     return expenses.reduce((acc, curr) => {
         const isExpenseThisMonth = isSameMonth(new Date(curr.timestamp), new Date(timestamp));
-        if (curr.isIncome || !isExpenseThisMonth) return acc;
+        if (incomeSubcategoryIds.includes(curr.subcategoryId) || !isExpenseThisMonth) return acc;
 
         return acc + curr.amount;
     }, 0);
 };
 
-const getIncomeInMonth = (expenses, timestamp) => {
+const getIncomeInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
     return expenses.reduce((acc, curr) => {
         const isExpenseThisMonth = isSameMonth(new Date(curr.timestamp), new Date(timestamp));
-        if (!curr.isIncome || !isExpenseThisMonth) return acc;
+        if (!incomeSubcategoryIds.includes(curr.subcategoryId) || !isExpenseThisMonth) return acc;
 
         return acc + curr.amount;
     }, 0);
@@ -32,11 +32,12 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
         const newExpenses = [];
         const bottomLine = [];
 
-        console.log({expenses, categories});
+        const incomeSubcategoryIds = categories.filter(category => category.isIncome).map(category => category.subcategories.map(subcategory => subcategory.id));
+        console.log({expenses, incomeSubcategoryIds});
 
         for (let i = 5; i >= 0; i--) {
-            const expensesInMonth = getExpensesInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
-            const incomeInMonth = getIncomeInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
+            const expensesInMonth = getExpensesInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
+            const incomeInMonth = getIncomeInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             newExpenses.push({
                 amount: parseInt(expensesInMonth),
                 date: new Date(currentTimestamp - ONE_MONTH_TIMESTAMP * i)

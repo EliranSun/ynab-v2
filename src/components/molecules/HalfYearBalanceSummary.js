@@ -25,40 +25,40 @@ const getIncomeInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
 };
 
 export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
-    // const {expenses} = useContext(ExpensesContext);
-    // const {categories} = useContext(CategoriesContext);
-    const expenses = [
-        {
-            amount: 18000,
-            subcategoryId: "1",
-            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
-        },
-        {
-            amount: 4500,
-            subcategoryId: "1",
-            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
-        },
-        {
-            amount: 23400,
-            subcategoryId: "3",
-            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
-        },
-        {
-            amount: 100,
-            subcategoryId: "4",
-            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
-        }
-    ];
+    const {expenses} = useContext(ExpensesContext);
+    const {categories} = useContext(CategoriesContext);
+    // const expenses = [
+    //     {
+    //         amount: 18000,
+    //         subcategoryId: "1",
+    //         timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+    //     },
+    //     {
+    //         amount: 4500,
+    //         subcategoryId: "1",
+    //         timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+    //     },
+    //     {
+    //         amount: 23400,
+    //         subcategoryId: "3",
+    //         timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+    //     },
+    //     {
+    //         amount: 100,
+    //         subcategoryId: "4",
+    //         timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+    //     }
+    // ];
 
-    const categories = [
-        {
-            isIncome: true,
-            subcategories: [
-                { id: "1" },
-                { id: "2" }
-            ]
-        }
-    ];
+    // const categories = [
+    //     {
+    //         isIncome: true,
+    //         subcategories: [
+    //             { id: "1" },
+    //             { id: "2" }
+    //         ]
+    //     }
+    // ];
 
     const summary = useMemo(() => {
         const incomes = [];

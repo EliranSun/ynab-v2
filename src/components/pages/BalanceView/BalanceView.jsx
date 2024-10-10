@@ -56,6 +56,26 @@ const BalanceView = () => {
             return acc - category.amount;
         }, 0));
     }, [categories]);
+    
+    const expenses = useMemo(() => {
+        return Math.round(categories.summary.reduce((acc, category) => {
+            if (category.isIncome) {
+                return acc;
+            }
+             
+            return acc - category.amount;
+        }, 0));
+    }, [categories]);
+    
+    const income = useMemo(() => {
+        return Math.round(categories.summary.reduce((acc, category) => {
+            if (category.isIncome) {
+                return acc + category.amount;
+            }
+            
+            return acc;
+        }, 0));
+    }, [categories]);
 
     return (
         <section className={classNames({
@@ -108,10 +128,12 @@ const BalanceView = () => {
                 "bg-green-500 text-white": total > 0,
                 "bg-red-500 text-white": total < 0,
             })}>
-                {formatCurrency(total, false, true)}
+                +{formatCurrency(income, false, true)}
+                                -{formatCurrency(expenses, false, true)}=
+                                                {formatCurrency(total, false, true)}
             </h1>
 
-            <div className="hidden md:block overflow-hidden w-full">
+            <div className="md:block overflow-hidden w-full">
                 <BalanceSummary timestamp={currentTimestamp} />
                 <RealityVsExpectation categories={categories} budgetSummary={budgetSummary} />
             </div>

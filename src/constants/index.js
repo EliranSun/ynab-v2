@@ -28,26 +28,26 @@ export const MenuPages = {
         label: msg`Home`,
         icon: House,
     },
-    import: {
-        name: 'add',
-        label: msg`add`,
-        icon: ArrowSquareIn,
-    },
-    budget: {
-        name: 'budget',
-        label: msg`Budget`,
-        icon: PiggyBank,
-    },
+    // import: {
+    //     name: 'add',
+    //     label: msg`add`,
+    //     icon: ArrowSquareIn,
+    // },
+    // budget: {
+    //     name: 'budget',
+    //     label: msg`Budget`,
+    //     icon: PiggyBank,
+    // },
     balance: {
         name: 'balance',
         label: msg`Balance`,
         icon: Scales,
     },
-    // expenses: {
-    //     name: 'expenses',
-    //     label: msg`Expenses`,
-    //     icon: Receipt,
-    // },
+    expenses: {
+        name: 'past-summary',
+        label: msg`Expenses`,
+        icon: Receipt,
+    },
     categories: {
         name: 'categories',
         label: msg`Categories`,

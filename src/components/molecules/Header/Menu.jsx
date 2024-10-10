@@ -24,7 +24,7 @@ export const Menu = ({ isOpen, onMenuItemClick }) => {
         <ul ref={ref} className={classNames({
             "h-full md:text-sm bg-gray-100": true,
             "flex flex-col items-center md:flex-row gap-6 md:gap-4 justify-evenly": false,
-            "grid grid-cols-7 gap-1": true,
+            "flex justify-evenly": true,
             "border-r md:border-none shadow-xl md:shadow-none md:static": true,
         })}>
             {Object.values(MenuPages).map((item) => (

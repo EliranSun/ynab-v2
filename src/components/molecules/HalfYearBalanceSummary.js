@@ -1,8 +1,10 @@
 import {isSameMonth} from "date-fns";
 import {useContext, useMemo} from "react";
 import {ExpensesContext} from "../../context";
+import {CategoriesContext} from "../../context/CategoriesContext";
 
 const ONE_MONTH_TIMESTAMP = 1000 * 60 * 60 * 24 * 30;
+
 const getExpensesInMonth = (expenses, timestamp) => {
     return expenses.reduce((acc, curr) => {
         const isExpenseThisMonth = isSameMonth(new Date(curr.timestamp), new Date(timestamp));
@@ -11,6 +13,7 @@ const getExpensesInMonth = (expenses, timestamp) => {
         return acc + curr.amount;
     }, 0);
 };
+
 const getIncomeInMonth = (expenses, timestamp) => {
     return expenses.reduce((acc, curr) => {
         const isExpenseThisMonth = isSameMonth(new Date(curr.timestamp), new Date(timestamp));
@@ -19,15 +22,18 @@ const getIncomeInMonth = (expenses, timestamp) => {
         return acc + curr.amount;
     }, 0);
 };
+
 export const HalfYearBalanceSummary = ({currentTimestamp}) => {
     const {expenses} = useContext(ExpensesContext);
+    const {categories} = useContext(CategoriesContext);
 
     const summary = useMemo(() => {
         const incomes = [];
         const newExpenses = [];
         const bottomLine = [];
 
-alert(JSON.stringify(expenses.find(item => item.isIncome)));
+        console.log({expenses, categories});
+
         for (let i = 5; i >= 0; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             const incomeInMonth = getIncomeInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);

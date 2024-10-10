@@ -6,7 +6,7 @@ import { useContext, useMemo, useState } from "react";
 import { getBudgetSummary } from "../../../utils/budget";
 import { BudgetContext } from "../../../context";
 import { RealityVsExpectation } from "../../molecules/RealityVsExpectation";
-import SubcategoryExpensesList from "./SubcategoryExpensesList";
+// import SubcategoryExpensesList from "./SubcategoryExpensesList";
 import { LocaleContext } from "../../../context/LocaleContext";
 import classNames from "classnames";
 import { formatCurrency } from "../../../utils";

@@ -17,7 +17,7 @@ export const UserProvider = ({children}) => {
     useEffect(() => {
         supabase.auth.getUser().then(async (response) => {
             if (response.error || !response.data) {
-                alert('Error fetching user data');
+                console.error(response.error);
                 return;
             }
 

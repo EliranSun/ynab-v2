@@ -30,6 +30,7 @@ import { TooltipProvider } from "./context/TooltipContext";
 import React from "react";
 import { ImportFromFile } from "./components/pages/ParseExpensesList/ImportFromFile";
 import { GuageBar } from "./components/atoms/GuageBar";
+import { PastMonthsSummary } from "./components/pages/BalanceView/PastMonthsSummary";
 
 function App() {
 	return (
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
 			{
 				path: Routes.EXPENSES,
 				element: <ExpenseView />,
+			},
+			{
+				path: "/past-summary",
+				element: <PastMonthsSummary />,
 			},
 			{
 				path: Routes.CATEGORIES,

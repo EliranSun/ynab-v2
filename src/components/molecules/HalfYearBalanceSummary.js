@@ -32,7 +32,10 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
         const newExpenses = [];
         const bottomLine = [];
 
-        const incomeSubcategoryIds = categories.filter(category => category.isIncome).map(category => category.subcategories.map(subcategory => subcategory.id));
+        const incomeSubcategoryIds = categories
+            .filter(category => category.isIncome)
+            .map(category => category.subcategories.map(subcategory => subcategory.id))
+            .flat();
         console.log({expenses, incomeSubcategoryIds});
 
         for (let i = 5; i >= 0; i--) {

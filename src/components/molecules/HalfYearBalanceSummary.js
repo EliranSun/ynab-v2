@@ -25,8 +25,8 @@ const getIncomeInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
 };
 
 export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
-    const {expenses} = useContext(ExpensesContext);
-    const {categories} = useContext(CategoriesContext);
+    const { expenses } = useContext(ExpensesContext);
+    const { categories } = useContext(CategoriesContext);
     // const expenses = [
     //     {
     //         amount: 18000,
@@ -71,7 +71,7 @@ export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
             .flat();
         console.log({ expenses, incomeSubcategoryIds });
 
-        for (let i = 12; i >= 0; i--) {
+        for (let i = 0; i >= 12; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             const incomeInMonth = getIncomeInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             newExpenses.push({
@@ -100,6 +100,9 @@ export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
 
     return (
         <div className="text-xl p-4">
+            <h1 className={classNames("text-4xl w-full text-center font-bold my-4", summary.total > 0 ? "text-green-500" : "text-red-500")}>
+                {formatCurrency(summary.total)}
+            </h1>
             {summary.incomes.map((income, index) => {
                 const incomeAmount = income.amount;
                 const expenseAmount = summary.newExpenses[index].amount;
@@ -118,9 +121,6 @@ export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
                     </>
                 )
             })}
-            <h1 className={classNames("text-4xl w-full text-center font-bold my-4", summary.total > 0 ? "text-green-500" : "text-red-500")}>
-                {formatCurrency(summary.total)}
-            </h1>
         </div>
     )
 };

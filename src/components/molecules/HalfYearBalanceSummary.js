@@ -27,7 +27,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
         const newExpenses = [];
         const bottomLine = [];
 
-alert(JSON.stringify(expenses.find(item => item.isIncome));
+alert(JSON.stringify(expenses.find(item => item.isIncome)));
         for (let i = 5; i >= 0; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             const incomeInMonth = getIncomeInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);

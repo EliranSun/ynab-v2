@@ -71,7 +71,7 @@ export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
             .flat();
         console.log({ expenses, incomeSubcategoryIds });
 
-        for (let i = 5; i >= 0; i--) {
+        for (let i = 12; i >= 0; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             const incomeInMonth = getIncomeInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             newExpenses.push({

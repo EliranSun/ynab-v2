@@ -53,9 +53,9 @@ const router = createBrowserRouter([
 					<ExpensesContextProvider>
 						<CategoriesProvider>
 							<Header />
-							<Login>
+							{/* <Login> */}
 								<Root />
-							</Login>
+							{/* </Login> */}
 						</CategoriesProvider>
 					</ExpensesContextProvider>
 				</BudgetContextProvider>

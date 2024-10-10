@@ -1,8 +1,9 @@
-import {isSameMonth} from "date-fns";
-import {useContext, useMemo} from "react";
-import {ExpensesContext} from "../../context";
-import {CategoriesContext} from "../../context/CategoriesContext";
-
+import { isSameMonth } from "date-fns";
+import { useContext, useMemo } from "react";
+import { ExpensesContext } from "../../context";
+import { CategoriesContext } from "../../context/CategoriesContext";
+import { formatCurrency } from "../../utils";
+import classNames from "classnames";
 const ONE_MONTH_TIMESTAMP = 1000 * 60 * 60 * 24 * 30;
 
 const getExpensesInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
@@ -23,9 +24,41 @@ const getIncomeInMonth = (expenses, incomeSubcategoryIds, timestamp) => {
     }, 0);
 };
 
-export const HalfYearBalanceSummary = ({currentTimestamp}) => {
-    const {expenses} = useContext(ExpensesContext);
-    const {categories} = useContext(CategoriesContext);
+export const HalfYearBalanceSummary = ({ currentTimestamp }) => {
+    // const {expenses} = useContext(ExpensesContext);
+    // const {categories} = useContext(CategoriesContext);
+    const expenses = [
+        {
+            amount: 18000,
+            subcategoryId: "1",
+            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+        },
+        {
+            amount: 4500,
+            subcategoryId: "1",
+            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+        },
+        {
+            amount: 23400,
+            subcategoryId: "3",
+            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+        },
+        {
+            amount: 100,
+            subcategoryId: "4",
+            timestamp: currentTimestamp - ONE_MONTH_TIMESTAMP * 5
+        }
+    ];
+
+    const categories = [
+        {
+            isIncome: true,
+            subcategories: [
+                { id: "1" },
+                { id: "2" }
+            ]
+        }
+    ];
 
     const summary = useMemo(() => {
         const incomes = [];
@@ -36,7 +69,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
             .filter(category => category.isIncome)
             .map(category => category.subcategories.map(subcategory => subcategory.id))
             .flat();
-        console.log({expenses, incomeSubcategoryIds});
+        console.log({ expenses, incomeSubcategoryIds });
 
         for (let i = 5; i >= 0; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, incomeSubcategoryIds, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
@@ -55,7 +88,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
             });
         }
 
-        const total = bottomLine.reduce((acc, curr) => acc + curr.amount, 5970.68);
+        const total = bottomLine.reduce((acc, curr) => acc + curr.amount, 0);
 
         return {
             incomes,
@@ -66,23 +99,28 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
     }, [currentTimestamp, expenses]);
 
     return (
-        <div>
+        <div className="text-xl p-4">
             {summary.incomes.map((income, index) => {
                 const incomeAmount = income.amount;
                 const expenseAmount = summary.newExpenses[index].amount;
                 const bottomLineAmount = summary.bottomLine[index].amount;
 
                 return (
-                    <div key={index} className="flex gap-2 ">
-                        <span className="w-10">{income.date.toLocaleString("he-IL", {month: "short"})}</span>
-                        <span className="w-20 text-center text-green-500">{incomeAmount}</span>
-                        <span className="w-4 text-center">-</span>
-                        <span className="w-20 text-center text-red-400">{expenseAmount}</span>
-                        <span className="text-blue-500">{bottomLineAmount}</span>
-                    </div>
+                    <>
+                        <h1 className="w-10 text-sm">{income.date.toLocaleString("he-IL", { month: "short" })}</h1>
+                        <div key={index} className="flex justify-evenly mb-2 bg-slate-100 p-3 rounded-sm">
+                            <span className="text-center font-mono w-20 text-green-500">{formatCurrency(incomeAmount, true, true)}</span>
+                            <span className="text-center font-mono w-20 text-red-400">{formatCurrency(-expenseAmount, true, true)}</span>
+                            <span className={classNames("text-center font-mono w-20", bottomLineAmount > 0 ? "text-green-500" : "text-red-500")}>
+                                {formatCurrency(bottomLineAmount, false, true)}
+                            </span>
+                        </div>
+                    </>
                 )
             })}
-            {summary.total}
+            <h1 className={classNames("text-4xl w-full text-center font-bold my-4", summary.total > 0 ? "text-green-500" : "text-red-500")}>
+                {formatCurrency(summary.total)}
+            </h1>
         </div>
     )
 };

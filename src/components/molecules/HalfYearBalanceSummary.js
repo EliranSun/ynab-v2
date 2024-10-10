@@ -71,7 +71,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
 
                 return (
                     <div key={index} className="flex gap-2 ">
-                        <span className="w-10">{income.date.toLocaleString("en-GB", {month: "short"})}</span>
+                        <span className="w-10">{income.date.toLocaleString("he-IL", {month: "short"})}</span>
                         <span className="w-20 text-center text-green-500">{incomeAmount}</span>
                         <span className="w-4 text-center">-</span>
                         <span className="w-20 text-center text-red-400">{expenseAmount}</span>

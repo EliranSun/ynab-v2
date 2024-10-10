@@ -24,13 +24,13 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
 
     const summary = useMemo(() => {
         const incomes = [];
-        const expenses = [];
+        const newExpenses = [];
         const bottomLine = [];
 
         for (let i = 5; i >= 0; i--) {
             const expensesInMonth = getExpensesInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
             const incomeInMonth = getIncomeInMonth(expenses, currentTimestamp - ONE_MONTH_TIMESTAMP * i);
-            expenses.push({
+            newExpenses.push({
                 amount: parseInt(expensesInMonth),
                 date: new Date(currentTimestamp - ONE_MONTH_TIMESTAMP * i)
             });
@@ -48,7 +48,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
 
         return {
             incomes,
-            expenses,
+            newExpenses,
             bottomLine,
             total
         };
@@ -58,7 +58,7 @@ export const HalfYearBalanceSummary = ({currentTimestamp}) => {
         <div>
             {summary.incomes.map((income, index) => {
                 const incomeAmount = income.amount;
-                const expenseAmount = summary.expenses[index].amount;
+                const expenseAmount = summary.newExpenses[index].amount;
                 const bottomLineAmount = summary.bottomLine[index].amount;
 
                 return (

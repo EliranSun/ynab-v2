@@ -31,7 +31,6 @@ import React from "react";
 import { ImportFromFile } from "./components/pages/ParseExpensesList/ImportFromFile";
 import { GuageBar } from "./components/atoms/GuageBar";
 import { PastMonthsSummary } from "./components/pages/BalanceView/PastMonthsSummary";
-import CalendarView from "./features/CalendarView/CalendarView";
 
 function App() {
 	return (
@@ -70,10 +69,6 @@ const router = createBrowserRouter([
 			{
 				path: Routes.ADD,
 				element: <ParseExpensesList />,
-			},
-			{
-				path: "/calendar",
-				element: <CalendarView  />,
 			},
 			{
 				path: Routes.IMPORT,

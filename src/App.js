@@ -31,7 +31,7 @@ import React from "react";
 import { ImportFromFile } from "./components/pages/ParseExpensesList/ImportFromFile";
 import { GuageBar } from "./components/atoms/GuageBar";
 import { PastMonthsSummary } from "./components/pages/BalanceView/PastMonthsSummary";
-
+import { CalendarView } from "./features/CalendarView";
 function App() {
 	return (
 		<LocaleProvider>
@@ -53,9 +53,9 @@ const router = createBrowserRouter([
 					<ExpensesContextProvider>
 						<CategoriesProvider>
 							<Header />
-							<Login>
+							{/* <Login> */}
 								<Root />
-							</Login>
+							{/* </Login> */}
 						</CategoriesProvider>
 					</ExpensesContextProvider>
 				</BudgetContextProvider>
@@ -65,6 +65,10 @@ const router = createBrowserRouter([
 			{
 				path: Routes.HOME,
 				element: <ExpensesSummary />,
+			},
+			{
+				path: Routes.CALENDAR,
+				element: <CalendarView />,
 			},
 			{
 				path: Routes.ADD,

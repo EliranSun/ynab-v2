@@ -8,5 +8,6 @@ export const Routes = {
     PROJECTION: "/projection",
     RESOLVER: "/resolver",
     BUDGET: "/budget",
+    CALENDAR: "/calendar",
     ROOT: "/",
 };

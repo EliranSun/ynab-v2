@@ -1,5 +1,7 @@
 import { Categories, ThirdParties } from "../constants";
-
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+ 
 export const aggregateTransactionsByName = (
     transactions,
     isSameDate = null,
@@ -75,6 +77,11 @@ export const getExpenseCategoryName = (categoryId) => {
   };
 };
 
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
+
 export * from "./localStorage";
 export * from "./firebase";
 export * from './currency';
+

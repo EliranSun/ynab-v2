@@ -1,13 +1,14 @@
 import React, { useState, useContext, useMemo } from 'react';
-import expenses from '../mocks/expenses.json';
+// import expenses from '../mocks/expenses.json';
 import { CategoriesContext } from '../context/CategoriesContext';
 import { ExpensesContext } from '../context/ExpensesContext';
 import classNames from 'classnames';
 import { formatCurrency } from '../utils/currency';
+
 export const CalendarView = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    // const { expenses } = useContext(ExpensesContext);
+    const { expenses } = useContext(ExpensesContext);
     const { categories } = useContext(CategoriesContext);
     const incomeSubcategoriesIds = useMemo(() => {
         return categories.filter(category => category.isIncome).flatMap(category => category.subcategories.map(subcategory => subcategory.id));

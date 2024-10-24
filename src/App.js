@@ -32,6 +32,7 @@ import { ImportFromFile } from "./components/pages/ParseExpensesList/ImportFromF
 import { GuageBar } from "./components/atoms/GuageBar";
 import { PastMonthsSummary } from "./components/pages/BalanceView/PastMonthsSummary";
 import { CalendarView } from "./features/CalendarView";
+
 function App() {
 	return (
 		<LocaleProvider>
@@ -53,9 +54,9 @@ const router = createBrowserRouter([
 					<ExpensesContextProvider>
 						<CategoriesProvider>
 							<Header />
-							{/* <Login> */}
+							<Login>
 								<Root />
-							{/* </Login> */}
+							</Login>
 						</CategoriesProvider>
 					</ExpensesContextProvider>
 				</BudgetContextProvider>

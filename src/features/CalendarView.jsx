@@ -1,12 +1,13 @@
 import React, { useState, useContext, useMemo } from 'react';
-// import expenses from '../mocks/expenses.json';
+import expenses from '../mocks/expenses.json';
 import { CategoriesContext } from '../context/CategoriesContext';
 import { ExpensesContext } from '../context/ExpensesContext';
-
+import classNames from 'classnames';
+import { formatCurrency } from '../utils/currency';
 export const CalendarView = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const { expenses } = useContext(ExpensesContext);
+    // const { expenses } = useContext(ExpensesContext);
     const { categories } = useContext(CategoriesContext);
     const incomeSubcategoriesIds = useMemo(() => {
         return categories.filter(category => category.isIncome).flatMap(category => category.subcategories.map(subcategory => subcategory.id));
@@ -88,20 +89,35 @@ export const CalendarView = () => {
                     return (
                         <div
                             key={day}
-                            className="border border-gray-300 p-3 text-center rounded-lg"
+                            className={classNames({
+                                "border border-gray-300 p-3 text-right rounded-lg flex justify-between items-center": true,
+                                "bg-red-50": dayChange < 0 && dayChange > -1000,
+                                "bg-red-200": dayChange < -1000 && dayChange > -10000,
+                                "bg-red-300": dayChange < -10000,
+                                "bg-green-50": dayChange > 0 && dayChange < 1000,
+                                "bg-green-100": dayChange > 1000 && dayChange < 10000,
+                                "bg-green-200": dayChange > 10000,
+                            })}
                         >
-                            <div className="font-bold">{day}</div>
-                            {dayExpenses.map((expense, index) => (
-                                <div key={index} className="text-sm">
-                                    {expense.name}: {expense.amount}
+                            <div className={classNames({
+                                "font-bold rounded-full flex items-center justify-center size-7": true,
+                                "bg-black text-white": new Date().getDate() === day,
+                            })}>{day}</div>
+                            <div>
+                                <div className={`text-sm  ${dayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                    {formatCurrency(dayChange, true, true)}
                                 </div>
-                            ))}
-                            <div className={`text-sm font-bold ${dayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                {dayChange >= 0 ? '+' : ''}{dayChange.toFixed(2)}
+                                {/* <div className={`font-bold ${runningBalance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                    {formatCurrency(runningBalance)}
+                                </div> */}
                             </div>
-                            <div className="text-xs">
-                                Balance: {runningBalance.toFixed(2)}
-                            </div>
+                            {/* <div className="h-20 overflow-y-auto">
+                                {dayExpenses.map((expense, index) => (
+                                    <div key={index} className="text-sm">
+                                        {expense.name}: {expense.amount}
+                                    </div>
+                                ))}
+                            </div> */}
                         </div>
                     );
                 })}

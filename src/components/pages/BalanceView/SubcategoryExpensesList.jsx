@@ -54,11 +54,6 @@ const SubcategoryExpensesList = ({
 
     const sameMonthData = useMemo(() => {
         return data.filter(item => {
-            console.debug({
-                itemName: item.x,
-                itemDate: new Date(item.timestamp),
-                currentDate: new Date(timestamp),
-            });
             return isSameMonth(item.timestamp, timestamp);
         })[0];
     }, [data, timestamp]);

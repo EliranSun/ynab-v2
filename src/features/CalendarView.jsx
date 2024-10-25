@@ -93,8 +93,8 @@ export const CalendarView = () => {
                             key={day}
                             onClick={() => setSelectedTimestamp(new Date(currentYear, currentMonth, day).getTime())}
                             className={classNames({
-                                "border border-gray-300 p-3 text-right rounded-lg flex justify-between items-center": true,
-                                "h-24": true,
+                                "border border-gray-300 p-3 text-right rounded-lg flex flex-col justify-between items-start": true,
+                                "h-fit": true,
                                 "bg-red-50": dayChange < 0 && dayChange > -1000,
                                 "bg-red-200": dayChange < -1000 && dayChange > -10000,
                                 "bg-red-300": dayChange < -10000,
@@ -103,17 +103,19 @@ export const CalendarView = () => {
                                 "bg-green-200": dayChange > 10000,
                             })}
                         >
-                            <div className={classNames({
-                                "font-bold rounded-full flex items-center justify-center size-7": true,
-                                "bg-black text-white": new Date().getDate() === day,
-                            })}>{day}</div>
+                            <div className="font-bold w-full flex items-center justify-center h-5 mb-4">
+                                <span className={classNames({
+                                    "font-mono rounded-full px-2 py-1": true,
+                                    "bg-black text-white": new Date().getDate() === day
+                                })}>{day}</span>
+                            </div>
                             <div>
-                                <div className={`text-sm  ${dayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                <div className={`text-sm ${dayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                                     {formatCurrency(dayChange, true, true)}
                                 </div>
-                                {/* <div className={`font-bold ${runningBalance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                <div className={`text-sm font-bold ${runningBalance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                                     {formatCurrency(runningBalance)}
-                                </div> */}
+                                </div>
                             </div>
                             {/* <div className="h-20 overflow-y-auto">
                                 {dayExpenses.map((expense, index) => (

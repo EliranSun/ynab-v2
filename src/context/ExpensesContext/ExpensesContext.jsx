@@ -1,12 +1,13 @@
-import {createContext, useCallback, useContext, useEffect, useState} from "react";
-import {noop} from "lodash";
-import {deleteExpense, markExpensesAsOriginal, updateExpense} from "../../utils";
-import {Categories, getCategoryBySubcategoryId} from "../../constants";
-import {BudgetContext} from "../BudgetContext";
-import {isSameMonth} from "date-fns";
-import {Expense} from "../../models";
-import {getAllExpensesWithPagination, addExpenses} from "../../utils/db";
-import {UserContext} from "../UserContext";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { noop } from "lodash";
+import { deleteExpense, markExpensesAsOriginal, updateExpense } from "../../utils";
+import { Categories, getCategoryBySubcategoryId } from "../../constants";
+import { BudgetContext } from "../BudgetContext";
+import { isSameMonth } from "date-fns";
+import { Expense } from "../../models";
+import { getAllExpensesWithPagination, addExpenses } from "../../utils/db";
+import { UserContext } from "../UserContext";
+import expensesMock from '../../mocks/expenses.json';
 
 export const ExpensesContext = createContext({
     expenses: [],
@@ -18,7 +19,7 @@ export const ExpensesContext = createContext({
 const getExpensesPerMonthPerCategory = (expenses = []) => {
     const expensesPerMonthPerCategory = {};
     expenses.forEach((expense) => {
-        const {subcategoryId} = expense;
+        const { subcategoryId } = expense;
         // TODO: util
         const dateKey = new Date(expense.timestamp).toLocaleString("en-IL", {
             // day: "numeric",
@@ -52,13 +53,24 @@ const getExpensesPerMonthPerCategory = (expenses = []) => {
     return expensesPerMonthPerCategory;
 }
 
-export const ExpensesContextProvider = ({children}) => {
-    const [expenses, setExpenses] = useState([]);
+export const ExpensesContextProvider = ({ children }) => {
+    const [expenses, setExpenses] = useState(process.env.NODE_ENV === "development" ? expensesMock : []);
     const [categories, setCategories] = useState({});
     const [categoriesByAmount, setCategoriesByAmount] = useState([]);
-    const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState({});
-    const {budget} = useContext(BudgetContext);
-    const {user} = useContext(UserContext);
+    const [expensesPerMonthPerCategory, setExpensesPerMonthPerCategory] = useState(process.env.NODE_ENV === "development" ? {
+        18: {
+            [new Date(2024, 10, 16).toLocaleString("en-IL", {
+                month: "short",
+                year: "2-digit",
+            })]: {
+                amount: 147,
+                expenses: expensesMock,
+                timestamp: 1720040400000,
+            }
+        }
+    } : {});
+    const { budget } = useContext(BudgetContext);
+    const { user } = useContext(UserContext);
 
     const setExpenseAsRecurring = (expenseId, recurring) => {
         new Array(Number(recurring)).fill(0).forEach((_, index) => {
@@ -83,7 +95,7 @@ export const ExpensesContextProvider = ({children}) => {
     };
 
     const setExpenseAsIncome = (expenseId, isIncome) => {
-        updateExpense(expenseId, {isIncome});
+        updateExpense(expenseId, { isIncome });
         setExpenses({
             ...expenses,
             [expenseId]: {
@@ -98,7 +110,7 @@ export const ExpensesContextProvider = ({children}) => {
             return;
         }
 
-        await updateExpense(expenseId, {note});
+        await updateExpense(expenseId, { note });
 
         setExpenses({
             ...expenses,
@@ -112,11 +124,11 @@ export const ExpensesContextProvider = ({children}) => {
     const changeExpenseCategory = async (expenseId, categoryId, note = "") => {
         const expense = expenses[expenseId];
         const allExpensesWithTheSameName = expenses.filter(
-            ({name}) => name === expense.name
+            ({ name }) => name === expense.name
         );
         if (!expense.isThirdParty) {
             allExpensesWithTheSameName.forEach((expense) => {
-                updateExpense(expense.id, {categoryId, note});
+                updateExpense(expense.id, { categoryId, note });
                 setExpenses({
                     ...expenses,
                     [expense.id]: {
@@ -129,7 +141,7 @@ export const ExpensesContextProvider = ({children}) => {
             return;
         }
 
-        await updateExpense(expenseId, {categoryId, note});
+        await updateExpense(expenseId, { categoryId, note });
         setExpenses({
             ...expenses,
             [expenseId]: {

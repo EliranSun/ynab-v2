@@ -8,6 +8,7 @@ import { BUTTON_SIZE } from "../../../constants";
 import { ExpensesContext } from "../../../context";
 import ExpensesChart from "./ExpensesChart";
 import Expense from "../ExpenseView/Expense";
+import { formatDate } from "../../../utils/date";
 
 const isMobile = window.innerWidth < 768;
 
@@ -50,6 +51,7 @@ const SubcategoryExpensesList = ({
             .reverse();
     }, [selectedSubcategoryId, expensesPerMonthPerCategory]);
 
+
     const sameMonthData = useMemo(() => {
         return data.filter(item => {
             console.debug({
@@ -61,6 +63,8 @@ const SubcategoryExpensesList = ({
         })[0];
     }, [data, timestamp]);
 
+    const formattedDate = useMemo(() => formatDate(timestamp), [timestamp]);
+
     if (Object.keys(expensesPerMonthPerCategory).length === 0) {
         return (
             <ListBox>
@@ -69,10 +73,11 @@ const SubcategoryExpensesList = ({
         );
     }
 
+
     if (data.length === 0) {
         return (
             <ListBox>
-                No data
+                No data for {formattedDate}
             </ListBox>
         );
     }

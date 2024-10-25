@@ -13,3 +13,12 @@ export function formatDateObjectToInput(date) {
 
     return `${year}-${month}-${day}`;
 }
+
+export const formatDate = (timestamp) => {
+    return new Date(timestamp).toLocaleString("en-IL", {
+        month: "short",
+        year: "2-digit",
+        day: "2-digit",
+    });
+};
+

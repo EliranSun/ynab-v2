@@ -1,5 +1,4 @@
 import React, { useState, useContext, useMemo } from 'react';
-import expensesMock from '../mocks/expenses.json';
 import { CategoriesContext } from '../context/CategoriesContext';
 import { ExpensesContext } from '../context/ExpensesContext';
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import { ExpensesPopover } from '../components/organisms/ExpensesPopover';
 export const CalendarView = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const [selectedTimestamp, setSelectedTimestamp] = useState(new Date().getTime());
     const { expenses } = useContext(ExpensesContext);
     const { categories } = useContext(CategoriesContext);
     const incomeSubcategoriesIds = useMemo(() => {
@@ -37,7 +37,7 @@ export const CalendarView = () => {
         }
     };
 
-    const expensesByDay = (process.env.NODE_ENV === "development" ? expensesMock : expenses).reduce((acc, expense) => {
+    const expensesByDay = expenses.reduce((acc, expense) => {
         const expenseDate = new Date(expense.timestamp);
         if (
             expenseDate.getMonth() === currentMonth &&
@@ -91,6 +91,7 @@ export const CalendarView = () => {
                     return (
                         <div
                             key={day}
+                            onClick={() => setSelectedTimestamp(new Date(currentYear, currentMonth, day).getTime())}
                             className={classNames({
                                 "border border-gray-300 p-3 text-right rounded-lg flex justify-between items-center": true,
                                 "h-24": true,
@@ -131,7 +132,7 @@ export const CalendarView = () => {
                 totalInPreviousMonth={0}
                 budget={0}
                 thisMonthExpenses={[]}
-                currentTimestamp={new Date()}
+                currentTimestamp={selectedTimestamp}
                 id="1"
                 name="Test"
                 icon="test"

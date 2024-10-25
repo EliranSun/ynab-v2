@@ -18,6 +18,7 @@ export const ExpensesPopover = ({
     isInline = false
 }) => {
     const { _ } = useLingui();
+
     return (
         <div className={classNames({
             "w-full md:w-auto md:absolute md:left-full": !isInline,

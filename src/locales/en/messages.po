@@ -59,8 +59,8 @@ msgid "Actual:"
 msgstr "Actual:"
 
 #: src/constants/index.js:33
-msgid "add"
-msgstr "add"
+#~ msgid "add"
+#~ msgstr "add"
 
 #: src/components/pages/ParseExpensesList/ParseExpensesList.jsx:105
 msgid "Add"
@@ -78,7 +78,7 @@ msgstr "Add Category"
 msgid "Add Subcategory"
 msgstr "Add Subcategory"
 
-#: src/components/molecules/ExpenseInputs.jsx:15
+#: src/components/molecules/ExpenseInputs.jsx:24
 msgid "amount"
 msgstr "amount"
 
@@ -102,11 +102,11 @@ msgstr "August"
 msgid "Authoring"
 msgstr "Authoring"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:47
+#: src/components/pages/BalanceView/CategoryBalance.jsx:48
 msgid "average"
 msgstr "average"
 
-#: src/components/pages/Subcategory/Subcategory.jsx:94
+#: src/components/organisms/ExpensesPopover.jsx:35
 #: src/features/ManageBudget/SubcategoryBudget.jsx:81
 msgid "Average"
 msgstr "Average"
@@ -135,13 +135,12 @@ msgstr "Books"
 msgid "Bottom line"
 msgstr "Bottom line"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:38
+#: src/components/pages/BalanceView/CategoryBalance.jsx:39
 msgid "budget"
 msgstr "budget"
 
 #: src/components/atoms/SubcategoryBudget.jsx:38
 #: src/components/molecules/ThisMonthBalance/ThisMonthBalance.jsx:11
-#: src/constants/index.js:38
 #: src/features/ManageBudget/BudgetView.jsx:52
 msgid "Budget"
 msgstr "Budget"
@@ -312,6 +311,7 @@ msgid "expenses"
 msgstr "expenses"
 
 #: src/components/molecules/BottomLine/BottomLine.jsx:32
+#: src/constants/index.js:48
 #: src/constants/index.js:76
 msgid "Expenses"
 msgstr "Expenses"
@@ -359,6 +359,10 @@ msgstr "Filters"
 #: src/components/pages/TheResolver.jsx:133
 msgid "forgotten"
 msgstr "forgotten"
+
+#: src/features/CalendarView.jsx:60
+msgid "Fri"
+msgstr "Fri"
 
 #: src/constants/categories.js:283
 msgid "Friends"
@@ -503,7 +507,7 @@ msgstr "Just wanted to say, welcome!"
 msgid "KIA"
 msgstr "KIA"
 
-#: src/components/pages/Subcategory/Subcategory.jsx:99
+#: src/components/organisms/ExpensesPopover.jsx:40
 #: src/features/ManageBudget/SubcategoryBudget.jsx:85
 msgid "Last"
 msgstr "Last"
@@ -524,7 +528,7 @@ msgstr "left"
 #~ msgid "Left 😄"
 #~ msgstr "Left 😄"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:30
+#: src/components/pages/BalanceView/CategoryBalance.jsx:31
 msgid "left to spend"
 msgstr "left to spend"
 
@@ -578,6 +582,10 @@ msgstr "March"
 msgid "May"
 msgstr "May"
 
+#: src/features/CalendarView.jsx:60
+msgid "Mon"
+msgstr "Mon"
+
 #: src/features/ManageBudget/BudgetView.jsx:84
 msgid "months"
 msgstr "last months"
@@ -590,7 +598,7 @@ msgstr "my budget is nowhere NEAR reality."
 msgid "my budget is spot on!"
 msgstr "my budget is spot on!"
 
-#: src/components/molecules/ExpenseInputs.jsx:14
+#: src/components/molecules/ExpenseInputs.jsx:23
 msgid "name"
 msgstr "name"
 
@@ -614,7 +622,7 @@ msgstr "No forgotten expenses"
 msgid "No subcategories for this category"
 msgstr "No subcategories for this category"
 
-#: src/components/molecules/ExpenseInputs.jsx:16
+#: src/components/molecules/ExpenseInputs.jsx:25
 msgid "note"
 msgstr "note"
 
@@ -644,8 +652,8 @@ msgid "Other"
 msgstr "Other"
 
 #: src/components/pages/BalanceView/CategoryBalance.jsx:141
-msgid "out of"
-msgstr "out of"
+#~ msgid "out of"
+#~ msgstr "out of"
 
 #: src/components/molecules/BottomLine/BottomLine.jsx:58
 msgid "over"
@@ -655,7 +663,7 @@ msgstr "over"
 #~ msgid "Over 😢"
 #~ msgstr "Over 😢"
 
-#: src/components/pages/BalanceView/CategoryBalance.jsx:30
+#: src/components/pages/BalanceView/CategoryBalance.jsx:31
 msgid "over budget"
 msgstr "over budget"
 
@@ -718,7 +726,7 @@ msgstr "Put in mind though - the budget is for the current month only, so some m
 msgid "Rates"
 msgstr "Rates"
 
-#: src/components/molecules/ExpenseInputs.jsx:134
+#: src/components/molecules/ExpenseInputs.jsx:176
 msgid "Recurring Transaction Count"
 msgstr "Recurring Transaction Count"
 
@@ -735,6 +743,10 @@ msgstr "Resolver"
 #: src/constants/categories.js:380
 msgid "Salary"
 msgstr "Salary"
+
+#: src/features/CalendarView.jsx:60
+msgid "Sat"
+msgstr "Sat"
 
 #: src/features/CategoriesEdit/CategoryActions.jsx:55
 msgid "save"
@@ -777,11 +789,11 @@ msgstr "Show same month only"
 msgid "So all of the subcategories in this category will be defined as income"
 msgstr "So all of the subcategories in this category will be defined as income"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:183
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:195
 msgid "Sort by amount"
 msgstr "Sort by amount"
 
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:178
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:190
 msgid "Sort by timestamp"
 msgstr "Sort by timestamp"
 
@@ -804,6 +816,10 @@ msgstr "Subcategories are how expenses are grouped and calculated"
 #: src/features/LastExpenses/components/ExpensesSummary.jsx:136
 #~ msgid "Summary"
 #~ msgstr "Summary"
+
+#: src/features/CalendarView.jsx:60
+msgid "Sun"
+msgstr "Sun"
 
 #: src/components/pages/TheResolver.jsx:117
 msgid "The Resolver"
@@ -837,6 +853,10 @@ msgstr "This week"
 msgid "this year"
 msgstr "this year"
 
+#: src/features/CalendarView.jsx:60
+msgid "Thu"
+msgstr "Thu"
+
 #: src/features/ManageBudget/ManageBudget.jsx:50
 #~ msgid "Total budgeted savings"
 #~ msgstr "Total budgeted savings"
@@ -854,9 +874,13 @@ msgid "Total Income Budget:"
 msgstr "Total Income Budget:"
 
 #: src/components/pages/ParseExpensesList/ImportExpensesByCategory.jsx:86
-#: src/features/LastExpenses/components/ExpensesSummary.jsx:173
+#: src/features/LastExpenses/components/ExpensesSummary.jsx:185
 msgid "Transactions"
 msgstr "Transactions"
+
+#: src/features/CalendarView.jsx:60
+msgid "Tue"
+msgstr "Tue"
 
 #: src/constants/categories.js:315
 msgid "TV"
@@ -878,6 +902,10 @@ msgstr "Vacation"
 #: src/constants/categories.js:151
 msgid "Water"
 msgstr "Water"
+
+#: src/features/CalendarView.jsx:60
+msgid "Wed"
+msgstr "Wed"
 
 #: src/constants/index.js:83
 msgid "Welcome"

@@ -67,45 +67,8 @@ export const CategoryBalance = ({
     const [isExpanded, setIsExpanded] = useState(isDesktop());
     const { expenses } = useContext(ExpensesContext);
     const { categories } = useContext(CategoriesContext);
-    const { totalExpensesSum, averages } = useCategoryExpensesSummary(subcategories, currentTimestamp);
-
-    const subcategoriesSummary = useMemo(() => {
-        const sub = subcategories.map((subcategory) => {
-            const expensesInCategory = expenses.filter((expense) => {
-                return expense.subcategoryId === subcategory.id;
-            });
-
-            const thisMonthExpenses = expensesInCategory.filter((expense) => {
-                const date = new Date(currentTimestamp);
-                const expenseDate = new Date(expense.timestamp);
-
-                if (expense.isRecurring) {
-                    return (
-                        expenseDate.getFullYear() === date.getFullYear()
-                    );
-                }
-
-                return isSameMonth(expenseDate, date);
-            }
-            );
-
-            const amount = thisMonthExpenses.reduce((acc, expense) => {
-                return acc + expense.amount;
-            }, 0);
-
-            return {
-                ...subcategory,
-                amount,
-                difference: subcategory.budget - amount,
-                thisMonthExpenses
-            };
-        })
-        // .filter((subcategory) => {
-        //     return (subcategory.budget - subcategory.amount) < 0;
-        // });
-
-        return sub;
-    }, [currentTimestamp, expenses, subcategories]);
+    const { subcategoriesSummary, categoriesExpensesSummary } = useCategoryExpensesSummary(subcategories, currentTimestamp);
+    const { totalExpensesSum, averages } = categoriesExpensesSummary;
 
 
     const categoryBudget = useMemo(() => {

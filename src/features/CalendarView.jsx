@@ -94,7 +94,6 @@ export const CalendarView = () => {
                             onClick={() => setSelectedTimestamp(new Date(currentYear, currentMonth, day).getTime())}
                             className={classNames({
                                 "border border-gray-300 p-3 text-right rounded-lg flex flex-col justify-between items-start": true,
-                                "h-fit": true,
                                 "bg-red-50": dayChange < 0 && dayChange > -1000,
                                 "bg-red-200": dayChange < -1000 && dayChange > -10000,
                                 "bg-red-300": dayChange < -10000,
@@ -109,12 +108,12 @@ export const CalendarView = () => {
                                     "bg-black text-white": new Date().getDate() === day
                                 })}>{day}</span>
                             </div>
-                            <div>
-                                <div className={`text-sm ${dayChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                    {formatCurrency(dayChange, true, true)}
+                            <div className="">
+                                <div className={`text-sm ${dayChange >= 0 ? 'text-green-800' : 'text-red-800'}`}>
+                                    {formatCurrency(dayChange, false, true)}
                                 </div>
-                                <div className={`text-sm font-bold ${runningBalance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                    {formatCurrency(runningBalance)}
+                                <div className={`text-sm font-bold ${runningBalance >= 0 ? 'text-green-900' : 'text-red-900'}`}>
+                                    {formatCurrency(runningBalance, true)}
                                 </div>
                             </div>
                             {/* <div className="h-20 overflow-y-auto">

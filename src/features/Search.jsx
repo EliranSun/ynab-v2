@@ -1,20 +1,20 @@
-import {SearchInput} from "../components/pages/ExpenseView/SearchInput";
-import {msg} from "@lingui/macro";
-import {useLingui} from "@lingui/react";
-import {useMemo, useState, useContext, useRef} from "react";
+import { SearchInput } from "../components/pages/ExpenseView/SearchInput";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
+import { useMemo, useState, useContext, useRef } from "react";
 import Expense from "../components/pages/ExpenseView/Expense";
-import {orderBy} from "lodash";
-import {ExpensesContext} from "../context";
-import {useClickAway} from "react-use";
-
-import {createPortal} from 'react-dom';
+import { orderBy } from "lodash";
+import { ExpensesContext } from "../context";
+import { useClickAway } from "react-use";
+import { formatCurrency } from "../utils/currency";
+import { createPortal } from 'react-dom';
 import classNames from "classnames";
-import {X} from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react";
 
 export const Search = () => {
-    const {_} = useLingui();
+    const { _ } = useLingui();
     const ref = useRef(null);
-    const {expenses} = useContext(ExpensesContext);
+    const { expenses } = useContext(ExpensesContext);
     const [searchValue, setSearchValue] = useState("");
     const [isSearchResultsOpen, setIsSearchResultsOpen] = useState(false);
 
@@ -67,19 +67,17 @@ export const Search = () => {
                     <div
                         onClick={() => setIsSearchResultsOpen(false)}
                         className="mb-4 rounded-full bg-black p-8">
-                        <X size={32} color="white"/>
+                        <X size={32} color="white" />
                     </div>
-                    <div className="max-w-screen-xl bg-white shadow-2xl rounded-2xl p-4 flex flex-col gap-4">
-                        <div>
-                            <SearchInput
-                                placeholder={_(msg`Search`)}
-                                value={searchValue}
-                                onFocus={() => setIsSearchResultsOpen(true)}
-                                onChange={setSearchValue}
-                            />
-                            <span className="float-left font-bold text-lg">
-                        {searchResultsAmountSum}₪
-                        </span>
+                    <div className="max-w-screen-xl bg-white shadow-2xl rounded-2xl p-4 flex flex-col gap-4 max-h-[80vh] overflow-y-auto">
+                        <SearchInput
+                            placeholder={_(msg`Search`)}
+                            value={searchValue}
+                            onFocus={() => setIsSearchResultsOpen(true)}
+                            onChange={setSearchValue}
+                        />
+                        <div className="float-left font-bold text-lg">
+                            {formatCurrency(searchResultsAmountSum, false, false)}
                         </div>
                         <div className="overflow-y-auto">
                             {searchResults.map((expense) => (

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useMemo } from 'react';
-// import expenses from '../mocks/expenses.json';
+import expensesMock from '../mocks/expenses.json';
 import { CategoriesContext } from '../context/CategoriesContext';
 import { ExpensesContext } from '../context/ExpensesContext';
 import classNames from 'classnames';
 import { formatCurrency } from '../utils/currency';
+import { ExpensesPopover } from '../components/organisms/ExpensesPopover';
 
 export const CalendarView = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -36,7 +37,7 @@ export const CalendarView = () => {
         }
     };
 
-    const expensesByDay = expenses.reduce((acc, expense) => {
+    const expensesByDay = (process.env.NODE_ENV === "development" ? expensesMock : expenses).reduce((acc, expense) => {
         const expenseDate = new Date(expense.timestamp);
         if (
             expenseDate.getMonth() === currentMonth &&
@@ -56,7 +57,7 @@ export const CalendarView = () => {
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     return (
-        <div className="p-4">
+        <div className="p-4 relative w-full">
             <div className="flex justify-between items-center mb-4">
                 <button onClick={handlePreviousMonth} className="p-3 bg-gray-200 rounded-lg">
                     Previous
@@ -75,7 +76,7 @@ export const CalendarView = () => {
                     </div>
                 ))}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-7 gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-7 gap-1 mb-4">
                 {Array.from({ length: firstDayOfMonth }).map((_, index) => (
                     <div key={`empty-${index}`} className="border border-transparent p-3"></div>
                 ))}
@@ -92,6 +93,7 @@ export const CalendarView = () => {
                             key={day}
                             className={classNames({
                                 "border border-gray-300 p-3 text-right rounded-lg flex justify-between items-center": true,
+                                "h-24": true,
                                 "bg-red-50": dayChange < 0 && dayChange > -1000,
                                 "bg-red-200": dayChange < -1000 && dayChange > -10000,
                                 "bg-red-300": dayChange < -10000,
@@ -123,6 +125,17 @@ export const CalendarView = () => {
                     );
                 })}
             </div>
+            <ExpensesPopover
+                isInline
+                averageAmount={{ amount: 0 }}
+                totalInPreviousMonth={0}
+                budget={0}
+                thisMonthExpenses={[]}
+                currentTimestamp={new Date()}
+                id="1"
+                name="Test"
+                icon="test"
+            />
         </div>
     );
 };

@@ -4,6 +4,7 @@ import { UserContext } from "../../../context";
 import { LoginWelcomeMessage } from "../../atoms/LoginWelcomeMessage";
 
 const AuthWrapper = ({ children }) => {
+	console.log(process.env.NODE_ENV);
 	const { user } = useContext(UserContext);
 
 	if (user === false) {
@@ -14,7 +15,7 @@ const AuthWrapper = ({ children }) => {
 		);
 	}
 
-	if (user && user.id) {
+	if ((user && user.id) || process.env.NODE_ENV === "development") {
 		return children;
 	}
 

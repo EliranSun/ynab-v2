@@ -4,12 +4,10 @@ import { noop } from "lodash";
 import { ExpensesContext } from "../../../context";
 import { formatCurrency } from "../../../utils";
 import classNames from "classnames";
-import { SubcategoryBudget } from "../../atoms/SubcategoryBudget";
+// import { SubcategoryBudget } from "../../atoms/SubcategoryBudget";
 import { getAverageSubcategoryAmount } from "../../../utils/expenses";
-import { useLingui } from "@lingui/react";
-import { msg } from "@lingui/macro";
-import SubcategoryExpensesList from "../BalanceView/SubcategoryExpensesList";
 import { GuageBar } from "../../atoms/GuageBar";
+import { ExpensesPopover } from "../../organisms/ExpensesPopover";
 
 const Subcategory = ({
     icon,
@@ -23,7 +21,6 @@ const Subcategory = ({
     isIncome,
     thisMonthExpenses,
 }) => {
-    const { _ } = useLingui();
     const { expenses, expensesPerMonthPerCategory } = useContext(ExpensesContext);
     const intThisMonthAmount = useRef(0);
     const thisMonthAmount = useMemo(() => {
@@ -88,30 +85,17 @@ const Subcategory = ({
                 </Title>
             </div>
             {isSelected ?
-                <div className="w-full md:w-auto md:absolute z-30 bg-white md:left-full p-4 md:shadow-lg border rounded-xl">
-                    <div className={classNames({
-                        "flex justify-evenly gap-4 w-full": true,
-                        "mb-3 pb-2 border-b": thisMonthExpenses.length > 0
-                    })}>
-                        <div className="flex flex-col text-sm items-center font-mono">
-                            <span className="leading-3">{formatCurrency(averageAmount.amount, false, false)}</span>
-                            <span className="text-[10px] leading-3">{_(msg`Average`)}</span>
-
-                        </div>
-                        <div className="flex flex-col text-sm items-center font-mono">
-                            <span className="leading-3">{totalInPreviousMonth}</span>
-                            <span className="text-[10px] leading-3">{_(msg`Last`)}</span>
-                        </div>
-                        <SubcategoryBudget
-                            isMeetingBudget={!isPositiveDiff}
-                            budgetAmount={budget} />
-                    </div>
-                    <SubcategoryExpensesList
-                        isLean
-                        timestamp={currentTimestamp}
-                        selectedSubcategoryId={id}
-                        subcategory={{ name, icon }} />
-                </div> : null}
+                <ExpensesPopover
+                    averageAmount={averageAmount}
+                    totalInPreviousMonth={totalInPreviousMonth}
+                    budget={budget}
+                    thisMonthExpenses={thisMonthExpenses}
+                    currentTimestamp={currentTimestamp}
+                    id={id}
+                    name={name}
+                    icon={icon}
+                    isPositiveDiff={isPositiveDiff}
+                /> : null}
         </div>
     );
 };

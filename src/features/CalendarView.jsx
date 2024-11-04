@@ -246,9 +246,19 @@ export const CalendarView = () => {
 						})}
 					</div>
 				</div>
-				<div className="flex flex-col gap-2">
-					<h1>{formatCurrency(totalIncomeThisMonth)}</h1>
-					<h1>{formatCurrency(totalExpensesThisMonth)}</h1>
+				<div className="flex flex-col gap-1">
+					<h1>+{formatCurrency(totalIncomeThisMonth, false, false)}</h1>
+					<h1>-{formatCurrency(totalExpensesThisMonth, false, false)}</h1>
+					<span className="">=</span>
+					<h1
+						className={classNames({
+							"font-bold": true,
+							"text-red-500": totalIncomeThisMonth - totalExpensesThisMonth < 0,
+							"text-green-500":
+								totalIncomeThisMonth - totalExpensesThisMonth > 0,
+						})}>
+						{formatCurrency(totalIncomeThisMonth - totalExpensesThisMonth)}
+					</h1>
 				</div>
 				<div className="hidden md:block md:h-fit overflow-y-auto p-4 w-1/3">
 					{selectedDayExpenses?.map((expense, index) => (

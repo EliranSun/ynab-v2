@@ -1,6 +1,7 @@
 import {useContext, useMemo} from "react";
 import {isSameMonth} from "date-fns";
 import {ExpensesContext} from "../context";
+import {useCategories} from "./useCategories";
 
 export const useExpensesSummary = (timestamp) => {
     const {expenses = []} = useContext(ExpensesContext);

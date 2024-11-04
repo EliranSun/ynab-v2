@@ -87,7 +87,7 @@ export const ExpenseInputs = ({
 				"flex-row gap-2": !isVertical,
 				"text-green-500": isIncome,
 				"grayscale opacity-50": expense.isHidden,
-				" py-1": isLean, // border-b last-of-type:border-none
+				"py-1": isLean, // border-b last-of-type:border-none
 			})}>
 			<div className="flex gap-2 md:gap- md:w-full">
 				<div className="hidden md:block">
@@ -135,7 +135,7 @@ export const ExpenseInputs = ({
 							}}
 						/>
 					</div>
-					<div className="w-fit shrink-0">
+					<div className="w-40 shrink-0">
 						<ExpenseCategorySelection
 							expense={expense}
 							isLean={isLean}

@@ -234,7 +234,7 @@ export const CalendarView = () => {
 										{selectedDayExpenses?.map((expense, index) => (
 											<div
 												key={index}
-												className="text-xs md:text-sm flex justify-between">
+												className="text-xs md:text-sm flex justify-between gap-2">
 												<span>{expense.name}</span>
 												<span>
 													{formatCurrency(expense.amount, isMobile, false)}
@@ -246,6 +246,10 @@ export const CalendarView = () => {
 							);
 						})}
 					</div>
+				</div>
+				<div className="flex flex-col gap-2">
+					<h1>{formatCurrency(totalIncomeThisMonth)}</h1>
+					<h1>{formatCurrency(totalExpensesThisMonth)}</h1>
 				</div>
 				<div className="hidden md:block md:h-fit overflow-y-auto p-4 w-1/3">
 					{selectedDayExpenses?.map((expense, index) => (
@@ -259,7 +263,7 @@ export const CalendarView = () => {
 									{expense.subcategory?.name} - {expense.note}
 								</span>
 							</div>
-							<span>{formatCurrency(expense.amount, false, false)}</span>
+							<span>{formatCurrency(expense.amount, isMobile, false)}</span>
 						</div>
 					))}
 				</div>

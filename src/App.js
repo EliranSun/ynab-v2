@@ -125,7 +125,7 @@ const router = createBrowserRouter([
 				path: Routes.ROOT,
 				element: (
 					<Navigate
-						to="/home"
+						to="/calendar"
 						replace
 					/>
 				),

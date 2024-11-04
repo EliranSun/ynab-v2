@@ -65,6 +65,11 @@ export const CalendarView = () => {
 				acc[day] = [];
 			}
 			acc[day].push(expense);
+
+			console.log({
+				incomeSubcategoriesIds,
+				expenseSubId: expense.subcategoryId,
+			});
 			if (incomeSubcategoriesIds.includes(expense.subcategoryId)) {
 				totalIncomeThisMonth += expense.amount;
 			} else {

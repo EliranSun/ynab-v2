@@ -100,18 +100,6 @@ export const ExpenseInputs = ({
 						</Button>
 					) : null}
 				</div>
-				{isLean ? null : (
-					<div className="w-60 shrink-0">
-						<ExpenseCategorySelection
-							expense={expense}
-							isLean={isLean}
-							readonly={readonly}
-							onCategorySelect={(value) => {
-								onInputChange(InputTypes.SUBCATEGORY_ID, value);
-							}}
-						/>
-					</div>
-				)}
 				<div className="max-w-32 shrink-0">
 					<Input
 						type="date"
@@ -144,6 +132,16 @@ export const ExpenseInputs = ({
 							isSecondary
 							onChange={(value) => {
 								onInputChange(InputTypes.NOTE, value);
+							}}
+						/>
+					</div>
+					<div className="w-fit shrink-0">
+						<ExpenseCategorySelection
+							expense={expense}
+							isLean={isLean}
+							readonly={readonly}
+							onCategorySelect={(value) => {
+								onInputChange(InputTypes.SUBCATEGORY_ID, value);
 							}}
 						/>
 					</div>

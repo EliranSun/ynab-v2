@@ -5,7 +5,6 @@ import classNames from "classnames";
 import { formatCurrency } from "../utils/currency";
 import { useLingui } from "@lingui/react";
 import { msg } from "@lingui/macro";
-import { useExpensesSummary } from "../hooks/useExpensesSummary";
 
 const isMobile = window.innerWidth < 768;
 
@@ -25,10 +24,6 @@ export const CalendarView = () => {
 				category.subcategories.map((subcategory) => subcategory.id)
 			);
 	}, [categories]);
-	const { 
-								totalByCategory,
-        expensesTotalByCategory,
-} = useExpensesSummary(selectedTimestamp);
 
 	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -56,6 +51,9 @@ export const CalendarView = () => {
 		setSelectedTimestamp(new Date(currentYear, currentMonth + 1, 1).getTime());
 	};
 
+	let totalIncomeThisMonth = 0;
+	let totalExpensesThisMonth = 0;
+
 	const expensesByDay = expenses.reduce((acc, expense) => {
 		const expenseDate = new Date(expense.timestamp);
 		if (
@@ -67,6 +65,11 @@ export const CalendarView = () => {
 				acc[day] = [];
 			}
 			acc[day].push(expense);
+			if (incomeSubcategoriesIds.includes(expense.subcategoryId)) {
+				totalIncomeThisMonth += expense.amount;
+			} else {
+				totalExpensesThisMonth += expense.amount;
+			}
 		}
 		return acc;
 	}, {});
@@ -244,8 +247,8 @@ export const CalendarView = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<h1>{formatCurrency(totalByCategory)}</h1>
-					<h1>{formatCurrency(expensesTotalByCategory)}</h1>
+					<h1>{formatCurrency(totalIncomeThisMonth)}</h1>
+					<h1>{formatCurrency(totalExpensesThisMonth)}</h1>
 				</div>
 				<div className="hidden md:block md:h-fit overflow-y-auto p-4 w-1/3">
 					{selectedDayExpenses?.map((expense, index) => (

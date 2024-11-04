@@ -89,6 +89,32 @@ export const CalendarView = () => {
 		totalExpensesThisMonth,
 	});
 
+	const [tooltipPosition, setTooltipPosition] = useState({});
+
+	// Function to calculate tooltip position
+	const calculateTooltipPosition = (dayElement) => {
+		const rect = dayElement.getBoundingClientRect();
+		const tooltipWidth = 200; // Assume a fixed width for the tooltip
+		const tooltipHeight = 100; // Assume a fixed height for the tooltip
+		const screenWidth = window.innerWidth;
+		const screenHeight = window.innerHeight;
+
+		let left = rect.left + window.scrollX;
+		let top = rect.bottom + window.scrollY;
+
+		// Adjust if the tooltip overflows the right edge
+		if (left + tooltipWidth > screenWidth) {
+			left = screenWidth - tooltipWidth - 10; // 10px padding
+		}
+
+		// Adjust if the tooltip overflows the bottom edge
+		if (top + tooltipHeight > screenHeight) {
+			top = rect.top + window.scrollY - tooltipHeight - 10; // 10px padding
+		}
+
+		setTooltipPosition({ left, top });
+	};
+
 	return (
 		<div className="md:p-4 relative w-full">
 			<div className="p-4 md:p-0 flex justify-between items-center mb-4">
@@ -144,11 +170,12 @@ export const CalendarView = () => {
 							return (
 								<div
 									key={day}
-									onClick={() =>
+									onClick={(event) => {
 										setSelectedTimestamp(
 											new Date(currentYear, currentMonth, day).getTime()
-										)
-									}
+										);
+										calculateTooltipPosition(event.target);
+									}}
 									className={classNames({
 										"p-1 py-3 md:p-3 text-right rounded-lg": true,
 										"flex flex-col justify-between items-start relative": true,
@@ -185,15 +212,24 @@ export const CalendarView = () => {
 										</div>
 									</div>
 									<div
+										style={{
+											position: "fixed",
+											left: tooltipPosition.left,
+											top: tooltipPosition.top,
+											visibility:
+												selectedDayExpenses && isSelectedDay
+													? "visible"
+													: "hidden",
+										}}
 										className={classNames({
-											"absolute z-10 bottom-0 translate-y-2/3 left-3": true,
+											"translate-y-full w-[50vw]  inset-x-0 m-auto": false,
+											"z-10": true,
 											"md:hidden": true,
 											"max-h-40 md:h-fit": true,
 											"overflow-y-auto": true,
 											"shadow-lg rounded-lg": true,
 											"p-4 bg-white": true,
-											"w-2/3": true,
-											hidden: !selectedDayExpenses || !isSelectedDay,
+											"w-fit md:w-2/3": true,
 										})}>
 										{selectedDayExpenses?.map((expense, index) => (
 											<div

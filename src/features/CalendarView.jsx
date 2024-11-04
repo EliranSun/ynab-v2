@@ -25,8 +25,10 @@ export const CalendarView = () => {
 				category.subcategories.map((subcategory) => subcategory.id)
 			);
 	}, [categories]);
-	const { totalIncomeThisMonth, totalExpensesThisMonth } =
-		useExpensesSummary(selectedTimestamp);
+	const { 
+								totalByCategory,
+        expensesTotalByCategory,
+} = useExpensesSummary(selectedTimestamp);
 
 	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -82,12 +84,6 @@ export const CalendarView = () => {
 	];
 	const selectedDayExpenses =
 		expensesByDay[new Date(selectedTimestamp).getDate()];
-
-	console.log({
-		selectedTimestamp,
-		totalIncomeThisMonth,
-		totalExpensesThisMonth,
-	});
 
 	const [tooltipPosition, setTooltipPosition] = useState({});
 
@@ -248,8 +244,8 @@ export const CalendarView = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<h1>{formatCurrency(totalIncomeThisMonth)}</h1>
-					<h1>{formatCurrency(totalExpensesThisMonth)}</h1>
+					<h1>{formatCurrency(totalByCategory)}</h1>
+					<h1>{formatCurrency(expensesTotalByCategory)}</h1>
 				</div>
 				<div className="hidden md:block md:h-fit overflow-y-auto p-4 w-1/3">
 					{selectedDayExpenses?.map((expense, index) => (

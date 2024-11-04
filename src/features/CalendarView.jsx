@@ -6,6 +6,9 @@ import { formatCurrency } from "../utils/currency";
 import { useLingui } from "@lingui/react";
 import { msg } from "@lingui/macro";
 import { useExpensesSummary } from "../hooks/useExpensesSummary";
+
+const isMobile = window.innerWidth < 768;
+
 export const CalendarView = () => {
 	const { _ } = useLingui();
 	const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -36,6 +39,8 @@ export const CalendarView = () => {
 		} else {
 			setCurrentMonth(currentMonth - 1);
 		}
+
+		setSelectedTimestamp(new Date(currentYear, currentMonth, 1).getTime());
 	};
 
 	const handleNextMonth = () => {
@@ -45,6 +50,8 @@ export const CalendarView = () => {
 		} else {
 			setCurrentMonth(currentMonth + 1);
 		}
+
+		setSelectedTimestamp(new Date(currentYear, currentMonth + 1, 1).getTime());
 	};
 
 	const expensesByDay = expenses.reduce((acc, expense) => {
@@ -76,29 +83,35 @@ export const CalendarView = () => {
 	const selectedDayExpenses =
 		expensesByDay[new Date(selectedTimestamp).getDate()];
 
-	console.log({ totalIncomeThisMonth, totalExpensesThisMonth });
+	console.log({
+		selectedTimestamp,
+		totalIncomeThisMonth,
+		totalExpensesThisMonth,
+	});
 
 	return (
-		<div className="p-4 relative w-full">
-			<div className="flex justify-between items-center mb-4">
-				<button
-					onClick={handlePreviousMonth}
-					className="p-3 bg-gray-200 rounded-lg">
-					Previous
-				</button>
+		<div className="md:p-4 relative w-full">
+			<div className="p-4 md:p-0 flex justify-between items-center mb-4">
 				<span className="text-lg font-bold">
-					{new Date(currentYear, currentMonth).toLocaleString("default", {
+					{new Date(currentYear, currentMonth).toLocaleString("he-IL", {
 						month: "long",
 						year: "numeric",
 					})}
 				</span>
-				<button
-					onClick={handleNextMonth}
-					className="p-3 bg-gray-200 rounded-lg">
-					Next
-				</button>
+				<div className="flex gap-2">
+					<button
+						onClick={handlePreviousMonth}
+						className="p-1 md:p-3 bg-gray-200 rounded-lg">
+						Prev
+					</button>
+					<button
+						onClick={handleNextMonth}
+						className="p-1 md:p-3 bg-gray-200 rounded-lg">
+						Next
+					</button>
+				</div>
 			</div>
-			<div className="flex flex-col md:flex-row w-full gap-8">
+			<div className="p-1 md:p-0 flex flex-col md:flex-row w-full gap-8">
 				<div className="mb-4 w-full md:w-2/3">
 					<div className="grid grid-cols-7 gap-px sm:gap-1 mb-2 w-full">
 						{dayNames.map((dayName) => (
@@ -137,7 +150,7 @@ export const CalendarView = () => {
 										)
 									}
 									className={classNames({
-										"p-3 text-right rounded-lg": true,
+										"p-1 py-3 md:p-3 text-right rounded-lg": true,
 										"flex flex-col justify-between items-start relative": true,
 										"outline outline-2 outline-amber-500": isSelectedDay,
 										"border border-gray-300": !isSelectedDay,
@@ -148,10 +161,10 @@ export const CalendarView = () => {
 										"bg-green-100": dayChange > 1000 && dayChange < 10000,
 										"bg-green-200": dayChange > 10000,
 									})}>
-									<div className="font-bold w-full flex items-center justify-center h-5 mb-4">
+									<div className="font-bold w-full flex items-center justify-center h-5 md:mb-4">
 										<span
 											className={classNames({
-												"font-mono rounded-full px-2 py-1": true,
+												"text-sm font-mono rounded-full px-2 md:py-1": true,
 												"bg-black text-white": new Date().getDate() === day,
 											})}>
 											{day}
@@ -159,19 +172,18 @@ export const CalendarView = () => {
 									</div>
 									<div className="">
 										<div
-											className={`text-sm ${
+											className={`text-xs md:text-sm ${
 												dayChange >= 0 ? "text-green-800" : "text-red-800"
 											}`}>
-											{formatCurrency(dayChange, false, true)}
+											{formatCurrency(dayChange, isMobile, true)}
 										</div>
 										<div
-											className={`text-sm font-bold ${
+											className={`text-xs md:text-sm font-bold ${
 												runningBalance >= 0 ? "text-green-900" : "text-red-900"
 											}`}>
 											{formatCurrency(runningBalance, true)}
 										</div>
 									</div>
-									{/* */}
 									<div
 										className={classNames({
 											"absolute z-10 bottom-0 translate-y-2/3 left-3": true,
@@ -186,10 +198,10 @@ export const CalendarView = () => {
 										{selectedDayExpenses?.map((expense, index) => (
 											<div
 												key={index}
-												className="text-sm flex justify-between">
+												className="text-xs md:text-sm flex justify-between">
 												<span>{expense.name}</span>
 												<span>
-													{formatCurrency(expense.amount, false, false)}
+													{formatCurrency(expense.amount, isMobile, false)}
 												</span>
 											</div>
 										))}

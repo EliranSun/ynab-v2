@@ -77,14 +77,14 @@ export const CalendarView = () => {
             </div>
             <div className="flex w-full gap-8">
                 <div className="mb-4 w-2/3">
-                    <div className="grid grid-cols-7 gap-1 mb-2 w-full">
+                    <div className="grid grid-cols-7 gap-px sm:gap-1 mb-2 w-full">
                         {dayNames.map(dayName => (
                             <div key={dayName} className="text-center font-bold text-xs sm:text-sm">
                                 {dayName}
                             </div>
                         ))}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-7 gap-1 w-full">
+                    <div className="grid grid-cols-7 gap-px md:gap-1 w-full">
                         {Array.from({ length: firstDayOfMonth }).map((_, index) => (
                             <div key={`empty-${index}`} className="border border-transparent p-3"></div>
                         ))}

@@ -75,8 +75,8 @@ export const CalendarView = () => {
                     Next
                 </button>
             </div>
-            <div className="flex w-full gap-8">
-                <div className="mb-4 w-2/3">
+            <div className="flex flex-col md:flex-row w-full gap-8">
+                <div className="mb-4 w-full md:w-2/3">
                     <div className="grid grid-cols-7 gap-px sm:gap-1 mb-2 w-full">
                         {dayNames.map(dayName => (
                             <div key={dayName} className="text-center font-bold text-xs sm:text-sm">

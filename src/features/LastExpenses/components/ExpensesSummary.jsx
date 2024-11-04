@@ -58,13 +58,9 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
 			);
 	}, [categories]);
 
-	console.log({ incomeSubcategoriesIds });
-
 	const expensesBudget = budget.filter(({ subcategoryId }) => {
 		return !incomeSubcategoriesIds.includes(subcategoryId);
 	});
-
-	console.log({ budget });
 
 	const budgetForTimeframe = useMemo(() => {
 		if (budget.length === 0) {
@@ -153,6 +149,12 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
 				return total;
 		}
 	}, [incomeForTimeframe, timeframeName]);
+
+	console.log({
+		incomeSubcategoriesIds,
+		incomeForTimeframe,
+		incomeAmountForTimeframe,
+	});
 
 	const totalSpent = useMemo(
 		() =>

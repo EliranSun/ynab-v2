@@ -121,8 +121,11 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
 	const incomeForTimeframe = useMemo(() => {
 		return expenses.filter((item) => {
 			const inRange =
-				isAfter(item.timestamp, startOfMonth(startDate)) &&
-				isBefore(item.timestamp, endOfMonth(endDate));
+				(isAfter(item.timestamp, startOfMonth(startDate)) ||
+					new Date(item.timestamp).getTime() ===
+						startOfMonth(startDate).getTime()) &&
+				(isBefore(item.timestamp, endOfMonth(endDate)) ||
+					new Date(item.timestamp).getTime() === endOfMonth(endDate).getTime());
 
 			if (item.name === "כאל") {
 				console.log({

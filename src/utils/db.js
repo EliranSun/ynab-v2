@@ -19,6 +19,10 @@ export const login = async () => {
 };
 
 export const getCategories = async () => {
+	if (process.env.NODE_ENV === "development") {
+		return require("../mocks/categories.json");
+	}
+
 	const { data, error } = await supabase
 		.from("categories")
 		.select("*, subcategories:subcategories (id, name, icon)")

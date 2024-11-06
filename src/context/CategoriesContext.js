@@ -28,6 +28,7 @@ export const CategoriesProvider = ({ children }) => {
 
 	const fetch = useCallback(() => {
 		getCategories(user.id).then((newCategories) => {
+			console.log({ newCategories });
 			if (!newCategories || !newCategories.length) {
 				setWalkthroughViewStep(1);
 				return;
@@ -41,13 +42,12 @@ export const CategoriesProvider = ({ children }) => {
 				setWalkthroughViewStep(2);
 			}
 
-			console.log({ newCategories });
 			setCategories(orderBy(newCategories, ["id"], ["asc"]));
 		});
 	}, [user]);
 
 	useEffect(() => {
-		if (!user || !user.id) {
+		if ((!user || !user.id) && process.env.NODE_ENV !== "development") {
 			return;
 		}
 

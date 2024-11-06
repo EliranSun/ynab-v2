@@ -24,8 +24,8 @@ export const Menu = ({ isOpen, onMenuItemClick }) => {
 			ref={ref}
 			className={classNames({
 				"h-full md:text-sm bg-gray-100": true,
-				"flex gap-0": true,
-				"border-r md:border-none shadow-xl md:shadow-none md:static": true,
+				"flex justify-evenly md:justify-start w-full": true,
+				"border-r md:border-none md:shadow-xl md:shadow-none md:static": true,
 			})}>
 			{Object.values(MenuPages).map((item) => (
 				<ButtonLink

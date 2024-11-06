@@ -24,7 +24,7 @@ export const ButtonLink = ({
 	return (
 		<li
 			className={classNames({
-				"w-20 text-[10px]": true,
+				"md:w-20 text-[10px]": true,
 				"p-2 flex items-center justify-center h-full hover:bg-amber-500 hover:text-black": true,
 				"pointer-events-none": isDisabled,
 				"text-amber-700 font-bold": isSelected,

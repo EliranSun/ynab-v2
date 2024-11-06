@@ -1,17 +1,20 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../../context";
+import { useState } from "react";
 import classNames from "classnames";
-import { WelcomeMessage } from "./WelcomeMessage";
-import { HamburgerMenu } from "./HamburgerMenu";
-import { MobileMenuBackdrop } from "./MobileMenuBackdrop";
 import { Menu } from "./Menu";
 import { Search } from "../../../features/Search";
-import { useLingui } from "@lingui/react";
 import { Scales } from "@phosphor-icons/react";
+
+const Logo = () => {
+	return (
+		<div className="text-amber-500 flex items-center gap-1 hidden md:flex">
+			<Scales size={32} />
+			<h1 className="text-2xl font-bold pt-1">UNAB</h1>
+		</div>
+	);
+};
 
 export const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const { AuthButton } = useContext(UserContext);
 
 	return (
 		<div className="flex sticky top-0 z-40 bg-gray-100 w-screen border-b">
@@ -19,34 +22,17 @@ export const Header = () => {
 				className={classNames({
 					"w-full max-w-screen-2xl m-auto": true,
 					"text-xs md:text-base": true,
-					"md:h-16 z-10 md:px-4 md:py-2 my-2": true,
+					"md:h-16 z-10 md:px-4 md:py-2 my-1": true,
 					"flex justify-between items-center md:gap-8": true,
 					"rtl:flex-row-reverse": false,
 				})}>
-				<div className="text-amber-500 flex items-center gap-1 hidden md:flex">
-					<Scales size={32} />
-					<h1 className="text-2xl font-bold pt-1">UNAB</h1>
-				</div>
-				{/*<span className="hidden lg:inline w-40">*/}
-				{/*    <WelcomeMessage userName={user.translatedUsername}/>*/}
-				{/*</span>*/}
-				<HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} />
-				<div className="w-full mx-2 md:w-1/3 h-full">
-					<Search />
-				</div>
-				<div
-					className={classNames({
-						"fixed md:block left-0 z-50 h-20 md:bottom-0 md:static w-full md:w-2/3 md:h-full": true,
-						hidden: !isMenuOpen,
-					})}>
-					<Menu
-						isOpen={isMenuOpen}
-						onMenuItemClick={() => setIsMenuOpen(false)}
-					/>
-				</div>
-				{/*<AuthButton/>*/}
+				<Logo />
+				<Menu
+					isOpen={isMenuOpen}
+					onMenuItemClick={() => setIsMenuOpen(false)}
+				/>
+				<Search />
 			</header>
-			{/* <MobileMenuBackdrop isOpen={isMenuOpen} /> */}
 		</div>
 	);
 };

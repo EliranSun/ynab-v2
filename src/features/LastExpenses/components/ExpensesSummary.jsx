@@ -127,15 +127,6 @@ export const ExpensesSummary = ({ budget = {}, expenses = [] }) => {
 				(isBefore(item.timestamp, endOfMonth(endDate)) ||
 					new Date(item.timestamp).getTime() === endOfMonth(endDate).getTime());
 
-			if (item.name === "כאל") {
-				console.log({
-					item,
-					startDate,
-					endDate,
-					inRange,
-					subcategoryId: item.subcategoryId,
-				});
-			}
 			return incomeSubcategoriesIds.includes(item.subcategoryId) && inRange;
 		});
 	}, [expenses, startDate, endDate]);

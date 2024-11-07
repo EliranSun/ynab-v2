@@ -50,7 +50,7 @@ const Subcategory = ({
         ? intThisMonthAmount.current < budget
         : intThisMonthAmount.current > budget;
 
-    if (thisMonthAmount === formatCurrency(0, false, false)) {
+    if (intThisMonthAmount.current === 0) {
         return null;
     }
 

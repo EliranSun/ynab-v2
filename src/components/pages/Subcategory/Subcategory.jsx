@@ -44,14 +44,15 @@ const Subcategory = ({
 
     const averageAmount = getAverageSubcategoryAmount(String(id), expensesPerMonthPerCategory);
 
-    // if (thisMonthAmount === formatCurrency(0, false, false)) {
-    //     return null;
-    // }
+
 
     const isPositiveDiff = isIncome
         ? intThisMonthAmount.current < budget
         : intThisMonthAmount.current > budget;
 
+    if (thisMonthAmount === formatCurrency(0, false, false)) {
+        return null;
+    }
 
     return (
         <div

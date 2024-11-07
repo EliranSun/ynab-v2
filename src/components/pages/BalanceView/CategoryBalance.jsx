@@ -77,13 +77,17 @@ export const CategoryBalance = ({
         }, 0);
     }, [subcategories]);
 
-    const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
+    // const diff = useMemo(() => categoryBudget - totalExpensesSum, [categoryBudget, totalExpensesSum]);
 
     // if (totalExpensesSum === 0) {
     //     return null;
     // }
 
     console.log({ subcategories });
+
+    if (totalExpensesSum === 0) {
+        return null;
+    }
 
     return (
         <div className={classNames({
